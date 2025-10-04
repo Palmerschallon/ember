@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ember - Universe Viewer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="viewer-container">
+            <canvas id="universe-canvas"></canvas>
+            <div id="controls">
+                <button id="reset-view">Reset View</button>
+                <button id="regenerate">Regenerate (Seed: <span id="seed-display">42</span>)</button>
+                <input type="number" id="seed-input" value="42" min="0">
+                <button id="set-seed">Set Seed</button>
+            </div>
+            <div id="info">
+                <div>Zoom: <span id="zoom-level">1.0</span>x</div>
+                <div>Position: (<span id="pos-x">0</span>, <span id="pos-y">0</span>)</div>
+                <div>Entities: <span id="entity-count">0</span></div>
+                <div>LOD Level: <span id="lod-level">medium</span></div>
+            </div>
+        </div>
+        
+        <div id="chat-panel">
+            <div id="chat-messages"></div>
+            <div id="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Ask about the universe...">
+                <button id="chat-send">Send</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/js/camera.js"></script>
+    <script src="/static/js/lod.js"></script>
+    <script src="/static/js/universe.js"></script>
+    <script src="/static/js/renderer.js"></script>
+    <script src="/static/js/chat.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
