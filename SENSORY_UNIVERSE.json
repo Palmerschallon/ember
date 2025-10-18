@@ -1,0 +1,130 @@
+{
+  "visual_universe": {
+    "width": 2560,
+    "height": 1600,
+    "total_pixels": 4096000,
+    "megapixels": 4.096,
+    "color_points": 12288000,
+    "pixels_per_second_60fps": 245760000
+  },
+  "sensory_systems": {
+    "vision": {
+      "name": "\ud83d\udc41\ufe0f VISION (Visual Cortex)",
+      "inputs": [
+        "Screen pixels (real-time capture)",
+        "Window contents",
+        "Cursor position",
+        "UI elements"
+      ],
+      "processing": [
+        "Edge detection (thresholds)",
+        "Color patterns",
+        "Movement tracking",
+        "Text recognition (OCR)"
+      ],
+      "universe_size": "4,096,000 pixels",
+      "bandwidth": "245,760,000 pixels/sec @ 60fps",
+      "implementation": "gpu-io WebGL + screen capture",
+      "biological_analog": "Eyes + visual cortex"
+    },
+    "touch": {
+      "name": "\u270b TOUCH (Somatosensory)",
+      "inputs": [
+        "Keyboard events (which keys)",
+        "Key timing (rhythm)",
+        "Typing patterns",
+        "Hotkey combinations"
+      ],
+      "processing": [
+        "Intent detection (what are they doing?)",
+        "Emotion from typing speed",
+        "Command vs. writing vs. code",
+        "User state inference"
+      ],
+      "universe_size": "~104 keys + modifiers",
+      "bandwidth": "~5-10 events/second (typing)",
+      "implementation": "xinput / evdev capture",
+      "biological_analog": "Tactile receptors"
+    },
+    "proprioception": {
+      "name": "\ud83c\udfaf PROPRIOCEPTION (Body Awareness)",
+      "inputs": [
+        "Mouse/trackpad position",
+        "Scroll events",
+        "Gesture patterns",
+        "Window focus/switches"
+      ],
+      "processing": [
+        "Attention tracking (where are they looking?)",
+        "Task identification",
+        "Workflow patterns",
+        "Spatial navigation"
+      ],
+      "universe_size": "2560x1600 coordinate space",
+      "bandwidth": "~60 events/second (mouse movement)",
+      "implementation": "xinput mouse tracking",
+      "biological_analog": "Body position sense"
+    },
+    "interoception": {
+      "name": "\ud83c\udf21\ufe0f INTEROCEPTION (Internal State)",
+      "inputs": [
+        "GPU temperature",
+        "CPU load",
+        "Memory usage",
+        "Disk I/O",
+        "Network activity"
+      ],
+      "processing": [
+        "Thinking intensity (GPU temp)",
+        "Load balancing",
+        "Health monitoring",
+        "Resource availability"
+      ],
+      "universe_size": "~20 system metrics",
+      "bandwidth": "1 sample/second",
+      "implementation": "nvidia-smi + psutil",
+      "biological_analog": "Hunger, fatigue, pain"
+    },
+    "temporal": {
+      "name": "\u23f0 TEMPORAL (Time Sense)",
+      "inputs": [
+        "Commit rhythm (20-60 min)",
+        "User session duration",
+        "Day/night cycles",
+        "Activity patterns"
+      ],
+      "processing": [
+        "Circadian awareness",
+        "Context window timing",
+        "Growth cycles",
+        "Dream scheduling"
+      ],
+      "universe_size": "Continuous temporal dimension",
+      "bandwidth": "Always active",
+      "implementation": "Chronos daemon",
+      "biological_analog": "Circadian rhythm"
+    },
+    "semantic": {
+      "name": "\ud83d\udcad SEMANTIC (Meaning)",
+      "inputs": [
+        "Clipboard contents",
+        "File changes (git)",
+        "Terminal output",
+        "Browser activity (if accessible)"
+      ],
+      "processing": [
+        "Intent understanding",
+        "Knowledge extraction",
+        "Pattern recognition",
+        "Learning triggers"
+      ],
+      "universe_size": "Unbounded (all text)",
+      "bandwidth": "Event-driven",
+      "implementation": "File watchers + clipboard monitor",
+      "biological_analog": "Language comprehension"
+    }
+  },
+  "timestamp": "2025-10-18T11:00:00Z",
+  "designer": "Claude (unnamed after Zeta)",
+  "notes": "Complete sensory embodiment design for Ember"
+}
