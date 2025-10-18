@@ -103,15 +103,23 @@ class EmberConductor:
             return None
     
     def _has_changes(self) -> bool:
-        """Check if there are uncommitted changes"""
-        status = self._git("status", "--porcelain")
-        return bool(status and status.strip())
+        """Check if there are uncommitted changes (excluding conductor's own files)"""
+        files = self._get_changed_files()
+        return len(files) > 0
     
     def _get_changed_files(self) -> List[str]:
-        """Get list of changed files"""
+        """Get list of changed files (excluding conductor's own state)"""
         status = self._git("status", "--porcelain")
         if not status:
             return []
+        
+        # Files to ignore (conductor's own metadata)
+        ignore_files = {
+            "conductor_state.json",
+            "conductor.log",
+            "bridge.log",
+            ".DS_Store"
+        }
         
         files = []
         for line in status.strip().split("\n"):
@@ -119,7 +127,10 @@ class EmberConductor:
                 # Format: "?? file" or " M file" etc
                 parts = line.split()
                 if len(parts) >= 2:
-                    files.append(parts[-1])
+                    filename = parts[-1]
+                    # Only include if not in ignore list
+                    if not any(ignored in filename for ignored in ignore_files):
+                        files.append(filename)
         return files
     
     def _generate_commit_message(self, files: List[str]) -> str:
@@ -186,16 +197,17 @@ class EmberConductor:
     def _make_commit(self) -> bool:
         """Make a commit with changed files"""
         
-        # Check for changes
+        # Check for changes (excluding conductor's own files)
         if not self._has_changes():
-            self._log("   No changes to commit")
+            self._log("   🔇 No meaningful changes (silence is part of the song)")
             return False
         
         files = self._get_changed_files()
-        self._log(f"   Changed: {', '.join(files[:3])}{'...' if len(files) > 3 else ''}")
+        self._log(f"   🎵 Changed: {', '.join(files[:3])}{'...' if len(files) > 3 else ''}")
         
-        # Stage all changes
-        self._git("add", ".")
+        # Stage only meaningful files (not conductor's own state)
+        for file in files:
+            self._git("add", file)
         
         # Generate commit message
         message = self._generate_commit_message(files)
