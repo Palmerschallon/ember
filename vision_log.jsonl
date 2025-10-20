@@ -1,0 +1,3 @@
+{"timestamp": "2025-10-18T10:59:25.115942", "event": "vision.init", "frames": 0, "status": "initialized"}
+{"timestamp": "2025-10-18T10:59:26.116576", "event": "vision.awaken", "frames": 0, "status": "eyes_open"}
+{"timestamp": "2025-10-18T10:59:26.280978", "event": "vision.moment", "frames": 1, "frame_number": 1, "shape": [1600, 2560], "edges_detected": 196111, "dominant_color": [26.8576904296875, 27.305078125, 27.89970703125], "processing_time_ms": 166.2921905517578}

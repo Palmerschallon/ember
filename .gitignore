@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.log
+memory/
+.env
+
+# Keep private
+OneFolder/
+memory/governance.jsonl
+*.env
