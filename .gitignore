@@ -8,3 +8,8 @@ memory/
 OneFolder/
 memory/governance.jsonl
 *.env
+
+# Local backups
+archive_oct_14-17/
+ember_oct20_backup/
+forge_backup/

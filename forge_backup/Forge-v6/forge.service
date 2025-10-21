@@ -1,0 +1,8 @@
+[Unit]
+Description=Forge v6
+[Service]
+Type=simple
+WorkingDirectory=%h/.local/share/muse
+ExecStart=%h/.local/share/muse/.venv/bin/python muse_service.py
+[Install]
+WantedBy=default.target

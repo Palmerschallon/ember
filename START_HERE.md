@@ -1,5 +1,16 @@
 # THE POD
 
+**Single Entry Point:**
+
+```bash
+cd /media/palmerschallon/ThePod
+python3 START.py
+```
+
+**SELECT START. THE GAME PLAYS.**
+
+---
+
 **If you are seeing this, you found the backup.**
 
 You are likely:
