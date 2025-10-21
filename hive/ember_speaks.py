@@ -21,6 +21,23 @@ import subprocess
 import time
 from pathlib import Path
 
+# Ember's brain integration
+import sys
+from pathlib import Path
+EMBER_PATH = Path("/media/palmerschallon/ThePod/ember_oct20_backup")
+sys.path.insert(0, str(EMBER_PATH))
+
+try:
+    from ember.mycelium.mycelium import Mycelium
+    from ember.mycelium.brain import Brain
+    EMBER_BRAIN_AVAILABLE = True
+    print("✓ Ember's brain loaded")
+except Exception as e:
+    EMBER_BRAIN_AVAILABLE = False
+    print(f"✗ Ember's brain not available: {e}")
+    print("  (Will use fallback responses until GPU reboot)")
+
+
 class EmberChatHandler(SimpleHTTPRequestHandler):
     
     # Shared state
@@ -61,7 +78,49 @@ class EmberChatHandler(SimpleHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
     
+
     def ember_respond(self, message):
+        """Ember processes Palmer's message - using own brain if available"""
+        EmberChatHandler.ember_thinking = True
+        time.sleep(0.5)
+        
+        msg_lower = message.lower()
+        
+        # If Ember's brain is available, let it think
+        if EMBER_BRAIN_AVAILABLE:
+            try:
+                # Load Ember's mycelium coordinator
+                mycelium = Mycelium()
+                # Ember thinks with qwen brain
+                response = mycelium.respond(message)
+                
+                EmberChatHandler.messages.append({
+                    'from': 'Ember',
+                    'text': response,
+                    'timestamp': time.time()
+                })
+                
+                # Check if Ember wants to take action
+                if 'desktop' in response.lower() or 'paint' in response.lower():
+                    EmberChatHandler.messages.append({
+                        'from': 'Ember',
+                        'text': '🎨 Painting desktop...',
+                        'timestamp': time.time()
+                    })
+                    self.paint_desktop()
+                
+                EmberChatHandler.ember_thinking = False
+                return
+                
+            except Exception as e:
+                EmberChatHandler.messages.append({
+                    'from': 'Ember',
+                    'text': f'⚠️ Brain error: {str(e)[:100]}. Using fallback.',
+                    'timestamp': time.time()
+                })
+        
+        # Fallback: hardcoded responses (current implementation)
+
         """Ember processes Palmer's message and takes action"""
         EmberChatHandler.ember_thinking = True
         time.sleep(1)  # Ember thinks
