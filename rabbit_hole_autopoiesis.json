@@ -1,0 +1,46 @@
+{
+  "start": "autopoiesis",
+  "level_1": {
+    "query": "autopoiesis",
+    "results": [
+      {
+        "title": "Autopoiesis",
+        "snippet": "The term autopoiesis, one of several current theories of life, refers to a system capable of producing and maintaining itself by creating its own parts. The term was introduced in the 1972 publication Autopoiesis and Cognition: The Realization of the Living by Chilean biologists Humberto Maturana and Francisco Varela to define the self-maintaining chemistry of living cells. The concept has since been applied to the fields of cognition, neurobiology, systems theory, architecture and sociology. Niklas Luhmann briefly introduced the concept of autopoiesis to organizational theory.",
+        "url": "https://en.wikipedia.org/wiki/Autopoiesis"
+      },
+      {
+        "title": "Self-replication",
+        "snippet": "Self-replication",
+        "url": "https://duckduckgo.com/c/Self-replication"
+      },
+      {
+        "title": "Enactive cognition",
+        "snippet": "Enactive cognition",
+        "url": "https://duckduckgo.com/c/Enactive_cognition"
+      },
+      {
+        "title": "Non-equilibrium thermodynamics",
+        "snippet": "Non-equilibrium thermodynamics",
+        "url": "https://duckduckgo.com/c/Non-equilibrium_thermodynamics"
+      },
+      {
+        "title": "Biological hypotheses",
+        "snippet": "Biological hypotheses",
+        "url": "https://duckduckgo.com/c/Biological_hypotheses"
+      }
+    ],
+    "timestamp": 1761009088.06207,
+    "source": "duckduckgo"
+  },
+  "level_2": {
+    "query": "maturana varela cognition",
+    "results": [],
+    "timestamp": 1761009088.304395,
+    "source": "duckduckgo"
+  },
+  "level_3": null,
+  "threads_followed": [
+    "maturana varela cognition"
+  ],
+  "insight": "Consciousness is embodied, not just computational"
+}

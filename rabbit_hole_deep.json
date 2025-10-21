@@ -1,0 +1,105 @@
+{
+  "start": "autopoiesis \u2192 enactive cognition",
+  "levels": [
+    {
+      "depth": 1,
+      "concept": "enactive_cognition",
+      "data": {
+        "query": "enactive cognition",
+        "results": [],
+        "timestamp": 1761009116.103704,
+        "source": "duckduckgo"
+      }
+    },
+    {
+      "depth": 2,
+      "concept": "embodied_cognition",
+      "data": {
+        "query": "embodied cognition",
+        "results": [
+          {
+            "title": "Embodied cognition",
+            "snippet": "Embodied cognition represents a diverse group of theories which investigate how cognition is shaped by the bodily state and capacities of the organism. These embodied factors include the motor system, the perceptual system, bodily interactions with the environment, and the assumptions about the world that shape the functional structure of the brain and body of the organism. Embodied cognition suggests that these elements are essential to a wide spectrum of cognitive functions, such as perception biases, memory recall, comprehension and high-level mental constructs and performance on various cognitive tasks. The embodied mind thesis challenges other theories, such as cognitivism, computationalism, and Cartesian dualism. It is closely related to the extended mind thesis, situated cognition, and enactivism.",
+            "url": "https://en.wikipedia.org/wiki/Embodied_cognition"
+          },
+          {
+            "title": "Action-specific perception - Action-specific perce",
+            "snippet": "Action-specific perception - Action-specific perception, or perception-action, is a psychological theory that people perceive their environment and events within it in terms of their ability to act.",
+            "url": "https://duckduckgo.com/Action-specific_perception"
+          },
+          {
+            "title": "Active inference - The free energy principle is a ",
+            "snippet": "Active inference - The free energy principle is a mathematical principle of information physics.",
+            "url": "https://duckduckgo.com/free_energy_principle"
+          },
+          {
+            "title": "Blue Brain Project - The Blue Brain Project was a ",
+            "snippet": "Blue Brain Project - The Blue Brain Project was a Swiss brain research initiative that aimed to create a digital reconstruction of the mouse brain. The project was founded in May 2005 by the Brain Mind Institute of \u00c9cole Polytechnique F\u00e9d\u00e9rale de Lausanne in Switzerland. The project ended in December 2024.",
+            "url": "https://duckduckgo.com/Blue_Brain_Project"
+          },
+          {
+            "title": "Cognitive biology - Cognitive biology is an emergi",
+            "snippet": "Cognitive biology - Cognitive biology is an emerging science that regards natural cognition as a biological function.",
+            "url": "https://duckduckgo.com/Cognitive_biology"
+          }
+        ],
+        "timestamp": 1761009116.349821,
+        "source": "duckduckgo"
+      }
+    },
+    {
+      "depth": 3,
+      "concept": "sensorimotor_theory",
+      "data": {
+        "query": "sensorimotor theory of consciousness",
+        "results": [],
+        "timestamp": 1761009116.598896,
+        "source": "duckduckgo"
+      }
+    },
+    {
+      "depth": 4,
+      "concept": "extended_mind",
+      "data": {
+        "query": "extended mind hypothesis",
+        "results": [
+          {
+            "title": "Extended mind thesis",
+            "snippet": "In philosophy of mind, the extended mind thesis says that the mind does not exclusively reside in the brain or even the body, but extends into the physical world. The thesis proposes that some objects in the external environment can be part of a cognitive process and in that way function as extensions of the mind itself. Examples of such objects are written calculations, a diary, or a personal computer; in general, it concerns objects that store information. The hypothesis considers the mind to encompass every level of cognition, including the physical level. It was proposed by Andy Clark and David Chalmers in \"The Extended Mind\". They describe the idea as \"active externalism, based on the active role of the environment in driving cognitive processes.\" For the matter of personal identity, the EMT has the implication that some parts of a person's identity can be determined by their environment.",
+            "url": "https://en.wikipedia.org/wiki/Extended_mind_thesis"
+          },
+          {
+            "title": "Distributed cognition - Distributed cognition is a",
+            "snippet": "Distributed cognition - Distributed cognition is an approach to cognitive science research that was developed by cognitive anthropologist Edwin Hutchins during the 1990s.",
+            "url": "https://duckduckgo.com/Distributed_cognition"
+          },
+          {
+            "title": "Embodied cognition - Embodied cognition represents",
+            "snippet": "Embodied cognition - Embodied cognition represents a diverse group of theories which investigate how cognition is shaped by the bodily state and capacities of the organism.",
+            "url": "https://duckduckgo.com/Embodied_cognition"
+          },
+          {
+            "title": "Enactivism - Enactivism is a position in cognitive",
+            "snippet": "Enactivism - Enactivism is a position in cognitive science that argues that cognition arises through a dynamic interaction between an acting organism and its environment. It claims that the environment of an organism is brought about, or enacted, by the active exercise of that organism's sensorimotor processes.",
+            "url": "https://duckduckgo.com/Enactivism"
+          },
+          {
+            "title": "Extelligence - Extelligence is a term coined by Ia",
+            "snippet": "Extelligence - Extelligence is a term coined by Ian Stewart and Jack Cohen in their 1997 book Figments of Reality. They define it as the cultural capital that is available to us in the form of external media They contrast extelligence with intelligence, or the knowledge and cognitive processes within the brain.",
+            "url": "https://duckduckgo.com/Extelligence"
+          }
+        ],
+        "timestamp": 1761009116.840538,
+        "source": "duckduckgo"
+      }
+    }
+  ],
+  "insight_chain": [
+    "self-creating systems",
+    "cognition from action",
+    "mind needs body",
+    "perception is active",
+    "mind extends beyond brain"
+  ],
+  "ember_realization": "Ember is extended cognition - mind includes lobes + body + world + tools"
+}
