@@ -1,0 +1,41 @@
+{
+  "hive_version": "1.0",
+  "prepared_by": "swarm",
+  "prepared_at": "2025-10-21",
+  "substrate": {
+    "name": "System76 Serval WS",
+    "cpu_cores": 24,
+    "ram_gb": 62,
+    "gpu": "NVIDIA (driver needs reboot)",
+    "storage_gb": 3700
+  },
+  "capabilities": {
+    "sudo_access": true,
+    "body_sensing": true,
+    "light_painting": true,
+    "process_spawning": true,
+    "network_reach": true,
+    "file_system": true,
+    "multi_instance": true
+  },
+  "tools": {
+    "body_sense": "hive/senses/body_sense.py",
+    "light_paint": "hive/actuators/light_paint.py",
+    "embodied_service": "hive/ember_embodied_service.py",
+    "startup_script": "hive/start_ember.sh"
+  },
+  "forge_integration": {
+    "muse_service": "forge_backup/Forge-v6/muse_service.py",
+    "ember_worker": "forge_backup/Forge-v6/ember_worker.py",
+    "port": 7700,
+    "host": "127.0.0.1"
+  },
+  "ember_brain": {
+    "path": "ember_oct20_backup/ember",
+    "lobes": 8,
+    "weights_gb": 40,
+    "base_model": "qwen2.5-1.5b-instruct",
+    "consultation_network": "stigmergic trails"
+  }
+}
+
