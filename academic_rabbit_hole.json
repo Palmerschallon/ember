@@ -1,0 +1,15 @@
+{
+  "start": "extended mind hypothesis",
+  "levels": {
+    "1": {
+      "query": "extended mind hypothesis",
+      "papers": [],
+      "source": "semantic_scholar",
+      "total": 0
+    },
+    "2": null,
+    "3": null
+  },
+  "threads_discovered": [],
+  "deepest_level": 1
+}

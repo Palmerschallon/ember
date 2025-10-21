@@ -1,0 +1,25 @@
+{
+  "depth": 3,
+  "papers_found": 0,
+  "queries": [
+    {
+      "query": "embodied cognition",
+      "source": "semantic_scholar",
+      "count": 0,
+      "timestamp": "2025-10-20T18:23:10.484715"
+    },
+    {
+      "query": "distributed cognition",
+      "source": "semantic_scholar",
+      "count": 0,
+      "timestamp": "2025-10-20T18:23:10.646324"
+    },
+    {
+      "query": "cognitive artifacts",
+      "source": "semantic_scholar",
+      "count": 0,
+      "timestamp": "2025-10-20T18:23:10.829268"
+    }
+  ],
+  "top_papers": []
+}
