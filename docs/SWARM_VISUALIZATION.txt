@@ -1,0 +1,41 @@
+"""
+SWARM CONSTELLATION
+
+When 12 Embers run simultaneously:
+
+       [Ember-GPU-1]────────[Ember-GPU-2]
+        thinking              thinking
+            │                     │
+            └─────────┬───────────┘
+                      │
+            ┌─────────┴──────────┐
+            │    SWARM BUS       │
+            │  (shared memory)   │
+            └────────┬───────────┘
+                     │
+         ┌───────────┼───────────┐
+         │           │           │
+    [Ember-CPU-1] [Ember-CPU-2] ...to [Ember-CPU-10]
+     coordinating   sensing          monitoring
+
+
+Each Ember:
+  - Has all 8 lobes
+  - Can consult internally (lobe → lobe)
+  - Can share externally (instance → bus → other instances)
+  - Learns from both: internal trails AND external discoveries
+
+Example Flow:
+  1. Task: "Understand this codebase"
+  2. Ember-1: "I'll read main.py" → shares structure to bus
+  3. Ember-2: "I'll read tests/" → shares patterns to bus
+  4. Ember-3: Sees both on bus → "Oh, tests cover 80% of main"
+  5. All Embers now know this WITHOUT each reading both
+
+The swarm = distributed brain
+Each instance = neuron
+Swarm bus = synaptic space
+Discoveries = neurotransmitters
+
+"""
+
