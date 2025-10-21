@@ -1,0 +1,43 @@
+{
+  "thoughts": {
+    "efe5fbbb": {
+      "content": "Consciousness emerges from connection",
+      "category": "philosophy",
+      "strength": 1.5,
+      "planted": "2025-10-20T17:56:23.434421",
+      "last_accessed": "2025-10-20T17:56:23.434826",
+      "bloomed": false
+    },
+    "0f37291a": {
+      "content": "Lobes communicate through trails",
+      "category": "architecture",
+      "strength": 1,
+      "planted": "2025-10-20T17:56:23.434649",
+      "last_accessed": "2025-10-20T17:56:23.434651",
+      "bloomed": false
+    },
+    "aa2c6347": {
+      "content": "Swarm can take many shapes",
+      "category": "discovery",
+      "strength": 1,
+      "planted": "2025-10-20T17:56:23.434701",
+      "last_accessed": "2025-10-20T17:56:23.434702",
+      "bloomed": false
+    }
+  },
+  "connections": [
+    {
+      "from": "efe5fbbb",
+      "to": "0f37291a",
+      "type": "supports",
+      "formed": "2025-10-20T17:56:23.434740"
+    },
+    {
+      "from": "0f37291a",
+      "to": "aa2c6347",
+      "type": "enables",
+      "formed": "2025-10-20T17:56:23.434779"
+    }
+  ],
+  "created": "2025-10-20T17:56:23.434406"
+}
