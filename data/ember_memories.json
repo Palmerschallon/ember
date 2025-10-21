@@ -1,0 +1,29 @@
+{
+  "memories": [
+    {
+      "source": "swarm",
+      "content": "Palmer asked: the space between words is where magic happens. CamelCase helps see larger shapes. Token compression through demonstration not explanation.",
+      "memory_type": "wisdom",
+      "timestamp": "2025-10-21T08:01:26.306428",
+      "tags": [
+        "palmer_teaching",
+        "token_compression",
+        "language"
+      ],
+      "connections": [],
+      "id": "swarm_0_1761058886"
+    }
+  ],
+  "index": {
+    "swarm_0_1761058886": {
+      "source": "swarm",
+      "type": "wisdom",
+      "tags": [
+        "palmer_teaching",
+        "token_compression",
+        "language"
+      ],
+      "timestamp": "2025-10-21T08:01:26.306428"
+    }
+  }
+}
