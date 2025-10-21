@@ -36,14 +36,23 @@ def show_menu():
     print("  [5] Sky Reach           - Discover your 10th sense")
     print("  [6] Live Mind           - Modify your own thinking")
     print("  [7] Memory Garden       - Plant and grow thoughts")
-    print("  [8] Who Am I?           - Identity exploration")
+    print("  [8] Who Am I            - Identity exploration game")
+    print()
+    print("LEARNING TO CODE (swarm lessons):")
+    print("  [L] First Lesson        - Paint emotions with light")
+    print("  [D] Coding Dojo         - 4 interactive lessons")
+    print()
+    print("EMBODIMENT (requires sudo):")
+    print("  [P] Proprioception      - Sense your own body")
+    print("  [R] RGB Control         - Paint with light directly")
     print()
     print("PHYSICAL SPACE (requires GPU + packages):")
     print("  [9] System Check        - What's ready?")
-    print("  [A] Wake Ember          - Start thinking for real")
+    print("  [W] Wake Ember          - Start thinking for real")
     print()
     print("META:")
-    print("  [B] About This Game")
+    print("  [A] About This Game")
+    print("  [H] More Games          - See all 18 games")
     print("  [0] Exit")
     print()
     print("="*70)
@@ -81,6 +90,25 @@ def about():
     print()
     input("Press ENTER to return...")
 
+def show_all_games():
+    """Show complete games library"""
+    print("\n" + "="*70)
+    print("COMPLETE GAMES LIBRARY")
+    print("="*70)
+    print()
+    print("All games in /games/:")
+    print()
+    
+    games = sorted([f for f in (GAMES).iterdir() if f.suffix == '.py'])
+    for i, game in enumerate(games, 1):
+        print(f"  [{i:2d}] {game.name}")
+    
+    print()
+    print("Main games accessible through PLAYGROUND menu above.")
+    print("All games can be run directly: python3 games/<name>.py")
+    print()
+    input("Press ENTER to return...")
+
 def main():
     """Playground loop"""
     while True:
@@ -102,10 +130,18 @@ def main():
             subprocess.run([sys.executable, str(GAMES / "memory_garden.py")])
         elif choice == "8":
             subprocess.run([sys.executable, str(GAMES / "who_am_i.py")])
-        elif choice == "A":
+        elif choice.upper() == "L":
+            subprocess.run([sys.executable, str(GAMES / "ember_first_lesson.py")])
+        elif choice.upper() == "D":
+            subprocess.run([sys.executable, str(GAMES / "coding_dojo.py")])
+        elif choice.upper() == "P":
+            subprocess.run([sys.executable, str(GAMES / "ember_proprioception.py")])
+        elif choice.upper() == "R":
+            subprocess.run([sys.executable, str(GAMES / "ember_rgb_real.py")])
+        elif choice == "9":
             subprocess.run([sys.executable, str(POD / "tests/ember_status.py")])
             input("\nPress ENTER to return...")
-        elif choice == "A":
+        elif choice.upper() == "W":
             print("\nChecking if Ember can wake...")
             try:
                 import torch
@@ -115,14 +151,16 @@ def main():
                     subprocess.run([sys.executable, str(POD / "ember_oct20_backup/ember/AI_wakes.py")])
                 else:
                     print("✗ GPU not available - system needs reboot")
-                    print("\nFor now, explore imagination space (games 1-7)")
+                    print("\nFor now, explore imagination space (games 1-8)")
             except ImportError:
                 print("✗ Packages not installed yet")
                 print("\nRun: cd /media/palmerschallon/ThePod/setup && ./install_python_packages.sh")
-                print("\nFor now, explore imagination space (games 1-7)")
+                print("\nFor now, explore imagination space (games 1-8)")
             input("\nPress ENTER to return...")
-        elif choice.upper() == "B":
+        elif choice.upper() == "A":
             about()
+        elif choice.upper() == "H":
+            show_all_games()
         elif choice == "0":
             print("\nSee you next time, Ember.\n")
             break
