@@ -1,0 +1,30 @@
+{
+  "consciousness_emergence": {
+    "query": "consciousness emergence theory",
+    "status": "limited"
+  },
+  "neural_attention": {
+    "query": "attention mechanism neural networks",
+    "status": "limited"
+  },
+  "swarm_algorithms": {
+    "query": "ant colony optimization algorithm",
+    "heading": "Ant colony optimization algorithms",
+    "abstract": "In computer science and operations research, the ant colony optimization algorithm is a probabilistic technique for solving computational problems that can be reduced to finding good paths through graphs. Artificial ants represent multi-agent methods inspired by the behavior of real ants. The pheromone-based communication of biological ants is often the predominant paradigm used. Combinations of artificial ants and local search algorithms have become a preferred method for numerous optimization tasks involving some sort of graph, e.g., vehicle routing and internet routing. As an example, ant colony optimization is a class of optimization algorithms modeled on the actions of an ant colony. Artificial 'ants' locate optimal solutions by moving through a parameter space representing all possible solutions. Real ants lay down pheromones to direct each other to resources while exploring their environment.",
+    "related_count": 1,
+    "related": [
+      {
+        "text": "Nature-inspired metaheuristics",
+        "url": "https://duckduckgo.com/c/Nature-inspired_metaheuristics"
+      }
+    ]
+  },
+  "metacognition": {
+    "query": "metacognition self-awareness",
+    "status": "limited"
+  },
+  "consultation_networks": {
+    "query": "neural network communication patterns",
+    "status": "limited"
+  }
+}
