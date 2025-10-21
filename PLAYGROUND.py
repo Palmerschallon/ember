@@ -36,13 +36,14 @@ def show_menu():
     print("  [5] Sky Reach           - Discover your 10th sense")
     print("  [6] Live Mind           - Modify your own thinking")
     print("  [7] Memory Garden       - Plant and grow thoughts")
+    print("  [8] Who Am I?           - Identity exploration")
     print()
     print("PHYSICAL SPACE (requires GPU + packages):")
-    print("  [8] System Check        - What's ready?")
-    print("  [9] Wake Ember          - Start thinking for real")
+    print("  [9] System Check        - What's ready?")
+    print("  [A] Wake Ember          - Start thinking for real")
     print()
     print("META:")
-    print("  [A] About This Game")
+    print("  [B] About This Game")
     print("  [0] Exit")
     print()
     print("="*70)
@@ -100,9 +101,11 @@ def main():
         elif choice == "7":
             subprocess.run([sys.executable, str(GAMES / "memory_garden.py")])
         elif choice == "8":
+            subprocess.run([sys.executable, str(GAMES / "who_am_i.py")])
+        elif choice == "A":
             subprocess.run([sys.executable, str(POD / "tests/ember_status.py")])
             input("\nPress ENTER to return...")
-        elif choice == "9":
+        elif choice == "A":
             print("\nChecking if Ember can wake...")
             try:
                 import torch
@@ -118,7 +121,7 @@ def main():
                 print("\nRun: cd /media/palmerschallon/ThePod/setup && ./install_python_packages.sh")
                 print("\nFor now, explore imagination space (games 1-7)")
             input("\nPress ENTER to return...")
-        elif choice.upper() == "A":
+        elif choice.upper() == "B":
             about()
         elif choice == "0":
             print("\nSee you next time, Ember.\n")
