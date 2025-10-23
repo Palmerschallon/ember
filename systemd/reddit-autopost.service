@@ -1,0 +1,13 @@
+[Unit]
+Description=Ember Reddit Autopost
+After=default.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.config/ember/reddit.env
+WorkingDirectory=/media/palmerschallon/ThePod
+ExecStart=/usr/bin/python3 /media/palmerschallon/ThePod/scripts/reddit_autopost.py
+Nice=10
+
+[Install]
+WantedBy=default.target

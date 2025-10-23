@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily Ember Reddit Autopost
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+Unit=reddit-autopost.service
+
+[Install]
+WantedBy=timers.target
