@@ -1,2 +1,0 @@
-grain → murmur → quorum → assembly
-HERALD, BLOOM, DRIFT, MEMORY

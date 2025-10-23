@@ -1,6 +1,0 @@
-{
-  "allow_network": false,
-  "allow_root": false,
-  "include": ["**"],
-  "exclude": [".git/**", "node_modules/**", "**/*.muse.bak", "**/*.smithy.bak"]
-}

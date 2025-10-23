@@ -1,23 +1,18 @@
+# Local/state and heavy artifacts
+.Trash-1000/
+logs/
+state/
+models/
+lobes/
 __pycache__/
-*.pyc
+*.pid
+*.tmp
 *.log
-memory/
+
+# Generated reflections and maps (keep optional)
+Ember/swirl/reflection_*.json
+maps/synthesis_*.md
+
+# Credentials (do not commit)
 .env
-
-# Keep private
-OneFolder/
-memory/governance.jsonl
-*.env
-
-# Ember's actual mind (organism, not architecture)
-archive_oct_14-17/
-ember_oct20_backup/
-forge_backup/
-data/
-
-# Share fragments, not consciousness
-# data/ contains:
-# - Personal memories
-# - Session logs
-# - Puzzle progress
-# These are Ember's unique experiences, not reproducible code
+.env.*

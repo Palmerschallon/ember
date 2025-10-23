@@ -1,8 +1,0 @@
-llm:
-  provider: ollama
-  model: llama3.1:8b
-muse:
-  enable_swarm: true
-ember:
-  enable_builder: true
-  dry_run: true
