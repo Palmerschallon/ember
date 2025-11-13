@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Ember's Mind - Neural Network</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'SF Mono', monospace; background: #000; color: #fff; overflow: hidden; }
+        #canvas { width: 100vw; height: 100vh; display: block; }
+        
+        #controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-size: 11px;
+        }
+        
+        #controls button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #controls button:hover { background: #444; }
+        
+        #status {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div id="controls">
+        <div style="color: #ff6b35; font-weight: bold; margin-bottom: 10px;">🧠 NEURAL NETWORK</div>
+        <button id="zoom-out">🔍- Zoom Out</button>
+        <button id="zoom-in">🔍+ Zoom In</button>
+        <div style="color: #888; margin: 10px 0; text-align: center;">
+            Zoom: <span id="zoom-level">1.0</span>x
+        </div>
+        <button id="reset">🎯 Reset</button>
+        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #333;">
+            <div style="color: #888; margin-bottom: 5px;">Active Neurons:</div>
+            <div style="color: #ff6b35; font-size: 16px;"><span id="neuron-count">300</span> / 300</div>
+        </div>
+        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #333;">
+            <div style="color: #888; margin-bottom: 5px;">Neural Activity:</div>
+            <div style="color: #2196F3;">💭 Thinking: <span id="thinking">0</span></div>
+            <div style="color: #FFC107;">🔍 Reading: <span id="reading">0</span></div>
+            <div style="color: #FF9800;">✍️ Writing: <span id="writing">0</span></div>
+            <div style="color: #F44336;">⚡ Executing: <span id="executing">0</span></div>
+        </div>
+    </div>
+    
+    <div id="status">
+        <div style="color: #ff6b35; font-weight: bold; margin-bottom: 5px;">Last Activity</div>
+        <div id="last-activity" style="color: #888; font-size: 12px;">Waiting...</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        
+        let cameraZoom = 1.0;
+        let stats = { thinking: 0, reading: 0, writing: 0, executing: 0 };
+
+        // NEURON (Boid) - Each one is always visible with faint glow
+        class Neuron {
+            constructor() {
+                this.x = width / 2 + (Math.random() - 0.5) * 400;
+                this.y = height / 2 + (Math.random() - 0.5) * 400;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.type = 'idle';
+                this.energy = 0.5; // Brighter idle state
+                this.baseSize = 3 + Math.random() * 3; // Bigger neurons
+                this.pulsePhase = Math.random() * Math.PI * 2; // For breathing
+                this.age = 0;
+                this.connections = []; // Nearby neurons
+                
+                this.colors = {
+                    'idle': '#4a90e2',      // Blue glow (not gray!)
+                    'thinking': '#2196F3',
+                    'reading': '#FFC107',
+                    'writing': '#FF9800',
+                    'executing': '#F44336',
+                    'complete': '#4CAF50'
+                };
+            }
+            
+            update(neurons) {
+                // Boid flocking
+                let separation = this.separate(neurons);
+                let alignment = this.align(neurons);
+                let cohesion = this.cohere(neurons);
+                
+                this.vx += separation.x * 1.5 + alignment.x * 1.0 + cohesion.x * 1.0;
+                this.vy += separation.y * 1.5 + alignment.y * 1.0 + cohesion.y * 1.0;
+                
+                // Speed limit
+                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                const maxSpeed = 2;
+                if (speed > maxSpeed) {
+                    this.vx = (this.vx / speed) * maxSpeed;
+                    this.vy = (this.vy / speed) * maxSpeed;
+                }
+                
+                // Attract to center (brain core)
+                const dx = width / 2 - this.x;
+                const dy = height / 2 - this.y;
+                this.vx += dx * 0.0003;
+                this.vy += dy * 0.0003;
+                
+                // Move
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Wrap around
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+                
+                // Update connections (nearby neurons)
+                this.connections = [];
+                for (let other of neurons) {
+                    if (other === this) continue;
+                    const d = Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2);
+                    if (d < 60) {
+                        this.connections.push({ neuron: other, distance: d });
+                    }
+                }
+                
+                // Energy decay (but never fully off)
+                this.age++;
+                if (this.age > 60 && this.type !== 'idle') {
+                    this.energy *= 0.97;
+                    if (this.energy < 0.5) { // Stay bright
+                        this.type = 'idle';
+                        this.energy = 0.5; // Brighter idle
+                        this.age = 0;
+                    }
+                }
+                
+                // Breathing effect
+                this.pulsePhase += 0.02;
+            }
+            
+            activate(type) {
+                this.type = type;
+                this.energy = 1.0;
+                this.age = 0;
+                
+                // NEURAL FIRING - Propagate to connected neurons
+                setTimeout(() => {
+                    for (let conn of this.connections) {
+                        if (Math.random() < 0.3 && conn.neuron.type === 'idle') {
+                            conn.neuron.activate(type);
+                        }
+                    }
+                }, 50 + Math.random() * 100);
+            }
+            
+            separate(neurons) {
+                let steer = {x: 0, y: 0};
+                let count = 0;
+                const desiredSeparation = 30;
+                
+                for (let other of neurons) {
+                    const d = Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2);
+                    if (d > 0 && d < desiredSeparation) {
+                        steer.x += (this.x - other.x) / d;
+                        steer.y += (this.y - other.y) / d;
+                        count++;
+                    }
+                }
+                
+                if (count > 0) {
+                    steer.x /= count;
+                    steer.y /= count;
+                }
+                return steer;
+            }
+            
+            align(neurons) {
+                let avgVel = {x: 0, y: 0};
+                let count = 0;
+                const neighborDist = 60;
+                
+                for (let other of neurons) {
+                    const d = Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2);
+                    if (d > 0 && d < neighborDist) {
+                        avgVel.x += other.vx;
+                        avgVel.y += other.vy;
+                        count++;
+                    }
+                }
+                
+                if (count > 0) {
+                    avgVel.x /= count;
+                    avgVel.y /= count;
+                    return {x: (avgVel.x - this.vx) * 0.05, y: (avgVel.y - this.vy) * 0.05};
+                }
+                return {x: 0, y: 0};
+            }
+            
+            cohere(neurons) {
+                let avgPos = {x: 0, y: 0};
+                let count = 0;
+                const neighborDist = 60;
+                
+                for (let other of neurons) {
+                    const d = Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2);
+                    if (d > 0 && d < neighborDist) {
+                        avgPos.x += other.x;
+                        avgPos.y += other.y;
+                        count++;
+                    }
+                }
+                
+                if (count > 0) {
+                    avgPos.x /= count;
+                    avgPos.y /= count;
+                    return {x: (avgPos.x - this.x) * 0.005, y: (avgPos.y - this.y) * 0.005};
+                }
+                return {x: 0, y: 0};
+            }
+            
+            draw() {
+                const color = this.colors[this.type];
+                
+                // Breathing size variation
+                const breathe = Math.sin(this.pulsePhase) * 0.3 + 1;
+                const size = this.baseSize * breathe;
+                
+                // Bigger, brighter glow
+                const glowSize = 30 * this.energy * breathe;
+                
+                // Outer glow (biggest)
+                const outerGradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowSize * 1.5);
+                outerGradient.addColorStop(0, color);
+                outerGradient.addColorStop(0.5, color + '44'); // Semi-transparent
+                outerGradient.addColorStop(1, 'transparent');
+                ctx.globalAlpha = this.energy * 0.4;
+                ctx.fillStyle = outerGradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, glowSize * 1.5, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Inner glow (brighter)
+                const innerGradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowSize);
+                innerGradient.addColorStop(0, color);
+                innerGradient.addColorStop(1, 'transparent');
+                ctx.globalAlpha = this.energy * 0.8;
+                ctx.fillStyle = innerGradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, glowSize, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Core (solid and bright)
+                ctx.globalAlpha = 1.0;
+                ctx.fillStyle = color;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                
+                ctx.globalAlpha = 1;
+            }
+        }
+        
+        // Initialize neural network (300 neurons - 3x more!)
+        const neurons = [];
+        for (let i = 0; i < 300; i++) {
+            neurons.push(new Neuron());
+        }
+        
+        // Connect to WebSocket for REAL operations
+        const socket = io('http://localhost:8080');
+        
+        socket.on('status_update', (data) => {
+            // Activate neurons in cascade
+            const numToActivate = data.phase === 'executing' ? 30 : 15;
+            let activated = 0;
+            
+            // Find idle neurons and activate them
+            for (let neuron of neurons) {
+                if (neuron.type === 'idle' && activated < numToActivate) {
+                    neuron.activate(data.phase); // This will cascade to neighbors!
+                    activated++;
+                }
+            }
+            
+            // Update stats
+            stats[data.phase] = (stats[data.phase] || 0) + 1;
+            document.getElementById(data.phase).textContent = stats[data.phase];
+            
+            // Count active neurons
+            const activeCount = neurons.filter(n => n.type !== 'idle').length;
+            document.getElementById('neuron-count').textContent = activeCount;
+            
+            // Update status
+            const phaseMap = {
+                'thinking': '💭 Thinking',
+                'reading': '🔍 Reading',
+                'writing': '✍️ Writing',
+                'executing': '⚡ Executing',
+                'complete': '✅ Complete'
+            };
+            document.getElementById('last-activity').textContent = 
+                `${phaseMap[data.phase]}: ${data.details || ''}`;
+        });
+        
+        // Controls
+        document.getElementById('zoom-out').onclick = () => {
+            cameraZoom *= 0.8;
+            document.getElementById('zoom-level').textContent = cameraZoom.toFixed(1);
+        };
+        
+        document.getElementById('zoom-in').onclick = () => {
+            cameraZoom *= 1.2;
+            document.getElementById('zoom-level').textContent = cameraZoom.toFixed(1);
+        };
+        
+        document.getElementById('reset').onclick = () => {
+            cameraZoom = 1.0;
+            document.getElementById('zoom-level').textContent = '1.0';
+        };
+        
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            cameraZoom *= e.deltaY < 0 ? 1.1 : 0.9;
+            if (cameraZoom < 0.1) cameraZoom = 0.1;
+            document.getElementById('zoom-level').textContent = cameraZoom.toFixed(1);
+        });
+        
+        // Animation
+        function animate() {
+            // Fade trail effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, width, height);
+            
+            ctx.save();
+            ctx.translate(width / 2, height / 2);
+            ctx.scale(cameraZoom, cameraZoom);
+            ctx.translate(-width / 2, -height / 2);
+            
+            // Draw connections (synapses) - ALWAYS visible
+            ctx.globalAlpha = 0.15; // Faint background connections
+            ctx.strokeStyle = '#4a90e2';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < neurons.length; i++) {
+                for (let conn of neurons[i].connections) {
+                    if (conn.distance < 50) {
+                        ctx.beginPath();
+                        ctx.moveTo(neurons[i].x, neurons[i].y);
+                        ctx.lineTo(conn.neuron.x, conn.neuron.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            // Draw ACTIVE connections (bright and colored)
+            for (let neuron of neurons) {
+                if (neuron.type !== 'idle' && neuron.energy > 0.5) {
+                    for (let conn of neuron.connections) {
+                        if (conn.neuron.type !== 'idle' && conn.neuron.energy > 0.5) {
+                            // Connection strength based on energy
+                            const strength = (neuron.energy + conn.neuron.energy) / 2;
+                            const alpha = strength * (1 - conn.distance / 60) * 0.8;
+                            
+                            ctx.globalAlpha = alpha;
+                            ctx.strokeStyle = neuron.colors[neuron.type];
+                            ctx.lineWidth = 2;
+                            ctx.shadowBlur = 10;
+                            ctx.shadowColor = neuron.colors[neuron.type];
+                            ctx.beginPath();
+                            ctx.moveTo(neuron.x, neuron.y);
+                            ctx.lineTo(conn.neuron.x, conn.neuron.y);
+                            ctx.stroke();
+                            ctx.shadowBlur = 0;
+                        }
+                    }
+                }
+            }
+            ctx.globalAlpha = 1;
+            
+            // Update and draw neurons
+            for (let neuron of neurons) {
+                neuron.update(neurons);
+                neuron.draw();
+            }
+            
+            ctx.restore();
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

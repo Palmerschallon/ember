@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enhanced Synesthesia Experience</title>
+<script src="https://cdn.jsdelivr.net/npm/@tonejs/tone@next"></script>
+<style>
+  body, html { height: 100%; margin: 0; overflow: hidden; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas></canvas>
+<script>
+  const canvas = document.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  // Initialize Tone.js
+  const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+
+  // Visual Elements
+  function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  // Audio Elements
+  function playNote() {
+    synth.triggerAttackRelease(['C4', 'E4', 'G4'], '8n');
+  }
+
+  setInterval(playNote, 1000);
+</script>
+</body>
+</html>

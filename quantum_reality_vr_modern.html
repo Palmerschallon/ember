@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Reality VR - Modern Experience</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        
+        #enterButton {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: rgba(99, 102, 241, 0.9);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+        }
+        
+        #enterButton:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.8);
+        }
+        
+        #ui-overlay {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            color: white;
+            background: rgba(17, 24, 39, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+        
+        .quantum-meter {
+            width: 200px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .quantum-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+    <button id="enterButton">Enter Quantum Reality</button>
+    
+    <div id="ui-overlay">
+        <h3>Quantum State</h3>
+        <div class="quantum-meter">
+            <div class="quantum-fill" id="quantumLevel"></div>
+        </div>
+        <p>Probability Wave: <span id="probabilityValue">0%</span></p>
+        <p>Entangled Particles: <span id="entangledCount">0</span></p>
+    </div>
+    
+    <canvas id="particle-canvas"></canvas>
+    
+    <a-scene fog="type: exponential; color: #0a0a0a; density: 0.02">
+        <!-- Sky with animated gradient -->
+        <a-sky id="sky" color="#0a0a0a"></a-sky>
+        
+        <!-- Quantum Core - Central Energy Source -->
+        <a-entity id="quantumCore" position="0 3 -5">
+            <a-sphere 
+                radius="1.5" 
+                material="shader: flat; color: #6366f1; emissive: #6366f1; emissiveIntensity: 2"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
+            </a-sphere>
+            <a-light type="point" color="#6366f1" intensity="2" distance="20"></a-light>
+        </a-entity>
+        
+        <!-- Orbiting Quantum Particles -->
+        <a-entity id="particleSystem" position="0 3 -5">
+            <!-- Inner Ring -->
+            <a-entity rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 30000">
+                <a-sphere position="3 0 0" radius="0.2" material="color: #ec4899; emissive: #ec4899"></a-sphere>
+                <a-sphere position="-3 0 0" radius="0.2" material="color: #10b981; emissive: #10b981"></a-sphere>
+                <a-sphere position="0 0 3" radius="0.2" material="color: #f59e0b; emissive: #f59e0b"></a-sphere>
+                <a-sphere position="0 0 -3" radius="0.2" material="color: #3b82f6; emissive: #3b82f6"></a-sphere>
+            </a-entity>
+            
+            <!-- Outer Ring -->
+            <a-entity rotation="45 0 0" animation="property: rotation; to: 45 360 0; loop: true; dur: 40000">
+                <a-sphere position="5 0 0" radius="0.3" material="color: #8b5cf6; emissive: #8b5cf6"></a-sphere>
+                <a-sphere position="-5 0 0" radius="0.3" material="color: #ef4444; emissive: #ef4444"></a-sphere>
+            </a-entity>
+        </a-entity>
+        
+        <!-- Quantum Waves - Ground Effect -->
+        <a-entity id="quantumWaves">
+            <a-ring 
+                position="0 0.1 -5" 
+                radius-inner="2" 
+                radius-outer="3" 
+                material="color: #6366f1; opacity: 0.3"
+                animation="property: scale; to: 2 2 2; loop: true; dur: 3000"
+                animation__fade="property: material.opacity; from: 0.3; to: 0; loop: true; dur: 3000">
+            </a-ring>
+        </a-entity>
+        
+        <!-- Entanglement Connections -->
+        <a-entity id="entanglementLines"></a-entity>
+        
+        <!-- Interactive Quantum Boxes -->
+        <a-box 
+            class="quantum-box"
+            position="-2 1 -3" 
+            material="color: #1f2937; emissive: #6366f1; emissiveIntensity: 0.5"
+            animation__hover="property: scale; to: 1.2 1.2 1.2; startEvents: mouseenter; pauseEvents: mouseleave"
+            animation__leave="property: scale; to: 1 1 1; startEvents: mouseleave">
+        </a-box>
+        
+        <a-box 
+            class="quantum-box"
+            position="2 1 -3" 
+            material="color: #1f2937; emissive: #ec4899; emissiveIntensity: 0.5"
+            animation__hover="property: scale; to: 1.2 1.2 1.2; startEvents: mouseenter; pauseEvents: mouseleave"
+            animation__leave="property: scale; to: 1 1 1; startEvents: mouseleave">
+        </a-box>
+        
+        <!-- Camera with Controls -->
+        <a-entity camera look-controls wasd-controls position="0 1.6 0">
+            <a-cursor color="#6366f1"></a-cursor>
+        </a-entity>
+    </a-scene>
+    
+    <script>
+        // Particle Background Effect
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particles = [];
+        const particleCount = 100;
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.color = `hsl(${Math.random() * 60 + 230}, 100%, 70%)`;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+        
+        function animateParticles() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            requestAnimationFrame(animateParticles);
+        }
+        
+        // Main Experience Controller
+        let quantumLevel = 0;
+        let entangledCount = 0;
+        
+        document.getElementById('enterButton').addEventListener('click', function() {
+            this.style.display = 'none';
+            document.getElementById('ui-overlay').style.display = 'block';
+            animateParticles();
+            startQuantumExperience();
+        });
+        
+        function startQuantumExperience() {
+            // Animate quantum level
+            gsap.to({value: 0}, {
+                value: 100,
+                duration: 10,
+                ease: "power2.inOut",
+                onUpdate: function() {
+                    quantumLevel = this.targets()[0].value;
+                    document.getElementById('quantumLevel').style.width = quantumLevel + '%';
+                    document.getElementById('probabilityValue').textContent = Math.round(quantumLevel) + '%';
+                },
+                repeat: -1,
+                yoyo: true
+            });
+            
+            // Create entanglement lines
+            createEntanglementLines();
+            
+            // Add interaction to quantum boxes
+            const boxes = document.querySelectorAll('.quantum-box');
+            boxes.forEach((box, index) => {
+                box.addEventListener('click', () => {
+                    entangledCount++;
+                    document.getElementById('entangledCount').textContent = entangledCount;
+                    
+                    // Create burst effect
+                    createQuantumBurst(box.getAttribute('position'));
+                });
+            });
+            
+            // Animate sky gradient
+            animateSkyGradient();
+        }
+        
+        function createEntanglementLines() {
+            const scene = document.querySelector('a-scene');
+            const positions = [
+                {start: '-2 1 -3', end: '0 3 -5'},
+                {start: '2 1 -3', end: '0 3 -5'},
+                {start: '-2 1 -3', end: '2 1 -3'}
+            ];
+            
+            positions.forEach((pos, index) => {
+                setTimeout(() => {
+                    const line = document.createElement('a-entity');
+                    line.setAttribute('line', `start: ${pos.start}; end: ${pos.end}; color: #6366f1; opacity: 0.5`);
+                    line.setAttribute('animation', 'property: line.opacity; from: 0; to: 0.5; dur: 1000');
+                    document.getElementById('entanglementLines').appendChild(line);
+                }, index * 500);
+            });
+        }
+        
+        function createQuantumBurst(position) {
+            const scene = document.querySelector('a-scene');
+            const burst = document.createElement('a-sphere');
+            burst.setAttribute('position', position);
+            burst.setAttribute('radius', '0.1');
+            burst.setAttribute('material', 'color: #fff; emissive: #fff; emissiveIntensity: 2');
+            burst.setAttribute('animation', 'property: scale; to: 3 3 3; dur: 1000');
+            burst.setAttribute('animation__fade', 'property: material.opacity; from: 1; to: 0; dur: 1000');
+            
+            scene.appendChild(burst);
+            setTimeout(() => burst.remove(), 1000);
+        }
+        
+        function animateSkyGradient() {
+            const sky = document.getElementById('sky');
+            const colors = ['#0a0a0a', '#1a1a2e', '#16213e', '#0f3460'];
+            let colorIndex = 0;
+            
+            setInterval(() => {
+                colorIndex = (colorIndex + 1) % colors.length;
+                sky.setAttribute('animation', `property: material.color; to: ${colors[colorIndex]}; dur: 3000`);
+            }, 3000);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Add pulse effect to quantum core
+        setInterval(() => {
+            const core = document.getElementById('quantumCore').querySelector('a-sphere');
+            gsap.to(core.object3D.scale, {
+                x: 1.3,
+                y: 1.3,
+                z: 1.3,
+                duration: 0.5,
+                ease: "power2.inOut",
+                yoyo: true,
+                repeat: 1
+            });
+        }, 3000);
+    </script>
+</body>
+</html>

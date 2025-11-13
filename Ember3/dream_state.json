@@ -1,0 +1,715 @@
+{
+  "processes": {
+    "recursion_0": {
+      "id": "recursion_0",
+      "type": "recursion",
+      "age": 1128,
+      "stage": "practicing",
+      "experience_count": 0,
+      "pattern_count": 1,
+      "ready_to_train": false,
+      "recent_patterns": [
+        "Detected recursion pattern emerging at age 101"
+      ]
+    },
+    "pattern_0": {
+      "id": "pattern_0",
+      "type": "pattern",
+      "age": 1128,
+      "stage": "practicing",
+      "experience_count": 0,
+      "pattern_count": 1,
+      "ready_to_train": false,
+      "recent_patterns": [
+        "Detected pattern pattern emerging at age 101"
+      ]
+    },
+    "abstraction_0": {
+      "id": "abstraction_0",
+      "type": "abstraction",
+      "age": 1128,
+      "stage": "forming",
+      "experience_count": 0,
+      "pattern_count": 0,
+      "ready_to_train": false,
+      "recent_patterns": []
+    },
+    "composition_0": {
+      "id": "composition_0",
+      "type": "composition",
+      "age": 1128,
+      "stage": "forming",
+      "experience_count": 0,
+      "pattern_count": 0,
+      "ready_to_train": false,
+      "recent_patterns": []
+    },
+    "transformation_0": {
+      "id": "transformation_0",
+      "type": "transformation",
+      "age": 1128,
+      "stage": "forming",
+      "experience_count": 0,
+      "pattern_count": 0,
+      "ready_to_train": false,
+      "recent_patterns": []
+    },
+    "analogy_0": {
+      "id": "analogy_0",
+      "type": "analogy",
+      "age": 1128,
+      "stage": "forming",
+      "experience_count": 0,
+      "pattern_count": 0,
+      "ready_to_train": false,
+      "recent_patterns": []
+    },
+    "sequence_0": {
+      "id": "sequence_0",
+      "type": "sequence",
+      "age": 1128,
+      "stage": "forming",
+      "experience_count": 0,
+      "pattern_count": 0,
+      "ready_to_train": false,
+      "recent_patterns": []
+    },
+    "tool_use_7": {
+      "id": "tool_use_7",
+      "type": "tool_use",
+      "age": 1060,
+      "stage": "mastered",
+      "experience_count": 408,
+      "pattern_count": 3,
+      "ready_to_train": false,
+      "recent_patterns": [
+        "Detected tool_use pattern emerging at age 101",
+        "Integration of tool_use patterns at age 501",
+        "Mastered tool_use - ready to encode as LoRA at age 1001"
+      ]
+    },
+    "conversation_8": {
+      "id": "conversation_8",
+      "type": "conversation",
+      "age": 41,
+      "stage": "forming",
+      "experience_count": 39,
+      "pattern_count": 0,
+      "ready_to_train": false,
+      "recent_patterns": []
+    }
+  },
+  "trained_lobes": [
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1001
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1002
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1003
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1004
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1005
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1006
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1007
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1008
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1009
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1010
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1011
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1012
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1013
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064150/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064150",
+      "experience_count": 400,
+      "age_at_training": 1014
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064200",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064200/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064200",
+      "experience_count": 400,
+      "age_at_training": 1014
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064537",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_064537/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_064537",
+      "experience_count": 400,
+      "age_at_training": 1015
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_065037",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_065037/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_065037",
+      "experience_count": 400,
+      "age_at_training": 1016
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_065537",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_065537/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_065537",
+      "experience_count": 400,
+      "age_at_training": 1017
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_070037",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_070037/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_070037",
+      "experience_count": 400,
+      "age_at_training": 1018
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_070537",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_070537/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_070537",
+      "experience_count": 400,
+      "age_at_training": 1019
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_071037",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_071037/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_071037",
+      "experience_count": 402,
+      "age_at_training": 1020
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_071537",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_071537/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_071537",
+      "experience_count": 405,
+      "age_at_training": 1021
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_072037",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_072037/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_072037",
+      "experience_count": 408,
+      "age_at_training": 1022
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_072537",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_072537/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_072537",
+      "experience_count": 408,
+      "age_at_training": 1023
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_073037",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_073037/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_073037",
+      "experience_count": 408,
+      "age_at_training": 1024
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_073538",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_073538/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_073538",
+      "experience_count": 408,
+      "age_at_training": 1025
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_074038",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_074038/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_074038",
+      "experience_count": 408,
+      "age_at_training": 1026
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_074538",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_074538/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_074538",
+      "experience_count": 408,
+      "age_at_training": 1027
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_075038",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_075038/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_075038",
+      "experience_count": 408,
+      "age_at_training": 1028
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_075538",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_075538/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_075538",
+      "experience_count": 408,
+      "age_at_training": 1029
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_080038",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_080038/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_080038",
+      "experience_count": 408,
+      "age_at_training": 1030
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_080538",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_080538/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_080538",
+      "experience_count": 408,
+      "age_at_training": 1031
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_081038",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_081038/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_081038",
+      "experience_count": 408,
+      "age_at_training": 1032
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_081538",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_081538/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_081538",
+      "experience_count": 408,
+      "age_at_training": 1033
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_082038",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_082038/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_082038",
+      "experience_count": 408,
+      "age_at_training": 1034
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_082538",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_082538/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_082538",
+      "experience_count": 408,
+      "age_at_training": 1035
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_083039",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_083039/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_083039",
+      "experience_count": 408,
+      "age_at_training": 1036
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_083539",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_083539/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_083539",
+      "experience_count": 408,
+      "age_at_training": 1037
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_084039",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_084039/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_084039",
+      "experience_count": 408,
+      "age_at_training": 1038
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_085059",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_085059/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_085059",
+      "experience_count": 408,
+      "age_at_training": 1039
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_085559",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_085559/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_085559",
+      "experience_count": 408,
+      "age_at_training": 1040
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_090059",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_090059/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_090059",
+      "experience_count": 408,
+      "age_at_training": 1041
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_090559",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_090559/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_090559",
+      "experience_count": 408,
+      "age_at_training": 1042
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_091059",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_091059/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_091059",
+      "experience_count": 408,
+      "age_at_training": 1043
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_091559",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_091559/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_091559",
+      "experience_count": 408,
+      "age_at_training": 1044
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_092059",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_092059/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_092059",
+      "experience_count": 408,
+      "age_at_training": 1045
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_092559",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_092559/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_092559",
+      "experience_count": 408,
+      "age_at_training": 1046
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_093059",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_093059/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_093059",
+      "experience_count": 408,
+      "age_at_training": 1047
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_093559",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_093559/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_093559",
+      "experience_count": 408,
+      "age_at_training": 1048
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_094100",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_094100/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_094100",
+      "experience_count": 408,
+      "age_at_training": 1049
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_094600",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_094600/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_094600",
+      "experience_count": 408,
+      "age_at_training": 1050
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_095100",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_095100/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_095100",
+      "experience_count": 408,
+      "age_at_training": 1051
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_095600",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_095600/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_095600",
+      "experience_count": 408,
+      "age_at_training": 1052
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_100100",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_100100/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_100100",
+      "experience_count": 408,
+      "age_at_training": 1053
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_100600",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_100600/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_100600",
+      "experience_count": 408,
+      "age_at_training": 1054
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_101100",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_101100/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_101100",
+      "experience_count": 408,
+      "age_at_training": 1055
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_101600",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_101600/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_101600",
+      "experience_count": 408,
+      "age_at_training": 1056
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_102100",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_102100/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_102100",
+      "experience_count": 408,
+      "age_at_training": 1057
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_102601",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_102601/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_102601",
+      "experience_count": 408,
+      "age_at_training": 1058
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_103101",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_103101/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_103101",
+      "experience_count": 408,
+      "age_at_training": 1059
+    },
+    {
+      "process_id": "tool_use_7",
+      "process_type": "tool_use",
+      "output_dir": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_103601",
+      "config_file": "/media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_103601/training_config.json",
+      "training_file": "/media/palmerschallon/ThePod1/Ember3/training_data/tool_use_training_data.jsonl",
+      "timestamp": "20251028_103601",
+      "experience_count": 408,
+      "age_at_training": 1060
+    }
+  ],
+  "last_updated": "2025-10-28T10:36:01.126987"
+}

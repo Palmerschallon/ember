@@ -1,0 +1,61 @@
+{
+  "total_games": 2,
+  "current_generation": 0,
+  "avg_fitness": 0.735,
+  "max_fitness": 0.75,
+  "top_games": [
+    {
+      "name": "physics_platformer_genesis",
+      "fitness": 0.75,
+      "generation": 0,
+      "primitives": {
+        "movement": [
+          "continuous_2d",
+          "physics_momentum"
+        ],
+        "action": [
+          "timing_windows"
+        ],
+        "space": [
+          "continuous_2d"
+        ],
+        "feedback": [
+          "scoring",
+          "health_lives",
+          "visual_juice"
+        ],
+        "systems": [
+          "collision_detection",
+          "camera_system"
+        ]
+      }
+    },
+    {
+      "name": "quantum_pong",
+      "fitness": 0.72,
+      "generation": 0,
+      "primitives": {
+        "movement": [
+          "continuous_2d",
+          "physics_momentum"
+        ],
+        "action": [
+          "timing_windows",
+          "projectile_spawning"
+        ],
+        "space": [
+          "continuous_2d",
+          "wrapped_space"
+        ],
+        "feedback": [
+          "scoring",
+          "visual_juice"
+        ],
+        "systems": [
+          "collision_detection",
+          "ai_opponents"
+        ]
+      }
+    }
+  ]
+}

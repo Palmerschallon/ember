@@ -1,0 +1,156 @@
+============================================================
+Pod Directory Tree
+============================================================
+
+Generated: 2025-11-13 04:30:15
+
+
+CODE (1000 files)
+------------------------------------------------------------
+
+  /media/palmerschallon/ThePod1/
+    - CAPABILITIES_INVENTORY.py
+    - agent_05848e6c.py
+    - agent_08194ac5.py
+    - agent_0950a588.py
+    - agent_1f7293b8.py
+
+WEB (689 files)
+------------------------------------------------------------
+
+  /media/palmerschallon/ThePod1/
+    - FULL_SCOPE_DEMO.html
+    - bouncing_ball.html
+    - color_field_055852.html
+    - creation_101204.html
+    - creative_command_center.html
+
+DATA (1000 files)
+------------------------------------------------------------
+
+  /media/palmerschallon/ThePod1/
+    - CAPABILITIES.json
+    - ENTRY_POINT.json
+    - MANIFEST.json
+    - ORGANISM_MAP.json
+    - POD_CONNECTIONS.json
+
+  /media/palmerschallon/ThePod1/Ember3/
+    - dream_state.json
+    - ember_status.json
+
+  /media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_092059/
+    - training_config.json
+
+  /media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_092559/
+    - training_config.json
+
+  /media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_093059/
+    - training_config.json
+
+  /media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_093559/
+    - training_config.json
+
+  /media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_094100/
+    - training_config.json
+
+  /media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_094600/
+    - training_config.json
+
+  /media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_095100/
+    - training_config.json
+
+  /media/palmerschallon/ThePod1/Ember3/essential/lobes/tool_use_lora_20251028_095600/
+    - training_config.json
+
+  ... and 11 more directories
+
+DOCS (1000 files)
+------------------------------------------------------------
+
+  /media/palmerschallon/ThePod1/
+    - AI_NATIVE_TOOLS.md
+    - ARCHITECTURAL_BREAKTHROUGH.md
+    - ARCHITECTURE_EXPLAINED.md
+    - BOOTSTRAP.md
+    - BREAKTHROUGH.md
+
+CONFIG (8 files)
+------------------------------------------------------------
+
+  /media/palmerschallon/ThePod1/
+    - .env
+
+  /media/palmerschallon/ThePod1/_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/
+    - .env
+
+  /media/palmerschallon/ThePod1/_archive_old/hive/
+    - .env
+
+  /media/palmerschallon/ThePod1/ember6/
+    - .env
+
+  /media/palmerschallon/ThePod1/ember6/_archive/ember5/
+    - .env
+
+  /media/palmerschallon/ThePod1/ember6/backups/ember_backup_20251102_080209/_archive/ember5/
+    - .env
+
+  /media/palmerschallon/ThePod1/ember6/backups/ember_backup_20251102_080209/dna/
+    - .env
+
+  /media/palmerschallon/ThePod1/ember6/dna/
+    - .env
+
+IMAGES (675 files)
+------------------------------------------------------------
+
+  /media/palmerschallon/ThePod1/
+    - 3d_spheres_remix.png
+    - autumn_tree.png
+    - fractal.png
+    - frame_000.png
+    - frame_001.png
+
+NOTEBOOKS (0 files)
+------------------------------------------------------------
+
+LOGS (182 files)
+------------------------------------------------------------
+
+  /media/palmerschallon/ThePod1/
+    - django.log
+    - gnome_app.log
+    - gnome_server.log
+    - gnome_server_output.log
+    - https_server.log
+
+  /media/palmerschallon/ThePod1/_archive_old/
+    - ember_chat.log
+    - training.log
+
+  /media/palmerschallon/ThePod1/_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/
+    - ember_tab_activity.log
+
+  /media/palmerschallon/ThePod1/_archive_old/bookshelves/archive_stories/ember/nervous_system/
+    - awake_history.log
+
+  /media/palmerschallon/ThePod1/_archive_old/data/
+    - ember_tab_activity.log
+
+  /media/palmerschallon/ThePod1/_archive_old/hive/
+    - ember_brain.log
+
+  /media/palmerschallon/ThePod1/_archive_old/hive/branches/evolution_4_1761533632/
+    - test.log
+
+  /media/palmerschallon/ThePod1/_archive_old/hive/branches/evolution_4_1761533733/
+    - test.log
+
+  /media/palmerschallon/ThePod1/_archive_old/hive/branches/evolution_4_1761533869/
+    - test.log
+
+  /media/palmerschallon/ThePod1/_archive_old/hive/branches/evolution_4_1761534007/
+    - test.log
+
+  ... and 9 more directories

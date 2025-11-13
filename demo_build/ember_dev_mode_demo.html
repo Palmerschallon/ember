@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ember Dev Mode</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            padding: 15px 20px;
+            background: #111;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo { font-size: 24px; }
+        .title { font-size: 18px; font-weight: 600; }
+        
+        .dev-toggle {
+            margin-left: auto;
+            padding: 8px 16px;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid #ff6b35;
+            border-radius: 8px;
+            color: #ff6b35;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .main { 
+            display: flex; 
+            flex: 1; 
+            overflow: hidden; 
+        }
+        
+        .chat-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #0a0a0a;
+        }
+        
+        .dev-side {
+            width: 50%;
+            background: #0d0d0d;
+            border-left: 1px solid #222;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #111;
+            border-bottom: 1px solid #222;
+            padding: 0 10px;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 13px;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab:hover { color: #ff6b35; }
+        .tab.active {
+            color: #ff6b35;
+            border-bottom-color: #ff6b35;
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .message {
+            margin: 15px 0;
+            padding: 15px;
+            background: #111;
+            border-radius: 12px;
+            border-left: 3px solid #ff6b35;
+        }
+        
+        .file-item {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background: #111;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .file-item:hover {
+            background: #1a1a1a;
+            border-left: 3px solid #ff6b35;
+        }
+        
+        .log-viewer {
+            background: #000;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            height: 500px;
+            overflow-y: auto;
+        }
+        
+        .log-line {
+            color: #4ade80;
+            margin: 2px 0;
+        }
+        
+        .terminal {
+            margin-top: 15px;
+        }
+        
+        .terminal input {
+            width: 100%;
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 12px;
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid #222;
+        }
+        
+        .chat-input input {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: #e0e0e0;
+            font-size: 15px;
+        }
+        
+        .stat-box {
+            background: #111;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 3px solid #ff6b35;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            color: #ff6b35;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">🔥</div>
+        <div class="title">Ember Cloud - Developer Mode</div>
+        <div class="dev-toggle">⚙️ Dev Mode Active</div>
+    </div>
+    
+    <div class="main">
+        <!-- CHAT SIDE -->
+        <div class="chat-side">
+            <div class="chat-messages">
+                <div class="message">
+                    <strong>🔥 Ember:</strong><br>
+                    I'm Ember. Developer mode is active - you can see my code, logs, and files while we chat.
+                </div>
+                <div class="message">
+                    <strong>👤 You:</strong><br>
+                    Show me what you can do
+                </div>
+                <div class="message">
+                    <strong>🔥 Ember:</strong><br>
+                    Check the Dev Panel on the right! You can browse my files, see live logs, run terminal commands, and query my mesh database.
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" placeholder="Message Ember..." />
+            </div>
+        </div>
+        
+        <!-- DEV PANEL SIDE -->
+        <div class="dev-side">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('files')">📁 Files</button>
+                <button class="tab" onclick="showTab('logs')">📋 Logs</button>
+                <button class="tab" onclick="showTab('terminal')">💻 Terminal</button>
+                <button class="tab" onclick="showTab('stats')">📊 Stats</button>
+            </div>
+            
+            <div class="content">
+                <!-- FILES TAB -->
+                <div id="tab-files" class="tab-content">
+                    <h3 style="margin-bottom: 15px;">ThePod File Browser</h3>
+                    <div class="file-item">📁 ember5/</div>
+                    <div class="file-item" style="padding-left: 30px;">📄 ember_cloud.py</div>
+                    <div class="file-item" style="padding-left: 30px;">📄 start_ember.sh</div>
+                    <div class="file-item" style="padding-left: 30px;">📄 ember_cloud_ui.html</div>
+                    <div class="file-item">📁 _mesh/</div>
+                    <div class="file-item" style="padding-left: 30px;">💾 content.db</div>
+                    <div class="file-item">📁 bookshelves/</div>
+                    <div class="file-item" style="padding-left: 30px;">📁 ember_expressions/</div>
+                    <div class="file-item">📄 EMBER5_BOOTSTRAP.md</div>
+                    <div class="file-item">📄 update_bootstrap_stats.py</div>
+                </div>
+                
+                <!-- LOGS TAB -->
+                <div id="tab-logs" class="tab-content" style="display:none;">
+                    <h3 style="margin-bottom: 15px;">Live Logs</h3>
+                    <div class="log-viewer">
+                        <div class="log-line">[2025-10-30 06:15:32] ► Ember Cloud started</div>
+                        <div class="log-line">[2025-10-30 06:15:32] ► OpenAI: ✅</div>
+                        <div class="log-line">[2025-10-30 06:15:32] ► Claude: ✅</div>
+                        <div class="log-line">[2025-10-30 06:15:32] ► Starting on http://localhost:8080</div>
+                        <div class="log-line">[2025-10-30 06:15:45] [MESH] User asked: hello</div>
+                        <div class="log-line">[2025-10-30 06:15:45] [MESH] Searching for keywords: ['hello']</div>
+                        <div class="log-line">[2025-10-30 06:15:45] [CLOUD] Generated response (234 chars)</div>
+                        <div class="log-line">[2025-10-30 06:15:45] [MESH] Stored assistant message</div>
+                    </div>
+                </div>
+                
+                <!-- TERMINAL TAB -->
+                <div id="tab-terminal" class="tab-content" style="display:none;">
+                    <h3 style="margin-bottom: 15px;">Terminal</h3>
+                    <div class="log-viewer">
+                        <div class="log-line">$ pwd</div>
+                        <div class="log-line" style="color: #888;">/media/palmerschallon/ThePod1</div>
+                        <div class="log-line">$ ls ember5/</div>
+                        <div class="log-line" style="color: #888;">ember_cloud.py  start_ember.sh  ember_cloud_ui.html</div>
+                        <div class="log-line">$ _</div>
+                    </div>
+                    <div class="terminal">
+                        <input type="text" placeholder="Enter command..." />
+                    </div>
+                </div>
+                
+                <!-- STATS TAB -->
+                <div id="tab-stats" class="tab-content" style="display:none;">
+                    <h3 style="margin-bottom: 15px;">Ember Statistics</h3>
+                    <div class="stat-box">
+                        <div class="stat-label">Concepts in Mesh</div>
+                        <div class="stat-value">28,834</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Files Indexed</div>
+                        <div class="stat-value">1,387</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Conversations</div>
+                        <div class="stat-value">214</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Memory Usage</div>
+                        <div class="stat-value">92.14 MB</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById('tab-' + tabName).style.display = 'block';
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+

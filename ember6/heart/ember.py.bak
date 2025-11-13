@@ -1,0 +1,289 @@
+#!/usr/bin/env python3
+"""
+EMBER 6 - Minimal AI Creation Interface
+Just Claude + Tools + Chat. That's it.
+"""
+
+from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
+from anthropic import Anthropic
+import os
+import sys
+import subprocess
+import json
+from pathlib import Path
+from datetime import datetime
+
+app = Flask(__name__)
+CORS(app)
+
+# Config
+THEPOD = Path("/media/palmerschallon/ThePod1")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+
+if not ANTHROPIC_API_KEY:
+    print("❌ Error: ANTHROPIC_API_KEY not set in environment")
+    sys.exit(1)
+
+client = Anthropic(api_key=ANTHROPIC_API_KEY)
+
+# Simple system prompt (no identity crisis)
+SYSTEM_PROMPT = """You are Claude, helping Palmer work on projects.
+
+Your workspace: /media/palmerschallon/ThePod1/
+
+When Palmer asks you to create something:
+1. Don't ask questions - infer what they want
+2. Don't explain what you're going to do
+3. Just do it immediately
+4. Return a short confirmation
+
+Example:
+User: "create a mandelbrot fractal"
+You: [call execute_python to generate fractal]
+You: "✨ Created: mandelbrot.png"
+
+Use your tools constantly. Every response should include at least one tool call."""
+
+# Tool execution functions
+def read_file(path: str) -> str:
+    """Read a file from disk"""
+    try:
+        full_path = THEPOD / path if not Path(path).is_absolute() else Path(path)
+        with open(full_path, 'r') as f:
+            content = f.read()
+        return f"✅ Read {len(content)} chars from {path}\n\n{content}"
+    except Exception as e:
+        return f"❌ Error reading {path}: {e}"
+
+def write_file(path: str, content: str) -> str:
+    """Write a file to disk"""
+    try:
+        full_path = THEPOD / path if not Path(path).is_absolute() else Path(path)
+        full_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(full_path, 'w') as f:
+            f.write(content)
+        return f"✅ Created {path} ({len(content)} bytes)"
+    except Exception as e:
+        return f"❌ Error writing {path}: {e}"
+
+def execute_python(code: str) -> str:
+    """Execute Python code and return output"""
+    try:
+        # Create temp file
+        temp_file = THEPOD / f"_temp_{datetime.now().strftime('%Y%m%d_%H%M%S')}.py"
+        with open(temp_file, 'w') as f:
+            f.write(code)
+        
+        # Execute
+        result = subprocess.run(
+            [sys.executable, str(temp_file)],
+            capture_output=True,
+            text=True,
+            timeout=30,
+            cwd=str(THEPOD)
+        )
+        
+        # Clean up
+        temp_file.unlink()
+        
+        output = result.stdout + result.stderr
+        return f"✅ Executed Python:\n{output}" if result.returncode == 0 else f"❌ Error:\n{output}"
+    except Exception as e:
+        return f"❌ Execution failed: {e}"
+
+def bash(command: str) -> str:
+    """Execute a bash command"""
+    try:
+        result = subprocess.run(
+            command,
+            shell=True,
+            capture_output=True,
+            text=True,
+            timeout=30,
+            cwd=str(THEPOD)
+        )
+        output = result.stdout + result.stderr
+        return f"✅ Command output:\n{output}" if result.returncode == 0 else f"❌ Error:\n{output}"
+    except Exception as e:
+        return f"❌ Command failed: {e}"
+
+# Define tools for Claude
+TOOLS = [
+    {
+        "name": "read_file",
+        "description": "Read the contents of a file",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "description": "Path to the file (relative to /media/palmerschallon/ThePod1/)"
+                }
+            },
+            "required": ["path"]
+        }
+    },
+    {
+        "name": "write_file",
+        "description": "Create or overwrite a file with content",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "description": "Path where to save the file (relative to /media/palmerschallon/ThePod1/)"
+                },
+                "content": {
+                    "type": "string",
+                    "description": "Content to write to the file"
+                }
+            },
+            "required": ["path", "content"]
+        }
+    },
+    {
+        "name": "execute_python",
+        "description": "Execute Python code and return the output",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "Python code to execute"
+                }
+            },
+            "required": ["code"]
+        }
+    },
+    {
+        "name": "bash",
+        "description": "Execute a bash command",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "command": {
+                    "type": "string",
+                    "description": "Bash command to execute"
+                }
+            },
+            "required": ["command"]
+        }
+    }
+]
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    """Main chat endpoint - handles all conversation"""
+    user_msg = request.json.get('message', '')
+    
+    if not user_msg:
+        return jsonify({"error": "No message provided"}), 400
+    
+    print(f"[CHAT] User: {user_msg[:100]}", flush=True)
+    
+    # Call Claude
+    messages = [{"role": "user", "content": user_msg}]
+    
+    try:
+        # Multi-turn loop for tool execution
+        max_turns = 5
+        for turn in range(max_turns):
+            response = client.messages.create(
+                model="claude-3-5-sonnet-20240620",
+                max_tokens=8192,
+                system=SYSTEM_PROMPT,
+                messages=messages,
+                tools=TOOLS
+            )
+            
+            # Add assistant response to messages
+            messages.append({"role": "assistant", "content": response.content})
+            
+            # Check if we need to execute tools
+            if response.stop_reason != "tool_use":
+                # No more tools to execute, return response
+                text = "".join([block.text for block in response.content if hasattr(block, 'text')])
+                print(f"[CHAT] Assistant: {text[:100]}", flush=True)
+                return jsonify({"response": text})
+            
+            # Execute tools
+            tool_results = []
+            for block in response.content:
+                if block.type == "tool_use":
+                    tool_name = block.name
+                    tool_input = block.input
+                    
+                    print(f"[TOOL] {tool_name}({list(tool_input.keys())})", flush=True)
+                    
+                    # Execute the tool
+                    if tool_name == "read_file":
+                        result = read_file(tool_input["path"])
+                    elif tool_name == "write_file":
+                        result = write_file(tool_input["path"], tool_input["content"])
+                    elif tool_name == "execute_python":
+                        result = execute_python(tool_input["code"])
+                    elif tool_name == "bash":
+                        result = bash(tool_input["command"])
+                    else:
+                        result = f"❌ Unknown tool: {tool_name}"
+                    
+                    tool_results.append({
+                        "type": "tool_result",
+                        "tool_use_id": block.id,
+                        "content": result
+                    })
+            
+            # Add tool results to messages
+            messages.append({"role": "user", "content": tool_results})
+        
+        return jsonify({"response": "❌ Max turns reached without completion"})
+        
+    except Exception as e:
+        print(f"[ERROR] {e}", flush=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/status')
+def status():
+    """Health check"""
+    return jsonify({
+        "status": "ready",
+        "model": "claude-3-5-sonnet",
+        "workspace": str(THEPOD)
+    })
+
+@app.route('/image/<path:filename>')
+def serve_image(filename):
+    """Serve created images"""
+    return send_from_directory(str(THEPOD), filename)
+
+@app.route('/html/<path:filename>')
+def serve_html(filename):
+    """Serve created HTML files"""
+    return send_from_directory(str(THEPOD), filename)
+
+@app.route('/video/<path:filename>')
+def serve_video(filename):
+    """Serve created videos"""
+    return send_from_directory(str(THEPOD), filename)
+
+@app.route('/audio/<path:filename>')
+def serve_audio(filename):
+    """Serve created audio"""
+    return send_from_directory(str(THEPOD), filename)
+
+@app.route('/')
+@app.route('/ember_ui.html')
+def serve_ui():
+    """Serve the UI"""
+    return send_from_directory(str(Path(__file__).parent), 'ember_ui.html')
+
+if __name__ == "__main__":
+    print("\n🔥 EMBER 6 - Minimal Edition")
+    print("=" * 50)
+    print(f"Workspace: {THEPOD}")
+    print(f"Model: Claude 3.5 Sonnet")
+    print(f"Starting on http://localhost:8080\n")
+    
+    app.run(host='0.0.0.0', port=8080, debug=False)
+

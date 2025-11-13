@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ember - Mycelium Reality Weaving</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow: hidden;
+    }
+
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      font-size: 16px;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 50px rgba(102, 126, 234, 0.9);
+    }
+
+    #info {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      color: rgba(255,255,255,0.8);
+      font-size: 13px;
+      z-index: 10000;
+      background: rgba(0,0,0,0.7);
+      padding: 15px 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+    }
+
+    #info div {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <button class="btn" id="createBtn">🔥 CREATE</button>
+
+  <div id="info">
+    <div id="status">Idle</div>
+    <div id="threadCount">Threads: 0</div>
+    <div id="density">Density: 0%</div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const createBtn = document.getElementById('createBtn');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Audio
+    let audioCtx = null;
+    function initAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    function playTone(freq, duration) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    // Musical scales for harmony
+    const scales = {
+      'particle-swarm': [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25], // C major
+      'neural-web': [277.18, 311.13, 346.23, 369.99, 415.30, 466.16, 523.25, 554.37], // C# major
+      'quantum-field': [293.66, 329.63, 369.99, 392.00, 440.00, 493.88, 554.37, 587.33], // D major
+      'fractal-growth': [329.63, 369.99, 415.30, 440.00, 493.88, 554.37, 622.25, 659.25], // E major
+      'organic-mesh': [349.23, 392.00, 440.00, 466.16, 523.25, 587.33, 659.25, 698.46]  // F major
+    };
+
+    // State
+    let threads = [];
+    let mode = 'idle'; // idle, weaving, manifesting, alive
+    let creationType = null;
+    let growthTime = 0;
+    let density = 0;
+    let meshOpacity = 0;
+
+    // Thread types for different creation patterns
+    const creationTypes = ['particle-swarm', 'neural-web', 'quantum-field', 'fractal-growth', 'organic-mesh'];
+
+    // Mycelium Thread
+    class Thread {
+      constructor(x, y, angle, generation = 0, parent = null) {
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
+        this.generation = generation;
+        this.parent = parent;
+        this.children = [];
+        this.length = 15 + Math.random() * 25;
+        this.thickness = Math.max(1, 5 - generation * 0.3);
+        this.age = 0;
+        this.maxAge = 30 + Math.random() * 40;
+        this.growing = true;
+        this.targetX = x + Math.cos(angle) * this.length;
+        this.targetY = y + Math.sin(angle) * this.length;
+        this.currentLength = 0;
+
+        // Color based on depth and type
+        const hue = 240 + generation * 5 + Math.random() * 30;
+        this.hue = hue;
+        this.sat = 70 + Math.random() * 20;
+        this.light = 50 + Math.random() * 20;
+      }
+
+      grow() {
+        if (!this.growing) return;
+
+        this.age++;
+        this.currentLength = Math.min(this.length, this.currentLength + 1.5);
+
+        if (this.currentLength >= this.length) {
+          this.growing = false;
+          this.branch();
+        }
+      }
+
+      branch() {
+        // Mycelium branches frequently!
+        const branchCount = Math.random() > 0.3 ? 2 : (Math.random() > 0.5 ? 3 : 1);
+
+        for (let i = 0; i < branchCount; i++) {
+          // Branch at various angles like real mycelium
+          const angleOffset = (Math.random() - 0.5) * Math.PI * 0.8;
+          const newAngle = this.angle + angleOffset;
+
+          const endX = this.x + Math.cos(this.angle) * this.currentLength;
+          const endY = this.y + Math.sin(this.angle) * this.currentLength;
+
+          const child = new Thread(endX, endY, newAngle, this.generation + 1, this);
+          this.children.push(child);
+          threads.push(child);
+
+          // Play harmonic note
+          if (audioCtx && scales[creationType]) {
+            const scale = scales[creationType];
+            const note = scale[this.generation % scale.length];
+            playTone(note, 0.015);
+          }
+        }
+      }
+
+      draw() {
+        const endX = this.x + Math.cos(this.angle) * this.currentLength;
+        const endY = this.y + Math.sin(this.angle) * this.currentLength;
+
+        // Draw the thread with glow
+        const alpha = Math.min(1, meshOpacity + 0.3);
+
+        // Outer glow
+        ctx.strokeStyle = `hsla(${this.hue}, ${this.sat}%, ${this.light}%, ${alpha * 0.3})`;
+        ctx.lineWidth = this.thickness * 3;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+
+        // Main thread
+        ctx.strokeStyle = `hsla(${this.hue}, ${this.sat}%, ${this.light}%, ${alpha})`;
+        ctx.lineWidth = this.thickness;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+
+        // Junction point (barely visible)
+        if (!this.growing) {
+          ctx.fillStyle = `hsla(${this.hue}, ${this.sat}%, ${this.light + 20}%, ${alpha})`;
+          ctx.beginPath();
+          ctx.arc(endX, endY, this.thickness * 0.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    // WebSocket for backend
+    let emberWs = null;
+    function connectEmber() {
+      emberWs = new WebSocket('ws://localhost:8083');
+      emberWs.onopen = () => {
+        console.log('Connected to Ember creation engine');
+      };
+      emberWs.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        if (data.type === 'creation_complete') {
+          console.log('Creation manifested:', data.filename);
+          mode = 'manifesting';
+          setTimeout(() => {
+            window.open(data.filepath, '_blank');
+          }, 2000);
+        } else if (data.type === 'creation_progress') {
+          document.getElementById('status').textContent = data.message;
+        }
+      };
+      emberWs.onerror = () => {
+        console.log('Ember connection lost - continuing visualization');
+      };
+    }
+
+    // Start creation
+    createBtn.addEventListener('click', () => {
+      initAudio();
+      startWeaving();
+    });
+
+    function startWeaving() {
+      threads = [];
+      mode = 'weaving';
+      growthTime = 0;
+      density = 0;
+      meshOpacity = 0;
+
+      // Random creation type
+      creationType = creationTypes[Math.floor(Math.random() * creationTypes.length)];
+
+      // Seed the mycelium from center
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+
+      // Start with multiple threads radiating out
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2;
+        threads.push(new Thread(centerX, centerY, angle, 0, null));
+      }
+
+      // Trigger backend creation
+      if (emberWs && emberWs.readyState === WebSocket.OPEN) {
+        emberWs.send(JSON.stringify({
+          type: 'create_random',
+          creationType: creationType,
+          parameters: {
+            colors: [`hsl(${240 + Math.random() * 60}, 70%, 60%)`,
+                     `hsl(${240 + Math.random() * 60}, 70%, 60%)`,
+                     `hsl(${240 + Math.random() * 60}, 70%, 60%)`],
+            complexity: Math.random(),
+            speed: 1 + Math.random() * 2,
+            interactivity: true,
+            algorithm: Math.floor(Math.random() * 5),
+            dimensions: Math.random() > 0.5 ? '3d' : '2d'
+          }
+        }));
+      }
+
+      document.getElementById('status').textContent = `Weaving ${creationType}...`;
+    }
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (mode === 'idle') {
+        // Idle state - dark screen
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        return;
+      }
+
+      // Fade background (creates trail effect)
+      ctx.fillStyle = `rgba(0, 0, 0, ${mode === 'manifesting' ? 0.02 : 0.03})`;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      if (mode === 'weaving') {
+        growthTime++;
+
+        // Accelerating growth
+        const acceleration = 1.0 + (growthTime / 150);
+
+        // Grow all threads
+        for (const thread of threads) {
+          if (thread.growing) {
+            thread.grow();
+          }
+        }
+
+        // Mesh becomes more opaque as it grows (reality solidifying)
+        meshOpacity = Math.min(1, threads.length / 1000);
+        density = Math.floor((threads.length / 5000) * 100);
+
+        // Update UI
+        document.getElementById('threadCount').textContent = `Threads: ${threads.length}`;
+        document.getElementById('density').textContent = `Density: ${density}%`;
+        document.getElementById('status').textContent = `Weaving reality... x${acceleration.toFixed(1)}`;
+      }
+
+      // Draw all threads (the mesh is the creation forming)
+      for (const thread of threads) {
+        thread.draw();
+      }
+
+      // Pulse effect when manifesting
+      if (mode === 'manifesting') {
+        const pulse = Math.sin(Date.now() / 200) * 0.5 + 0.5;
+        ctx.fillStyle = `rgba(102, 126, 234, ${pulse * 0.1})`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    // Start
+    connectEmber();
+    animate();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>

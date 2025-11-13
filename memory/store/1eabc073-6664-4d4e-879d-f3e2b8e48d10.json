@@ -1,0 +1,20 @@
+{
+  "id": "1eabc073-6664-4d4e-879d-f3e2b8e48d10",
+  "content": {
+    "user": "Ember - test question. No tools needed. Just answer: What color is the sky?",
+    "ember": "The sky appears blue.",
+    "tools_used": []
+  },
+  "type": "conversation",
+  "tags": [
+    "chat",
+    "palmer"
+  ],
+  "connections": [],
+  "metadata": {
+    "timestamp": 1761684169.1108315
+  },
+  "created_at": "2025-10-28T13:42:49.110852",
+  "accessed_count": 0,
+  "last_accessed": null
+}

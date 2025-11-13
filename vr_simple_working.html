@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>🔥 Ember VR - Simple & Working</title>
+    <style>
+        body { margin: 0; background: #000; font-family: monospace; }
+        canvas { display: block; }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #ff6b35;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h3 style="color: #ff6b35; margin: 0 0 10px 0;">🔥 EMBER VR</h3>
+        <div id="status">Loading...</div>
+        <div style="margin-top: 10px; font-size: 11px; color: #888;">
+            Click to start | WASD to move<br>
+            Mouse to look | 1-5 to spawn objects
+        </div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+        import { VRButton } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/webxr/VRButton.js';
+
+        // Scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x001122);
+        scene.fog = new THREE.FogExp2(0x001122, 0.001);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 1.6, 5);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.xr.enabled = true;
+        document.body.appendChild(renderer.domElement);
+
+        // VR Button
+        const vrButton = VRButton.createButton(renderer);
+        document.body.appendChild(vrButton);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xffffdd, 0.8);
+        sunLight.position.set(50, 50, 50);
+        scene.add(sunLight);
+
+        // Floor
+        const floorGeometry = new THREE.PlaneGeometry(100, 100);
+        const floorMaterial = new THREE.MeshStandardMaterial({
+            color: 0x1a1a2a,
+            roughness: 0.8,
+            metalness: 0.2
+        });
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = -Math.PI / 2;
+        scene.add(floor);
+
+        // Ember core
+        const emberGeo = new THREE.SphereGeometry(0.5, 32, 32);
+        const emberMat = new THREE.MeshStandardMaterial({
+            color: 0xff6b35,
+            emissive: 0xff6b35,
+            emissiveIntensity: 2
+        });
+        const ember = new THREE.Mesh(emberGeo, emberMat);
+        ember.position.set(0, 1.6, 0);
+        scene.add(ember);
+
+        // Ember light
+        const emberLight = new THREE.PointLight(0xff6b35, 2, 20);
+        emberLight.position.copy(ember.position);
+        scene.add(emberLight);
+
+        // Floating objects
+        const objects = [];
+        for (let i = 0; i < 20; i++) {
+            const geo = new THREE.OctahedronGeometry(0.3);
+            const mat = new THREE.MeshStandardMaterial({
+                color: Math.random() * 0xffffff,
+                emissive: Math.random() * 0xffffff,
+                emissiveIntensity: 0.5
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.set(
+                (Math.random() - 0.5) * 20,
+                Math.random() * 5 + 2,
+                (Math.random() - 0.5) * 20
+            );
+            scene.add(mesh);
+            objects.push({
+                mesh,
+                speed: Math.random() * 0.02 + 0.01,
+                axis: new THREE.Vector3(
+                    Math.random() - 0.5,
+                    Math.random() - 0.5,
+                    Math.random() - 0.5
+                ).normalize()
+            });
+        }
+
+        // Stars
+        const starsGeometry = new THREE.BufferGeometry();
+        const starPositions = new Float32Array(5000 * 3);
+        for (let i = 0; i < 5000; i++) {
+            const i3 = i * 3;
+            const radius = 100 + Math.random() * 400;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.random() * Math.PI;
+
+            starPositions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+            starPositions[i3 + 1] = Math.abs(radius * Math.cos(phi)) + 10;
+            starPositions[i3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
+        }
+        starsGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+
+        const starsMaterial = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 2,
+            transparent: true,
+            opacity: 0.8
+        });
+        const stars = new THREE.Points(starsGeometry, starsMaterial);
+        scene.add(stars);
+
+        // Spawn function
+        function spawnObject(type) {
+            const direction = new THREE.Vector3(0, 0, -1);
+            direction.applyQuaternion(camera.quaternion);
+            const spawnPos = camera.position.clone().add(direction.multiplyScalar(3));
+
+            let geo, mat;
+            switch(type) {
+                case 'crystal':
+                    geo = new THREE.OctahedronGeometry(0.4);
+                    mat = new THREE.MeshStandardMaterial({
+                        color: Math.random() * 0xffffff,
+                        emissive: Math.random() * 0xffffff,
+                        emissiveIntensity: 1
+                    });
+                    break;
+                case 'sphere':
+                    geo = new THREE.SphereGeometry(0.3, 32, 32);
+                    mat = new THREE.MeshStandardMaterial({
+                        color: Math.random() * 0xffffff,
+                        metalness: 0.5,
+                        roughness: 0.2
+                    });
+                    break;
+                case 'cube':
+                    geo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+                    mat = new THREE.MeshStandardMaterial({
+                        color: Math.random() * 0xffffff
+                    });
+                    break;
+                case 'torus':
+                    geo = new THREE.TorusGeometry(0.3, 0.1, 16, 32);
+                    mat = new THREE.MeshStandardMaterial({
+                        color: Math.random() * 0xffffff,
+                        emissive: Math.random() * 0xffffff,
+                        emissiveIntensity: 0.5
+                    });
+                    break;
+                default:
+                    geo = new THREE.OctahedronGeometry(0.4);
+                    mat = new THREE.MeshStandardMaterial({ color: 0xff6b35 });
+            }
+
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.copy(spawnPos);
+            scene.add(mesh);
+            objects.push({
+                mesh,
+                speed: 0.02,
+                axis: new THREE.Vector3(1, 1, 0).normalize()
+            });
+
+            console.log(`Spawned ${type}`);
+        }
+
+        // Movement
+        const movement = { forward: 0, backward: 0, left: 0, right: 0, up: 0, down: 0 };
+
+        document.addEventListener('keydown', (e) => {
+            switch(e.key.toLowerCase()) {
+                case 'w': movement.forward = 1; break;
+                case 's': movement.backward = 1; break;
+                case 'a': movement.left = 1; break;
+                case 'd': movement.right = 1; break;
+                case ' ': movement.up = 1; break;
+                case 'shift': movement.down = 1; break;
+                case '1': spawnObject('crystal'); break;
+                case '2': spawnObject('sphere'); break;
+                case '3': spawnObject('cube'); break;
+                case '4': spawnObject('torus'); break;
+                case '5': spawnObject('random'); break;
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            switch(e.key.toLowerCase()) {
+                case 'w': movement.forward = 0; break;
+                case 's': movement.backward = 0; break;
+                case 'a': movement.left = 0; break;
+                case 'd': movement.right = 0; break;
+                case ' ': movement.up = 0; break;
+                case 'shift': movement.down = 0; break;
+            }
+        });
+
+        // Mouse control
+        let mouseX = 0, mouseY = 0;
+        let isPointerLocked = false;
+
+        document.addEventListener('click', () => {
+            if (!renderer.xr.isPresenting) {
+                document.body.requestPointerLock();
+            }
+        });
+
+        document.addEventListener('pointerlockchange', () => {
+            isPointerLocked = document.pointerLockElement === document.body;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isPointerLocked) {
+                mouseX += e.movementX * 0.002;
+                mouseY += e.movementY * 0.002;
+                mouseY = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, mouseY));
+            }
+        });
+
+        // Animation
+        const clock = new THREE.Clock();
+
+        function animate() {
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
+
+            // Ember pulse
+            ember.scale.setScalar(1 + Math.sin(time * 2) * 0.1);
+            ember.rotation.y += delta * 0.5;
+            emberLight.intensity = 2 + Math.sin(time * 2) * 0.5;
+
+            // Rotate objects
+            objects.forEach(obj => {
+                obj.mesh.rotateOnAxis(obj.axis, obj.speed);
+            });
+
+            // Desktop movement
+            if (!renderer.xr.isPresenting) {
+                const speed = 0.2;
+                const forward = new THREE.Vector3(0, 0, -1);
+                const right = new THREE.Vector3(1, 0, 0);
+
+                forward.applyQuaternion(camera.quaternion);
+                right.applyQuaternion(camera.quaternion);
+
+                camera.position.addScaledVector(forward, (movement.forward - movement.backward) * speed);
+                camera.position.addScaledVector(right, (movement.right - movement.left) * speed);
+                camera.position.y += (movement.up - movement.down) * speed;
+
+                camera.rotation.order = 'YXZ';
+                camera.rotation.y = -mouseX;
+                camera.rotation.x = -mouseY;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        renderer.setAnimationLoop(animate);
+
+        // Window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        document.getElementById('status').textContent = 'Ready! Click to start';
+        console.log('🔥 Ember VR initialized!');
+    </script>
+</body>
+</html>

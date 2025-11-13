@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Network Visualization</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            display: block;
+            cursor: pointer;
+        }
+        .info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">Click nodes to create connections • Click again to remove</div>
+    <canvas id="networkCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Node class
+        class Node {
+            constructor(x, y, id) {
+                this.x = x;
+                this.y = y;
+                this.id = id;
+                this.radius = 15 + Math.random() * 10;
+                this.color = `hsl(${Math.random() * 360}, 70%, 50%)`;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.selected = false;
+                this.pulsePhase = Math.random() * Math.PI * 2;
+            }
+
+            update() {
+                // Gentle floating movement
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off walls
+                if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) {
+                    this.vx *= -1;
+                }
+                if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) {
+                    this.vy *= -1;
+                }
+
+                // Keep within bounds
+                this.x = Math.max(this.radius, Math.min(canvas.width - this.radius, this.x));
+                this.y = Math.max(this.radius, Math.min(canvas.height - this.radius, this.y));
+
+                // Update pulse animation
+                this.pulsePhase += 0.05;
+            }
+
+            draw() {
+                // Draw outer glow
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius * 2);
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(0.5, this.color.replace('50%', '30%'));
+                gradient.addColorStop(1, 'transparent');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Draw node
+                ctx.fillStyle = this.selected ? '#fff' : this.color;
+                ctx.beginPath();
+                const pulseRadius = this.radius + Math.sin(this.pulsePhase) * 2;
+                ctx.arc(this.x, this.y, pulseRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Draw border
+                ctx.strokeStyle = this.selected ? this.color : '#fff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            contains(x, y) {
+                const distance = Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2);
+                return distance < this.radius + 10; // Slightly larger hit area
+            }
+        }
+
+        // Connection class
+        class Connection {
+            constructor(node1, node2) {
+                this.node1 = node1;
+                this.node2 = node2;
+                this.strength = 0;
+                this.targetStrength = 1;
+            }
+
+            update() {
+                // Animate connection strength
+                this.strength += (this.targetStrength - this.strength) * 0.1;
+            }
+
+            draw() {
+                if (this.strength < 0.01) return;
+
+                const dx = this.node2.x - this.node1.x;
+                const dy = this.node2.y - this.node1.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                // Draw connection line
+                ctx.strokeStyle = `rgba(100, 200, 255, ${this.strength * 0.3})`;
+                ctx.lineWidth = 2 * this.strength;
+                ctx.beginPath();
+                ctx.moveTo(this.node1.x, this.node1.y);
+                ctx.lineTo(this.node2.x, this.node2.y);
+                ctx.stroke();
+
+                // Draw energy particles along the line
+                const particleCount = 3;
+                for (let i = 0; i < particleCount; i++) {
+                    const t = ((Date.now() * 0.001 + i / particleCount) % 1);
+                    const px = this.node1.x + dx * t;
+                    const py = this.node1.y + dy * t;
+                    
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.strength * 0.8})`;
+                    ctx.beginPath();
+                    ctx.arc(px, py, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+
+        // Create initial nodes
+        const nodes = [];
+        const nodeCount = 12;
+        for (let i = 0; i < nodeCount; i++) {
+            const angle = (i / nodeCount) * Math.PI * 2;
+            const radius = Math.min(canvas.width, canvas.height) * 0.3;
+            const x = canvas.width / 2 + Math.cos(angle) * radius;
+            const y = canvas.height / 2 + Math.sin(angle) * radius;
+            nodes.push(new Node(x, y, i));
+        }
+
+        // Create some initial connections
+        const connections = [];
+        for (let i = 0; i < 5; i++) {
+            const node1 = nodes[Math.floor(Math.random() * nodes.length)];
+            const node2 = nodes[Math.floor(Math.random() * nodes.length)];
+            if (node1 !== node2) {
+                connections.push(new Connection(node1, node2));
+            }
+        }
+
+        let selectedNode = null;
+
+        // Mouse interaction
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Check if clicking on a node
+            for (const node of nodes) {
+                if (node.contains(x, y)) {
+                    if (!selectedNode) {
+                        // First selection
+                        selectedNode = node;
+                        node.selected = true;
+                    } else if (selectedNode === node) {
+                        // Deselect
+                        node.selected = false;
+                        selectedNode = null;
+                    } else {
+                        // Create or remove connection
+                        const existingConnection = connections.find(c => 
+                            (c.node1 === selectedNode && c.node2 === node) ||
+                            (c.node1 === node && c.node2 === selectedNode)
+                        );
+
+                        if (existingConnection) {
+                            // Remove connection
+                            existingConnection.targetStrength = 0;
+                            setTimeout(() => {
+                                const index = connections.indexOf(existingConnection);
+                                if (index > -1) connections.splice(index, 1);
+                            }, 1000);
+                        } else {
+                            // Add connection
+                            connections.push(new Connection(selectedNode, node));
+                        }
+
+                        // Reset selection
+                        selectedNode.selected = false;
+                        selectedNode = null;
+                    }
+                    break;
+                }
+            }
+        });
+
+        // Animation loop
+        function animate() {
+            // Clear canvas with fade effect
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw connections
+            connections.forEach(connection => {
+                connection.update();
+                connection.draw();
+            });
+
+            // Update and draw nodes
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

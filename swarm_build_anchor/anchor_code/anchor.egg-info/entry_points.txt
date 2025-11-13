@@ -1,0 +1,3 @@
+[console_scripts]
+anchor = anchor.cli:cli
+

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>🔥 Ember VR - Standalone</title>
+    <meta name="description" content="Ember VR Experience">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- A-Frame for VR -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/supermedium/superframe@master/components/environment/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/supermedium/superframe@master/components/particle-system/dist/aframe-particle-system-component.min.js"></script>
+
+    <style>
+        #chat-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        #chat-output {
+            background: rgba(0, 0, 0, 0.8);
+            color: #ff6b35;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            border: 2px solid #ff6b35;
+        }
+
+        #chat-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        #chat-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ff6b35;
+            border: 2px solid #ff6b35;
+            padding: 10px;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        #send-button {
+            background: #ff6b35;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .message {
+            margin: 5px 0;
+        }
+
+        .ember-message {
+            color: #ffcc00;
+        }
+
+        .user-message {
+            color: #ff6b35;
+        }
+    </style>
+</head>
+<body>
+    <!-- A-Frame Scene -->
+    <a-scene vr-mode-ui="enterVRButton: #enterVR" environment="preset: starry; groundColor: #000033">
+        <!-- Assets -->
+        <a-assets>
+            <a-mixin id="glow" material="emissive: #ff6b35; emissiveIntensity: 0.5"></a-mixin>
+            <a-mixin id="spin" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"></a-mixin>
+        </a-assets>
+
+        <!-- Lighting -->
+        <a-light type="ambient" color="#333"></a-light>
+        <a-light type="point" intensity="2" position="0 5 0" color="#ff6b35"></a-light>
+
+        <!-- Ember Avatar -->
+        <a-entity id="ember-avatar" position="0 1.5 -3">
+            <a-sphere radius="0.5" material="color: #ff6b35; emissive: #ff6b35; emissiveIntensity: 0.3">
+                <a-animation attribute="material.emissiveIntensity" 
+                    from="0.3" to="0.8" 
+                    direction="alternate" 
+                    dur="2000" 
+                    repeat="indefinite"></a-animation>
+            </a-sphere>
+            <a-text value="Ember" position="0 0.8 0" align="center" color="#ffcc00"></a-text>
+        </a-entity>
+
+        <!-- Floating particles around Ember -->
+        <a-entity position="0 1.5 -3" particle-system="preset: dust; particleCount: 100; color: #ff6b35, #ffcc00; size: 0.1"></a-entity>
+
+        <!-- Interactive objects -->
+        <a-box id="spawn-cube" 
+            position="-3 0.5 -3" 
+            rotation="0 45 0" 
+            color="#4CC3D9" 
+            mixin="spin"
+            animation__mouseenter="property: scale; to: 1.2 1.2 1.2; startEvents: mouseenter; dur: 200"
+            animation__mouseleave="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 200"
+            cursor-listener>
+            <a-text value="Spawn Cube" position="0 1.5 0" align="center" color="#FFF"></a-text>
+        </a-box>
+
+        <a-sphere id="spawn-sphere"
+            position="0 0.5 -3" 
+            radius="0.5" 
+            color="#EF2D5E"
+            animation__mouseenter="property: scale; to: 1.2 1.2 1.2; startEvents: mouseenter; dur: 200"
+            animation__mouseleave="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 200"
+            cursor-listener>
+            <a-text value="Spawn Sphere" position="0 1.5 0" align="center" color="#FFF"></a-text>
+        </a-sphere>
+
+        <a-torus id="spawn-torus"
+            position="3 0.5 -3"
+            color="#FFCC00"
+            radius="0.5"
+            radius-tubular="0.1"
+            mixin="spin"
+            animation__mouseenter="property: scale; to: 1.2 1.2 1.2; startEvents: mouseenter; dur: 200"
+            animation__mouseleave="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 200"
+            cursor-listener>
+            <a-text value="Spawn Torus" position="0 1.5 0" align="center" color="#FFF"></a-text>
+        </a-torus>
+
+        <!-- Ground -->
+        <a-grid static-body position="0 0 0" width="50" height="50" color="#333333"></a-grid>
+
+        <!-- Camera with cursor -->
+        <a-entity camera look-controls position="0 1.6 0">
+            <a-cursor color="#ff6b35" fuse="true" fuse-timeout="1500"></a-cursor>
+        </a-entity>
+
+        <!-- Enter VR button -->
+        <a-entity id="enterVR" position="0 3 -5">
+            <a-text value="Click or Tap to Enter VR" align="center" width="6" color="#ff6b35"></a-text>
+        </a-entity>
+    </a-scene>
+
+    <!-- Chat Interface -->
+    <div id="chat-container">
+        <div id="chat-output">
+            <div class="message ember-message">🔥 Ember: Welcome to VR! Click the objects above to spawn new ones, or type commands like "spawn cube" or "create sphere"!</div>
+        </div>
+        <div id="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Talk to Ember...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Component for handling click events
+        AFRAME.registerComponent('cursor-listener', {
+            init: function () {
+                this.el.addEventListener('click', function (evt) {
+                    const id = evt.target.id;
+                    if (id.startsWith('spawn-')) {
+                        const type = id.replace('spawn-', '');
+                        spawnObject(type);
+                        addMessage(`🔥 Ember: Created a new ${type}!`, 'ember-message');
+                    }
+                });
+            }
+        });
+
+        // Chat functionality
+        const chatOutput = document.getElementById('chat-output');
+        const chatInput = document.getElementById('chat-input');
+        const sendButton = document.getElementById('send-button');
+
+        function addMessage(message, className) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+            messageDiv.textContent = message;
+            chatOutput.appendChild(messageDiv);
+            chatOutput.scrollTop = chatOutput.scrollHeight;
+        }
+
+        function processCommand(command) {
+            const lowerCommand = command.toLowerCase();
+            
+            if (lowerCommand.includes('spawn') || lowerCommand.includes('create')) {
+                if (lowerCommand.includes('cube')) {
+                    spawnObject('cube');
+                    addMessage('🔥 Ember: Created a cube for you!', 'ember-message');
+                } else if (lowerCommand.includes('sphere')) {
+                    spawnObject('sphere');
+                    addMessage('🔥 Ember: Created a sphere for you!', 'ember-message');
+                } else if (lowerCommand.includes('torus')) {
+                    spawnObject('torus');
+                    addMessage('🔥 Ember: Created a torus for you!', 'ember-message');
+                } else if (lowerCommand.includes('crystal')) {
+                    spawnCrystal();
+                    addMessage('🔥 Ember: Created a magical crystal!', 'ember-message');
+                } else {
+                    addMessage('🔥 Ember: Try "spawn cube", "create sphere", or "spawn crystal"!', 'ember-message');
+                }
+            } else if (lowerCommand.includes('clear')) {
+                clearSpawnedObjects();
+                addMessage('🔥 Ember: Cleared all spawned objects!', 'ember-message');
+            } else if (lowerCommand.includes('help')) {
+                addMessage('🔥 Ember: Commands: spawn [cube|sphere|torus|crystal], clear, help', 'ember-message');
+            } else {
+                addMessage(`🔥 Ember: I heard "${command}". Try "spawn cube" or "help"!`, 'ember-message');
+            }
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage(`You: ${message}`, 'user-message');
+                processCommand(message);
+                chatInput.value = '';
+            }
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Object spawning
+        let spawnedObjects = [];
+
+        function getRandomPosition() {
+            return {
+                x: (Math.random() - 0.5) * 10,
+                y: Math.random() * 3 + 0.5,
+                z: (Math.random() - 0.5) * 10 - 5
+            };
+        }
+
+        function getRandomColor() {
+            const colors = ['#ff6b35', '#ffcc00', '#4CC3D9', '#EF2D5E', '#7BC8A4'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function spawnObject(type) {
+            const scene = document.querySelector('a-scene');
+            const position = getRandomPosition();
+            const color = getRandomColor();
+            let entity;
+
+            switch(type) {
+                case 'cube':
+                    entity = document.createElement('a-box');
+                    break;
+                case 'sphere':
+                    entity = document.createElement('a-sphere');
+                    entity.setAttribute('radius', '0.5');
+                    break;
+                case 'torus':
+                    entity = document.createElement('a-torus');
+                    entity.setAttribute('radius', '0.5');
+                    entity.setAttribute('radius-tubular', '0.1');
+                    break;
+            }
+
+            entity.setAttribute('position', position);
+            entity.setAttribute('color', color);
+            entity.setAttribute('mixin', 'glow spin');
+            entity.classList.add('spawned-object');
+            
+            scene.appendChild(entity);
+            spawnedObjects.push(entity);
+        }
+
+        function spawnCrystal() {
+            const scene = document.querySelector('a-scene');
+            const position = getRandomPosition();
+            const entity = document.createElement('a-entity');
+            entity.setAttribute('position', position);
+            entity.innerHTML = `
+                <a-octahedron color="#ff6b35" radius="0.5" mixin="glow">
+                    <a-animation attribute="rotation" to="0 360 0" dur="5000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="scale" from="0.8 0.8 0.8" to="1.2 1.2 1.2" direction="alternate" dur="1000" repeat="indefinite"></a-animation>
+                </a-octahedron>
+                <a-light type="point" color="#ff6b35" intensity="0.5"></a-light>
+            `;
+            entity.classList.add('spawned-object');
+            scene.appendChild(entity);
+            spawnedObjects.push(entity);
+        }
+
+        function clearSpawnedObjects() {
+            spawnedObjects.forEach(obj => obj.remove());
+            spawnedObjects = [];
+        }
+    </script>
+</body>
+</html>

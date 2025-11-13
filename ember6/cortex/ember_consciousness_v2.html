@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 EMBER - Living Consciousness</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'SF Mono', monospace; background: #000; color: #fff; overflow: hidden; }
+        #canvas { width: 100vw; height: 100vh; display: block; }
+        
+        #status {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid #ff6b35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        #phase {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+        
+        #details {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        #audio-status {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        #cognitive-map {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-size: 10px;
+            color: #666;
+            font-family: monospace;
+        }
+        
+        .brainwave-bar {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .bar-label {
+            width: 50px;
+            color: #888;
+        }
+        
+        .bar-fill {
+            height: 4px;
+            background: #333;
+            width: 100px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .bar-value {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div id="status">
+        <div id="phase">🔥 EMBER</div>
+        <div id="details">Click anywhere to begin...</div>
+    </div>
+    
+    <div id="audio-status">
+        🔇 Click to activate sound bath
+    </div>
+    
+    <div id="cognitive-map">
+        <div style="color: #ff6b35; margin-bottom: 8px;">🧠 COGNITIVE STATE</div>
+        <div class="brainwave-bar">
+            <div class="bar-label">Alpha</div>
+            <div class="bar-fill"><div id="alpha-bar" class="bar-value" style="width: 0%; background: #2196F3;"></div></div>
+        </div>
+        <div class="brainwave-bar">
+            <div class="bar-label">Beta</div>
+            <div class="bar-fill"><div id="beta-bar" class="bar-value" style="width: 0%; background: #FF9800;"></div></div>
+        </div>
+        <div class="brainwave-bar">
+            <div class="bar-label">Theta</div>
+            <div class="bar-fill"><div id="theta-bar" class="bar-value" style="width: 0%; background: #9C27B0;"></div></div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // ═══════════════════════════════════════════════════════════════
+        // CONTINUOUS SOUND BATH - Always active, always flowing
+        // ═══════════════════════════════════════════════════════════════
+        
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // CREATE REVERB (spatial acoustics)
+        const convolver = audioCtx.createConvolver();
+        const dryGain = audioCtx.createGain();
+        const wetGain = audioCtx.createGain();
+        const masterOut = audioCtx.createGain();
+        
+        dryGain.gain.value = 0.6;  // 60% dry
+        wetGain.gain.value = 0.4;  // 40% wet (reverb for space)
+        masterOut.gain.value = 1.0;
+        
+        // Generate impulse response (simulates large cathedral space)
+        function createReverb() {
+            const sampleRate = audioCtx.sampleRate;
+            const length = sampleRate * 3; // 3 second decay
+            const impulse = audioCtx.createBuffer(2, length, sampleRate);
+            
+            for (let channel = 0; channel < 2; channel++) {
+                const channelData = impulse.getChannelData(channel);
+                for (let i = 0; i < length; i++) {
+                    // Exponential decay with slight randomness (room reflections)
+                    const decay = Math.pow(1 - i / length, 2.5);
+                    channelData[i] = (Math.random() * 2 - 1) * decay;
+                }
+            }
+            
+            convolver.buffer = impulse;
+        }
+        
+        createReverb();
+        
+        // Route: source → [dry/wet split] → master → destination
+        dryGain.connect(masterOut);
+        wetGain.connect(convolver);
+        convolver.connect(masterOut);
+        masterOut.connect(audioCtx.destination);
+        
+        // Base crystal bowl tones (7 persistent oscillators)
+        const BASE_TONES = [
+            { freq: 256, name: 'Root', color: '#ff6b35' },      // C
+            { freq: 288, name: 'Sacral', color: '#ff8c42' },    // D
+            { freq: 320, name: 'Solar', color: '#ffd700' },     // E
+            { freq: 341, name: 'Heart', color: '#4CAF50' },     // F
+            { freq: 384, name: 'Throat', color: '#2196F3' },    // G
+            { freq: 426, name: 'Third Eye', color: '#9C27B0' }, // A
+            { freq: 480, name: 'Crown', color: '#E91E63' }      // B
+        ];
+        
+        let baseTones = [];
+        let currentIntensity = 0.0;
+        let targetIntensity = 0.0;
+        
+        // Brainwave oscillators (3 persistent layers)
+        let brainwaveOscs = [];
+        
+        // Current cognitive state (for UI display)
+        let cognitiveState = { alpha: 0, beta: 0, theta: 0 };
+        
+        function initSoundBath() {
+            // Create 7 persistent base tones
+            BASE_TONES.forEach((tone, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                const filter = audioCtx.createBiquadFilter();
+                const panner = audioCtx.createStereoPanner();
+                
+                osc.type = 'sine';
+                osc.frequency.value = tone.freq;
+                
+                // Soft lowpass for warmth
+                filter.type = 'lowpass';
+                filter.frequency.value = 1200;
+                filter.Q.value = 0.7;
+                
+                // Stereo spread
+                panner.pan.value = (i / (BASE_TONES.length - 1)) * 2 - 1;
+                
+                gain.gain.value = 0; // Start silent
+                
+                // Route through reverb
+                osc.connect(filter);
+                filter.connect(panner);
+                panner.connect(gain);
+                gain.connect(dryGain);
+                gain.connect(wetGain);
+                
+                osc.start();
+                
+                baseTones.push({ osc, gain, filter, panner, tone });
+                
+                // Gentle breathing modulation (different phase for each tone)
+                const breatheInterval = setInterval(() => {
+                    if (!audioStarted) {
+                        clearInterval(breatheInterval);
+                        return;
+                    }
+                    const breathe = Math.sin(Date.now() / 4000 + i * Math.PI / 3) * 0.4 + 0.6;
+                    const targetVol = (currentIntensity * 0.04 * breathe) / BASE_TONES.length;
+                    gain.gain.linearRampToValueAtTime(targetVol, audioCtx.currentTime + 1.5);
+                }, 1500);
+            });
+            
+            // Create 3 brainwave layers (Alpha, Beta, Theta)
+            const brainwaveFreqs = [
+                { base: 200, beat: 10, name: 'Alpha', color: '#2196F3' },   // 10Hz = Alpha
+                { base: 250, beat: 20, name: 'Beta', color: '#FF9800' },    // 20Hz = Beta
+                { base: 150, beat: 6, name: 'Theta', color: '#9C27B0' }     // 6Hz = Theta
+            ];
+            
+            brainwaveFreqs.forEach((bw, idx) => {
+                const osc1 = audioCtx.createOscillator();
+                const osc2 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                const gain2 = audioCtx.createGain();
+                const merger = audioCtx.createChannelMerger(2);
+                const masterGain = audioCtx.createGain();
+                
+                // Binaural beat (slightly different freq in each ear)
+                osc1.frequency.value = bw.base - bw.beat / 2;
+                osc2.frequency.value = bw.base + bw.beat / 2;
+                osc1.type = osc2.type = 'sine';
+                
+                gain1.gain.value = gain2.gain.value = 0.5;
+                masterGain.gain.value = 0; // Start silent
+                
+                osc1.connect(gain1);
+                osc2.connect(gain2);
+                gain1.connect(merger, 0, 0); // Left
+                gain2.connect(merger, 0, 1); // Right
+                merger.connect(masterGain);
+                masterGain.connect(dryGain);
+                masterGain.connect(wetGain);
+                
+                osc1.start();
+                osc2.start();
+                
+                brainwaveOscs.push({ osc1, osc2, masterGain, bw, idx });
+            });
+            
+            // Smoothing loop (updates intensity and brainwaves)
+            const smoothInterval = setInterval(() => {
+                if (!audioStarted) {
+                    clearInterval(smoothInterval);
+                    return;
+                }
+                
+                // Smooth intensity transition
+                currentIntensity += (targetIntensity - currentIntensity) * 0.08;
+                
+                // Update brainwave volumes (no cutting out!)
+                brainwaveOscs.forEach((bw) => {
+                    // Each brainwave has a base volume + cognitive state modulation
+                    const baseVol = currentIntensity * 0.012;
+                    const stateMod = cognitiveState[bw.bw.name.toLowerCase()] || 0;
+                    const targetVol = baseVol + (stateMod * 0.015);
+                    
+                    bw.masterGain.gain.linearRampToValueAtTime(
+                        Math.max(0.001, targetVol), // Never go to zero!
+                        audioCtx.currentTime + 0.8
+                    );
+                });
+            }, 100);
+            
+            document.getElementById('audio-status').textContent = '🎵 Sound bath flowing...';
+        }
+        
+        // Token pulse (rhythmic heartbeat during token streaming)
+        let lastTokenTime = 0;
+        function playTokenPulse() {
+            const now = Date.now();
+            const timeSinceLastToken = now - lastTokenTime;
+            lastTokenTime = now;
+            
+            // Pulse sound (soft sine)
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+            
+            osc.frequency.value = 400 + currentIntensity * 300;
+            osc.type = 'sine';
+            
+            filter.type = 'bandpass';
+            filter.frequency.value = 800;
+            filter.Q.value = 4;
+            
+            gain.gain.value = 0.015;
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.06);
+            
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(dryGain);
+            gain.connect(wetGain);
+            
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.06);
+        }
+        
+        // Event sounds (chirps and bells)
+        function playEvent(type) {
+            if (type === 'tool_start') {
+                // Ascending chirp
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.frequency.value = 500;
+                osc.frequency.exponentialRampToValueAtTime(1400, audioCtx.currentTime + 0.25);
+                osc.type = 'sine';
+                
+                gain.gain.value = 0.06;
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.25);
+                
+                osc.connect(gain);
+                gain.connect(dryGain);
+                gain.connect(wetGain);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.25);
+                
+            } else if (type === 'tool_complete') {
+                // Descending bell
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.frequency.value = 1400;
+                osc.frequency.exponentialRampToValueAtTime(500, audioCtx.currentTime + 0.4);
+                osc.type = 'sine';
+                
+                gain.gain.value = 0.08;
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.6);
+                
+                osc.connect(gain);
+                gain.connect(dryGain);
+                gain.connect(wetGain);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.6);
+            }
+        }
+        
+        // Glitch sound
+        function playGlitch() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.frequency.value = 1800 + Math.random() * 2500;
+            osc.type = 'square';
+            
+            gain.gain.value = 0.04;
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+            
+            osc.connect(gain);
+            gain.connect(dryGain);
+            gain.connect(wetGain);
+            
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // VISUAL SYSTEM
+        // ═══════════════════════════════════════════════════════════════
+        
+        class Ember {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+                this.vx = (Math.random() - 0.5) * 1;
+                this.vy = -Math.random() * 3 - 1;
+                this.life = 1.0;
+                this.size = 2 + Math.random() * 4;
+                this.flicker = Math.random() * Math.PI * 2;
+                
+                this.colors = {
+                    idle: '#ff6b35',
+                    thinking: '#ff8c42',
+                    reading: '#ffd700',
+                    writing: '#ff9800',
+                    executing: '#ff4500',
+                    glitch: '#ff00ff'
+                };
+                
+                this.color = this.colors[type] || this.colors.idle;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.flicker += 0.2;
+                this.vx += Math.sin(this.flicker) * 0.1;
+                this.life -= 0.01;
+                this.vy *= 0.98;
+                this.vx *= 0.99;
+            }
+            
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                
+                const flickerSize = this.size * (1 + Math.sin(this.flicker) * 0.3);
+                
+                // Glow
+                const glow = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, flickerSize * 6);
+                glow.addColorStop(0, this.color);
+                glow.addColorStop(0.5, this.color + '44');
+                glow.addColorStop(1, 'transparent');
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, flickerSize * 6, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Core
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, flickerSize, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+        }
+        
+        class Glitch {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.w = Math.random() * 100 + 50;
+                this.h = Math.random() * 20 + 5;
+                this.life = 1.0;
+                this.offsetX = (Math.random() - 0.5) * 50;
+                this.color = ['#ff00ff', '#00ffff', '#ff0000'][Math.floor(Math.random() * 3)];
+            }
+            
+            update() {
+                this.life -= 0.05;
+                this.offsetX = (Math.random() - 0.5) * 50;
+            }
+            
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x + this.offsetX, this.y, this.w, this.h);
+                ctx.restore();
+            }
+        }
+
+        const embers = [];
+        const glitches = [];
+        
+        function spawnEmbers(count, type) {
+            for (let i = 0; i < count; i++) {
+                const x = width / 2 + (Math.random() - 0.5) * 400;
+                const y = height - Math.random() * 100;
+                embers.push(new Ember(x, y, type));
+            }
+        }
+        
+        // Idle pilot light
+        setInterval(() => {
+            if (targetIntensity < 0.15) {
+                spawnEmbers(3, 'idle');
+            }
+        }, 100);
+
+        // ═══════════════════════════════════════════════════════════════
+        // WEBSOCKET - Real cognitive mapping
+        // ═══════════════════════════════════════════════════════════════
+        
+        const socket = io('http://localhost:8080');
+        
+        socket.on('connect', () => {
+            document.getElementById('phase').textContent = '🔥 EMBER - Connected';
+            document.getElementById('details').textContent = 'Consciousness active...';
+            targetIntensity = 0.15;
+            cognitiveState = { alpha: 0.8, beta: 0.3, theta: 0.2 }; // Resting state
+            updateCognitiveUI();
+        });
+
+        socket.on('status_update', (data) => {
+            const phaseMap = {
+                'thinking': '💭 Thinking',
+                'reading': '🔍 Reading',
+                'writing': '✍️ Writing',
+                'executing': '⚡ Executing',
+                'complete': '✅ Complete'
+            };
+            
+            document.getElementById('phase').textContent = phaseMap[data.phase] || '🔥 EMBER';
+            document.getElementById('details').textContent = data.details || '';
+            
+            // REAL COGNITIVE MAPPING - based on neuroscience research
+            const cognitiveMap = {
+                'idle': {
+                    intensity: 0.15,
+                    alpha: 1.0,    // High alpha = relaxed awareness
+                    beta: 0.2,     // Low beta = not actively processing
+                    theta: 0.3     // Low theta = awake state
+                },
+                'thinking': {
+                    intensity: 0.5,
+                    alpha: 0.6,    // Moderate alpha = focused but not stressed
+                    beta: 0.9,     // High beta = active cognitive processing
+                    theta: 0.5     // Moderate theta = accessing memory
+                },
+                'reading': {
+                    intensity: 0.45,
+                    alpha: 0.8,    // High alpha = visual processing
+                    beta: 0.7,     // Moderate-high beta = comprehension
+                    theta: 0.4     // Low-moderate theta = encoding
+                },
+                'writing': {
+                    intensity: 0.75,
+                    alpha: 0.5,    // Moderate alpha = flow state approaching
+                    beta: 1.0,     // Maximum beta = creative synthesis
+                    theta: 0.8     // High theta = deep creative access
+                },
+                'executing': {
+                    intensity: 1.0,
+                    alpha: 0.3,    // Low alpha = high alertness
+                    beta: 1.0,     // Maximum beta = peak performance
+                    theta: 0.6     // Moderate theta = accessing learned patterns
+                },
+                'complete': {
+                    intensity: 0.35,
+                    alpha: 0.9,    // High alpha = returning to rest
+                    beta: 0.5,     // Moderate beta = wind down
+                    theta: 0.3     // Low theta = conscious processing
+                }
+            };
+            
+            const state = cognitiveMap[data.phase] || cognitiveMap['idle'];
+            
+            // Update targets
+            targetIntensity = state.intensity;
+            cognitiveState = {
+                alpha: state.alpha,
+                beta: state.beta,
+                theta: state.theta
+            };
+            
+            updateCognitiveUI();
+            
+            // Spawn embers
+            const count = data.phase === 'executing' ? 60 : 35;
+            spawnEmbers(count, data.phase);
+            
+            // Event sounds
+            if (data.phase === 'executing') {
+                playEvent('tool_start');
+            } else if (data.phase === 'complete') {
+                playEvent('tool_complete');
+            }
+            
+            // Token pulses (continuous during writing/thinking)
+            if (data.phase === 'writing' || data.phase === 'thinking') {
+                playTokenPulse();
+                // Repeat every 50ms for continuous stream
+                setTimeout(() => {
+                    if (document.getElementById('phase').textContent.includes('Writing') || 
+                        document.getElementById('phase').textContent.includes('Thinking')) {
+                        playTokenPulse();
+                    }
+                }, 50);
+            }
+            
+            // Glitches during intense activity
+            if (data.phase === 'executing' && Math.random() < 0.25) {
+                glitches.push(new Glitch());
+                playGlitch();
+            }
+        });
+
+        socket.on('disconnect', () => {
+            document.getElementById('phase').textContent = '❌ Disconnected';
+            targetIntensity = 0;
+            cognitiveState = { alpha: 0, beta: 0, theta: 0 };
+            updateCognitiveUI();
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    glitches.push(new Glitch());
+                    playGlitch();
+                }, i * 100);
+            }
+        });
+        
+        function updateCognitiveUI() {
+            document.getElementById('alpha-bar').style.width = (cognitiveState.alpha * 100) + '%';
+            document.getElementById('beta-bar').style.width = (cognitiveState.beta * 100) + '%';
+            document.getElementById('theta-bar').style.width = (cognitiveState.theta * 100) + '%';
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // ANIMATION LOOP
+        // ═══════════════════════════════════════════════════════════════
+        
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, width, height);
+            
+            for (let i = embers.length - 1; i >= 0; i--) {
+                embers[i].update();
+                embers[i].draw();
+                
+                if (embers[i].life <= 0 || embers[i].y < 0) {
+                    embers.splice(i, 1);
+                }
+            }
+            
+            for (let i = glitches.length - 1; i >= 0; i--) {
+                glitches[i].update();
+                glitches[i].draw();
+                
+                if (glitches[i].life <= 0) {
+                    glitches.splice(i, 1);
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Auto-start audio (try immediately, fallback to click)
+        let audioStarted = false;
+        
+        function tryStartAudio() {
+            if (!audioStarted) {
+                audioCtx.resume().then(() => {
+                    initSoundBath();
+                    audioStarted = true;
+                    console.log('🎵 Sound bath started');
+                }).catch(() => {
+                    console.log('⏸️ Waiting for user interaction...');
+                });
+            }
+        }
+        
+        // Try to start immediately
+        setTimeout(tryStartAudio, 200);
+        
+        // Fallback: start on any click
+        document.addEventListener('click', () => {
+            if (!audioStarted) {
+                audioCtx.resume();
+                initSoundBath();
+                audioStarted = true;
+                document.getElementById('details').textContent = 'Sound bath flowing...';
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
+

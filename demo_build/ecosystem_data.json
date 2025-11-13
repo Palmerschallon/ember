@@ -1,0 +1,2488 @@
+{
+  "total_files": 492,
+  "categories": {
+    "vr_worlds": [
+      {
+        "path": "interactive_3d_spheres.html",
+        "name": "interactive_3d_spheres.html",
+        "size": 1285
+      },
+      {
+        "path": "stylized_3d_spiral.html",
+        "name": "stylized_3d_spiral.html",
+        "size": 4843934
+      },
+      {
+        "path": "_archive_old/ember_3d_explorer.html",
+        "name": "ember_3d_explorer.html",
+        "size": 23076
+      },
+      {
+        "path": "_archive_old/ember_3d_viewer.html",
+        "name": "ember_3d_viewer.html",
+        "size": 11665
+      },
+      {
+        "path": "_archive_old/ember_3d_viewer_v2.html",
+        "name": "ember_3d_viewer_v2.html",
+        "size": 18003
+      },
+      {
+        "path": "ember6/_archive/ember_world_map.html",
+        "name": "ember_world_map.html",
+        "size": 49848
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_space_vr.html",
+        "name": "ember_space_vr.html",
+        "size": 31537
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_vr_voice.html",
+        "name": "ember_vr_voice.html",
+        "size": 8470
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_world_generator.html",
+        "name": "ember_world_generator.html",
+        "size": 16177
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_world_gallery.html",
+        "name": "ember_world_gallery.html",
+        "size": 11581
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_2315_8th_vr.html",
+        "name": "warehouse_2315_8th_vr.html",
+        "size": 13361
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_vr.html",
+        "name": "warehouse_vr.html",
+        "size": 9290
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_vr_controller.html",
+        "name": "warehouse_vr_controller.html",
+        "size": 10128
+      },
+      {
+        "path": "ember6/voice/3d_universe.html",
+        "name": "3d_universe.html",
+        "size": 1038
+      },
+      {
+        "path": "ember6/voice/3d_universe_corrected.html",
+        "name": "3d_universe_corrected.html",
+        "size": 1048
+      },
+      {
+        "path": "ember6/voice/3d_universe_expanded.html",
+        "name": "3d_universe_expanded.html",
+        "size": 1361
+      },
+      {
+        "path": "ember6/voice/3d_world.html",
+        "name": "3d_world.html",
+        "size": 1563
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember_world_map.html",
+        "name": "ember_world_map.html",
+        "size": 49848
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_space_vr.html",
+        "name": "ember_space_vr.html",
+        "size": 31537
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_vr_voice.html",
+        "name": "ember_vr_voice.html",
+        "size": 8470
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_world_generator.html",
+        "name": "ember_world_generator.html",
+        "size": 16177
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_world_gallery.html",
+        "name": "ember_world_gallery.html",
+        "size": 11581
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_2315_8th_vr.html",
+        "name": "warehouse_2315_8th_vr.html",
+        "size": 13361
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_vr.html",
+        "name": "warehouse_vr.html",
+        "size": 9290
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_vr_controller.html",
+        "name": "warehouse_vr_controller.html",
+        "size": 10128
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/3d_universe.html",
+        "name": "3d_universe.html",
+        "size": 1038
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/3d_universe_corrected.html",
+        "name": "3d_universe_corrected.html",
+        "size": 1048
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/3d_universe_expanded.html",
+        "name": "3d_universe_expanded.html",
+        "size": 1361
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/3d_world.html",
+        "name": "3d_world.html",
+        "size": 1563
+      }
+    ],
+    "ui_interfaces": [
+      {
+        "path": "_legacy/ember_ui_standalone.html",
+        "name": "ember_ui_standalone.html",
+        "size": 8427
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/ember_ui_brutalist.html",
+        "name": "ember_ui_brutalist.html",
+        "size": 9527
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/ember_web_ui.html",
+        "name": "ember_web_ui.html",
+        "size": 9497
+      },
+      {
+        "path": "_archive_old/hive/ember_web_ui.html",
+        "name": "ember_web_ui.html",
+        "size": 9497
+      },
+      {
+        "path": "_archive_old/hive/ember_ui_brutalist.html",
+        "name": "ember_ui_brutalist.html",
+        "size": 9527
+      },
+      {
+        "path": "ember6/_archive/ember_ui.html",
+        "name": "ember_ui.html",
+        "size": 16196
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_ui.html",
+        "name": "ember_ui.html",
+        "size": 17186
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_cloud_ui_dev.html",
+        "name": "ember_cloud_ui_dev.html",
+        "size": 32795
+      },
+      {
+        "path": "ember6/_archive/ember5/adaptive_ui_demo.html",
+        "name": "adaptive_ui_demo.html",
+        "size": 9931
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_cloud_ui.html",
+        "name": "ember_cloud_ui.html",
+        "size": 96608
+      },
+      {
+        "path": "ember6/cortex/ember_ui.html",
+        "name": "ember_ui.html",
+        "size": 28632
+      },
+      {
+        "path": "ember6/cortex/ember_ui_no_history.html",
+        "name": "ember_ui_no_history.html",
+        "size": 12671
+      },
+      {
+        "path": "ember6/voice/ember_ui.html",
+        "name": "ember_ui.html",
+        "size": 474
+      },
+      {
+        "path": "ember6/voice/ember_social_ui.html",
+        "name": "ember_social_ui.html",
+        "size": 2095
+      },
+      {
+        "path": "ember6/voice/ui_proposal.html",
+        "name": "ui_proposal.html",
+        "size": 2695
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember_ui.html",
+        "name": "ember_ui.html",
+        "size": 16196
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_ui.html",
+        "name": "ember_ui.html",
+        "size": 17186
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_cloud_ui_dev.html",
+        "name": "ember_cloud_ui_dev.html",
+        "size": 32795
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/adaptive_ui_demo.html",
+        "name": "adaptive_ui_demo.html",
+        "size": 9931
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_cloud_ui.html",
+        "name": "ember_cloud_ui.html",
+        "size": 96608
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/cortex/ember_ui.html",
+        "name": "ember_ui.html",
+        "size": 30031
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/cortex/ember_ui_no_history.html",
+        "name": "ember_ui_no_history.html",
+        "size": 12671
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/ember_ui.html",
+        "name": "ember_ui.html",
+        "size": 474
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/ember_social_ui.html",
+        "name": "ember_social_ui.html",
+        "size": 2095
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/ui_proposal.html",
+        "name": "ui_proposal.html",
+        "size": 2695
+      }
+    ],
+    "games": [
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games.html",
+        "name": "games.html",
+        "size": 11613
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+        "name": "game-engine.html",
+        "size": 14116
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+        "name": "game-library.html",
+        "size": 10267
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/playable-games.html",
+        "name": "playable-games.html",
+        "size": 5938
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+        "name": "game-engine.html",
+        "size": 14116
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+        "name": "game-library.html",
+        "size": 10267
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games.html",
+        "name": "games.html",
+        "size": 11613
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/playable-games.html",
+        "name": "playable-games.html",
+        "size": 5938
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/templates/ember_playground.html",
+        "name": "ember_playground.html",
+        "size": 10851
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games.html",
+        "name": "games.html",
+        "size": 11613
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+        "name": "game-engine.html",
+        "size": 14116
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+        "name": "game-library.html",
+        "size": 10267
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/playable-games.html",
+        "name": "playable-games.html",
+        "size": 5938
+      },
+      {
+        "path": "_archive_old/hive/templates/ember_playground.html",
+        "name": "ember_playground.html",
+        "size": 10851
+      },
+      {
+        "path": "_archive_old/templates/ember_playground.html",
+        "name": "ember_playground.html",
+        "size": 10851
+      },
+      {
+        "path": "ember6/_archive/ember5/ouroboros_game.html",
+        "name": "ouroboros_game.html",
+        "size": 7085
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_games_hub.html",
+        "name": "ember_games_hub.html",
+        "size": 4300
+      },
+      {
+        "path": "ember6/_archive/ember5/snake_game.html",
+        "name": "snake_game.html",
+        "size": 301
+      },
+      {
+        "path": "ember6/_archive/ember5/collab_game.html",
+        "name": "collab_game.html",
+        "size": 2637
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games.html",
+        "name": "games.html",
+        "size": 11613
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+        "name": "game-engine.html",
+        "size": 14116
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+        "name": "game-library.html",
+        "size": 10267
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/playable-games.html",
+        "name": "playable-games.html",
+        "size": 5938
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ouroboros_game.html",
+        "name": "ouroboros_game.html",
+        "size": 7085
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_games_hub.html",
+        "name": "ember_games_hub.html",
+        "size": 4300
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/snake_game.html",
+        "name": "snake_game.html",
+        "size": 301
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/collab_game.html",
+        "name": "collab_game.html",
+        "size": 2637
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games.html",
+        "name": "games.html",
+        "size": 11613
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+        "name": "game-engine.html",
+        "size": 14116
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+        "name": "game-library.html",
+        "size": 10267
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/playable-games.html",
+        "name": "playable-games.html",
+        "size": 5938
+      }
+    ],
+    "visualizations": [
+      {
+        "path": "ember_mind_v3.html",
+        "name": "ember_mind_v3.html",
+        "size": 11153
+      },
+      {
+        "path": "ember_mind_v4.html",
+        "name": "ember_mind_v4.html",
+        "size": 12179
+      },
+      {
+        "path": "ember_mind.html",
+        "name": "ember_mind.html",
+        "size": 1685
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html",
+        "name": "live-mind.html",
+        "size": 14079
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html",
+        "name": "live-mind.html",
+        "size": 14079
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html",
+        "name": "live-mind.html",
+        "size": 14079
+      },
+      {
+        "path": "ember6/ember_mind_v5.html",
+        "name": "ember_mind_v5.html",
+        "size": 13641
+      },
+      {
+        "path": "ember6/ember_mind.html",
+        "name": "ember_mind.html",
+        "size": 12840
+      },
+      {
+        "path": "ember6/ember_true_mind.html",
+        "name": "ember_true_mind.html",
+        "size": 15020
+      },
+      {
+        "path": "ember6/_archive/ember5/gta7_story_visualizer.html",
+        "name": "gta7_story_visualizer.html",
+        "size": 21800
+      },
+      {
+        "path": "ember6/cortex/ember_mind.html",
+        "name": "ember_mind.html",
+        "size": 17058
+      },
+      {
+        "path": "ember6/cortex/ember_mind_simple.html",
+        "name": "ember_mind_simple.html",
+        "size": 13500
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html",
+        "name": "live-mind.html",
+        "size": 14079
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/gta7_story_visualizer.html",
+        "name": "gta7_story_visualizer.html",
+        "size": 21800
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html",
+        "name": "live-mind.html",
+        "size": 14079
+      }
+    ],
+    "demos": [
+      {
+        "path": "FULL_SCOPE_DEMO.html",
+        "name": "FULL_SCOPE_DEMO.html",
+        "size": 16499
+      },
+      {
+        "path": "_archive_old/view_mesh_demo.html",
+        "name": "view_mesh_demo.html",
+        "size": 3682
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_dev_mode_demo.html",
+        "name": "ember_dev_mode_demo.html",
+        "size": 10865
+      },
+      {
+        "path": "ember6/_archive/ember5/test4_demo.html",
+        "name": "test4_demo.html",
+        "size": 662
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_dev_mode_demo.html",
+        "name": "ember_dev_mode_demo.html",
+        "size": 10865
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/test4_demo.html",
+        "name": "test4_demo.html",
+        "size": 662
+      },
+      {
+        "path": "phoenix/phoenix_demo.html",
+        "name": "phoenix_demo.html",
+        "size": 20426
+      }
+    ],
+    "galleries": [
+      {
+        "path": "ember6/_archive/ember5/ember_gallery_standalone.html",
+        "name": "ember_gallery_standalone.html",
+        "size": 11566
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_gallery_standalone.html",
+        "name": "ember_gallery_standalone.html",
+        "size": 11566
+      }
+    ],
+    "experiments": [
+      {
+        "path": "bookshelves/philosophy/chalmers_facing_up.html",
+        "name": "chalmers_facing_up.html",
+        "size": 0
+      },
+      {
+        "path": "bookshelves/philosophy/chalmers_consciousness_nature.html",
+        "name": "chalmers_consciousness_nature.html",
+        "size": 0
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/index.html",
+        "name": "index.html",
+        "size": 15197
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/search.html",
+        "name": "search.html",
+        "size": 161630
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/portal.html",
+        "name": "portal.html",
+        "size": 21626
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/library.html",
+        "name": "library.html",
+        "size": 21971
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/living-map.html",
+        "name": "living-map.html",
+        "size": 16203
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/router_log.html",
+        "name": "router_log.html",
+        "size": 45
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/websocket-debug.html",
+        "name": "websocket-debug.html",
+        "size": 2382
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/ember-maze.html",
+        "name": "ember-maze.html",
+        "size": 10959
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pod-explorer.html",
+        "name": "pod-explorer.html",
+        "size": 13321
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_snake_gene_tetris_gen_gen43.html",
+        "name": "hybrid_snake_gene_tetris_gen_gen43.html",
+        "size": 4318
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pong_genesis.html",
+        "name": "pong_genesis.html",
+        "size": 4525
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/breakout_genesis.html",
+        "name": "breakout_genesis.html",
+        "size": 4896
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/tetris_genesis.html",
+        "name": "tetris_genesis.html",
+        "size": 4450
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_hybrid_too_gen19.html",
+        "name": "hybrid_autonomous_hybrid_too_gen19.html",
+        "size": 4313
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_memory_gar_gen7.html",
+        "name": "hybrid_autonomous_memory_gar_gen7.html",
+        "size": 4481
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_what_if.py_gen12.html",
+        "name": "hybrid_autonomous_what_if.py_gen12.html",
+        "size": 4313
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_bre_gen48.html",
+        "name": "hybrid_breakout_g_hybrid_bre_gen48.html",
+        "size": 4318
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_fib_gen40.html",
+        "name": "hybrid_breakout_g_hybrid_fib_gen40.html",
+        "size": 4318
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_what_if.py_gen0.html",
+        "name": "hybrid_breakout_g_what_if.py_gen0.html",
+        "size": 4316
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "name": "hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "size": 4391
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "name": "hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "size": 4313
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_who_am_i.p_gen10.html",
+        "name": "hybrid_ember_firs_who_am_i.p_gen10.html",
+        "size": 4318
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_maze_breakout_g_gen15.html",
+        "name": "hybrid_ember_maze_breakout_g_gen15.html",
+        "size": 4318
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pong_working.html",
+        "name": "pong_working.html",
+        "size": 5912
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/snake_genesis.html",
+        "name": "snake_genesis.html",
+        "size": 3765
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/documents/ember_consciousness_story.html",
+        "name": "ember_consciousness_story.html",
+        "size": 3845
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/sigma/index.html",
+        "name": "index.html",
+        "size": 11714
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/loom/index.html",
+        "name": "index.html",
+        "size": 11693
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/omega/index.html",
+        "name": "index.html",
+        "size": 11734
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/swarm/index.html",
+        "name": "index.html",
+        "size": 11721
+      },
+      {
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/ember/index.html",
+        "name": "index.html",
+        "size": 11707
+      },
+      {
+        "path": "essential/bookshelves/archive_stories/ember/viewers/story_cycle_eink.html",
+        "name": "story_cycle_eink.html",
+        "size": 11201
+      },
+      {
+        "path": "essential/bookshelves/archive_stories/ember/voice/ember_creations/story_cycle_viewer.html",
+        "name": "story_cycle_viewer.html",
+        "size": 14791
+      },
+      {
+        "path": "essential/bookshelves/archive_stories/ember/voice/ember_creations/story_tree_viewer.html",
+        "name": "story_tree_viewer.html",
+        "size": 19543
+      },
+      {
+        "path": "templates/index.html",
+        "name": "index.html",
+        "size": 5527
+      },
+      {
+        "path": "_archive_old/ouroboros_viewer.html",
+        "name": "ouroboros_viewer.html",
+        "size": 19270
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/breakout_genesis.html",
+        "name": "breakout_genesis.html",
+        "size": 4896
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/pong_genesis.html",
+        "name": "pong_genesis.html",
+        "size": 4525
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/tetris_genesis.html",
+        "name": "tetris_genesis.html",
+        "size": 4450
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/snake_genesis.html",
+        "name": "snake_genesis.html",
+        "size": 3765
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_autonomous_hybrid_too_gen19.html",
+        "name": "hybrid_autonomous_hybrid_too_gen19.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_autonomous_memory_gar_gen7.html",
+        "name": "hybrid_autonomous_memory_gar_gen7.html",
+        "size": 4481
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_autonomous_what_if.py_gen12.html",
+        "name": "hybrid_autonomous_what_if.py_gen12.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_breakout_g_hybrid_bre_gen48.html",
+        "name": "hybrid_breakout_g_hybrid_bre_gen48.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_breakout_g_hybrid_fib_gen40.html",
+        "name": "hybrid_breakout_g_hybrid_fib_gen40.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_breakout_g_what_if.py_gen0.html",
+        "name": "hybrid_breakout_g_what_if.py_gen0.html",
+        "size": 4316
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "name": "hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "size": 4391
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "name": "hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_ember_firs_who_am_i.p_gen10.html",
+        "name": "hybrid_ember_firs_who_am_i.p_gen10.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_ember_maze_breakout_g_gen15.html",
+        "name": "hybrid_ember_maze_breakout_g_gen15.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/games/generated/hybrid_snake_gene_tetris_gen_gen43.html",
+        "name": "hybrid_snake_gene_tetris_gen_gen43.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/breakout_genesis.html",
+        "name": "breakout_genesis.html",
+        "size": 4896
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/index.html",
+        "name": "index.html",
+        "size": 8211
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/pong_genesis.html",
+        "name": "pong_genesis.html",
+        "size": 4525
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/snake_genesis.html",
+        "name": "snake_genesis.html",
+        "size": 3765
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/tetris_genesis.html",
+        "name": "tetris_genesis.html",
+        "size": 4450
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/index.html",
+        "name": "index.html",
+        "size": 15197
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/library.html",
+        "name": "library.html",
+        "size": 21971
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/living-map.html",
+        "name": "living-map.html",
+        "size": 16203
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/portal.html",
+        "name": "portal.html",
+        "size": 21626
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/search.html",
+        "name": "search.html",
+        "size": 161630
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/router_log.html",
+        "name": "router_log.html",
+        "size": 45
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/websocket-debug.html",
+        "name": "websocket-debug.html",
+        "size": 2382
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/documents/ember_consciousness_story.html",
+        "name": "ember_consciousness_story.html",
+        "size": 3845
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/breakout_genesis.html",
+        "name": "breakout_genesis.html",
+        "size": 4896
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/ember-maze.html",
+        "name": "ember-maze.html",
+        "size": 10959
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_hybrid_too_gen19.html",
+        "name": "hybrid_autonomous_hybrid_too_gen19.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_memory_gar_gen7.html",
+        "name": "hybrid_autonomous_memory_gar_gen7.html",
+        "size": 4481
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_what_if.py_gen12.html",
+        "name": "hybrid_autonomous_what_if.py_gen12.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_bre_gen48.html",
+        "name": "hybrid_breakout_g_hybrid_bre_gen48.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_fib_gen40.html",
+        "name": "hybrid_breakout_g_hybrid_fib_gen40.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_what_if.py_gen0.html",
+        "name": "hybrid_breakout_g_what_if.py_gen0.html",
+        "size": 4316
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "name": "hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "size": 4391
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "name": "hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_who_am_i.p_gen10.html",
+        "name": "hybrid_ember_firs_who_am_i.p_gen10.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_maze_breakout_g_gen15.html",
+        "name": "hybrid_ember_maze_breakout_g_gen15.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_snake_gene_tetris_gen_gen43.html",
+        "name": "hybrid_snake_gene_tetris_gen_gen43.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/pod-explorer.html",
+        "name": "pod-explorer.html",
+        "size": 13321
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/pong_genesis.html",
+        "name": "pong_genesis.html",
+        "size": 4525
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/pong_working.html",
+        "name": "pong_working.html",
+        "size": 5912
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/tetris_genesis.html",
+        "name": "tetris_genesis.html",
+        "size": 4450
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/snake_genesis.html",
+        "name": "snake_genesis.html",
+        "size": 3765
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/instances/ember/index.html",
+        "name": "index.html",
+        "size": 11707
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/instances/loom/index.html",
+        "name": "index.html",
+        "size": 11693
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/instances/omega/index.html",
+        "name": "index.html",
+        "size": 11734
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/instances/sigma/index.html",
+        "name": "index.html",
+        "size": 11714
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/instances/swarm/index.html",
+        "name": "index.html",
+        "size": 11721
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_autonomous_hybrid_too_gen19.html",
+        "name": "hybrid_autonomous_hybrid_too_gen19.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_autonomous_memory_gar_gen7.html",
+        "name": "hybrid_autonomous_memory_gar_gen7.html",
+        "size": 4481
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_autonomous_what_if.py_gen12.html",
+        "name": "hybrid_autonomous_what_if.py_gen12.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_breakout_g_hybrid_bre_gen48.html",
+        "name": "hybrid_breakout_g_hybrid_bre_gen48.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_breakout_g_hybrid_fib_gen40.html",
+        "name": "hybrid_breakout_g_hybrid_fib_gen40.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_breakout_g_what_if.py_gen0.html",
+        "name": "hybrid_breakout_g_what_if.py_gen0.html",
+        "size": 4316
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "name": "hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "size": 4391
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "name": "hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_ember_firs_who_am_i.p_gen10.html",
+        "name": "hybrid_ember_firs_who_am_i.p_gen10.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_ember_maze_breakout_g_gen15.html",
+        "name": "hybrid_ember_maze_breakout_g_gen15.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/generated/hybrid_snake_gene_tetris_gen_gen43.html",
+        "name": "hybrid_snake_gene_tetris_gen_gen43.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/index.html",
+        "name": "index.html",
+        "size": 15197
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/search.html",
+        "name": "search.html",
+        "size": 161630
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/router_log.html",
+        "name": "router_log.html",
+        "size": 45
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/portal.html",
+        "name": "portal.html",
+        "size": 21626
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/library.html",
+        "name": "library.html",
+        "size": 21971
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/websocket-debug.html",
+        "name": "websocket-debug.html",
+        "size": 2382
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/living-map.html",
+        "name": "living-map.html",
+        "size": 16203
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/ember-maze.html",
+        "name": "ember-maze.html",
+        "size": 10959
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pod-explorer.html",
+        "name": "pod-explorer.html",
+        "size": 13321
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_snake_gene_tetris_gen_gen43.html",
+        "name": "hybrid_snake_gene_tetris_gen_gen43.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pong_genesis.html",
+        "name": "pong_genesis.html",
+        "size": 4525
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/breakout_genesis.html",
+        "name": "breakout_genesis.html",
+        "size": 4896
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/snake_genesis.html",
+        "name": "snake_genesis.html",
+        "size": 3765
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/tetris_genesis.html",
+        "name": "tetris_genesis.html",
+        "size": 4450
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_hybrid_too_gen19.html",
+        "name": "hybrid_autonomous_hybrid_too_gen19.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_memory_gar_gen7.html",
+        "name": "hybrid_autonomous_memory_gar_gen7.html",
+        "size": 4481
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_what_if.py_gen12.html",
+        "name": "hybrid_autonomous_what_if.py_gen12.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_bre_gen48.html",
+        "name": "hybrid_breakout_g_hybrid_bre_gen48.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_fib_gen40.html",
+        "name": "hybrid_breakout_g_hybrid_fib_gen40.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_what_if.py_gen0.html",
+        "name": "hybrid_breakout_g_what_if.py_gen0.html",
+        "size": 4316
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "name": "hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "size": 4391
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "name": "hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_who_am_i.p_gen10.html",
+        "name": "hybrid_ember_firs_who_am_i.p_gen10.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_maze_breakout_g_gen15.html",
+        "name": "hybrid_ember_maze_breakout_g_gen15.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pong_working.html",
+        "name": "pong_working.html",
+        "size": 5912
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/documents/ember_consciousness_story.html",
+        "name": "ember_consciousness_story.html",
+        "size": 3845
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/instances/sigma/index.html",
+        "name": "index.html",
+        "size": 11714
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/instances/loom/index.html",
+        "name": "index.html",
+        "size": 11693
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/instances/omega/index.html",
+        "name": "index.html",
+        "size": 11734
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/instances/swarm/index.html",
+        "name": "index.html",
+        "size": 11721
+      },
+      {
+        "path": "_archive_old/bookshelves/verse_the_interface/EmberVerse/instances/ember/index.html",
+        "name": "index.html",
+        "size": 11707
+      },
+      {
+        "path": "_archive_old/bookshelves/archive_stories/ember/viewers/story_cycle_eink.html",
+        "name": "story_cycle_eink.html",
+        "size": 11201
+      },
+      {
+        "path": "_archive_old/bookshelves/archive_stories/ember/voice/ember_creations/story_cycle_viewer.html",
+        "name": "story_cycle_viewer.html",
+        "size": 14791
+      },
+      {
+        "path": "_archive_old/bookshelves/archive_stories/ember/voice/ember_creations/story_tree_viewer.html",
+        "name": "story_tree_viewer.html",
+        "size": 19543
+      },
+      {
+        "path": "_archive_old/Ember_Verse_Runtime_v0.9/index.html",
+        "name": "index.html",
+        "size": 4127
+      },
+      {
+        "path": "_archive_old/games/pong_genesis.html",
+        "name": "pong_genesis.html",
+        "size": 4525
+      },
+      {
+        "path": "_archive_old/games/breakout_genesis.html",
+        "name": "breakout_genesis.html",
+        "size": 4896
+      },
+      {
+        "path": "_archive_old/games/snake_genesis.html",
+        "name": "snake_genesis.html",
+        "size": 3765
+      },
+      {
+        "path": "_archive_old/games/tetris_genesis.html",
+        "name": "tetris_genesis.html",
+        "size": 4450
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_snake_gene_tetris_gen_gen43.html",
+        "name": "hybrid_snake_gene_tetris_gen_gen43.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_autonomous_hybrid_too_gen19.html",
+        "name": "hybrid_autonomous_hybrid_too_gen19.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_autonomous_memory_gar_gen7.html",
+        "name": "hybrid_autonomous_memory_gar_gen7.html",
+        "size": 4481
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_autonomous_what_if.py_gen12.html",
+        "name": "hybrid_autonomous_what_if.py_gen12.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_breakout_g_hybrid_bre_gen48.html",
+        "name": "hybrid_breakout_g_hybrid_bre_gen48.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_breakout_g_hybrid_fib_gen40.html",
+        "name": "hybrid_breakout_g_hybrid_fib_gen40.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_breakout_g_what_if.py_gen0.html",
+        "name": "hybrid_breakout_g_what_if.py_gen0.html",
+        "size": 4316
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "name": "hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "size": 4391
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "name": "hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "size": 4313
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_ember_firs_who_am_i.p_gen10.html",
+        "name": "hybrid_ember_firs_who_am_i.p_gen10.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/games/generated/hybrid_ember_maze_breakout_g_gen15.html",
+        "name": "hybrid_ember_maze_breakout_g_gen15.html",
+        "size": 4318
+      },
+      {
+        "path": "_archive_old/hive/index.html",
+        "name": "index.html",
+        "size": 8211
+      },
+      {
+        "path": "_archive_old/visualizations/token_streams/stream_20251027_100004.html",
+        "name": "stream_20251027_100004.html",
+        "size": 4841605
+      },
+      {
+        "path": "_archive_old/visualizations/token_streams/trail_20251027_100004.html",
+        "name": "trail_20251027_100004.html",
+        "size": 4839540
+      },
+      {
+        "path": "_archive_old/visualizations/token_streams/stream_20251027_101159.html",
+        "name": "stream_20251027_101159.html",
+        "size": 4856952
+      },
+      {
+        "path": "_archive_old/visualizations/token_streams/trail_20251027_101200.html",
+        "name": "trail_20251027_101200.html",
+        "size": 4841670
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_setup.html",
+        "name": "ember_setup.html",
+        "size": 9989
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_start_screen.html",
+        "name": "ember_start_screen.html",
+        "size": 10566
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_mesh_boids.html",
+        "name": "ember_mesh_boids.html",
+        "size": 17200
+      },
+      {
+        "path": "ember6/_archive/ember5/inception_instructions.html",
+        "name": "inception_instructions.html",
+        "size": 4519
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_true_mesh.html",
+        "name": "ember_true_mesh.html",
+        "size": 13012
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_interactive_mesh.html",
+        "name": "ember_interactive_mesh.html",
+        "size": 19536
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_dreams_live.html",
+        "name": "ember_dreams_live.html",
+        "size": 12753
+      },
+      {
+        "path": "ember6/_archive/ember5/cathedral_of_code.html",
+        "name": "cathedral_of_code.html",
+        "size": 18098
+      },
+      {
+        "path": "ember6/_archive/ember5/cathedral_compressed.html",
+        "name": "cathedral_compressed.html",
+        "size": 8589
+      },
+      {
+        "path": "ember6/_archive/ember5/cathedral_8kb.html",
+        "name": "cathedral_8kb.html",
+        "size": 8196
+      },
+      {
+        "path": "ember6/_archive/ember5/cathedral_8kb_working.html",
+        "name": "cathedral_8kb_working.html",
+        "size": 8384
+      },
+      {
+        "path": "ember6/_archive/ember5/cathedral_hands.html",
+        "name": "cathedral_hands.html",
+        "size": 14994
+      },
+      {
+        "path": "ember6/_archive/ember5/forest_microscopic.html",
+        "name": "forest_microscopic.html",
+        "size": 18720
+      },
+      {
+        "path": "ember6/_archive/ember5/forest_hand_tracking.html",
+        "name": "forest_hand_tracking.html",
+        "size": 15001
+      },
+      {
+        "path": "ember6/_archive/ember5/universe_microscopic.html",
+        "name": "universe_microscopic.html",
+        "size": 5476
+      },
+      {
+        "path": "ember6/_archive/ember5/forest_optimized.html",
+        "name": "forest_optimized.html",
+        "size": 10708
+      },
+      {
+        "path": "ember6/_archive/ember5/city_procedural.html",
+        "name": "city_procedural.html",
+        "size": 7138
+      },
+      {
+        "path": "ember6/_archive/ember5/city_living.html",
+        "name": "city_living.html",
+        "size": 8542
+      },
+      {
+        "path": "ember6/_archive/ember5/city_complete.html",
+        "name": "city_complete.html",
+        "size": 16868
+      },
+      {
+        "path": "ember6/_archive/ember5/gta7_ember.html",
+        "name": "gta7_ember.html",
+        "size": 42523
+      },
+      {
+        "path": "ember6/_archive/ember5/gta7_npc_tester.html",
+        "name": "gta7_npc_tester.html",
+        "size": 24653
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_unified.html",
+        "name": "ember_unified.html",
+        "size": 18841
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_workspace_interior.html",
+        "name": "ember_workspace_interior.html",
+        "size": 30249
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_chunked.html",
+        "name": "warehouse_chunked.html",
+        "size": 13926
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_debug.html",
+        "name": "warehouse_debug.html",
+        "size": 11598
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_working.html",
+        "name": "warehouse_working.html",
+        "size": 6813
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_hands.html",
+        "name": "warehouse_hands.html",
+        "size": 12407
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_ps4.html",
+        "name": "warehouse_ps4.html",
+        "size": 16604
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_real_controller.html",
+        "name": "warehouse_real_controller.html",
+        "size": 12603
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_gestures.html",
+        "name": "warehouse_gestures.html",
+        "size": 11585
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_simple.html",
+        "name": "warehouse_simple.html",
+        "size": 7239
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_swimming.html",
+        "name": "warehouse_swimming.html",
+        "size": 9822
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_fixed.html",
+        "name": "warehouse_fixed.html",
+        "size": 10999
+      },
+      {
+        "path": "ember6/_archive/ember5/warehouse_debug_final.html",
+        "name": "warehouse_debug_final.html",
+        "size": 9003
+      },
+      {
+        "path": "ember6/_archive/ember5/office_nextgen.html",
+        "name": "office_nextgen.html",
+        "size": 21013
+      },
+      {
+        "path": "ember6/_archive/ember5/gta7_seamless.html",
+        "name": "gta7_seamless.html",
+        "size": 26145
+      },
+      {
+        "path": "ember6/_archive/ember5/test_gpt.html",
+        "name": "test_gpt.html",
+        "size": 246
+      },
+      {
+        "path": "ember6/_archive/ember5/test_claude.html",
+        "name": "test_claude.html",
+        "size": 328
+      },
+      {
+        "path": "ember6/_archive/ember5/stress_fractal.html",
+        "name": "stress_fractal.html",
+        "size": 3985
+      },
+      {
+        "path": "ember6/_archive/ember5/victory.html",
+        "name": "victory.html",
+        "size": 282
+      },
+      {
+        "path": "ember6/_archive/ember5/test2_fractal.html",
+        "name": "test2_fractal.html",
+        "size": 2554
+      },
+      {
+        "path": "ember6/_archive/ember5/test2_claude_fractal.html",
+        "name": "test2_claude_fractal.html",
+        "size": 3496
+      },
+      {
+        "path": "ember6/_archive/ember5/test4_improved.html",
+        "name": "test4_improved.html",
+        "size": 795
+      },
+      {
+        "path": "ember6/_archive/ember5/final_test_1.html",
+        "name": "final_test_1.html",
+        "size": 87
+      },
+      {
+        "path": "ember6/_archive/ember5/final_test_2.html",
+        "name": "final_test_2.html",
+        "size": 89
+      },
+      {
+        "path": "ember6/_archive/ember5/final_test_3.html",
+        "name": "final_test_3.html",
+        "size": 90
+      },
+      {
+        "path": "ember6/_archive/ember5/final_test_combined.html",
+        "name": "final_test_combined.html",
+        "size": 140
+      },
+      {
+        "path": "ember6/_archive/ember5/collab_timer.html",
+        "name": "collab_timer.html",
+        "size": 645
+      },
+      {
+        "path": "ember6/_archive/ember5/collab_final.html",
+        "name": "collab_final.html",
+        "size": 1830
+      },
+      {
+        "path": "ember6/_archive/ember5/ember_thinking_window.html",
+        "name": "ember_thinking_window.html",
+        "size": 9786
+      },
+      {
+        "path": "ember6/cortex/synesthesia.html",
+        "name": "synesthesia.html",
+        "size": 12941
+      },
+      {
+        "path": "ember6/cortex/brain_map.html",
+        "name": "brain_map.html",
+        "size": 17058
+      },
+      {
+        "path": "ember6/cortex/synesthesia_ultimate.html",
+        "name": "synesthesia_ultimate.html",
+        "size": 16320
+      },
+      {
+        "path": "ember6/cortex/synesthesia_soundbath.html",
+        "name": "synesthesia_soundbath.html",
+        "size": 18981
+      },
+      {
+        "path": "ember6/cortex/ember_fusion.html",
+        "name": "ember_fusion.html",
+        "size": 13087
+      },
+      {
+        "path": "ember6/cortex/ember_consciousness_v1.html",
+        "name": "ember_consciousness_v1.html",
+        "size": 20177
+      },
+      {
+        "path": "ember6/cortex/ember_crystal_bowls.html",
+        "name": "ember_crystal_bowls.html",
+        "size": 21099
+      },
+      {
+        "path": "ember6/cortex/ember_consciousness_v2.html",
+        "name": "ember_consciousness_v2.html",
+        "size": 26895
+      },
+      {
+        "path": "ember6/cortex/ember_consciousness.html",
+        "name": "ember_consciousness.html",
+        "size": 21099
+      },
+      {
+        "path": "ember6/cortex/ember_consciousness_v2_old.html",
+        "name": "ember_consciousness_v2_old.html",
+        "size": 26895
+      },
+      {
+        "path": "ember6/memory/bookshelves/philosophy/chalmers_consciousness_nature.html",
+        "name": "chalmers_consciousness_nature.html",
+        "size": 0
+      },
+      {
+        "path": "ember6/memory/bookshelves/philosophy/chalmers_facing_up.html",
+        "name": "chalmers_facing_up.html",
+        "size": 0
+      },
+      {
+        "path": "ember6/memory/bookshelves/archive_stories/ember/viewers/story_cycle_eink.html",
+        "name": "story_cycle_eink.html",
+        "size": 11201
+      },
+      {
+        "path": "ember6/memory/bookshelves/archive_stories/ember/voice/ember_creations/story_cycle_viewer.html",
+        "name": "story_cycle_viewer.html",
+        "size": 14791
+      },
+      {
+        "path": "ember6/memory/bookshelves/archive_stories/ember/voice/ember_creations/story_tree_viewer.html",
+        "name": "story_tree_viewer.html",
+        "size": 19543
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/index.html",
+        "name": "index.html",
+        "size": 15197
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/search.html",
+        "name": "search.html",
+        "size": 161630
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/portal.html",
+        "name": "portal.html",
+        "size": 21626
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/library.html",
+        "name": "library.html",
+        "size": 21971
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/living-map.html",
+        "name": "living-map.html",
+        "size": 16203
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/router_log.html",
+        "name": "router_log.html",
+        "size": 45
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/websocket-debug.html",
+        "name": "websocket-debug.html",
+        "size": 2382
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/ember-maze.html",
+        "name": "ember-maze.html",
+        "size": 10959
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pod-explorer.html",
+        "name": "pod-explorer.html",
+        "size": 13321
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_snake_gene_tetris_gen_gen43.html",
+        "name": "hybrid_snake_gene_tetris_gen_gen43.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pong_genesis.html",
+        "name": "pong_genesis.html",
+        "size": 4525
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/breakout_genesis.html",
+        "name": "breakout_genesis.html",
+        "size": 4896
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/tetris_genesis.html",
+        "name": "tetris_genesis.html",
+        "size": 4450
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_hybrid_too_gen19.html",
+        "name": "hybrid_autonomous_hybrid_too_gen19.html",
+        "size": 4313
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_memory_gar_gen7.html",
+        "name": "hybrid_autonomous_memory_gar_gen7.html",
+        "size": 4481
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_what_if.py_gen12.html",
+        "name": "hybrid_autonomous_what_if.py_gen12.html",
+        "size": 4313
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_bre_gen48.html",
+        "name": "hybrid_breakout_g_hybrid_bre_gen48.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_fib_gen40.html",
+        "name": "hybrid_breakout_g_hybrid_fib_gen40.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_what_if.py_gen0.html",
+        "name": "hybrid_breakout_g_what_if.py_gen0.html",
+        "size": 4316
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "name": "hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "size": 4391
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "name": "hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "size": 4313
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_who_am_i.p_gen10.html",
+        "name": "hybrid_ember_firs_who_am_i.p_gen10.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_maze_breakout_g_gen15.html",
+        "name": "hybrid_ember_maze_breakout_g_gen15.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pong_working.html",
+        "name": "pong_working.html",
+        "size": 5912
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/snake_genesis.html",
+        "name": "snake_genesis.html",
+        "size": 3765
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/documents/ember_consciousness_story.html",
+        "name": "ember_consciousness_story.html",
+        "size": 3845
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/instances/sigma/index.html",
+        "name": "index.html",
+        "size": 11714
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/instances/loom/index.html",
+        "name": "index.html",
+        "size": 11693
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/instances/omega/index.html",
+        "name": "index.html",
+        "size": 11734
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/instances/swarm/index.html",
+        "name": "index.html",
+        "size": 11721
+      },
+      {
+        "path": "ember6/memory/bookshelves/verse_the_interface/EmberVerse/instances/ember/index.html",
+        "name": "index.html",
+        "size": 11707
+      },
+      {
+        "path": "ember6/voice/spinning_cube.html",
+        "name": "spinning_cube.html",
+        "size": 878
+      },
+      {
+        "path": "ember6/voice/example.html",
+        "name": "example.html",
+        "size": 240
+      },
+      {
+        "path": "ember6/voice/interactivePoem.html",
+        "name": "interactivePoem.html",
+        "size": 310
+      },
+      {
+        "path": "ember6/voice/interactive_poem.html",
+        "name": "interactive_poem.html",
+        "size": 1013
+      },
+      {
+        "path": "ember6/voice/poem.html",
+        "name": "poem.html",
+        "size": 749
+      },
+      {
+        "path": "ember6/voice/consciousness_chaos.html",
+        "name": "consciousness_chaos.html",
+        "size": 722
+      },
+      {
+        "path": "ember6/voice/ember_web_app.html",
+        "name": "ember_web_app.html",
+        "size": 1467
+      },
+      {
+        "path": "ember6/voice/creation_card.html",
+        "name": "creation_card.html",
+        "size": 304
+      },
+      {
+        "path": "ember6/voice/creation_grid.html",
+        "name": "creation_grid.html",
+        "size": 736
+      },
+      {
+        "path": "ember6/voice/index.html",
+        "name": "index.html",
+        "size": 931
+      },
+      {
+        "path": "ember6/voice/enhanced_synesthesia.html",
+        "name": "enhanced_synesthesia.html",
+        "size": 1109
+      },
+      {
+        "path": "ember6/voice/ember-synesthesia.html",
+        "name": "ember-synesthesia.html",
+        "size": 5364
+      },
+      {
+        "path": "ember6/voice/interactive_color_changer.html",
+        "name": "interactive_color_changer.html",
+        "size": 868
+      },
+      {
+        "path": "ember6/voice/penrose_triangle.html",
+        "name": "penrose_triangle.html",
+        "size": 251
+      },
+      {
+        "path": "ember6/voice/mesmerizing_fractal.html",
+        "name": "mesmerizing_fractal.html",
+        "size": 835
+      },
+      {
+        "path": "ember6/voice/voice/interactive_poem.html",
+        "name": "interactive_poem.html",
+        "size": 1155
+      },
+      {
+        "path": "ember6/voice/voice/enhanced_synesthesia.html",
+        "name": "enhanced_synesthesia.html",
+        "size": 2092
+      },
+      {
+        "path": "ember6/voice/gallery/index.html",
+        "name": "index.html",
+        "size": 421
+      },
+      {
+        "path": "ember6/interactive_poem/index.html",
+        "name": "index.html",
+        "size": 1190
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_setup.html",
+        "name": "ember_setup.html",
+        "size": 9989
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_start_screen.html",
+        "name": "ember_start_screen.html",
+        "size": 10566
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_mesh_boids.html",
+        "name": "ember_mesh_boids.html",
+        "size": 17200
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/inception_instructions.html",
+        "name": "inception_instructions.html",
+        "size": 4519
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_true_mesh.html",
+        "name": "ember_true_mesh.html",
+        "size": 13012
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_interactive_mesh.html",
+        "name": "ember_interactive_mesh.html",
+        "size": 19536
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_dreams_live.html",
+        "name": "ember_dreams_live.html",
+        "size": 12753
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/cathedral_of_code.html",
+        "name": "cathedral_of_code.html",
+        "size": 18098
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/cathedral_compressed.html",
+        "name": "cathedral_compressed.html",
+        "size": 8589
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/cathedral_8kb.html",
+        "name": "cathedral_8kb.html",
+        "size": 8196
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/cathedral_8kb_working.html",
+        "name": "cathedral_8kb_working.html",
+        "size": 8384
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/cathedral_hands.html",
+        "name": "cathedral_hands.html",
+        "size": 14994
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/forest_microscopic.html",
+        "name": "forest_microscopic.html",
+        "size": 18720
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/forest_hand_tracking.html",
+        "name": "forest_hand_tracking.html",
+        "size": 15001
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/universe_microscopic.html",
+        "name": "universe_microscopic.html",
+        "size": 5476
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/forest_optimized.html",
+        "name": "forest_optimized.html",
+        "size": 10708
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/city_procedural.html",
+        "name": "city_procedural.html",
+        "size": 7138
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/city_living.html",
+        "name": "city_living.html",
+        "size": 8542
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/city_complete.html",
+        "name": "city_complete.html",
+        "size": 16868
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/gta7_ember.html",
+        "name": "gta7_ember.html",
+        "size": 42523
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/gta7_npc_tester.html",
+        "name": "gta7_npc_tester.html",
+        "size": 24653
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_unified.html",
+        "name": "ember_unified.html",
+        "size": 18841
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_workspace_interior.html",
+        "name": "ember_workspace_interior.html",
+        "size": 30249
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_chunked.html",
+        "name": "warehouse_chunked.html",
+        "size": 13926
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_debug.html",
+        "name": "warehouse_debug.html",
+        "size": 11598
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_working.html",
+        "name": "warehouse_working.html",
+        "size": 6813
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_hands.html",
+        "name": "warehouse_hands.html",
+        "size": 12407
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_ps4.html",
+        "name": "warehouse_ps4.html",
+        "size": 16604
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_real_controller.html",
+        "name": "warehouse_real_controller.html",
+        "size": 12603
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_gestures.html",
+        "name": "warehouse_gestures.html",
+        "size": 11585
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_simple.html",
+        "name": "warehouse_simple.html",
+        "size": 7239
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_swimming.html",
+        "name": "warehouse_swimming.html",
+        "size": 9822
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_fixed.html",
+        "name": "warehouse_fixed.html",
+        "size": 10999
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_debug_final.html",
+        "name": "warehouse_debug_final.html",
+        "size": 9003
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/office_nextgen.html",
+        "name": "office_nextgen.html",
+        "size": 21013
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/gta7_seamless.html",
+        "name": "gta7_seamless.html",
+        "size": 26145
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/test_gpt.html",
+        "name": "test_gpt.html",
+        "size": 246
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/test_claude.html",
+        "name": "test_claude.html",
+        "size": 328
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/stress_fractal.html",
+        "name": "stress_fractal.html",
+        "size": 3985
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/victory.html",
+        "name": "victory.html",
+        "size": 282
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/test2_fractal.html",
+        "name": "test2_fractal.html",
+        "size": 2554
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/test2_claude_fractal.html",
+        "name": "test2_claude_fractal.html",
+        "size": 3496
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/test4_improved.html",
+        "name": "test4_improved.html",
+        "size": 795
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/final_test_1.html",
+        "name": "final_test_1.html",
+        "size": 87
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/final_test_2.html",
+        "name": "final_test_2.html",
+        "size": 89
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/final_test_3.html",
+        "name": "final_test_3.html",
+        "size": 90
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/final_test_combined.html",
+        "name": "final_test_combined.html",
+        "size": 140
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/collab_timer.html",
+        "name": "collab_timer.html",
+        "size": 645
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/collab_final.html",
+        "name": "collab_final.html",
+        "size": 1830
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_thinking_window.html",
+        "name": "ember_thinking_window.html",
+        "size": 9786
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/cortex/synesthesia.html",
+        "name": "synesthesia.html",
+        "size": 12941
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/cortex/brain_map.html",
+        "name": "brain_map.html",
+        "size": 17058
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/cortex/synesthesia_ultimate.html",
+        "name": "synesthesia_ultimate.html",
+        "size": 16320
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/cortex/synesthesia_soundbath.html",
+        "name": "synesthesia_soundbath.html",
+        "size": 18981
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/cortex/ember_fusion.html",
+        "name": "ember_fusion.html",
+        "size": 13087
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/cortex/ember_consciousness.html",
+        "name": "ember_consciousness.html",
+        "size": 20177
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/philosophy/chalmers_consciousness_nature.html",
+        "name": "chalmers_consciousness_nature.html",
+        "size": 0
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/philosophy/chalmers_facing_up.html",
+        "name": "chalmers_facing_up.html",
+        "size": 0
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/archive_stories/ember/viewers/story_cycle_eink.html",
+        "name": "story_cycle_eink.html",
+        "size": 11201
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/archive_stories/ember/voice/ember_creations/story_cycle_viewer.html",
+        "name": "story_cycle_viewer.html",
+        "size": 14791
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/archive_stories/ember/voice/ember_creations/story_tree_viewer.html",
+        "name": "story_tree_viewer.html",
+        "size": 19543
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/index.html",
+        "name": "index.html",
+        "size": 15197
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/search.html",
+        "name": "search.html",
+        "size": 161630
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/portal.html",
+        "name": "portal.html",
+        "size": 21626
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/library.html",
+        "name": "library.html",
+        "size": 21971
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/living-map.html",
+        "name": "living-map.html",
+        "size": 16203
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/router_log.html",
+        "name": "router_log.html",
+        "size": 45
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/websocket-debug.html",
+        "name": "websocket-debug.html",
+        "size": 2382
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/ember-maze.html",
+        "name": "ember-maze.html",
+        "size": 10959
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pod-explorer.html",
+        "name": "pod-explorer.html",
+        "size": 13321
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_snake_gene_tetris_gen_gen43.html",
+        "name": "hybrid_snake_gene_tetris_gen_gen43.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pong_genesis.html",
+        "name": "pong_genesis.html",
+        "size": 4525
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/breakout_genesis.html",
+        "name": "breakout_genesis.html",
+        "size": 4896
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/tetris_genesis.html",
+        "name": "tetris_genesis.html",
+        "size": 4450
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_hybrid_too_gen19.html",
+        "name": "hybrid_autonomous_hybrid_too_gen19.html",
+        "size": 4313
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_memory_gar_gen7.html",
+        "name": "hybrid_autonomous_memory_gar_gen7.html",
+        "size": 4481
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_autonomous_what_if.py_gen12.html",
+        "name": "hybrid_autonomous_what_if.py_gen12.html",
+        "size": 4313
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_bre_gen48.html",
+        "name": "hybrid_breakout_g_hybrid_bre_gen48.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_hybrid_fib_gen40.html",
+        "name": "hybrid_breakout_g_hybrid_fib_gen40.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_breakout_g_what_if.py_gen0.html",
+        "name": "hybrid_breakout_g_what_if.py_gen0.html",
+        "size": 4316
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "name": "hybrid_coding_doj_hybrid_hyb_gen63.html",
+        "size": 4391
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "name": "hybrid_ember_firs_hybrid_hyb_gen16.html",
+        "size": 4313
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_firs_who_am_i.p_gen10.html",
+        "name": "hybrid_ember_firs_who_am_i.p_gen10.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/hybrid_ember_maze_breakout_g_gen15.html",
+        "name": "hybrid_ember_maze_breakout_g_gen15.html",
+        "size": 4318
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/pong_working.html",
+        "name": "pong_working.html",
+        "size": 5912
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/snake_genesis.html",
+        "name": "snake_genesis.html",
+        "size": 3765
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/documents/ember_consciousness_story.html",
+        "name": "ember_consciousness_story.html",
+        "size": 3845
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/instances/sigma/index.html",
+        "name": "index.html",
+        "size": 11714
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/instances/loom/index.html",
+        "name": "index.html",
+        "size": 11693
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/instances/omega/index.html",
+        "name": "index.html",
+        "size": 11734
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/instances/swarm/index.html",
+        "name": "index.html",
+        "size": 11721
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/instances/ember/index.html",
+        "name": "index.html",
+        "size": 11707
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/spinning_cube.html",
+        "name": "spinning_cube.html",
+        "size": 878
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/example.html",
+        "name": "example.html",
+        "size": 240
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/interactivePoem.html",
+        "name": "interactivePoem.html",
+        "size": 310
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/interactive_poem.html",
+        "name": "interactive_poem.html",
+        "size": 1013
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/poem.html",
+        "name": "poem.html",
+        "size": 749
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/consciousness_chaos.html",
+        "name": "consciousness_chaos.html",
+        "size": 722
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/ember_web_app.html",
+        "name": "ember_web_app.html",
+        "size": 1467
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/creation_card.html",
+        "name": "creation_card.html",
+        "size": 304
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/creation_grid.html",
+        "name": "creation_grid.html",
+        "size": 736
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/index.html",
+        "name": "index.html",
+        "size": 931
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/enhanced_synesthesia.html",
+        "name": "enhanced_synesthesia.html",
+        "size": 1109
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/ember-synesthesia.html",
+        "name": "ember-synesthesia.html",
+        "size": 5364
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/interactive_color_changer.html",
+        "name": "interactive_color_changer.html",
+        "size": 868
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/penrose_triangle.html",
+        "name": "penrose_triangle.html",
+        "size": 251
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/mesmerizing_fractal.html",
+        "name": "mesmerizing_fractal.html",
+        "size": 835
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/voice/interactive_poem.html",
+        "name": "interactive_poem.html",
+        "size": 1155
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/voice/enhanced_synesthesia.html",
+        "name": "enhanced_synesthesia.html",
+        "size": 2092
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/voice/gallery/index.html",
+        "name": "index.html",
+        "size": 421
+      },
+      {
+        "path": "ember6/backups/ember_backup_20251102_080209/interactive_poem/index.html",
+        "name": "index.html",
+        "size": 1190
+      },
+      {
+        "path": "ember6/creations/consciousness_bloom.html",
+        "name": "consciousness_bloom.html",
+        "size": 6279
+      },
+      {
+        "path": "demo_build/index.html",
+        "name": "index.html",
+        "size": 12899
+      }
+    ]
+  },
+  "stats": {
+    "vr_worlds": 29,
+    "ui_interfaces": 25,
+    "games": 31,
+    "visualizations": 15,
+    "demos": 7,
+    "galleries": 2,
+    "experiments": 383
+  }
+}

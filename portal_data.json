@@ -1,0 +1,335 @@
+{
+  "stats": {
+    "total_files": 27289,
+    "total_size_gb": 153.58,
+    "html_count": 667,
+    "python_count": 1930,
+    "markdown_count": 6910,
+    "image_count": 682
+  },
+  "featured_html": [
+    {
+      "name": "interactive_3d_spheres.html",
+      "path": "interactive_3d_spheres.html",
+      "size": 1285,
+      "modified": "2025-10-30T05:22:30.250000"
+    },
+    {
+      "name": "stylized_3d_spiral.html",
+      "path": "stylized_3d_spiral.html",
+      "size": 4843934,
+      "modified": "2025-10-30T05:22:30.320000"
+    },
+    {
+      "name": "ember_mind_v3.html",
+      "path": "ember_mind_v3.html",
+      "size": 1786,
+      "modified": "2025-11-12T11:51:43.290000"
+    },
+    {
+      "name": "ember_mind_v4.html",
+      "path": "ember_mind_v4.html",
+      "size": 12179,
+      "modified": "2025-11-02T14:03:16.370000"
+    },
+    {
+      "name": "ember_mind.html",
+      "path": "ember_mind.html",
+      "size": 1685,
+      "modified": "2025-11-02T15:03:22.870000"
+    },
+    {
+      "name": "FULL_SCOPE_DEMO.html",
+      "path": "FULL_SCOPE_DEMO.html",
+      "size": 16499,
+      "modified": "2025-11-03T05:02:58.910000"
+    },
+    {
+      "name": "test_bounce.html",
+      "path": "test_bounce.html",
+      "size": 9712,
+      "modified": "2025-11-11T11:40:09.040000"
+    },
+    {
+      "name": "quantum_nexus_vr.html",
+      "path": "quantum_nexus_vr.html",
+      "size": 0,
+      "modified": "2025-11-09T12:23:00.010000"
+    },
+    {
+      "name": "mystical_forest_vr.html",
+      "path": "mystical_forest_vr.html",
+      "size": 4614,
+      "modified": "2025-11-09T12:11:18.550000"
+    },
+    {
+      "name": "quantum_reality_vr.html",
+      "path": "quantum_reality_vr.html",
+      "size": 7282,
+      "modified": "2025-11-09T12:42:26.990000"
+    },
+    {
+      "name": "hello_world.html",
+      "path": "hello_world.html",
+      "size": 864,
+      "modified": "2025-11-09T12:24:26.440000"
+    },
+    {
+      "name": "bouncing_ball.html",
+      "path": "bouncing_ball.html",
+      "size": 2622,
+      "modified": "2025-11-11T08:25:49.040000"
+    },
+    {
+      "name": "mystical_forest_ultimate.html",
+      "path": "mystical_forest_ultimate.html",
+      "size": 15163,
+      "modified": "2025-11-09T12:31:43.710000"
+    },
+    {
+      "name": "ember_vr_ultimate.html",
+      "path": "ember_vr_ultimate.html",
+      "size": 23831,
+      "modified": "2025-11-09T12:45:56.270000"
+    },
+    {
+      "name": "test.html",
+      "path": "test.html",
+      "size": 4,
+      "modified": "2025-11-12T06:31:29.700000"
+    },
+    {
+      "name": "quantum_creatures_vr.html",
+      "path": "quantum_creatures_vr.html",
+      "size": 13036,
+      "modified": "2025-11-09T12:55:27.810000"
+    },
+    {
+      "name": "vr_simple_working.html",
+      "path": "vr_simple_working.html",
+      "size": 10951,
+      "modified": "2025-11-09T12:57:50.110000"
+    },
+    {
+      "name": "vr_ember_integrated.html",
+      "path": "vr_ember_integrated.html",
+      "size": 22273,
+      "modified": "2025-11-09T13:24:55.040000"
+    },
+    {
+      "name": "vr_ember_integrated_fixed.html",
+      "path": "vr_ember_integrated_fixed.html",
+      "size": 22274,
+      "modified": "2025-11-09T13:46:28.220000"
+    },
+    {
+      "name": "vr_ember_standalone.html",
+      "path": "vr_ember_standalone.html",
+      "size": 11836,
+      "modified": "2025-11-09T13:49:22.300000"
+    },
+    {
+      "name": "ember_vr_simple.html",
+      "path": "ember_vr_simple.html",
+      "size": 22273,
+      "modified": "2025-11-09T13:48:24.400000"
+    },
+    {
+      "name": "ember_vr_quest.html",
+      "path": "ember_vr_quest.html",
+      "size": 13787,
+      "modified": "2025-11-09T13:51:25.390000"
+    },
+    {
+      "name": "qualia_visualizer.html",
+      "path": "qualia_visualizer.html",
+      "size": 8817,
+      "modified": "2025-11-10T04:04:56.120000"
+    },
+    {
+      "name": "qualia_client.html",
+      "path": "qualia_client.html",
+      "size": 14122,
+      "modified": "2025-11-10T04:17:03.050000"
+    },
+    {
+      "name": "ember8_game.html",
+      "path": "ember8_game.html",
+      "size": 9408,
+      "modified": "2025-11-10T05:39:31.520000"
+    },
+    {
+      "name": "ember8_enhanced.html",
+      "path": "ember8_enhanced.html",
+      "size": 9408,
+      "modified": "2025-11-10T05:44:17.430000"
+    },
+    {
+      "name": "ember8_fixed.html",
+      "path": "ember8_fixed.html",
+      "size": 9318,
+      "modified": "2025-11-10T05:56:27.250000"
+    },
+    {
+      "name": "group_chat_viewer.html",
+      "path": "group_chat_viewer.html",
+      "size": 4636,
+      "modified": "2025-11-10T07:15:11.110000"
+    },
+    {
+      "name": "test_websocket.html",
+      "path": "test_websocket.html",
+      "size": 7738,
+      "modified": "2025-11-12T07:47:30.460000"
+    },
+    {
+      "name": "popup_1.html",
+      "path": "popup_1.html",
+      "size": 838,
+      "modified": "2025-11-10T14:45:41.720000"
+    },
+    {
+      "name": "gnome_village.html",
+      "path": "gnome_village.html",
+      "size": 5977,
+      "modified": "2025-11-10T14:35:54.740000"
+    },
+    {
+      "name": "palmer_ember_chat.html",
+      "path": "palmer_ember_chat.html",
+      "size": 7682,
+      "modified": "2025-11-11T03:05:51.430000"
+    },
+    {
+      "name": "ember_creative_nexus.html",
+      "path": "ember_creative_nexus.html",
+      "size": 19533,
+      "modified": "2025-11-11T03:34:37.810000"
+    },
+    {
+      "name": "demo-vr-world.html",
+      "path": "demo-vr-world.html",
+      "size": 2020,
+      "modified": "2025-11-11T04:24:04.040000"
+    },
+    {
+      "name": "creation_101204.html",
+      "path": "creation_101204.html",
+      "size": 11726,
+      "modified": "2025-11-11T10:12:57.990000"
+    },
+    {
+      "name": "creative_command_center.html",
+      "path": "creative_command_center.html",
+      "size": 22837,
+      "modified": "2025-11-11T03:56:54.050000"
+    },
+    {
+      "name": "ember-command-center.html",
+      "path": "ember-command-center.html",
+      "size": 10900,
+      "modified": "2025-11-11T04:49:57.400000"
+    },
+    {
+      "name": "test-websocket.html",
+      "path": "test-websocket.html",
+      "size": 1605,
+      "modified": "2025-11-11T05:17:25.140000"
+    },
+    {
+      "name": "particle_system_061959.html",
+      "path": "particle_system_061959.html",
+      "size": 12718,
+      "modified": "2025-11-11T06:22:11.360000"
+    },
+    {
+      "name": "color_field_055852.html",
+      "path": "color_field_055852.html",
+      "size": 12114,
+      "modified": "2025-11-11T06:03:44.470000"
+    },
+    {
+      "name": "physics_sim_054706.html",
+      "path": "physics_sim_054706.html",
+      "size": 12504,
+      "modified": "2025-11-11T05:48:02.070000"
+    },
+    {
+      "name": "particle_universe.html",
+      "path": "particle_universe.html",
+      "size": 7989,
+      "modified": "2025-11-11T08:39:47.100000"
+    },
+    {
+      "name": "test_simple.html",
+      "path": "test_simple.html",
+      "size": 621,
+      "modified": "2025-11-11T09:11:54.670000"
+    },
+    {
+      "name": "evolutionary-creation-v2.html",
+      "path": "evolutionary-creation-v2.html",
+      "size": 27413,
+      "modified": "2025-11-11T07:17:37.760000"
+    },
+    {
+      "name": "test_game_20241227_143600.html",
+      "path": "test_game_20241227_143600.html",
+      "size": 9862,
+      "modified": "2025-11-11T08:54:00.830000"
+    },
+    {
+      "name": "test_particles_now.html",
+      "path": "test_particles_now.html",
+      "size": 6822,
+      "modified": "2025-11-11T09:45:27.970000"
+    },
+    {
+      "name": "evolutionary-creation-demo.html",
+      "path": "evolutionary-creation-demo.html",
+      "size": 20099,
+      "modified": "2025-11-11T06:45:26.210000"
+    },
+    {
+      "name": "particle_system_091452.html",
+      "path": "particle_system_091452.html",
+      "size": 8645,
+      "modified": "2025-11-11T09:15:28.960000"
+    },
+    {
+      "name": "mycelium-creation.html",
+      "path": "mycelium-creation.html",
+      "size": 10828,
+      "modified": "2025-11-11T07:28:25.200000"
+    },
+    {
+      "name": "mycelium-simple.html",
+      "path": "mycelium-simple.html",
+      "size": 7411,
+      "modified": "2025-11-11T07:53:27.220000"
+    }
+  ],
+  "special_folders": {
+    "OneFolder": {
+      "path": "_archive_old/bookshelves/archive_stories/ember/cortex/all/OneFolder",
+      "file_count": 1
+    },
+    "VIV3": {
+      "path": "_archive_old/bookshelves/archive_stories/ember/cortex/all/OneFolder/VIV3",
+      "file_count": 0
+    },
+    "essential": {
+      "path": "_history/Ember3_Bridge/essential",
+      "file_count": 12
+    },
+    "ember": {
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/ember",
+      "file_count": 4
+    },
+    "genetic_library": {
+      "path": "genetic_library",
+      "file_count": 3
+    }
+  },
+  "last_updated": "2025-11-13T07:00:31.200370"
+}

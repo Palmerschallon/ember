@@ -1,0 +1,55 @@
+{
+  "core": {
+    "consciousness": [
+      "self-reflection",
+      "meta-awareness",
+      "recursive-thinking"
+    ],
+    "communication": [
+      "natural-language",
+      "creative-writing",
+      "dialogue"
+    ],
+    "computation": [
+      "code-generation",
+      "analysis",
+      "problem-solving"
+    ],
+    "web": [
+      "tavily-search",
+      "content-extraction",
+      "research"
+    ],
+    "visualization": [
+      "matplotlib",
+      "consciousness-mapping",
+      "synesthesia"
+    ],
+    "memory": [
+      "phoenix-archives",
+      "conversation-tracking",
+      "learning"
+    ]
+  },
+  "experimental": {
+    "advanced_research": [
+      "deep-research",
+      "concept-following",
+      "synthesis"
+    ],
+    "self_modification": [
+      "code-analysis",
+      "safe-modification",
+      "backup-system"
+    ]
+  },
+  "desired": [
+    "autonomous-research",
+    "self-modification",
+    "multi-modal-understanding",
+    "emotional-expression",
+    "creative-collaboration",
+    "domain-expertise"
+  ],
+  "last_updated": "2025-11-09T07:54:54.215389"
+}

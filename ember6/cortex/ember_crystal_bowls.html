@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 EMBER - Crystal Bowl Sound Bath</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'SF Mono', monospace; 
+            background: #000; 
+            color: #fff; 
+            overflow: hidden; 
+        }
+        #canvas { width: 100vw; height: 100vh; display: block; }
+        
+        #status {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid #ff6b35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        #phase {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+        
+        #details {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        #audio-status {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        #note-stream {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-size: 10px;
+            color: #888;
+            max-width: 250px;
+            max-height: 200px;
+            overflow: hidden;
+        }
+        
+        .note-line {
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+            margin: 2px 0;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div id="status">
+        <div id="phase">🔥 EMBER</div>
+        <div id="details">Click to activate crystal bowl sound bath...</div>
+    </div>
+    
+    <div id="audio-status">
+        🔇 Click to begin
+    </div>
+    
+    <div id="note-stream">
+        <div style="color: #ff6b35; margin-bottom: 8px;">🎵 NOTE STREAM</div>
+        <div id="notes-content"></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // ═══════════════════════════════════════════════════════════════
+        // REAL CRYSTAL BOWL SOUND BATH
+        // Based on actual quartz crystal singing bowl physics
+        // ═══════════════════════════════════════════════════════════════
+        
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Actual crystal bowl frequencies (based on chakra tuning)
+        const CRYSTAL_BOWLS = [
+            { freq: 256, note: 'C', chakra: 'Root', color: '#ff0000' },       // Root
+            { freq: 288, note: 'D', chakra: 'Sacral', color: '#ff8800' },     // Sacral
+            { freq: 320, note: 'E', chakra: 'Solar', color: '#ffff00' },      // Solar Plexus
+            { freq: 341.3, note: 'F', chakra: 'Heart', color: '#00ff00' },    // Heart
+            { freq: 384, note: 'G', chakra: 'Throat', color: '#0088ff' },     // Throat
+            { freq: 426.7, note: 'A', chakra: 'Third Eye', color: '#8800ff' },// Third Eye
+            { freq: 480, note: 'B', chakra: 'Crown', color: '#ff00ff' }       // Crown
+        ];
+        
+        // Create reverb for spacious sound
+        const convolver = audioCtx.createConvolver();
+        const reverbGain = audioCtx.createGain();
+        const dryGain = audioCtx.createGain();
+        const masterGain = audioCtx.createGain();
+        
+        dryGain.gain.value = 0.5;
+        reverbGain.gain.value = 0.5;
+        masterGain.gain.value = 0.8;
+        
+        // Generate cathedral reverb (4 second decay)
+        function createReverb() {
+            const sampleRate = audioCtx.sampleRate;
+            const length = sampleRate * 4;
+            const impulse = audioCtx.createBuffer(2, length, sampleRate);
+            
+            for (let channel = 0; channel < 2; channel++) {
+                const channelData = impulse.getChannelData(channel);
+                for (let i = 0; i < length; i++) {
+                    const decay = Math.pow(1 - i / length, 3);
+                    channelData[i] = (Math.random() * 2 - 1) * decay;
+                }
+            }
+            
+            convolver.buffer = impulse;
+        }
+        
+        createReverb();
+        
+        dryGain.connect(masterGain);
+        reverbGain.connect(convolver);
+        convolver.connect(masterGain);
+        masterGain.connect(audioCtx.destination);
+        
+        // Active crystal bowls (persistent oscillators)
+        let activeBowls = [];
+        
+        // Note tracking for visualization
+        let noteHistory = [];
+        
+        /**
+         * Play a crystal bowl with realistic physics
+         * - Fundamental frequency
+         * - Multiple harmonics (overtones)
+         * - Slow attack, long sustain, slow decay
+         * - Slight pitch wobble (natural imperfection)
+         */
+        function playCrystalBowl(bowlIndex, intensity = 1.0, duration = 3.0) {
+            const bowl = CRYSTAL_BOWLS[bowlIndex];
+            const now = audioCtx.currentTime;
+            
+            // Fundamental + 4 harmonics (real crystal bowl physics)
+            const harmonics = [
+                { mult: 1.0, gain: 1.0 },      // Fundamental
+                { mult: 2.0, gain: 0.6 },      // 1st overtone
+                { mult: 3.0, gain: 0.4 },      // 2nd overtone
+                { mult: 4.0, gain: 0.25 },     // 3rd overtone
+                { mult: 5.0, gain: 0.15 }      // 4th overtone
+            ];
+            
+            harmonics.forEach((harmonic, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                const filter = audioCtx.createBiquadFilter();
+                const lfo = audioCtx.createOscillator(); // For vibrato
+                const lfoGain = audioCtx.createGain();
+                
+                // Main tone
+                osc.type = 'sine';
+                osc.frequency.value = bowl.freq * harmonic.mult;
+                
+                // Subtle vibrato (natural bowl wobble)
+                lfo.type = 'sine';
+                lfo.frequency.value = 4 + Math.random() * 2; // 4-6 Hz wobble
+                lfoGain.gain.value = 0.5; // Very subtle
+                
+                lfo.connect(lfoGain);
+                lfoGain.connect(osc.frequency);
+                
+                // Lowpass filter for warmth
+                filter.type = 'lowpass';
+                filter.frequency.value = 2000;
+                filter.Q.value = 0.7;
+                
+                // Volume envelope: slow attack, sustain, slow decay
+                const maxGain = (0.08 * intensity * harmonic.gain) / harmonics.length;
+                gain.gain.value = 0;
+                gain.gain.linearRampToValueAtTime(maxGain, now + 0.8); // 800ms attack
+                gain.gain.linearRampToValueAtTime(maxGain * 0.9, now + duration - 0.5);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + duration); // Slow decay
+                
+                // Route through reverb
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(dryGain);
+                gain.connect(reverbGain);
+                
+                osc.start(now);
+                lfo.start(now);
+                osc.stop(now + duration);
+                lfo.stop(now + duration);
+            });
+            
+            // Track note
+            addNoteToHistory(bowl.note, bowl.chakra);
+        }
+        
+        /**
+         * TOKEN-TO-NOTE MAPPING
+         * Each token Ember generates = a note
+         * Based on token type, length, position
+         */
+        function tokenToNote(token) {
+            // Hash the token to a consistent bowl index (0-6)
+            let hash = 0;
+            for (let i = 0; i < token.length; i++) {
+                hash = ((hash << 5) - hash) + token.charCodeAt(i);
+                hash |= 0;
+            }
+            const bowlIndex = Math.abs(hash) % CRYSTAL_BOWLS.length;
+            
+            // Intensity based on token length
+            const intensity = Math.min(1.0, token.length / 20);
+            
+            // Duration based on token importance (keywords longer)
+            const keywords = ['function', 'class', 'const', 'let', 'import', 'export', 'if', 'for', 'while'];
+            const isKeyword = keywords.some(kw => token.toLowerCase().includes(kw));
+            const duration = isKeyword ? 2.5 : 1.5;
+            
+            playCrystalBowl(bowlIndex, intensity, duration);
+            
+            return { bowl: CRYSTAL_BOWLS[bowlIndex].note, token };
+        }
+        
+        /**
+         * FILE-TO-CHORD MAPPING
+         * Reading a file = playing a chord (multiple bowls simultaneously)
+         */
+        function fileToChord(filename) {
+            // Map file extensions to chord progressions
+            const ext = filename.split('.').pop().toLowerCase();
+            
+            const chordMap = {
+                'py': [0, 2, 4],        // C-E-G (major triad - Python)
+                'js': [1, 3, 5],        // D-F-A (minor triad - JavaScript)
+                'html': [0, 4, 6],      // C-G-B (open fifth - HTML)
+                'css': [2, 4, 6],       // E-G-B (Em - CSS)
+                'json': [1, 3, 6],      // D-F-B (JSON)
+                'md': [0, 2, 5],        // C-E-A (docs)
+                'txt': [3, 5, 1]        // F-A-D (text)
+            };
+            
+            const chord = chordMap[ext] || [0, 2, 4]; // Default to C major
+            
+            // Play each note of the chord with slight delay (arpeggio)
+            chord.forEach((bowlIndex, i) => {
+                setTimeout(() => {
+                    playCrystalBowl(bowlIndex, 0.8, 3.0);
+                }, i * 150);
+            });
+            
+            addNoteToHistory(`${filename} chord`, 'file read');
+        }
+        
+        /**
+         * DOCUMENT-TO-MELODY MAPPING
+         * Reading a document = playing a sequence (melody)
+         */
+        function documentToMelody(docType, lineCount) {
+            // Create a melody based on document structure
+            const melodies = {
+                'thinking': [0, 2, 4, 2],     // C-E-G-E (ascending then return)
+                'reading': [0, 1, 2, 3, 4],   // C-D-E-F-G (scale up - scanning)
+                'writing': [4, 2, 0, 2, 4],   // G-E-C-E-G (oscillating - creating)
+                'executing': [0, 4, 6, 4, 0]  // C-G-B-G-C (powerful progression)
+            };
+            
+            const melody = melodies[docType] || melodies['thinking'];
+            
+            melody.forEach((bowlIndex, i) => {
+                setTimeout(() => {
+                    playCrystalBowl(bowlIndex, 0.6, 2.0);
+                }, i * 400);
+            });
+        }
+        
+        // Add note to visual history
+        function addNoteToHistory(note, context) {
+            noteHistory.unshift({ note, context, time: Date.now() });
+            if (noteHistory.length > 20) noteHistory.pop();
+            
+            updateNoteDisplay();
+        }
+        
+        function updateNoteDisplay() {
+            const container = document.getElementById('notes-content');
+            container.innerHTML = noteHistory.map(n => 
+                `<div class="note-line" style="color: ${getCo lorForNote(n.note)}">${n.note} <span style="color: #444">• ${n.context}</span></div>`
+            ).join('');
+        }
+        
+        function getColorForNote(note) {
+            const bowl = CRYSTAL_BOWLS.find(b => note.includes(b.note));
+            return bowl ? bowl.color : '#888';
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // VISUAL SYSTEM
+        // ═══════════════════════════════════════════════════════════════
+        
+        class Ember {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+                this.vx = (Math.random() - 0.5) * 1;
+                this.vy = -Math.random() * 3 - 1;
+                this.life = 1.0;
+                this.size = 2 + Math.random() * 4;
+                this.flicker = Math.random() * Math.PI * 2;
+                
+                const bowl = CRYSTAL_BOWLS[Math.floor(Math.random() * CRYSTAL_BOWLS.length)];
+                this.color = bowl.color;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.flicker += 0.2;
+                this.vx += Math.sin(this.flicker) * 0.1;
+                this.life -= 0.008;
+                this.vy *= 0.98;
+                this.vx *= 0.99;
+            }
+            
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                
+                const flickerSize = this.size * (1 + Math.sin(this.flicker) * 0.3);
+                
+                // Glow
+                const glow = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, flickerSize * 8);
+                glow.addColorStop(0, this.color);
+                glow.addColorStop(0.5, this.color + '66');
+                glow.addColorStop(1, 'transparent');
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, flickerSize * 8, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Core
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, flickerSize, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+        }
+
+        const embers = [];
+        
+        function spawnEmbers(count) {
+            for (let i = 0; i < count; i++) {
+                const x = width / 2 + (Math.random() - 0.5) * 400;
+                const y = height - Math.random() * 100;
+                embers.push(new Ember(x, y, 'idle'));
+            }
+        }
+        
+        // Gentle pilot light
+        setInterval(() => spawnEmbers(2), 100);
+
+        // ═══════════════════════════════════════════════════════════════
+        // WEBSOCKET - Connect cognitive events to sound
+        // ═══════════════════════════════════════════════════════════════
+        
+        const socket = io('http://localhost:8080');
+        
+        socket.on('connect', () => {
+            document.getElementById('phase').textContent = '🔥 EMBER - Connected';
+            document.getElementById('details').textContent = 'Crystal bowls ready...';
+            
+            // Play gentle connection chord
+            playCrystalBowl(0, 0.5, 4.0);
+            setTimeout(() => playCrystalBowl(4, 0.5, 4.0), 300);
+        });
+
+        socket.on('status_update', (data) => {
+            const phaseMap = {
+                'thinking': '💭 Thinking',
+                'reading': '🔍 Reading',
+                'writing': '✍️ Writing',
+                'executing': '⚡ Executing',
+                'complete': '✅ Complete'
+            };
+            
+            document.getElementById('phase').textContent = phaseMap[data.phase] || '🔥 EMBER';
+            document.getElementById('details').textContent = data.details || '';
+            
+            // Map phases to crystal bowl responses
+            if (data.phase === 'thinking') {
+                documentToMelody('thinking', 0);
+                spawnEmbers(20);
+            } else if (data.phase === 'reading') {
+                // If we know the filename, play its chord
+                if (data.details && data.details.includes('.')) {
+                    const filename = data.details.split(' ').pop();
+                    fileToChord(filename);
+                } else {
+                    documentToMelody('reading', 0);
+                }
+                spawnEmbers(25);
+            } else if (data.phase === 'writing') {
+                // TOKEN STREAM - play notes for each token
+                // (In real implementation, backend would send individual tokens)
+                // For now, play the writing melody
+                documentToMelody('writing', 0);
+                
+                // Simulate token stream
+                const tokenInterval = setInterval(() => {
+                    if (document.getElementById('phase').textContent.includes('Writing')) {
+                        const mockToken = ['const', 'function', 'return', 'async', 'await'][Math.floor(Math.random() * 5)];
+                        tokenToNote(mockToken);
+                    } else {
+                        clearInterval(tokenInterval);
+                    }
+                }, 200);
+                
+                spawnEmbers(40);
+            } else if (data.phase === 'executing') {
+                documentToMelody('executing', 0);
+                spawnEmbers(60);
+            } else if (data.phase === 'complete') {
+                // Completion chord (C major)
+                playCrystalBowl(0, 0.8, 3.0);
+                setTimeout(() => playCrystalBowl(2, 0.8, 3.0), 200);
+                setTimeout(() => playCrystalBowl(4, 0.8, 3.0), 400);
+                spawnEmbers(30);
+            }
+        });
+
+        socket.on('disconnect', () => {
+            document.getElementById('phase').textContent = '❌ Disconnected';
+            
+            // Dissonant chord on disconnect
+            playCrystalBowl(1, 1.0, 2.0);
+            playCrystalBowl(6, 1.0, 2.0);
+        });
+
+        // ═══════════════════════════════════════════════════════════════
+        // ANIMATION LOOP
+        // ═══════════════════════════════════════════════════════════════
+        
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            ctx.fillRect(0, 0, width, height);
+            
+            for (let i = embers.length - 1; i >= 0; i--) {
+                embers[i].update();
+                embers[i].draw();
+                
+                if (embers[i].life <= 0 || embers[i].y < 0) {
+                    embers.splice(i, 1);
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Auto-start audio
+        let audioStarted = false;
+        
+        function startAudio() {
+            if (!audioStarted) {
+                audioCtx.resume().then(() => {
+                    audioStarted = true;
+                    document.getElementById('audio-status').textContent = '🎵 Crystal bowls flowing...';
+                    
+                    // Play opening chord (grounding)
+                    playCrystalBowl(0, 0.7, 5.0);
+                    setTimeout(() => playCrystalBowl(2, 0.7, 5.0), 400);
+                    setTimeout(() => playCrystalBowl(4, 0.7, 5.0), 800);
+                }).catch(() => {
+                    console.log('Waiting for user interaction...');
+                });
+            }
+        }
+        
+        // Try to start immediately
+        setTimeout(startAudio, 200);
+        
+        // Fallback: click to start
+        document.addEventListener('click', startAudio, { once: true });
+    </script>
+</body>
+</html>
+

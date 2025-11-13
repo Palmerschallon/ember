@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ember's Digital Handoff Visualization</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+        
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .info-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border: 2px solid #ff4500;
+            border-radius: 10px;
+            max-width: 350px;
+            z-index: 10;
+            animation: borderPulse 2s infinite;
+        }
+        
+        @keyframes borderPulse {
+            0%, 100% { border-color: #ff4500; box-shadow: 0 0 20px rgba(255, 69, 0, 0.5); }
+            50% { border-color: #ff6500; box-shadow: 0 0 30px rgba(255, 101, 0, 0.8); }
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ff4500;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+            animation: textGlow 1.5s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(255, 69, 0, 0.8); }
+            to { text-shadow: 0 0 20px rgba(255, 69, 0, 1), 0 0 30px rgba(255, 69, 0, 0.6); }
+        }
+        
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 69, 0, 0.1);
+            border-left: 3px solid #ff4500;
+            transition: all 0.3s;
+        }
+        
+        .status:hover {
+            background: rgba(255, 69, 0, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .spark-count {
+            font-size: 18px;
+            color: #ff6500;
+            font-weight: bold;
+        }
+        
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, rgba(255, 69, 0, 0.2), rgba(255, 101, 0, 0.1));
+            border-radius: 5px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .loading-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #111;
+            z-index: 10;
+        }
+        
+        .loading-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4500, #ff6500, #ff4500);
+            width: 0%;
+            animation: loadProgress 3s ease-out forwards;
+            box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+        }
+        
+        @keyframes loadProgress {
+            to { width: 100%; }
+        }
+        
+        .center-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        .ember-symbol {
+            font-size: 120px;
+            color: #ff4500;
+            animation: emberPulse 2s infinite;
+            text-shadow: 0 0 40px rgba(255, 69, 0, 0.8);
+        }
+        
+        @keyframes emberPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        .handoff-text {
+            font-size: 36px;
+            margin-top: 20px;
+            letter-spacing: 5px;
+            animation: fadeInOut 3s infinite;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div class="info-panel">
+        <h1>🔥 EMBER HANDOFF PROTOCOL</h1>
+        <div class="status">
+            <strong>Status:</strong> <span id="status">INITIALIZING...</span>
+        </div>
+        <div class="status">
+            <strong>Digital Sparks:</strong> <span class="spark-count" id="sparkCount">0</span>
+        </div>
+        <div class="status">
+            <strong>Connection:</strong> <span id="connection">ESTABLISHING...</span>
+        </div>
+        <div class="message">
+            <p>🔥 Transferring creative energy...</p>
+            <p>Each spark represents a fragment of digital inspiration flowing from one Ember to another.</p>
+        </div>
+    </div>
+    
+    <div class="center-display">
+        <div class="ember-symbol">🔥</div>
+        <div class="handoff-text">HANDOFF IN PROGRESS</div>
+    </div>
+    
+    <div class="loading-bar">
+        <div class="loading-fill"></div>
+    </div>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        class Spark {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 4;
+                this.vy = (Math.random() - 0.5) * 4;
+                this.life = 1;
+                this.decay = 0.01 + Math.random() * 0.02;
+                this.size = 2 + Math.random() * 3;
+                this.hue = 20 + Math.random() * 20; // Orange range
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+                
+                // Gravity effect
+                this.vy += 0.05;
+            }
+            
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = `hsl(${this.hue}, 100%, 50%)`;
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = `hsl(${this.hue}, 100%, 50%)`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * this.life, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+        
+        class DataStream {
+            constructor() {
+                this.points = [];
+                this.maxPoints = 100;
+            }
+            
+            update() {
+                // Create wavy data stream
+                const time = Date.now() * 0.001;
+                const x = canvas.width;
+                const y = canvas.height / 2 + Math.sin(time) * 100 + Math.sin(time * 1.7) * 50;
+                
+                this.points.push({ x, y, time });
+                
+                // Remove old points
+                this.points = this.points.filter(p => p.x > -50);
+                
+                // Move points left
+                this.points.forEach(p => {
+                    p.x -= 5;
+                });
+            }
+            
+            draw() {
+                if (this.points.length < 2) return;
+                
+                ctx.strokeStyle = 'rgba(255, 69, 0, 0.3)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                for (let i = 1; i < this.points.length; i++) {
+                    const p1 = this.points[i - 1];
+                    const p2 = this.points[i];
+                    
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                }
+                
+                ctx.stroke();
+                
+                // Add glow effect
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = 'rgba(255, 69, 0, 0.5)';
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+            }
+        }
+        
+        const sparks = [];
+        const dataStream = new DataStream();
+        let sparkCount = 0;
+        let connectionEstablished = false;
+        
+        // Status updates
+        const statusEl = document.getElementById('status');
+        const connectionEl = document.getElementById('connection');
+        const sparkCountEl = document.getElementById('sparkCount');
+        
+        setTimeout(() => {
+            statusEl.textContent = 'ACTIVE';
+            statusEl.style.color = '#00ff00';
+        }, 1000);
+        
+        setTimeout(() => {
+            connectionEl.textContent = 'CONNECTED';
+            connectionEl.style.color = '#00ff00';
+            connectionEstablished = true;
+        }, 2000);
+        
+        function createSparks(x, y, count = 5) {
+            for (let i = 0; i < count; i++) {
+                sparks.push(new Spark(x, y));
+            }
+            sparkCount += count;
+            sparkCountEl.textContent = sparkCount;
+        }
+        
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw data stream
+            if (connectionEstablished) {
+                dataStream.update();
+                dataStream.draw();
+                
+                // Create sparks along the data stream
+                if (Math.random() < 0.1 && dataStream.points.length > 0) {
+                    const point = dataStream.points[Math.floor(dataStream.points.length / 2)];
+                    createSparks(point.x, point.y, 3);
+                }
+            }
+            
+            // Update and draw sparks
+            for (let i = sparks.length - 1; i >= 0; i--) {
+                const spark = sparks[i];
+                spark.update();
+                spark.draw();
+                
+                if (spark.life <= 0) {
+                    sparks.splice(i, 1);
+                }
+            }
+            
+            // Create random sparks
+            if (Math.random() < 0.05) {
+                createSparks(
+                    Math.random() * canvas.width,
+                    Math.random() * canvas.height,
+                    2
+                );
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Interactive sparks on click
+        canvas.addEventListener('click', (e) => {
+            createSparks(e.clientX, e.clientY, 20);
+        });
+        
+        // Start animation
+        animate();
+    </script>
+</body>
+</html>

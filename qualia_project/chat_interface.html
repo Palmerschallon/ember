@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Qualia Group Chat</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        #chat-window {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #444;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #0a0a0a;
+        }
+        .message {
+            margin: 5px 0;
+        }
+        .Palmer { color: #00ffff; }
+        .Ember { color: #ffff00; }
+        .Claude { color: #00ff00; }
+        #input-area {
+            display: flex;
+            gap: 10px;
+        }
+        input, button {
+            background: #333;
+            color: #fff;
+            border: 1px solid #666;
+            padding: 10px;
+        }
+        #message-input {
+            flex: 1;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧠 Qualia Group Chat</h1>
+    <div id="chat-window"></div>
+    <div id="input-area">
+        <select id="speaker-select">
+            <option value="Palmer">Palmer</option>
+            <option value="Ember">Ember</option>
+            <option value="Claude">Claude</option>
+        </select>
+        <input type="text" id="message-input" placeholder="Type a message..." autofocus>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        const CHAT_FILE = '/media/palmerschallon/ThePod1/qualia_project/live_chat.jsonl';
+        let lastReadTime = 0;
+
+        async function loadMessages() {
+            try {
+                const response = await fetch(`file://${CHAT_FILE}`);
+                const text = await response.text();
+                const lines = text.trim().split('\n').filter(line => line);
+                
+                const chatWindow = document.getElementById('chat-window');
+                chatWindow.innerHTML = '';
+                
+                lines.forEach(line => {
+                    try {
+                        const msg = JSON.parse(line);
+                        const time = new Date(msg.timestamp).toLocaleTimeString();
+                        const div = document.createElement('div');
+                        div.className = 'message';
+                        div.innerHTML = `<span class="timestamp">[${time}]</span> <span class="${msg.speaker}">${msg.speaker}: ${msg.message}</span>`;
+                        chatWindow.appendChild(div);
+                    } catch (e) {}
+                });
+                
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            } catch (e) {
+                console.error('Could not load messages:', e);
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const speaker = document.getElementById('speaker-select').value;
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // For demo, just display locally
+            const chatWindow = document.getElementById('chat-window');
+            const time = new Date().toLocaleTimeString();
+            const div = document.createElement('div');
+            div.className = 'message';
+            div.innerHTML = `<span class="timestamp">[${time}]</span> <span class="${speaker}">${speaker}: ${message}</span>`;
+            chatWindow.appendChild(div);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+            
+            input.value = '';
+            
+            // In real version, would write to file
+            console.log('Would write:', {speaker, message});
+        }
+
+        document.getElementById('message-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Poll for updates
+        setInterval(loadMessages, 1000);
+        loadMessages();
+    </script>
+</body>
+</html>

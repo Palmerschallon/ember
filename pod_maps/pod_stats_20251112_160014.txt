@@ -1,0 +1,19 @@
+============================================================
+Pod Statistics Summary
+============================================================
+
+Generated: 2025-11-12 16:00:14
+
+Total Files: 4,526
+Total Size: 0.34 GB
+
+Files by Category:
+------------------------------------------------------------
+  code             1,000 files        6.52 MB
+  data             1,000 files      154.97 MB
+  docs             1,000 files       84.67 MB
+  images             673 files       65.13 MB
+  web                663 files       29.94 MB
+  logs               182 files        3.14 MB
+  config               8 files        0.00 MB
+  notebooks            0 files        0.00 MB

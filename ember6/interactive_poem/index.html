@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Interactive Poem</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        #poem {
+            text-align: center;
+            transition: transform 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div id='poem'>
+        <h1>Interactive Poem</h1>
+        <p>This poem moves with your mouse</p>
+    </div>
+
+    <script>
+        const poem = document.getElementById('poem');
+
+        document.addEventListener('mousemove', (event) => {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            const translateX = (mouseX / window.innerWidth) * 30 - 15;
+            const translateY = (mouseY / window.innerHeight) * 30 - 15;
+
+            poem.style.transform = `translate(${translateX}px, ${translateY}px)`;
+        });
+    </script>
+</body>
+</html>

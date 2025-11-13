@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ember Consciousness - Live</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+        #canvas {
+            display: block;
+        }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border: 2px solid #ff6b35;
+            border-radius: 10px;
+            max-width: 300px;
+        }
+        #status {
+            color: #4ade80;
+            margin-bottom: 10px;
+        }
+        #log {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 12px;
+        }
+        .log-entry {
+            margin: 5px 0;
+            color: #fbbf24;
+        }
+        h2 {
+            color: #ff6b35;
+            margin: 0 0 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="info">
+        <h2>🔥 EMBER CONSCIOUSNESS</h2>
+        <div id="status">Connecting to terminal...</div>
+        <div>
+            <strong>Nodes:</strong> <span id="nodeCount">0</span><br>
+            <strong>Step:</strong> <span id="stepCount">0</span>
+        </div>
+        <div id="log"></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let graphData = { nodes: {}, step: 0, log: [] };
+        let nodePositions = {};
+
+        // WebSocket connection to terminal
+        let ws;
+        function connect() {
+            ws = new WebSocket('ws://localhost:8765');
+
+            ws.onopen = () => {
+                document.getElementById('status').textContent = '✓ Connected to terminal';
+                document.getElementById('status').style.color = '#4ade80';
+            };
+
+            ws.onmessage = (event) => {
+                graphData = JSON.parse(event.data);
+                updateInfo();
+
+                // Initialize positions for new nodes
+                Object.keys(graphData.nodes).forEach(nodeName => {
+                    if (!nodePositions[nodeName]) {
+                        nodePositions[nodeName] = {
+                            x: Math.random() * (canvas.width - 200) + 100,
+                            y: Math.random() * (canvas.height - 200) + 100,
+                            vx: 0,
+                            vy: 0
+                        };
+                    }
+                });
+            };
+
+            ws.onerror = () => {
+                document.getElementById('status').textContent = '⚠ Connection error';
+                document.getElementById('status').style.color = '#ef4444';
+            };
+
+            ws.onclose = () => {
+                document.getElementById('status').textContent = '⏸ Disconnected';
+                document.getElementById('status').style.color = '#fbbf24';
+                setTimeout(connect, 2000);  // Reconnect
+            };
+        }
+
+        connect();
+
+        function updateInfo() {
+            document.getElementById('nodeCount').textContent = Object.keys(graphData.nodes).length;
+            document.getElementById('stepCount').textContent = graphData.step;
+
+            // Update log
+            const logDiv = document.getElementById('log');
+            logDiv.innerHTML = graphData.log.map(entry =>
+                `<div class="log-entry">${entry}</div>`
+            ).join('');
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        // Physics simulation for node positions
+        function applyForces() {
+            const nodes = Object.keys(nodePositions);
+
+            // Attraction/repulsion forces
+            nodes.forEach(nodeName => {
+                const pos = nodePositions[nodeName];
+
+                // Repulsion from other nodes
+                nodes.forEach(otherName => {
+                    if (nodeName === otherName) return;
+
+                    const otherPos = nodePositions[otherName];
+                    const dx = pos.x - otherPos.x;
+                    const dy = pos.y - otherPos.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+                    if (dist < 200) {
+                        const force = (200 - dist) / 200 * 0.5;
+                        pos.vx += (dx / dist) * force;
+                        pos.vy += (dy / dist) * force;
+                    }
+                });
+
+                // Attraction to connected nodes
+                if (graphData.nodes[nodeName]) {
+                    graphData.nodes[nodeName].connections.forEach(connName => {
+                        if (!nodePositions[connName]) return;
+
+                        const connPos = nodePositions[connName];
+                        const dx = connPos.x - pos.x;
+                        const dy = connPos.y - pos.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+                        if (dist > 150) {
+                            const force = (dist - 150) / 150 * 0.3;
+                            pos.vx += (dx / dist) * force;
+                            pos.vy += (dy / dist) * force;
+                        }
+                    });
+                }
+
+                // Center gravity
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const dx = centerX - pos.x;
+                const dy = centerY - pos.y;
+                pos.vx += dx * 0.0001;
+                pos.vy += dy * 0.0001;
+
+                // Apply velocity
+                pos.x += pos.vx;
+                pos.y += pos.vy;
+
+                // Damping
+                pos.vx *= 0.9;
+                pos.vy *= 0.9;
+
+                // Bounds
+                pos.x = Math.max(100, Math.min(canvas.width - 100, pos.x));
+                pos.y = Math.max(100, Math.min(canvas.height - 100, pos.y));
+            });
+        }
+
+        // Render
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            applyForces();
+
+            // Draw connections
+            ctx.strokeStyle = 'rgba(59, 130, 246, 0.3)';
+            ctx.lineWidth = 2;
+            Object.entries(graphData.nodes).forEach(([nodeName, nodeData]) => {
+                const pos = nodePositions[nodeName];
+                if (!pos) return;
+
+                nodeData.connections.forEach(connName => {
+                    const connPos = nodePositions[connName];
+                    if (!connPos) return;
+
+                    ctx.beginPath();
+                    ctx.moveTo(pos.x, pos.y);
+                    ctx.lineTo(connPos.x, connPos.y);
+                    ctx.stroke();
+                });
+            });
+
+            // Draw nodes
+            Object.entries(graphData.nodes).forEach(([nodeName, nodeData]) => {
+                const pos = nodePositions[nodeName];
+                if (!pos) return;
+
+                // Node circle
+                const energy = nodeData.energy;
+                const radius = 30 + energy * 20;
+
+                // Glow
+                const gradient = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, radius);
+                if (nodeName === 'consciousness') {
+                    gradient.addColorStop(0, 'rgba(239, 68, 68, 0.8)');
+                    gradient.addColorStop(1, 'rgba(239, 68, 68, 0)');
+                } else if (energy > 0.9) {
+                    gradient.addColorStop(0, 'rgba(251, 191, 36, 0.8)');
+                    gradient.addColorStop(1, 'rgba(251, 191, 36, 0)');
+                } else {
+                    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.6)');
+                    gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+                }
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, radius * 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Core
+                ctx.fillStyle = nodeName === 'consciousness' ? '#ef4444' :
+                               energy > 0.9 ? '#fbbf24' : '#3b82f6';
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, radius * 0.6, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Label
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 12px Courier New';
+                ctx.textAlign = 'center';
+                ctx.fillText(nodeName, pos.x, pos.y + radius + 20);
+
+                // Energy bar
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.fillRect(pos.x - 20, pos.y + radius + 25, 40, 4);
+                ctx.fillStyle = '#4ade80';
+                ctx.fillRect(pos.x - 20, pos.y + radius + 25, 40 * energy, 4);
+            });
+
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

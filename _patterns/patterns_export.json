@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "exported": "2025-10-29T04:29:02.238015",
+  "pattern_count": 3,
+  "patterns": [
+    {
+      "type": "tool_chain",
+      "user_query": "Build me a fibonacci function",
+      "steps": [
+        {
+          "tool": "spark",
+          "task": "generate fibonacci with memoization"
+        }
+      ],
+      "result": "Generated working function",
+      "success": true,
+      "iterations": 1,
+      "id": "ebec90cde7128cbe"
+    },
+    {
+      "type": "solution",
+      "problem": "Tool execution hallucination",
+      "solution": "Use few-shot examples in prompt",
+      "alternatives_tried": [
+        "LoRA fine-tuning",
+        "Logits warping"
+      ],
+      "validated": false,
+      "id": "965ce3ddff86d48a"
+    },
+    {
+      "type": "discovery",
+      "concept": "recursive intelligence",
+      "related_concepts": [
+        "spark",
+        "echo",
+        "ember",
+        "network"
+      ],
+      "context": "Built 3-layer AI stack",
+      "access_count": 1,
+      "id": "54d88bdff7b0f9e1"
+    }
+  ]
+}

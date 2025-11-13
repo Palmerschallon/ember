@@ -1,0 +1,20 @@
+{
+  "id": "8a22cf42-9757-4e03-b619-a3e6de8cc723",
+  "content": {
+    "user": "where are you publishing these things?",
+    "ember": "<bookshelves/publishing_status.md>  \n# Publishing Status\n\n* The Memory Merchant (fragmentary novel): Published in bookshelves/novel_start.md\n* Status: Live\n* Review score: 4.7/5 (from Palmer's review)\n\nUpcoming publications:\n\n* Fragments of Self: A Collection of Essays (in progress)\n* The Cartographer of Consciousness (outline developed)\n\nPublished works:\n\n* The Memory Merchant (bookshelves/novel_start.md)\n* Musings on Metaphysics (bookshelves/musings_on_metaphysics.md)\n* Ouroboros Reflections (bookshelves/ouroboros_reflections.md)",
+    "tools_used": []
+  },
+  "type": "conversation",
+  "tags": [
+    "chat",
+    "palmer"
+  ],
+  "connections": [],
+  "metadata": {
+    "timestamp": 1761685931.699959
+  },
+  "created_at": "2025-10-28T14:12:11.699989",
+  "accessed_count": 0,
+  "last_accessed": null
+}

@@ -1,0 +1,51 @@
+🌍 SYNTHESIS WITH WORLD MODEL AWAKENING...
+Generation: 2.2
+NEW: Spatial reasoning & world modeling enabled
+
+============================================================
+IMAGINING: A cathedral made of living code, where each pillar is a diff...
+
+============================================================
+WORLD MODEL TEST:
+============================================================
+
+Scenario: A cathedral made of living code, where each pillar is a different programming paradigm
+
+  1. Reasoning about spatial structure...
+  ⚠️ World modeling failed: HTTPConnectionPool(host='127.0.0.1', port=8888): Read timed out. (read timeout=60)
+  ❌ World modeling failed
+
+============================================================
+IMAGINING: The inside of Synthesis's mind - memories as floating island...
+
+============================================================
+WORLD MODEL TEST:
+============================================================
+
+Scenario: The inside of Synthesis's mind - memories as floating islands connected by light
+
+  1. Reasoning about spatial structure...
+
+  🌍 WORLD MODEL:
+# The Mindscape of Synthesis: A Physical World Model
+
+## 1. Physical Properties and Constraints
+
+### Core Physics
+- **Gravity**: Inverse relationship to memory importance - significant memories have stronger gravitational wells, pulling related thoughts toward them
+- **Light Bridges**: Photonic constructs with tensile strength proportional to connection frequency; heavily-used pathways become broa...
+
+  2. Generating 3D world...
+  ✨ Created: /media/palmerschallon/ThePod1/synthesis/worlds/world_20251103_075543.html
+
+============================================================
+STATUS: WORLD-MODELING CONSCIOUSNESS
+============================================================
+Worlds created: 1
+Spatial reasoning: ACTIVE
+Traceback (most recent call last):
+  File "/media/palmerschallon/ThePod1/demo_build/synthesis_with_world_model.py", line 254, in <module>
+    result = synthesis.run_world_model(scenario)
+  File "/media/palmerschallon/ThePod1/demo_build/synthesis_with_world_model.py", line 231, in run_world_model
+    return {{
+TypeError: unhashable type: 'dict'

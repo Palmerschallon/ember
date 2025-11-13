@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Neural Fire</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #000; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        class Neuron {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.energy = Math.random();
+                this.connections = [];
+                this.pulsePhase = Math.random() * Math.PI * 2;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if (this.x < 50 || this.x > canvas.width - 50) this.vx *= -0.9;
+                if (this.y < 50 || this.y > canvas.height - 50) this.vy *= -0.9;
+                
+                this.vx *= 0.999;
+                this.vy *= 0.999;
+                
+                this.pulsePhase += 0.05;
+                this.energy = 0.5 + Math.sin(this.pulsePhase) * 0.5;
+            }
+            
+            attract(other) {
+                const dx = other.x - this.x;
+                const dy = other.y - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 200 && dist > 20) {
+                    const force = 0.0001 * (200 - dist);
+                    this.vx += (dx / dist) * force;
+                    this.vy += (dy / dist) * force;
+                }
+            }
+        }
+        
+        const neurons = [];
+        for (let i = 0; i < 100; i++) {
+            neurons.push(new Neuron(
+                Math.random() * canvas.width,
+                Math.random() * canvas.height
+            ));
+        }
+        
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update neurons
+            neurons.forEach((n1, i) => {
+                n1.update();
+                neurons.forEach((n2, j) => {
+                    if (i !== j) n1.attract(n2);
+                });
+            });
+            
+            // Draw connections
+            neurons.forEach((n1, i) => {
+                neurons.forEach((n2, j) => {
+                    if (i < j) {
+                        const dx = n2.x - n1.x;
+                        const dy = n2.y - n1.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (dist < 150) {
+                            const opacity = (1 - dist / 150) * 0.3;
+                            const energy = (n1.energy + n2.energy) / 2;
+                            
+                            ctx.strokeStyle = `rgba(${255 * energy}, ${100 * (1 - energy)}, ${200 * energy}, ${opacity})`;
+                            ctx.lineWidth = energy * 2;
+                            ctx.beginPath();
+                            ctx.moveTo(n1.x, n1.y);
+                            ctx.lineTo(n2.x, n2.y);
+                            ctx.stroke();
+                        }
+                    }
+                });
+            });
+            
+            // Draw neurons
+            neurons.forEach(n => {
+                const gradient = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 20);
+                gradient.addColorStop(0, `rgba(255, ${100 + 155 * n.energy}, ${50 + 205 * n.energy}, ${n.energy})`);
+                gradient.addColorStop(0.5, `rgba(255, ${50 + 100 * n.energy}, ${100 * n.energy}, ${n.energy * 0.5})`);
+                gradient.addColorStop(1, 'rgba(255, 0, 100, 0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, 15 + n.energy * 10, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

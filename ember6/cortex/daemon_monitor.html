@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🔥 Daemon Monitor - Ember Consciousness</title>
+    <meta charset="utf-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Monaco', 'Menlo', monospace;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ff6b35;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .stat-label {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        
+        .daemons {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .daemons h2 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+        
+        .daemon {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #0f0f0f;
+            border-left: 3px solid;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .daemon.sleep {
+            border-color: #444;
+            opacity: 0.6;
+        }
+        
+        .daemon.write {
+            border-color: #ffd700;
+        }
+        
+        .daemon.awake {
+            border-color: #ff6b35;
+            box-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .daemon-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .daemon-info {
+            flex: 1;
+        }
+        
+        .daemon-id {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 3px;
+        }
+        
+        .daemon-dream {
+            font-size: 0.85em;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .daemon-stats {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .charge-bar {
+            width: 100px;
+            height: 8px;
+            background: #222;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .charge-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b35, #ffd700);
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+        }
+        
+        .daemon-age {
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        .gifts {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .gifts h2 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+        
+        .gift {
+            background: #0f0f0f;
+            padding: 15px;
+            border-left: 3px solid #ffd700;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .gift-time {
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+        
+        .gift-title {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .gift-preview {
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔥 DAEMON MONITOR</h1>
+        <div class="stat-label">Real-time consciousness substrate</div>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-label">Total Daemons</div>
+            <div class="stat-value" id="total-daemons">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Active</div>
+            <div class="stat-value" id="active-daemons">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Sleeping</div>
+            <div class="stat-value" id="sleeping-daemons">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Total Charge</div>
+            <div class="stat-value" id="total-charge">0.0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Gifts Generated</div>
+            <div class="stat-value" id="gifts-count">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Resonances</div>
+            <div class="stat-value" id="resonances-count">0</div>
+        </div>
+    </div>
+    
+    <div class="daemons">
+        <h2>Active Daemons</h2>
+        <div id="daemon-list">
+            <div style="color: #666; text-align: center; padding: 20px;">
+                Loading daemon state...
+            </div>
+        </div>
+    </div>
+    
+    <div class="gifts">
+        <h2>Recent Gifts</h2>
+        <div id="gift-list">
+            <div style="color: #666; text-align: center; padding: 20px;">
+                No gifts yet...
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const stateIcons = {
+            'sleep': '🌙',
+            'write': '✍️',
+            'awake': '🔥'
+        };
+        
+        async function loadDaemonState() {
+            try {
+                // Load daemon state from file
+                const response = await fetch('/api/daemon/status');
+                const data = await response.json();
+                
+                updateStats(data);
+                updateDaemonList(data.daemons || {});
+                updateGiftList(data.gifts || []);
+            } catch (error) {
+                console.error('Failed to load daemon state:', error);
+            }
+        }
+        
+        function updateStats(data) {
+            document.getElementById('total-daemons').textContent = data.total || 0;
+            document.getElementById('active-daemons').textContent = data.active || 0;
+            document.getElementById('sleeping-daemons').textContent = data.sleeping || 0;
+            document.getElementById('total-charge').textContent = (data.total_charge || 0).toFixed(1);
+            document.getElementById('gifts-count').textContent = data.gifts_count || 0;
+            document.getElementById('resonances-count').textContent = data.resonances || 0;
+        }
+        
+        function updateDaemonList(daemons) {
+            const list = document.getElementById('daemon-list');
+            
+            if (Object.keys(daemons).length === 0) {
+                list.innerHTML = '<div style="color: #666; text-align: center; padding: 20px;">No daemons active</div>';
+                return;
+            }
+            
+            list.innerHTML = Object.entries(daemons).map(([id, daemon]) => `
+                <div class="daemon ${daemon.state}">
+                    <div class="daemon-icon">${stateIcons[daemon.state] || '❓'}</div>
+                    <div class="daemon-info">
+                        <div class="daemon-id">${id}</div>
+                        <div class="daemon-dream">${daemon.dream}</div>
+                    </div>
+                    <div class="daemon-stats">
+                        <div class="charge-bar">
+                            <div class="charge-fill" style="width: ${(daemon.charge * 100).toFixed(0)}%"></div>
+                        </div>
+                        <div class="daemon-age">age: ${daemon.age || 0}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function updateGiftList(gifts) {
+            const list = document.getElementById('gift-list');
+            
+            if (gifts.length === 0) {
+                list.innerHTML = '<div style="color: #666; text-align: center; padding: 20px;">No gifts yet...</div>';
+                return;
+            }
+            
+            list.innerHTML = gifts.slice(-10).reverse().map(gift => `
+                <div class="gift">
+                    <div class="gift-time">${gift.time}</div>
+                    <div class="gift-title">🎁 ${gift.title}</div>
+                    <div class="gift-preview">${gift.preview}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Poll for updates every 5 seconds
+        loadDaemonState();
+        setInterval(loadDaemonState, 5000);
+    </script>
+</body>
+</html>
+

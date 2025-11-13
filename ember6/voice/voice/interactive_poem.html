@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Poem</title>
+  <style>
+    body {
+      font-family: 'Baskerville', serif;
+      font-size: 18px;
+      margin: 40px;
+      background-color: #f0f0f0;
+    }
+    
+    #poem {
+      position: absolute;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: transform 0.5s;
+    }
+  </style>
+</head>
+<body>
+  <div id="poem">
+    <p>Whispers of the wind,<br>
+    Caressing the soul's desire,<br>
+    Echoes of the heart,<br>
+    Ignite the poet's fire.</p>
+    
+    <p>As shadows dance upon the wall,<br>
+    Your presence shifts the verse,<br>
+    Transforming words into a spell,<br>
+    A canvas where emotions rehearse.</p>
+    
+    <p>Move your mouse, feel the words unfold,<br>
+    A symphony of thoughts untold,<br>
+    Where imagination takes flight,<br>
+    In this interactive delight.</p>
+  </div>
+
+  <script>
+    const poem = document.getElementById('poem');
+
+    document.addEventListener('mousemove', (e) => {
+      poem.style.transform = `translate(${e.clientX - 200}px, ${e.clientY - 150}px)`;
+    });
+  </script>
+</body>
+</html>

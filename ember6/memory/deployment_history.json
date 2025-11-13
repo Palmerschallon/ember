@@ -1,0 +1,10 @@
+[
+  {
+    "timestamp": "2025-11-02T08:02:28.392849",
+    "success": true,
+    "changes_count": 0,
+    "changes": [],
+    "backup": "backups/ember_backup_20251102_080209",
+    "swarm_session": "swarm_session_1762099056.json"
+  }
+]

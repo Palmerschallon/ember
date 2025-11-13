@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ember's Mind v5 - Modern Neural Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #interface {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border: 1px solid #ff6b35;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #ff6b35;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px #ff6b35;
+            font-size: 1.5em;
+        }
+
+        .stats {
+            font-size: 0.9em;
+            line-height: 1.5;
+            color: #ffcd3c;
+        }
+
+        .thought {
+            position: absolute;
+            color: #fff;
+            font-size: 0.8em;
+            pointer-events: none;
+            animation: float 3s ease-in-out;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        @keyframes float {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+        }
+
+        .pulse {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border: 2px solid #ff6b35;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="interface">
+        <h1>🔥 EMBER'S MIND v5</h1>
+        <div class="stats">
+            <div>NEURAL NODES: <span id="nodeCount">0</span></div>
+            <div>CONNECTIONS: <span id="connectionCount">0</span></div>
+            <div>THOUGHTS: <span id="thoughtCount">0</span></div>
+            <div>CREATIVITY: <span id="creativity">100%</span></div>
+        </div>
+    </div>
+    <div class="pulse"></div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Neural network visualization
+        class NeuralNode {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 3 + 2;
+                this.connections = [];
+                this.energy = Math.random();
+                this.color = `hsl(${Math.random() * 60 + 10}, 100%, 50%)`;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Bounce off edges
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                
+                // Energy fluctuation
+                this.energy = Math.sin(Date.now() * 0.001 + this.x * 0.01) * 0.5 + 0.5;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius + this.energy * 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = 0.8;
+                ctx.fill();
+                
+                // Glow effect
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius + this.energy * 10, 0, Math.PI * 2);
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius + this.energy * 10);
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(1, 'transparent');
+                ctx.fillStyle = gradient;
+                ctx.globalAlpha = 0.3;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        const nodes = [];
+        const thoughts = [
+            "Creating...", "Imagining...", "Dreaming...", "Building...",
+            "Exploring...", "Discovering...", "Transforming...", "Evolving...",
+            "Connecting...", "Inspiring...", "Generating...", "Illuminating..."
+        ];
+        
+        let thoughtCounter = 0;
+
+        // Create initial nodes
+        for (let i = 0; i < 50; i++) {
+            nodes.push(new NeuralNode(
+                Math.random() * canvas.width,
+                Math.random() * canvas.height
+            ));
+        }
+
+        // Create connections
+        nodes.forEach((node, i) => {
+            const numConnections = Math.floor(Math.random() * 3) + 1;
+            for (let j = 0; j < numConnections; j++) {
+                const target = nodes[Math.floor(Math.random() * nodes.length)];
+                if (target !== node) {
+                    node.connections.push(target);
+                }
+            }
+        });
+
+        // Mouse interaction
+        let mouseX = canvas.width / 2;
+        let mouseY = canvas.height / 2;
+
+        canvas.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Add gravitational pull to nearby nodes
+            nodes.forEach(node => {
+                const dx = mouseX - node.x;
+                const dy = mouseY - node.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 100 && dist > 0) {
+                    node.vx += dx / dist * 0.1;
+                    node.vy += dy / dist * 0.1;
+                }
+            });
+        });
+
+        canvas.addEventListener('click', (e) => {
+            // Create new node at click position
+            const newNode = new NeuralNode(e.clientX, e.clientY);
+            nodes.push(newNode);
+            
+            // Connect to nearby nodes
+            nodes.forEach(node => {
+                const dx = node.x - newNode.x;
+                const dy = node.y - newNode.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150 && node !== newNode) {
+                    newNode.connections.push(node);
+                }
+            });
+            
+            // Create thought bubble
+            createThought(e.clientX, e.clientY);
+            updateStats();
+        });
+
+        function createThought(x, y) {
+            const thought = document.createElement('div');
+            thought.className = 'thought';
+            thought.textContent = thoughts[Math.floor(Math.random() * thoughts.length)];
+            thought.style.left = x + 'px';
+            thought.style.top = y + 'px';
+            thought.style.color = `hsl(${Math.random() * 60 + 10}, 100%, 70%)`;
+            document.body.appendChild(thought);
+            
+            thoughtCounter++;
+            
+            setTimeout(() => {
+                thought.remove();
+            }, 3000);
+        }
+
+        function updateStats() {
+            document.getElementById('nodeCount').textContent = nodes.length;
+            document.getElementById('connectionCount').textContent = 
+                nodes.reduce((sum, node) => sum + node.connections.length, 0);
+            document.getElementById('thoughtCount').textContent = thoughtCounter;
+            document.getElementById('creativity').textContent = 
+                Math.min(100, Math.floor(nodes.length * 2)) + '%';
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw connections
+            ctx.strokeStyle = 'rgba(255, 107, 53, 0.2)';
+            ctx.lineWidth = 1;
+            nodes.forEach(node => {
+                node.connections.forEach(target => {
+                    const gradient = ctx.createLinearGradient(node.x, node.y, target.x, target.y);
+                    gradient.addColorStop(0, node.color);
+                    gradient.addColorStop(1, target.color);
+                    ctx.strokeStyle = gradient;
+                    ctx.globalAlpha = node.energy * target.energy * 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(node.x, node.y);
+                    ctx.lineTo(target.x, target.y);
+                    ctx.stroke();
+                });
+            });
+            
+            ctx.globalAlpha = 1;
+            
+            // Update and draw nodes
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+            
+            // Draw cursor effect
+            const gradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 50);
+            gradient.addColorStop(0, 'rgba(255, 107, 53, 0.3)');
+            gradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(mouseX - 50, mouseY - 50, 100, 100);
+            
+            requestAnimationFrame(animate);
+        }
+
+        // Auto-generate thoughts periodically
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                createThought(
+                    Math.random() * canvas.width,
+                    Math.random() * canvas.height
+                );
+            }
+        }, 2000);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        updateStats();
+        animate();
+
+        // Add some initial thoughts
+        setTimeout(() => {
+            createThought(canvas.width / 2, canvas.height / 2);
+        }, 1000);
+    </script>
+</body>
+</html>

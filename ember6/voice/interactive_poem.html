@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Poem</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-size: 24px;
+      text-align: center;
+    }
+    #poem {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: color 0.5s;
+    }
+  </style>
+</head>
+<body>
+  <div id="poem">
+    Dancing words<br>
+    Swirling phrases<br>
+    Meaning unfurls<br>
+    As the cursor grazes
+  </div>
+
+  <script>
+    const poem = document.getElementById('poem');
+    
+    document.addEventListener('mousemove', (event) => {
+      const x = event.clientX;
+      const y = event.clientY;
+      
+      // Map mouse position to RGB color
+      const r = Math.round(x / window.innerWidth * 255);
+      const g = Math.round(y / window.innerHeight * 255);
+      const b = Math.round((x + y) / (window.innerWidth + window.innerHeight) * 255);
+      
+      poem.style.color = `rgb(${r}, ${g}, ${b})`;
+    });
+  </script>
+</body>
+</html>

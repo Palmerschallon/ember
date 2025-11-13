@@ -1,0 +1,10 @@
+{
+  "agent_id": "guardian_3454",
+  "type": "guardian",
+  "phase": "building",
+  "created": "2025-11-13T06:17:19.859435",
+  "data": {
+    "observation": "nominal",
+    "status": "active"
+  }
+}

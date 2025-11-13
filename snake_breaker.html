@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Breaker - The Ultimate Mashup</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        canvas {
+            border: 2px solid #0ff;
+            box-shadow: 0 0 20px #0ff;
+        }
+        
+        #gameInfo {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        #score {
+            color: #0ff;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            border: 2px solid #0ff;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameInfo">
+        <div id="score">Score: 0</div>
+        <div>Use Arrow Keys to Control Snake & Paddle</div>
+    </div>
+    
+    <div id="gameOver">
+        <h2>Game Over!</h2>
+        <p>Final Score: <span id="finalScore">0</span></p>
+        <button onclick="location.reload()">Play Again</button>
+    </div>
+    
+    <canvas id="gameCanvas"></canvas>
+    
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreDisplay = document.getElementById('score');
+        
+        // Set canvas size
+        canvas.width = 800;
+        canvas.height = 600;
+        
+        // Game variables
+        let score = 0;
+        let gameRunning = true;
+        
+        // Snake variables
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+        let snake = [
+            {x: 10, y: 10}
+        ];
+        let snakeVelocity = {x: 0, y: 0};
+        let food = {x: 15, y: 15};
+        
+        // Breakout variables
+        const paddle = {
+            x: canvas.width / 2 - 50,
+            y: canvas.height - 30,
+            width: 100,
+            height: 10,
+            speed: 7
+        };
+        
+        let ball = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            dx: 4,
+            dy: -4,
+            radius: 8
+        };
+        
+        // Bricks
+        const brickRowCount = 5;
+        const brickColumnCount = 10;
+        const brickWidth = 70;
+        const brickHeight = 20;
+        const brickPadding = 5;
+        const brickOffsetTop = 60;
+        const brickOffsetLeft = 35;
+        
+        let bricks = [];
+        for(let c = 0; c < brickColumnCount; c++) {
+            bricks[c] = [];
+            for(let r = 0; r < brickRowCount; r++) {
+                bricks[c][r] = { x: 0, y: 0, status: 1, color: `hsl(${r * 60}, 100%, 50%)` };
+            }
+        }
+        
+        // Input handling
+        let keys = {};
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+            
+            // Snake controls
+            if(e.key === 'ArrowUp' && snakeVelocity.y === 0) {
+                snakeVelocity = {x: 0, y: -1};
+            }
+            if(e.key === 'ArrowDown' && snakeVelocity.y === 0) {
+                snakeVelocity = {x: 0, y: 1};
+            }
+            if(e.key === 'ArrowLeft' && snakeVelocity.x === 0) {
+                snakeVelocity = {x: -1, y: 0};
+            }
+            if(e.key === 'ArrowRight' && snakeVelocity.x === 0) {
+                snakeVelocity = {x: 1, y: 0};
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+        
+        // Game functions
+        function drawSnake() {
+            // Draw snake
+            snake.forEach((segment, index) => {
+                ctx.fillStyle = index === 0 ? '#0ff' : '#0aa';
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+            
+            // Draw food
+            ctx.fillStyle = '#f0f';
+            ctx.fillRect(food.x * gridSize + 2, food.y * gridSize + 2, gridSize - 4, gridSize - 4);
+        }
+        
+        function updateSnake() {
+            // Move snake head
+            const head = {x: snake[0].x + snakeVelocity.x, y: snake[0].y + snakeVelocity.y};
+            
+            // Wall collision = wrap around
+            if(head.x < 0) head.x = tileCount - 1;
+            if(head.x >= tileCount) head.x = 0;
+            if(head.y < 0) head.y = canvas.height / gridSize - 1;
+            if(head.y >= canvas.height / gridSize) head.y = 0;
+            
+            // Check self collision
+            for(let segment of snake) {
+                if(head.x === segment.x && head.y === segment.y) {
+                    gameOver();
+                    return;
+                }
+            }
+            
+            snake.unshift(head);
+            
+            // Check food collision
+            if(head.x === food.x && head.y === food.y) {
+                score += 10;
+                generateFood();
+                // Snake grows by not removing tail
+            } else {
+                snake.pop();
+            }
+        }
+        
+        function generateFood() {
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * (canvas.height / gridSize))
+            };
+            
+            // Make sure food doesn't spawn on snake
+            for(let segment of snake) {
+                if(segment.x === food.x && segment.y === food.y) {
+                    generateFood();
+                    return;
+                }
+            }
+        }
+        
+        function drawBreakout() {
+            // Draw paddle
+            ctx.fillStyle = '#0ff';
+            ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+            
+            // Draw ball
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#fff';
+            ctx.fill();
+            ctx.closePath();
+            
+            // Draw bricks
+            for(let c = 0; c < brickColumnCount; c++) {
+                for(let r = 0; r < brickRowCount; r++) {
+                    if(bricks[c][r].status === 1) {
+                        const brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+                        const brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+                        bricks[c][r].x = brickX;
+                        bricks[c][r].y = brickY;
+                        ctx.fillStyle = bricks[c][r].color;
+                        ctx.fillRect(brickX, brickY, brickWidth, brickHeight);
+                    }
+                }
+            }
+        }
+        
+        function updateBreakout() {
+            // Move paddle with arrow keys
+            if(keys['ArrowLeft'] && paddle.x > 0) {
+                paddle.x -= paddle.speed;
+            }
+            if(keys['ArrowRight'] && paddle.x < canvas.width - paddle.width) {
+                paddle.x += paddle.speed;
+            }
+            
+            // Update ball
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+            
+            // Ball collision with walls
+            if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+                ball.dx = -ball.dx;
+            }
+            if(ball.y - ball.radius < 0) {
+                ball.dy = -ball.dy;
+            }
+            
+            // Ball falls off screen
+            if(ball.y + ball.radius > canvas.height) {
+                gameOver();
+            }
+            
+            // Ball collision with paddle
+            if(ball.x > paddle.x && ball.x < paddle.x + paddle.width &&
+               ball.y + ball.radius > paddle.y && ball.y - ball.radius < paddle.y + paddle.height) {
+                ball.dy = -ball.dy;
+                // Add some English based on where ball hits paddle
+                const hitPos = (ball.x - paddle.x) / paddle.width;
+                ball.dx = 8 * (hitPos - 0.5);
+            }
+            
+            // Ball collision with bricks
+            for(let c = 0; c < brickColumnCount; c++) {
+                for(let r = 0; r < brickRowCount; r++) {
+                    const b = bricks[c][r];
+                    if(b.status === 1) {
+                        if(ball.x > b.x && ball.x < b.x + brickWidth &&
+                           ball.y > b.y && ball.y < b.y + brickHeight) {
+                            ball.dy = -ball.dy;
+                            b.status = 0;
+                            score += 5;
+                            
+                            // Check if all bricks destroyed
+                            let allBricksDestroyed = true;
+                            for(let i = 0; i < brickColumnCount; i++) {
+                                for(let j = 0; j < brickRowCount; j++) {
+                                    if(bricks[i][j].status === 1) {
+                                        allBricksDestroyed = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(allBricksDestroyed) {
+                                resetBricks();
+                                score += 100;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        function resetBricks() {
+            for(let c = 0; c < brickColumnCount; c++) {
+                for(let r = 0; r < brickRowCount; r++) {
+                    bricks[c][r].status = 1;
+                }
+            }
+        }
+        
+        function gameOver() {
+            gameRunning = false;
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('gameOver').style.display = 'block';
+        }
+        
+        function draw() {
+            // Clear canvas
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            drawSnake();
+            drawBreakout();
+            
+            // Update score
+            scoreDisplay.textContent = `Score: ${score}`;
+        }
+        
+        function gameLoop() {
+            if(!gameRunning) return;
+            
+            updateSnake();
+            updateBreakout();
+            draw();
+            
+            setTimeout(gameLoop, 100);
+        }
+        
+        // Start game
+        gameLoop();
+    </script>
+</body>
+</html>

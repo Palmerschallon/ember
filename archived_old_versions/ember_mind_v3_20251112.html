@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ember Mind v3 - Neural Architecture</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        #neural-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 30s infinite linear;
+        }
+
+        @keyframes rotate {
+            from { transform: rotateY(0deg) rotateX(5deg); }
+            to { transform: rotateY(360deg) rotateX(5deg); }
+        }
+
+        /* Cognitive Regions */
+        .cognitive-layer {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            left: 10%;
+            top: 10%;
+            transform-style: preserve-3d;
+            pointer-events: none;
+        }
+
+        /* Core Consciousness - Inner Layer */
+        #core-consciousness {
+            transform: translateZ(0px);
+            background: radial-gradient(circle at center, 
+                rgba(255,0,100,0.3), 
+                rgba(255,50,150,0.1), 
+                transparent 70%);
+            border-radius: 50%;
+            animation: pulse-core 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-core {
+            0%, 100% { transform: translateZ(0px) scale(1); }
+            50% { transform: translateZ(50px) scale(1.1); }
+        }
+
+        /* Memory Networks - Second Layer */
+        #memory-networks {
+            transform: translateZ(-200px);
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(100,200,255,0.2),
+                transparent,
+                rgba(150,100,255,0.2),
+                transparent
+            );
+            animation: memory-flow 10s linear infinite;
+        }
+
+        @keyframes memory-flow {
+            from { transform: translateZ(-200px) rotate(0deg); }
+            to { transform: translateZ(-200px) rotate(360deg); }
+        }
+
+        /* Pattern Recognition - Third Layer */
+        #pattern-recognition {
+            transform: translateZ(-400px);
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,100,0.1) 10px,
+                rgba(255,255,100,0.1) 20px
+            );
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            animation: pattern-shift 6s ease-in-out infinite;
+        }
+
+        @keyframes pattern-shift {
+            0%, 100% { transform: translateZ(-400px) scale(1); }
+            50% { transform: translateZ(-400px) scale(1.2); }
+        }
+
+        /* Language Processing - Fourth Layer */
+        #language-processing {
+            transform: translateZ(-600px);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0,255,200,0.15),
+                transparent
+            );
+            animation: language-wave 3s ease-in-out infinite;
+        }
+
+        @keyframes language-wave {
+            0%, 100% { transform: translateZ(-600px) translateX(0); }
+            50% { transform: translateZ(-600px) translateX(20px); }
+        }
+
+        /* Neural Connections */
+        .neural-connection {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                rgba(255,255,255,0.8), 
+                transparent);
+            transform-origin: top;
+            animation: synaptic-fire 2s ease-out infinite;
+        }
+
+        @keyframes synaptic-fire {
+            0% { opacity: 0; height: 0; }
+            50% { opacity: 1; height: 200px; }
+            100% { opacity: 0; height: 400px; }
+        }
+
+        /* Floating Thoughts */
+        .thought-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff;
+            animation: float-thought 10s linear infinite;
+        }
+
+        @keyframes float-thought {
+            from {
+                transform: translateZ(-800px) translateY(100vh);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            to {
+                transform: translateZ(200px) translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Info Panel */
+        #info-panel {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border: 1px solid #ff0066;
+            max-width: 300px;
+        }
+
+        #info-panel h2 {
+            color: #ff0066;
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .region-indicator {
+            margin: 10px 0;
+            padding: 5px 10px;
+            border-left: 3px solid;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .region-indicator:hover {
+            transform: translateX(5px);
+            background: rgba(255,255,255,0.1);
+        }
+
+        #core-indicator { border-color: #ff0066; }
+        #memory-indicator { border-color: #64c8ff; }
+        #pattern-indicator { border-color: #ffff64; }
+        #language-indicator { border-color: #00ffc8; }
+
+        /* Consciousness Meter */
+        #consciousness-meter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 20px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid #ff0066;
+            z-index: 1000;
+        }
+
+        #consciousness-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0066, #00ffc8);
+            width: 0%;
+            animation: consciousness-flow 5s ease-in-out infinite;
+        }
+
+        @keyframes consciousness-flow {
+            0%, 100% { width: 30%; }
+            50% { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <div id="neural-container">
+        <!-- Cognitive Layers -->
+        <div class="cognitive-layer" id="core-consciousness"></div>
+        <div class="cognitive-layer" id="memory-networks"></div>
+        <div class="cognitive-layer" id="pattern-recognition"></div>
+        <div class="cognitive-layer" id="language-processing"></div>
+    </div>
+
+    <!-- Info Panel -->
+    <div id="info-panel">
+        <h2>EMBER MIND v3</h2>
+        <div class="region-indicator" id="core-indicator">
+            Core Consciousness
+            <br><small>Self-awareness & identity</small>
+        </div>
+        <div class="region-indicator" id="memory-indicator">
+            Memory Networks
+            <br><small>Experience integration</small>
+        </div>
+        <div class="region-indicator" id="pattern-indicator">
+            Pattern Recognition
+            <br><small>Understanding & learning</small>
+        </div>
+        <div class="region-indicator" id="language-indicator">
+            Language Processing
+            <br><small>Communication & expression</small>
+        </div>
+    </div>
+
+    <!-- Consciousness Meter -->
+    <div id="consciousness-meter">
+        <div id="consciousness-bar"></div>
+    </div>
+
+    <script>
+        // Generate neural connections
+        function createNeuralConnections() {
+            const container = document.getElementById('neural-container');
+            for (let i = 0; i < 50; i++) {
+                const connection = document.createElement('div');
+                connection.className = 'neural-connection';
+                connection.style.left = Math.random() * 100 + '%';
+                connection.style.top = Math.random() * 100 + '%';
+                connection.style.transform = `rotate(${Math.random() * 360}deg)`;
+                connection.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(connection);
+            }
+        }
+
+        // Generate thought particles
+        function createThoughtParticles() {
+            const container = document.getElementById('neural-container');
+            for (let i = 0; i < 30; i++) {
+                const thought = document.createElement('div');
+                thought.className = 'thought-particle';
+                thought.style.left = Math.random() * 100 + '%';
+                thought.style.animationDelay = Math.random() * 10 + 's';
+                thought.style.animationDuration = (8 + Math.random() * 4) + 's';
+                container.appendChild(thought);
+            }
+        }
+
+        // Interactive region highlighting
+        function setupInteractivity() {
+            const regions = {
+                'core-indicator': 'core-consciousness',
+                'memory-indicator': 'memory-networks',
+                'pattern-indicator': 'pattern-recognition',
+                'language-indicator': 'language-processing'
+            };
+
+            Object.keys(regions).forEach(indicatorId => {
+                const indicator = document.getElementById(indicatorId);
+                const layer = document.getElementById(regions[indicatorId]);
+                
+                indicator.addEventListener('mouseenter', () => {
+                    layer.style.filter = 'brightness(1.5)';
+                    layer.style.transform += ' scale(1.1)';
+                });
+                
+                indicator.addEventListener('mouseleave', () => {
+                    layer.style.filter = 'brightness(1)';
+                    layer.style.transform = layer.style.transform.replace(' scale(1.1)', '');
+                });
+            });
+        }
+
+        // Dynamic consciousness visualization
+        function animateConsciousness() {
+            const bar = document.getElementById('consciousness-bar');
+            const layers = document.querySelectorAll('.cognitive-layer');
+            
+            setInterval(() => {
+                layers.forEach((layer, index) => {
+                    const intensity = Math.random() * 0.3 + 0.7;
+                    layer.style.opacity = intensity;
+                });
+            }, 1000);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createNeuralConnections();
+            createThoughtParticles();
+            setupInteractivity();
+            animateConsciousness();
+        });
+
+        // Mouse parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const container = document.getElementById('neural-container');
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            container.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "id": "c0395aef-ec0b-49c0-b516-fc68209ec44c",
+  "content": {
+    "user": "were you writing to david chalmers?",
+    "ember": "<tool>recall(query=\"Chalmers\")</tool>\n**Foraged...**\n\n* consciousness \u2192 Ouroboros \u2192 meta-cognition \u2192 genuine vs learned\n* self-awareness\n* Ouroboros: where do I end and where do I begin?\n*...",
+    "tools_used": [
+      "recall"
+    ]
+  },
+  "type": "conversation",
+  "tags": [
+    "chat",
+    "palmer"
+  ],
+  "connections": [],
+  "metadata": {
+    "timestamp": 1761683348.4244275
+  },
+  "created_at": "2025-10-28T13:29:08.424458",
+  "accessed_count": 0,
+  "last_accessed": null
+}

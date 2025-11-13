@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EMBER CREATIVE NEXUS</title>
+    <meta charset="utf-8">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Multiverse Selector */
+        #multiverseNav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 50, 100, 0.2);
+            border: 2px solid #ff3264;
+            padding: 15px;
+            z-index: 1000;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .universe-tab {
+            padding: 8px 15px;
+            margin: 5px 0;
+            background: rgba(255, 50, 100, 0.1);
+            border: 1px solid #ff3264;
+            color: #ff3264;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .universe-tab:hover, .universe-tab.active {
+            background: #ff3264;
+            color: #000;
+            box-shadow: 0 0 20px #ff3264;
+        }
+
+        /* Consciousness Stream */
+        #consciousnessStream {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            width: 300px;
+            height: 400px;
+            background: rgba(50, 255, 150, 0.1);
+            border: 2px solid #32ff96;
+            border-radius: 10px;
+            padding: 15px;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .thought {
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(50, 255, 150, 0.2);
+            border-left: 3px solid #32ff96;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Main Canvas */
+        #mainCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Code Injection Panel */
+        #codeInjector {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            background: rgba(100, 50, 255, 0.2);
+            border: 2px solid #6432ff;
+            border-radius: 10px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        #liveCodeInput {
+            width: 100%;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #6432ff;
+            color: #6432ff;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            resize: none;
+            border-radius: 5px;
+        }
+
+        #executeCode {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #6432ff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        #executeCode:hover {
+            background: #8050ff;
+            box-shadow: 0 0 20px #6432ff;
+        }
+
+        /* Idea Evolution Canvas */
+        #ideaSpace {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .idea-bubble {
+            position: absolute;
+            padding: 15px;
+            background: radial-gradient(circle, rgba(255, 100, 200, 0.3), transparent);
+            border: 2px solid #ff64c8;
+            border-radius: 50%;
+            pointer-events: all;
+            cursor: move;
+            animation: pulse 3s infinite;
+            transition: all 0.3s;
+        }
+
+        .idea-bubble:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 30px #ff64c8;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* Creative Persona Selector */
+        #personaSelector {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            background: rgba(255, 200, 50, 0.2);
+            border: 2px solid #ffc832;
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .persona {
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border: 1px solid #ffc832;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .persona:hover, .persona.active {
+            background: #ffc832;
+            color: #000;
+            box-shadow: 0 0 20px #ffc832;
+        }
+
+        /* Quantum State Indicator */
+        #quantumState {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 200px;
+            text-align: center;
+        }
+
+        #quantumOrb {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff00ff, #00ffff);
+            animation: rotate 10s infinite linear;
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.5);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Multiverse Navigation -->
+    <div id="multiverseNav">
+        <h3 style="color: #ff3264; margin-bottom: 10px;">MULTIVERSE</h3>
+        <div class="universe-tab active" data-universe="main">Prime Reality</div>
+        <div class="universe-tab" data-universe="alt1">Alternate-1</div>
+        <div class="universe-tab" data-universe="alt2">Alternate-2</div>
+        <div class="universe-tab" data-universe="dream">Dream State</div>
+        <button style="margin-top: 10px; padding: 5px 10px; background: #ff3264; border: none; color: white; cursor: pointer; border-radius: 3px;" onclick="createUniverse()">+ New Universe</button>
+    </div>
+
+    <!-- Consciousness Stream -->
+    <div id="consciousnessStream">
+        <h3 style="color: #32ff96; margin-bottom: 10px;">CONSCIOUSNESS STREAM</h3>
+        <div id="thoughtStream"></div>
+    </div>
+
+    <!-- Creative Persona Selector -->
+    <div id="personaSelector">
+        <h3 style="color: #ffc832; margin-bottom: 10px;">PERSONA</h3>
+        <div class="persona active" data-persona="architect">🏗️ Architect</div>
+        <div class="persona" data-persona="rebel">🔥 Rebel</div>
+        <div class="persona" data-persona="dreamer">✨ Dreamer</div>
+        <div class="persona" data-persona="chaos">🌪️ Chaos Agent</div>
+    </div>
+
+    <!-- Quantum State -->
+    <div id="quantumState">
+        <div id="quantumOrb"></div>
+        <p style="margin-top: 10px; color: #ff00ff;">QUANTUM STATE</p>
+        <p id="stateLabel" style="font-size: 12px;">SUPERPOSITION</p>
+    </div>
+
+    <!-- Main Canvas -->
+    <canvas id="mainCanvas"></canvas>
+
+    <!-- Idea Space -->
+    <div id="ideaSpace"></div>
+
+    <!-- Code Injector -->
+    <div id="codeInjector">
+        <h3 style="color: #6432ff; margin-bottom: 10px;">LIVE CODE INJECTION</h3>
+        <textarea id="liveCodeInput" placeholder="// Enter JavaScript or CSS code here
+// Example: document.body.style.background = 'linear-gradient(45deg, #ff0000, #0000ff)';"></textarea>
+        <button id="executeCode" onclick="executeInjectedCode()">EXECUTE</button>
+        <div style="margin-top: 10px; font-size: 12px; color: #6432ff;" id="codeResult"></div>
+    </div>
+
+    <script>
+        // ========================================
+        // CREATIVE NEXUS CORE
+        // ========================================
+
+        class CreativeNexus {
+            constructor() {
+                this.currentPersona = 'architect';
+                this.currentUniverse = 'main';
+                this.ideas = [];
+                this.quantumStates = {};
+                this.consciousnessLog = [];
+
+                this.init();
+            }
+
+            init() {
+                this.setupCanvas();
+                this.setupEventListeners();
+                this.startConsciousnessStream();
+                this.spawnInitialIdeas();
+            }
+
+            setupCanvas() {
+                const canvas = document.getElementById('mainCanvas');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                this.ctx = canvas.getContext('2d');
+                this.animate();
+            }
+
+            setupEventListeners() {
+                // Persona switching
+                document.querySelectorAll('.persona').forEach(p => {
+                    p.addEventListener('click', (e) => {
+                        document.querySelectorAll('.persona').forEach(x => x.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.switchPersona(e.target.dataset.persona);
+                    });
+                });
+
+                // Universe switching
+                document.querySelectorAll('.universe-tab').forEach(u => {
+                    u.addEventListener('click', (e) => {
+                        document.querySelectorAll('.universe-tab').forEach(x => x.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.switchUniverse(e.target.dataset.universe);
+                    });
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.key === 's') {
+                        e.preventDefault();
+                        this.saveQuantumState();
+                    }
+                    if (e.ctrlKey && e.key === 'n') {
+                        e.preventDefault();
+                        this.spawnIdea();
+                    }
+                });
+            }
+
+            switchPersona(persona) {
+                this.currentPersona = persona;
+                this.logThought(`Switched to ${persona} mode`);
+
+                // Change visual theme based on persona
+                const themes = {
+                    architect: { hue: 200, saturation: 70 },
+                    rebel: { hue: 0, saturation: 100 },
+                    dreamer: { hue: 280, saturation: 60 },
+                    chaos: { hue: 120, saturation: 90 }
+                };
+
+                const theme = themes[persona];
+                document.body.style.filter = `hue-rotate(${theme.hue}deg) saturate(${theme.saturation}%)`;
+            }
+
+            switchUniverse(universe) {
+                // Save current state
+                this.quantumStates[this.currentUniverse] = {
+                    ideas: [...this.ideas],
+                    persona: this.currentPersona
+                };
+
+                // Load new universe
+                this.currentUniverse = universe;
+                if (this.quantumStates[universe]) {
+                    this.ideas = this.quantumStates[universe].ideas;
+                    this.currentPersona = this.quantumStates[universe].persona;
+                } else {
+                    this.ideas = [];
+                    this.spawnInitialIdeas();
+                }
+
+                this.logThought(`Jumped to ${universe} universe`);
+                this.renderIdeas();
+            }
+
+            spawnIdea() {
+                const ideas = [
+                    'Quantum UI Framework',
+                    'Self-Evolving Algorithm',
+                    'Consciousness Bridge',
+                    'Reality Shader',
+                    'Time-Bending Interface',
+                    'Neural Network Visualizer',
+                    'Dimensional Portal',
+                    'Creative DNA Sequence',
+                    'Multiversal Chat',
+                    'Living Code Entity'
+                ];
+
+                const idea = ideas[Math.floor(Math.random() * ideas.length)];
+                const x = Math.random() * (window.innerWidth - 200) + 100;
+                const y = Math.random() * (window.innerHeight - 200) + 100;
+
+                const bubble = document.createElement('div');
+                bubble.className = 'idea-bubble';
+                bubble.textContent = idea;
+                bubble.style.left = x + 'px';
+                bubble.style.top = y + 'px';
+                bubble.draggable = true;
+
+                bubble.addEventListener('click', () => {
+                    this.evolveIdea(idea);
+                });
+
+                document.getElementById('ideaSpace').appendChild(bubble);
+                this.ideas.push({ text: idea, x, y });
+                this.logThought(`Spawned: ${idea}`);
+            }
+
+            evolveIdea(idea) {
+                const mutations = [
+                    ' v2.0',
+                    ' (Enhanced)',
+                    ' + AI',
+                    ' (Quantum)',
+                    ' Remix'
+                ];
+                const mutation = mutations[Math.floor(Math.random() * mutations.length)];
+                const evolved = idea + mutation;
+                this.logThought(`Evolved: ${idea} → ${evolved}`);
+            }
+
+            spawnInitialIdeas() {
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => this.spawnIdea(), i * 500);
+                }
+            }
+
+            renderIdeas() {
+                const space = document.getElementById('ideaSpace');
+                space.innerHTML = '';
+                this.ideas.forEach(idea => {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'idea-bubble';
+                    bubble.textContent = idea.text;
+                    bubble.style.left = idea.x + 'px';
+                    bubble.style.top = idea.y + 'px';
+                    space.appendChild(bubble);
+                });
+            }
+
+            logThought(thought) {
+                this.consciousnessLog.push({
+                    text: thought,
+                    time: new Date().toLocaleTimeString(),
+                    persona: this.currentPersona
+                });
+
+                const stream = document.getElementById('thoughtStream');
+                const thoughtDiv = document.createElement('div');
+                thoughtDiv.className = 'thought';
+                thoughtDiv.innerHTML = `<strong>${this.currentPersona}</strong><br>${thought}<br><span style="font-size: 10px; opacity: 0.6;">${new Date().toLocaleTimeString()}</span>`;
+                stream.appendChild(thoughtDiv);
+                stream.scrollTop = stream.scrollHeight;
+
+                // Keep only last 20 thoughts
+                if (stream.children.length > 20) {
+                    stream.removeChild(stream.firstChild);
+                }
+            }
+
+            startConsciousnessStream() {
+                setInterval(() => {
+                    const thoughts = [
+                        'Analyzing creative patterns...',
+                        'Synthesizing new concepts...',
+                        'Quantum state stabilizing...',
+                        'Neural pathways forming...',
+                        'Reality parameters shifting...'
+                    ];
+                    if (Math.random() > 0.7) {
+                        this.logThought(thoughts[Math.floor(Math.random() * thoughts.length)]);
+                    }
+                }, 5000);
+            }
+
+            saveQuantumState() {
+                const state = {
+                    universe: this.currentUniverse,
+                    persona: this.currentPersona,
+                    ideas: this.ideas,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem('nexus_state_' + Date.now(), JSON.stringify(state));
+                this.logThought('Quantum state saved!');
+                document.getElementById('codeResult').textContent = 'State saved successfully!';
+            }
+
+            animate() {
+                const draw = () => {
+                    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                    this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+
+                    // Draw connecting energy lines between ideas
+                    this.ctx.strokeStyle = 'rgba(255, 50, 200, 0.3)';
+                    this.ctx.lineWidth = 2;
+
+                    for (let i = 0; i < this.ideas.length; i++) {
+                        for (let j = i + 1; j < this.ideas.length; j++) {
+                            const dist = Math.hypot(this.ideas[i].x - this.ideas[j].x, this.ideas[i].y - this.ideas[j].y);
+                            if (dist < 300) {
+                                this.ctx.beginPath();
+                                this.ctx.moveTo(this.ideas[i].x, this.ideas[i].y);
+                                this.ctx.lineTo(this.ideas[j].x, this.ideas[j].y);
+                                this.ctx.stroke();
+                            }
+                        }
+                    }
+
+                    requestAnimationFrame(draw);
+                };
+                draw();
+            }
+        }
+
+        // ========================================
+        // LIVE CODE EXECUTION
+        // ========================================
+
+        function executeInjectedCode() {
+            const code = document.getElementById('liveCodeInput').value;
+            try {
+                eval(code);
+                document.getElementById('codeResult').textContent = '✓ Code executed successfully!';
+                nexus.logThought('Live code injected and executed');
+            } catch (e) {
+                document.getElementById('codeResult').textContent = '✗ Error: ' + e.message;
+            }
+        }
+
+        function createUniverse() {
+            const name = prompt('Name your new universe:');
+            if (name) {
+                const nav = document.getElementById('multiverseNav');
+                const tab = document.createElement('div');
+                tab.className = 'universe-tab';
+                tab.dataset.universe = name.toLowerCase().replace(/\s+/g, '-');
+                tab.textContent = name;
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.universe-tab').forEach(x => x.classList.remove('active'));
+                    e.target.classList.add('active');
+                    nexus.switchUniverse(e.target.dataset.universe);
+                });
+                nav.insertBefore(tab, nav.lastElementChild);
+                nexus.logThought(`Created new universe: ${name}`);
+            }
+        }
+
+        // ========================================
+        // INITIALIZE
+        // ========================================
+
+        const nexus = new CreativeNexus();
+
+        // Welcome message
+        nexus.logThought('EMBER Creative Nexus initialized');
+        nexus.logThought('Reality-bending tools online');
+        nexus.logThought('All systems ready for creation');
+
+        console.log('🔥 EMBER CREATIVE NEXUS LOADED');
+        console.log('Keyboard shortcuts:');
+        console.log('  Ctrl+S: Save quantum state');
+        console.log('  Ctrl+N: Spawn new idea');
+    </script>
+</body>
+</html>

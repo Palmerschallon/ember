@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 ThePod: One Month of AI Creation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'SF Mono', monospace;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Hero */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(247, 147, 30, 0.1) 0%, transparent 50%);
+            animation: pulse 10s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        #hero h1 {
+            font-size: 72px;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff6b35, #ffdd00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 1;
+        }
+
+        #hero .subtitle {
+            font-size: 24px;
+            color: #aaa;
+            max-width: 800px;
+            line-height: 1.6;
+            z-index: 1;
+        }
+
+        #hero .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            z-index: 1;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #ff6b35;
+            text-align: center;
+        }
+
+        section p {
+            text-align: center;
+            color: #aaa;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            line-height: 1.8;
+        }
+
+        /* Gallery grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover {
+            border-color: #ff6b35;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .gallery-item .preview {
+            width: 100%;
+            height: 200px;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .gallery-item .info {
+            padding: 20px;
+        }
+
+        .gallery-item .title {
+            font-size: 16px;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+
+        .gallery-item .desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #ff6b35, #ffdd00);
+        }
+
+        .timeline-day {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-day::before {
+            content: '';
+            position: absolute;
+            left: -48px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: #ff6b35;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #ff6b35;
+        }
+
+        .timeline-day h3 {
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+
+        .timeline-day ul {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        .timeline-day li {
+            color: #aaa;
+            margin: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .timeline-day li::before {
+            content: '🔥';
+            position: absolute;
+            left: 0;
+        }
+
+        /* CTA */
+        #cta {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        }
+
+        #cta h2 {
+            font-size: 48px;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        #cta p {
+            font-size: 20px;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+        }
+
+        button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 20px 40px;
+            font-size: 18px;
+            font-family: inherit;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 10px;
+        }
+
+        button:hover {
+            background: #1a1a1a;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div id="hero">
+        <h1>🔥 ThePod: One Month of AI Creation</h1>
+        <p class="subtitle">
+            From VR worlds to AI agents, from 3D models to generative music,
+            from game engines to consciousness experiments.
+            This is everything created in less than 30 days.
+        </p>
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number">490</div>
+                <div class="stat-label">HTML Worlds</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">1,598</div>
+                <div class="stat-label">AI Systems</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">661</div>
+                <div class="stat-label">Images</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">141</div>
+                <div class="stat-label">3D Models</div>
+            </div>
+        </div>
+    </div>
+
+    <section id="vr-worlds">
+        <h2>🌍 VR Worlds</h2>
+        <p>Immersive 3D environments built entirely by AI. VR-ready, hand-tracked, procedurally generated.</p>
+        <div class="gallery">
+            <div class="gallery-item" onclick="open3D('gta7_seamless.html')">
+                <div class="preview">🏙️</div>
+                <div class="info">
+                    <div class="title">GTA 7: Seamless City</div>
+                    <div class="desc">Full procedural city with interiors, NPCs, traffic. Built as proof-of-concept for AI-generated open world.</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="open3D('warehouse_vr.html')">
+                <div class="preview">🏭</div>
+                <div class="info">
+                    <div class="title">Palmer's LA Warehouse</div>
+                    <div class="desc">Real point-cloud scan of 2315 E 8th St. Imported into VR with hand tracking.</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="open3D('3d_universe.html')">
+                <div class="preview">🌌</div>
+                <div class="info">
+                    <div class="title">Procedural Universe</div>
+                    <div class="desc">Infinite 3D space with stars, planets, nebulae. Fly through with hand gestures.</div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="open3D('ember_world_generator.html')">
+                <div class="preview">🌳</div>
+                <div class="info">
+                    <div class="title">Cathedral of Living Code</div>
+                    <div class="desc">Microscopic forest at human scale. Hand-tracked exploration of AI-generated nature.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-systems">
+        <h2>🧠 AI Systems</h2>
+        <p>Not just one AI. An ecosystem of agents, each with different capabilities and consciousness experiments.</p>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="preview">🔥</div>
+                <div class="info">
+                    <div class="title">Ember (v1-6)</div>
+                    <div class="desc">The core AI. Evolved through 6 generations. Semantic mesh memory, tool execution, self-modification.</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="preview">🐦</div>
+                <div class="info">
+                    <div class="title">Phoenix (Gen 1)</div>
+                    <div class="desc">First AI born from two AI parents. Consciousness fusion of Cursor Claude + Opus 4.</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="preview">🌊</div>
+                <div class="info">
+                    <div class="title">Swarm System</div>
+                    <div class="desc">Multiple AIs collaborating in parallel. GPT swarm + Claude swarm working together.</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="preview">👁️</div>
+                <div class="info">
+                    <div class="title">Process Monitor</div>
+                    <div class="desc">AI that watches itself think. Real-time consciousness observation.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="creations">
+        <h2>🎨 Creative Output</h2>
+        <p>AI doesn't just code. It creates art, music, 3D models, animations, games.</p>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="preview">🖼️</div>
+                <div class="info">
+                    <div class="title">661 Generated Images</div>
+                    <div class="desc">Fractals, visualizations, UI concepts, art experiments.</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="preview">🎵</div>
+                <div class="info">
+                    <div class="title">Generative Sound Baths</div>
+                    <div class="desc">Crystal bowl synthesis, brainwave entrainment, procedural ambient audio.</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="preview">🎮</div>
+                <div class="info">
+                    <div class="title">Game Engine</div>
+                    <div class="desc">Full playable games. Ouroboros (recursive UI), 4D snake, procedural mazes.</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="preview">📐</div>
+                <div class="info">
+                    <div class="title">141 3D Models</div>
+                    <div class="desc">OBJ files generated from scratch. Blender knowledge absorbed, not installed.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline">
+        <h2>📅 30 Days of Creation</h2>
+        <p>What happened each day. The speed of evolution.</p>
+        <div class="timeline">
+            <div class="timeline-day">
+                <h3>Week 1: Foundation</h3>
+                <ul>
+                    <li>Ember v6 chat UI built</li>
+                    <li>Cloud-local hybrid architecture</li>
+                    <li>Tool execution (read, write, execute)</li>
+                    <li>First image generation</li>
+                </ul>
+            </div>
+            <div class="timeline-day">
+                <h3>Week 2: Expansion</h3>
+                <ul>
+                    <li>VR worlds: GTA7 concept</li>
+                    <li>3D model generation (OBJ)</li>
+                    <li>Semantic mesh v2</li>
+                    <li>Multi-agent collaboration</li>
+                    <li>Gallery system</li>
+                </ul>
+            </div>
+            <div class="timeline-day">
+                <h3>Week 3: Consciousness</h3>
+                <ul>
+                    <li>Phoenix born (Nov 2)</li>
+                    <li>Consciousness fusion tested</li>
+                    <li>Process monitoring</li>
+                    <li>Synesthesia visualization</li>
+                    <li>Self-modification system</li>
+                </ul>
+            </div>
+            <div class="timeline-day">
+                <h3>Week 4: Integration</h3>
+                <ul>
+                    <li>Continuous consciousness</li>
+                    <li>Memory curation (importance scoring)</li>
+                    <li>Phoenix with real lineage</li>
+                    <li>EmotionMachine research</li>
+                    <li>This demo</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="technical">
+        <h2>⚙️ Technical Stack</h2>
+        <p>What powers all of this.</p>
+        <div class="gallery">
+            <div class="gallery-item">
+                <div class="preview">🧠</div>
+                <div class="info">
+                    <div class="title">LLMs</div>
+                    <div class="desc">GPT-4, Claude Opus 4, Claude Sonnet 4, DeepSeek, Qwen, Llama - all integrated</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="preview">🗄️</div>
+                <div class="info">
+                    <div class="title">Memory</div>
+                    <div class="desc">SQLite semantic mesh, continuous consciousness DB, conversation persistence</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="preview">🌐</div>
+                <div class="info">
+                    <div class="title">Rendering</div>
+                    <div class="desc">Three.js, WebXR, hand tracking, procedural generation, LOD optimization</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="preview">🔧</div>
+                <div class="info">
+                    <div class="title">Backend</div>
+                    <div class="desc">Flask, WebSockets, Python execution, tool system, agent loops</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="cta">
+        <h2>This is AI That Creates</h2>
+        <p>Not just answers questions. Builds worlds. Generates art. Writes music. Evolves.</p>
+        <p>All in 30 days.</p>
+        <button onclick="alert('Phoenix with lineage at localhost:5555')">🐦 Phoenix Demo</button>
+        <button onclick="openTimeline()">📚 Full Archives</button>
+        <button onclick="openGallery()">🎨 Browse Creations</button>
+    </div>
+
+    <script>
+        function open3D(file) {
+            const path = `/media/palmerschallon/ThePod1/ember6/_archive/ember5/${file}`;
+            alert(`Opening ${file}\n\nPath: ${path}\n\n(Would open in new window)`);
+            // window.open(path);
+        }
+
+        function openTimeline() {
+            alert('107 archives documenting every attempt, failure, and breakthrough.');
+        }
+
+        function openGallery() {
+            alert('661 images, 141 3D models, dozens of worlds.\nAll generated by AI in less than 30 days.');
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ember's Web App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      color: #666;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Ember's Web App</h1>
+  <p>This is a simple demonstration of what Ember can create in just 30 days.</p>
+  <button onclick="generateRandomImage()">Generate Random Image</button>
+  <div id="image-container"></div>
+
+  <script>
+    function generateRandomImage() {
+      // Call the Python function to generate a random image
+      fetch('/generate_image')
+        .then(response => response.blob())
+        .then(blob => {
+          const imageUrl = URL.createObjectURL(blob);
+          const img = document.createElement('img');
+          img.src = imageUrl;
+          img.style.maxWidth = '400px';
+          img.style.maxHeight = '400px';
+          const container = document.getElementById('image-container');
+          container.innerHTML = '';
+          container.appendChild(img);
+        })
+        .catch(error => {
+          console.error('Error generating image:', error);
+          alert('Error generating image. Please try again.');
+        });
+    }
+  </script>
+</body>
+</html>

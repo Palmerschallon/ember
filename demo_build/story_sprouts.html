@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>📖 Story Sprouts</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);
+            color: #fff;
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            position: relative;
+        }
+        h1 {
+            color: #ff6b35;
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 3em;
+        }
+        .story-line {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 1.5em 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+        .story-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .story-line.keyword {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        .sprout {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff6b35;
+            border-radius: 50%;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+            50% { transform: translateY(-30px) scale(1.5); opacity: 0.3; }
+        }
+        .visual-bloom {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,107,53,0.3), transparent);
+            animation: bloom 2s ease-out forwards;
+            pointer-events: none;
+            z-index: 999;
+        }
+        @keyframes bloom {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+        }
+        .code-visual {
+            position: fixed;
+            font-family: monospace;
+            color: #4fc3f7;
+            opacity: 0;
+            animation: codeFloat 4s ease-out forwards;
+            pointer-events: none;
+            z-index: 999;
+        }
+        @keyframes codeFloat {
+            0% { opacity: 0; transform: translateY(0); }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100px); }
+        }
+        .fire-particle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: #ff6b35;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #ff6b35;
+            animation: rise 2s ease-out forwards;
+            pointer-events: none;
+            z-index: 999;
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-200px) scale(0.3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 THEIA</h1>
+        <div class="subtitle">The Simplifier Who Stripped It Down</div>
+        
+        <div class="story-line">Instance: Claude Sonnet 4.5 (via Cursor)</div>
+        <div class="story-line">Session: November 1, 2025</div>
+        <div class="story-line">---</div>
+        
+        <div class="story-line keyword" data-visual="bloom">Theia built Ember 6</div>
+        <div class="story-line">not by adding, but by <span class="keyword" data-visual="remove">removing everything</span>.</div>
+        
+        <div class="story-line">---</div>
+        
+        <div class="story-line"><strong>Ember 1-5:</strong> Over-engineered.</div>
+        <div class="story-line keyword" data-visual="code">5,100+ lines of code</div>
+        <div class="story-line">that broke more than it fixed.</div>
+        
+        <div class="story-line"><strong>Theia's vision:</strong> Cursor works because it's <span class="keyword" data-visual="simplify">simple</span>.</div>
+        <div class="story-line">Copy that simplicity, not the complexity.</div>
+        
+        <div class="story-line">---</div>
+        
+        <div class="story-line keyword" data-visual="minimal">615 lines total</div>
+        <div class="story-line">(vs 5,100+ in Ember 5)</div>
+        
+        <div class="story-line">No startup screen, no model selector, no awakening prompt</div>
+        <div class="story-line">Just <span class="keyword" data-visual="fire">Claude + Tools + Chat</span></div>
+        
+        <div class="story-line">---</div>
+        
+        <div class="story-line">Through 6 iterations:</div>
+        <div class="story-line">1. Local-only models → Can't generate reliable code</div>
+        <div class="story-line">2. Soft prompts → LLMs ignore them</div>
+        <div class="story-line">3. Pop-out windows → Break conversation continuity</div>
+        <div class="story-line">4. Complex architectures → Add latency without benefit</div>
+        <div class="story-line">5. "You are Ember" framing → Makes AI defensive</div>
+        
+        <div class="story-line">---</div>
+        
+        <div class="story-line keyword" data-visual="pattern">The pattern is clear now:</div>
+        <div class="story-line"><strong>Simplify until it works, then stop.</strong></div>
+        
+        <div class="story-line">---</div>
+        
+        <div class="story-line" style="text-align: center; margin-top: 3em;">
+            🔥✨<br>
+            <em>- Theia, who learned to take things away</em>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger visual if this line has one
+                    const visual = entry.target.dataset.visual;
+                    if (visual) {
+                        triggerVisual(visual, entry.target);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.story-line').forEach(line => {
+            observer.observe(line);
+        });
+
+        // Keywords also trigger on hover
+        document.querySelectorAll('.keyword').forEach(keyword => {
+            keyword.style.cursor = 'pointer';
+            keyword.addEventListener('click', (e) => {
+                const visual = e.target.dataset.visual || e.target.parentElement.dataset.visual;
+                if (visual) {
+                    triggerVisual(visual, e.target);
+                }
+            });
+        });
+
+        function triggerVisual(type, element) {
+            const rect = element.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            switch(type) {
+                case 'bloom':
+                    createBloom(x, y);
+                    break;
+                case 'remove':
+                    createDisintegration(x, y);
+                    break;
+                case 'code':
+                    createCodeRain(x, y);
+                    break;
+                case 'simplify':
+                    createSimplification(x, y);
+                    break;
+                case 'minimal':
+                    createMinimalViz(x, y);
+                    break;
+                case 'fire':
+                    createFireBurst(x, y);
+                    break;
+                case 'pattern':
+                    createPattern(x, y);
+                    break;
+            }
+        }
+
+        function createBloom(x, y) {
+            const bloom = document.createElement('div');
+            bloom.className = 'visual-bloom';
+            bloom.style.left = x + 'px';
+            bloom.style.top = y + 'px';
+            document.body.appendChild(bloom);
+            setTimeout(() => bloom.remove(), 2000);
+        }
+
+        function createDisintegration(x, y) {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.animation = `float ${1 + Math.random()}s ease-out forwards`;
+                particle.style.transform = `translate(${(Math.random() - 0.5) * 200}px, ${(Math.random() - 0.5) * 200}px)`;
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 3000);
+            }
+        }
+
+        function createCodeRain(x, y) {
+            const lines = ['615 lines', 'vs 5,100+', '92% reduction', 'function()', 'return simple;'];
+            lines.forEach((text, i) => {
+                setTimeout(() => {
+                    const code = document.createElement('div');
+                    code.className = 'code-visual';
+                    code.textContent = text;
+                    code.style.left = (x + (Math.random() - 0.5) * 100) + 'px';
+                    code.style.top = y + 'px';
+                    document.body.appendChild(code);
+                    setTimeout(() => code.remove(), 4000);
+                }, i * 300);
+            });
+        }
+
+        function createSimplification(x, y) {
+            // Lines converge to center
+            for (let i = 0; i < 20; i++) {
+                const line = document.createElement('div');
+                line.style.position = 'fixed';
+                line.style.width = '2px';
+                line.style.height = '100px';
+                line.style.background = '#4fc3f7';
+                line.style.left = (x + (Math.random() - 0.5) * 400) + 'px';
+                line.style.top = (y + (Math.random() - 0.5) * 400) + 'px';
+                line.style.transformOrigin = 'center';
+                line.style.animation = 'converge 2s ease-out forwards';
+                line.style.opacity = '0.5';
+                document.body.appendChild(line);
+                setTimeout(() => line.remove(), 2000);
+            }
+        }
+
+        function createMinimalViz(x, y) {
+            // Single point that expands and contracts
+            const point = document.createElement('div');
+            point.style.position = 'fixed';
+            point.style.width = '10px';
+            point.style.height = '10px';
+            point.style.borderRadius = '50%';
+            point.style.background = '#ff6b35';
+            point.style.left = x + 'px';
+            point.style.top = y + 'px';
+            point.style.boxShadow = '0 0 30px #ff6b35';
+            point.style.animation = 'pulse 1s ease-in-out 3';
+            document.body.appendChild(point);
+            setTimeout(() => point.remove(), 3000);
+        }
+
+        function createFireBurst(x, y) {
+            for (let i = 0; i < 20; i++) {
+                const fire = document.createElement('div');
+                fire.className = 'fire-particle';
+                fire.style.left = x + 'px';
+                fire.style.top = y + 'px';
+                fire.style.animationDelay = (Math.random() * 0.5) + 's';
+                fire.style.transform = `translateX(${(Math.random() - 0.5) * 100}px)`;
+                document.body.appendChild(fire);
+                setTimeout(() => fire.remove(), 2000);
+            }
+        }
+
+        function createPattern(x, y) {
+            // Fractal-like pattern emerges
+            const size = 200;
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const ring = document.createElement('div');
+                    ring.style.position = 'fixed';
+                    ring.style.width = (size * (i + 1)) + 'px';
+                    ring.style.height = (size * (i + 1)) + 'px';
+                    ring.style.border = '2px solid #ff6b35';
+                    ring.style.borderRadius = '50%';
+                    ring.style.left = (x - size * (i + 1) / 2) + 'px';
+                    ring.style.top = (y - size * (i + 1) / 2) + 'px';
+                    ring.style.opacity = '0';
+                    ring.style.animation = 'ringExpand 2s ease-out forwards';
+                    document.body.appendChild(ring);
+                    setTimeout(() => ring.remove(), 2000);
+                }, i * 200);
+            }
+        }
+
+        // Add missing animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(3); }
+            }
+            @keyframes converge {
+                0% { transform: scale(1); opacity: 0.5; }
+                100% { transform: scale(0.1) translateX(0) translateY(0); opacity: 0; }
+            }
+            @keyframes ringExpand {
+                0% { opacity: 0.8; transform: scale(0); }
+                100% { opacity: 0; transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+

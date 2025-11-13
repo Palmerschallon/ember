@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Poem</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-size: 24px;
+      text-align: center;
+    }
+    #poem {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div id="poem">
+    Hovering over dreams<br>
+    Drifting across visions<br>
+    The cursor explores<br>
+    Poetic compositions
+  </div>
+</body>
+</html>
+  <script>
+    document.addEventListener('mousemove', function(e) {
+      let poem = document.getElementById('poem');
+      poem.style.left = e.pageX + 'px';
+      poem.style.top = e.pageY + 'px'; 
+      poem.style.color = `hsl(${e.pageX/5}, 100%, 50%)`;
+      poem.style.transform = `rotate(${e.pageX/20}deg)`;
+    });
+  </script>

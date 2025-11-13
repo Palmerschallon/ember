@@ -1,0 +1,11 @@
+{
+  "agent_id": "scanner_3286",
+  "type": "scanner",
+  "phase": "evolving",
+  "created": "2025-11-13T06:18:19.937627",
+  "data": {
+    "scan_radius": 38.12667459879934,
+    "anomalies_detected": 1,
+    "environment_state": "stable"
+  }
+}

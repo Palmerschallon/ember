@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Music Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        #container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #visualizer {
+            width: 90%;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #waveformCanvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #keyboard {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            width: 90%;
+            max-width: 800px;
+        }
+        
+        .key {
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .key:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .key.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            transform: scale(0.95);
+        }
+        
+        .key::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.3s ease;
+        }
+        
+        .key.active::before {
+            left: 100%;
+        }
+        
+        .note-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .frequency {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        #controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        label {
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+        
+        input[type="range"] {
+            width: 100px;
+            height: 6px;
+            background: #333;
+            outline: none;
+            border-radius: 3px;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        select {
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        🎵 Click keys to play notes • Adjust controls to change sound
+    </div>
+    
+    <div id="container">
+        <div id="visualizer">
+            <canvas id="waveformCanvas"></canvas>
+        </div>
+        
+        <div id="keyboard"></div>
+        
+        <div id="controls">
+            <div class="control-group">
+                <label for="volume">Volume</label>
+                <input type="range" id="volume" min="0" max="100" value="50">
+            </div>
+            
+            <div class="control-group">
+                <label for="waveform">Waveform</label>
+                <select id="waveform">
+                    <option value="sine">Sine</option>
+                    <option value="square">Square</option>
+                    <option value="sawtooth">Sawtooth</option>
+                    <option value="triangle">Triangle</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="attack">Attack</label>
+                <input type="range" id="attack" min="0" max="100" value="10">
+            </div>
+            
+            <div class="control-group">
+                <label for="release">Release</label>
+                <input type="range" id="release" min="0" max="200" value="50">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Web Audio API setup
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 2048;
+        analyser.connect(audioContext.destination);
+        
+        // Canvas setup
+        const canvas = document.getElementById('waveformCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        
+        // Note frequencies (C4 to B4)
+        const notes = [
+            { name: 'C', freq: 261.63 },
+            { name: 'D', freq: 293.66 },
+            { name: 'E', freq: 329.63 },
+            { name: 'F', freq: 349.23 },
+            { name: 'G', freq: 392.00 },
+            { name: 'A', freq: 440.00 },
+            { name: 'B', freq: 493.88 },
+            { name: 'C5', freq: 523.25 }
+        ];
+        
+        // Create keyboard
+        const keyboard = document.getElementById('keyboard');
+        notes.forEach((note, index) => {
+            const key = document.createElement('button');
+            key.className = 'key';
+            key.innerHTML = `
+                <div class="note-name">${note.name}</div>
+                <div class="frequency">${note.freq.toFixed(0)} Hz</div>
+            `;
+            key.addEventListener('mousedown', () => playNote(note.freq, key));
+            key.addEventListener('mouseup', () => stopNote(key));
+            key.addEventListener('mouseleave', () => stopNote(key));
+            keyboard.appendChild(key);
+        });
+        
+        // Active oscillators
+        const activeOscillators = new Map();
+        
+        function playNote(frequency, keyElement) {
+            if (activeOscillators.has(keyElement)) return;
+            
+            keyElement.classList.add('active');
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // Get control values
+            const volume = document.getElementById('volume').value / 100;
+            const waveform = document.getElementById('waveform').value;
+            const attackTime = document.getElementById('attack').value / 1000;
+            const releaseTime = document.getElementById('release').value / 1000;
+            
+            oscillator.type = waveform;
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            
+            // ADSR envelope
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + attackTime);
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(analyser);
+            
+            oscillator.start();
+            activeOscillators.set(keyElement, { oscillator, gainNode, releaseTime });
+        }
+        
+        function stopNote(keyElement) {
+            const oscData = activeOscillators.get(keyElement);
+            if (!oscData) return;
+            
+            keyElement.classList.remove('active');
+            
+            const { oscillator, gainNode, releaseTime } = oscData;
+            const currentTime = audioContext.currentTime;
+            
+            gainNode.gain.cancelScheduledValues(currentTime);
+            gainNode.gain.setValueAtTime(gainNode.gain.value, currentTime);
+            gainNode.gain.linearRampToValueAtTime(0, currentTime + releaseTime);
+            
+            oscillator.stop(currentTime + releaseTime);
+            activeOscillators.delete(keyElement);
+        }
+        
+        // Visualizer
+        function drawWaveform() {
+            requestAnimationFrame(drawWaveform);
+            
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            analyser.getByteTimeDomainData(dataArray);
+            
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#667eea';
+            ctx.beginPath();
+            
+            const sliceWidth = canvas.width / bufferLength;
+            let x = 0;
+            
+            for (let i = 0; i < bufferLength; i++) {
+                const v = dataArray[i] / 128.0;
+                const y = v * canvas.height / 2;
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                
+                x += sliceWidth;
+            }
+            
+            ctx.lineTo(canvas.width, canvas.height / 2);
+            ctx.stroke();
+            
+            // Draw frequency bars
+            const freqData = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(freqData);
+            
+            const barWidth = canvas.width / freqData.length * 2;
+            x = 0;
+            
+            for (let i = 0; i < freqData.length; i++) {
+                const barHeight = (freqData[i] / 255) * canvas.height * 0.8;
+                
+                const hue = (i / freqData.length) * 360;
+                ctx.fillStyle = `hsla(${hue}, 70%, 60%, 0.3)`;
+                ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                
+                x += barWidth + 1;
+            }
+        }
+        
+        // Start visualizer
+        drawWaveform();
+        
+        // Keyboard support
+        const keyMap = {
+            'a': 0, 's': 1, 'd': 2, 'f': 3,
+            'g': 4, 'h': 5, 'j': 6, 'k': 7
+        };
+        
+        const pressedKeys = new Set();
+        
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            if (keyMap.hasOwnProperty(key) && !pressedKeys.has(key)) {
+                pressedKeys.add(key);
+                const index = keyMap[key];
+                const keyElement = keyboard.children[index];
+                if (keyElement) {
+                    playNote(notes[index].freq, keyElement);
+                }
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            const key = e.key.toLowerCase();
+            if (keyMap.hasOwnProperty(key)) {
+                pressedKeys.delete(key);
+                const index = keyMap[key];
+                const keyElement = keyboard.children[index];
+                if (keyElement) {
+                    stopNote(keyElement);
+                }
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        });
+    </script>
+</body>
+</html>

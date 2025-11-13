@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Data Visualization</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0d 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        canvas {
+            display: block;
+            filter: contrast(1.1) brightness(1.05);
+        }
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #ff9f7d;
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="info">Dynamic Data Visualization</div>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Color palette
+        const colors = {
+            dark: '#702529',
+            peach: '#ff9f7d',
+            magenta: '#de106d'
+        };
+        
+        // Node class for data points
+        class Node {
+            constructor(id) {
+                this.id = id;
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 20 + 10;
+                this.targetRadius = this.radius;
+                this.value = Math.random() * 100;
+                this.color = Object.values(colors)[Math.floor(Math.random() * 3)];
+                this.pulsePhase = Math.random() * Math.PI * 2;
+                this.connections = [];
+                this.opacity = 0;
+                this.targetOpacity = 1;
+            }
+            
+            update() {
+                // Smooth movement
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Bounce off edges with padding
+                const padding = 50;
+                if (this.x < padding || this.x > canvas.width - padding) {
+                    this.vx *= -0.8;
+                    this.x = Math.max(padding, Math.min(canvas.width - padding, this.x));
+                }
+                if (this.y < padding || this.y > canvas.height - padding) {
+                    this.vy *= -0.8;
+                    this.y = Math.max(padding, Math.min(canvas.height - padding, this.y));
+                }
+                
+                // Add slight attraction to center
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const dx = centerX - this.x;
+                const dy = centerY - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist > 100) {
+                    this.vx += (dx / dist) * 0.02;
+                    this.vy += (dy / dist) * 0.02;
+                }
+                
+                // Limit velocity
+                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                if (speed > 2) {
+                    this.vx = (this.vx / speed) * 2;
+                    this.vy = (this.vy / speed) * 2;
+                }
+                
+                // Smooth radius animation
+                this.radius += (this.targetRadius - this.radius) * 0.1;
+                
+                // Smooth opacity animation
+                this.opacity += (this.targetOpacity - this.opacity) * 0.1;
+                
+                // Update value with sine wave
+                this.value = 50 + Math.sin(Date.now() * 0.001 + this.pulsePhase) * 30;
+                this.targetRadius = 10 + (this.value / 100) * 20;
+            }
+            
+            draw() {
+                // Draw outer glow
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, this.radius * 2
+                );
+                gradient.addColorStop(0, this.color + '40');
+                gradient.addColorStop(0.5, this.color + '20');
+                gradient.addColorStop(1, this.color + '00');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw main circle
+                ctx.fillStyle = this.color + Math.floor(this.opacity * 255).toString(16).padStart(2, '0');
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw inner circle
+                ctx.fillStyle = colors.dark + '60';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 0.3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw value ring
+                ctx.strokeStyle = colors.peach + '80';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius + 5, -Math.PI / 2, -Math.PI / 2 + (this.value / 100) * Math.PI * 2);
+                ctx.stroke();
+            }
+        }
+        
+        // Create nodes
+        const nodes = [];
+        const nodeCount = 15;
+        
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push(new Node(i));
+        }
+        
+        // Connection class
+        class Connection {
+            constructor(node1, node2) {
+                this.node1 = node1;
+                this.node2 = node2;
+                this.strength = 0;
+                this.pulseTime = 0;
+            }
+            
+            update() {
+                const dx = this.node2.x - this.node1.x;
+                const dy = this.node2.y - this.node1.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Update connection strength based on distance
+                const maxDist = 200;
+                if (distance < maxDist) {
+                    this.strength = 1 - (distance / maxDist);
+                    this.pulseTime += 0.05;
+                } else {
+                    this.strength *= 0.95;
+                }
+            }
+            
+            draw() {
+                if (this.strength < 0.01) return;
+                
+                // Calculate control points for curved lines
+                const midX = (this.node1.x + this.node2.x) / 2;
+                const midY = (this.node1.y + this.node2.y) / 2;
+                const offset = Math.sin(this.pulseTime) * 20;
+                const controlX = midX + offset;
+                const controlY = midY - offset;
+                
+                // Draw connection line
+                ctx.strokeStyle = colors.magenta + Math.floor(this.strength * 50).toString(16).padStart(2, '0');
+                ctx.lineWidth = this.strength * 3;
+                ctx.beginPath();
+                ctx.moveTo(this.node1.x, this.node1.y);
+                ctx.quadraticCurveTo(controlX, controlY, this.node2.x, this.node2.y);
+                ctx.stroke();
+                
+                // Draw pulse
+                if (this.strength > 0.5) {
+                    const t = (Math.sin(this.pulseTime * 2) + 1) / 2;
+                    const pulseX = this.node1.x + (this.node2.x - this.node1.x) * t;
+                    const pulseY = this.node1.y + (this.node2.y - this.node1.y) * t;
+                    
+                    ctx.fillStyle = colors.peach + '80';
+                    ctx.beginPath();
+                    ctx.arc(pulseX, pulseY, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+        
+        // Create connections
+        const connections = [];
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                connections.push(new Connection(nodes[i], nodes[j]));
+            }
+        }
+        
+        // Background particles
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.2;
+                this.speedY = (Math.random() - 0.5) * 0.2;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                // Wrap around screen
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            
+            draw() {
+                ctx.fillStyle = colors.peach + Math.floor(this.opacity * 255).toString(16).padStart(2, '0');
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Create background particles
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+        
+        // Mouse interaction
+        let mouseX = canvas.width / 2;
+        let mouseY = canvas.height / 2;
+        
+        canvas.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        // Animation loop
+        function animate() {
+            // Clear canvas with fade effect
+            ctx.fillStyle = 'rgba(10, 10, 13, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw particles
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            // Update connections
+            connections.forEach(connection => {
+                connection.update();
+            });
+            
+            // Draw connections
+            connections.forEach(connection => {
+                connection.draw();
+            });
+            
+            // Update nodes
+            nodes.forEach(node => {
+                // Mouse repulsion
+                const dx = mouseX - node.x;
+                const dy = mouseY - node.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 100 && dist > 0) {
+                    node.vx -= (dx / dist) * 0.5;
+                    node.vy -= (dy / dist) * 0.5;
+                }
+                
+                node.update();
+            });
+            
+            // Draw nodes
+            nodes.forEach(node => {
+                node.draw();
+            });
+            
+            // Draw center indicator
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const time = Date.now() * 0.001;
+            
+            ctx.strokeStyle = colors.dark + '20';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 10]);
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 100 + Math.sin(time) * 20, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>

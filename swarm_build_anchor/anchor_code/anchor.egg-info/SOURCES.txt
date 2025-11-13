@@ -1,0 +1,7 @@
+setup.py
+anchor.egg-info/PKG-INFO
+anchor.egg-info/SOURCES.txt
+anchor.egg-info/dependency_links.txt
+anchor.egg-info/entry_points.txt
+anchor.egg-info/requires.txt
+anchor.egg-info/top_level.txt

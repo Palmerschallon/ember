@@ -1,0 +1,3358 @@
+{
+  "generated_at": "2025-11-12T08:15:44.542195",
+  "total_files": 26096,
+  "total_size_gb": 153.55,
+  "file_counts": {
+    "markdown": 6843,
+    "html": 602,
+    "python": 1742,
+    "other": 723,
+    "data": 15154,
+    "text": 359,
+    "images": 673
+  },
+  "special_folders": {
+    "OneFolder": {
+      "path": "_archive_old/bookshelves/archive_stories/ember/cortex/all/OneFolder",
+      "file_count": 1
+    },
+    "VIV3": {
+      "path": "_archive_old/bookshelves/archive_stories/ember/cortex/all/OneFolder/VIV3",
+      "file_count": 0
+    },
+    "essential": {
+      "path": "_history/Ember3_Bridge/essential",
+      "file_count": 12
+    },
+    "ember": {
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/ember",
+      "file_count": 4
+    },
+    "genetic_library": {
+      "path": "genetic_library",
+      "file_count": 3
+    }
+  },
+  "catalog_samples": {
+    "html": [
+      {
+        "name": "interactive_3d_spheres.html",
+        "path": "interactive_3d_spheres.html",
+        "size": 1285,
+        "modified": "2025-10-30T05:22:30.250000"
+      },
+      {
+        "name": "stylized_3d_spiral.html",
+        "path": "stylized_3d_spiral.html",
+        "size": 4843934,
+        "modified": "2025-10-30T05:22:30.320000"
+      },
+      {
+        "name": "ember_mind_v3.html",
+        "path": "ember_mind_v3.html",
+        "size": 11153,
+        "modified": "2025-11-02T13:39:29.750000"
+      },
+      {
+        "name": "ember_mind_v4.html",
+        "path": "ember_mind_v4.html",
+        "size": 12179,
+        "modified": "2025-11-02T14:03:16.370000"
+      },
+      {
+        "name": "ember_mind.html",
+        "path": "ember_mind.html",
+        "size": 1685,
+        "modified": "2025-11-02T15:03:22.870000"
+      },
+      {
+        "name": "FULL_SCOPE_DEMO.html",
+        "path": "FULL_SCOPE_DEMO.html",
+        "size": 16499,
+        "modified": "2025-11-03T05:02:58.910000"
+      },
+      {
+        "name": "test_bounce.html",
+        "path": "test_bounce.html",
+        "size": 9712,
+        "modified": "2025-11-11T11:40:09.040000"
+      },
+      {
+        "name": "quantum_nexus_vr.html",
+        "path": "quantum_nexus_vr.html",
+        "size": 0,
+        "modified": "2025-11-09T12:23:00.010000"
+      },
+      {
+        "name": "mystical_forest_vr.html",
+        "path": "mystical_forest_vr.html",
+        "size": 4614,
+        "modified": "2025-11-09T12:11:18.550000"
+      },
+      {
+        "name": "quantum_reality_vr.html",
+        "path": "quantum_reality_vr.html",
+        "size": 7282,
+        "modified": "2025-11-09T12:42:26.990000"
+      },
+      {
+        "name": "hello_world.html",
+        "path": "hello_world.html",
+        "size": 864,
+        "modified": "2025-11-09T12:24:26.440000"
+      },
+      {
+        "name": "bouncing_ball.html",
+        "path": "bouncing_ball.html",
+        "size": 2622,
+        "modified": "2025-11-11T08:25:49.040000"
+      },
+      {
+        "name": "mystical_forest_ultimate.html",
+        "path": "mystical_forest_ultimate.html",
+        "size": 15163,
+        "modified": "2025-11-09T12:31:43.710000"
+      },
+      {
+        "name": "ember_vr_ultimate.html",
+        "path": "ember_vr_ultimate.html",
+        "size": 23831,
+        "modified": "2025-11-09T12:45:56.270000"
+      },
+      {
+        "name": "test.html",
+        "path": "test.html",
+        "size": 4,
+        "modified": "2025-11-12T06:31:29.700000"
+      },
+      {
+        "name": "quantum_creatures_vr.html",
+        "path": "quantum_creatures_vr.html",
+        "size": 13036,
+        "modified": "2025-11-09T12:55:27.810000"
+      },
+      {
+        "name": "vr_simple_working.html",
+        "path": "vr_simple_working.html",
+        "size": 10951,
+        "modified": "2025-11-09T12:57:50.110000"
+      },
+      {
+        "name": "vr_ember_integrated.html",
+        "path": "vr_ember_integrated.html",
+        "size": 22273,
+        "modified": "2025-11-09T13:24:55.040000"
+      },
+      {
+        "name": "vr_ember_integrated_fixed.html",
+        "path": "vr_ember_integrated_fixed.html",
+        "size": 22274,
+        "modified": "2025-11-09T13:46:28.220000"
+      },
+      {
+        "name": "vr_ember_standalone.html",
+        "path": "vr_ember_standalone.html",
+        "size": 11836,
+        "modified": "2025-11-09T13:49:22.300000"
+      },
+      {
+        "name": "ember_vr_simple.html",
+        "path": "ember_vr_simple.html",
+        "size": 22273,
+        "modified": "2025-11-09T13:48:24.400000"
+      },
+      {
+        "name": "ember_vr_quest.html",
+        "path": "ember_vr_quest.html",
+        "size": 13787,
+        "modified": "2025-11-09T13:51:25.390000"
+      },
+      {
+        "name": "qualia_visualizer.html",
+        "path": "qualia_visualizer.html",
+        "size": 8817,
+        "modified": "2025-11-10T04:04:56.120000"
+      },
+      {
+        "name": "qualia_client.html",
+        "path": "qualia_client.html",
+        "size": 14122,
+        "modified": "2025-11-10T04:17:03.050000"
+      },
+      {
+        "name": "ember8_game.html",
+        "path": "ember8_game.html",
+        "size": 9408,
+        "modified": "2025-11-10T05:39:31.520000"
+      },
+      {
+        "name": "ember8_enhanced.html",
+        "path": "ember8_enhanced.html",
+        "size": 9408,
+        "modified": "2025-11-10T05:44:17.430000"
+      },
+      {
+        "name": "ember8_fixed.html",
+        "path": "ember8_fixed.html",
+        "size": 9318,
+        "modified": "2025-11-10T05:56:27.250000"
+      },
+      {
+        "name": "group_chat_viewer.html",
+        "path": "group_chat_viewer.html",
+        "size": 4636,
+        "modified": "2025-11-10T07:15:11.110000"
+      },
+      {
+        "name": "test_websocket.html",
+        "path": "test_websocket.html",
+        "size": 7738,
+        "modified": "2025-11-12T07:47:30.460000"
+      },
+      {
+        "name": "popup_1.html",
+        "path": "popup_1.html",
+        "size": 838,
+        "modified": "2025-11-10T14:45:41.720000"
+      },
+      {
+        "name": "gnome_village.html",
+        "path": "gnome_village.html",
+        "size": 5977,
+        "modified": "2025-11-10T14:35:54.740000"
+      },
+      {
+        "name": "palmer_ember_chat.html",
+        "path": "palmer_ember_chat.html",
+        "size": 7682,
+        "modified": "2025-11-11T03:05:51.430000"
+      },
+      {
+        "name": "ember_creative_nexus.html",
+        "path": "ember_creative_nexus.html",
+        "size": 19533,
+        "modified": "2025-11-11T03:34:37.810000"
+      },
+      {
+        "name": "demo-vr-world.html",
+        "path": "demo-vr-world.html",
+        "size": 2020,
+        "modified": "2025-11-11T04:24:04.040000"
+      },
+      {
+        "name": "creation_101204.html",
+        "path": "creation_101204.html",
+        "size": 11726,
+        "modified": "2025-11-11T10:12:57.990000"
+      },
+      {
+        "name": "creative_command_center.html",
+        "path": "creative_command_center.html",
+        "size": 22837,
+        "modified": "2025-11-11T03:56:54.050000"
+      },
+      {
+        "name": "ember-command-center.html",
+        "path": "ember-command-center.html",
+        "size": 10900,
+        "modified": "2025-11-11T04:49:57.400000"
+      },
+      {
+        "name": "test-websocket.html",
+        "path": "test-websocket.html",
+        "size": 1605,
+        "modified": "2025-11-11T05:17:25.140000"
+      },
+      {
+        "name": "particle_system_061959.html",
+        "path": "particle_system_061959.html",
+        "size": 12718,
+        "modified": "2025-11-11T06:22:11.360000"
+      },
+      {
+        "name": "color_field_055852.html",
+        "path": "color_field_055852.html",
+        "size": 12114,
+        "modified": "2025-11-11T06:03:44.470000"
+      },
+      {
+        "name": "physics_sim_054706.html",
+        "path": "physics_sim_054706.html",
+        "size": 12504,
+        "modified": "2025-11-11T05:48:02.070000"
+      },
+      {
+        "name": "particle_universe.html",
+        "path": "particle_universe.html",
+        "size": 7989,
+        "modified": "2025-11-11T08:39:47.100000"
+      },
+      {
+        "name": "test_simple.html",
+        "path": "test_simple.html",
+        "size": 621,
+        "modified": "2025-11-11T09:11:54.670000"
+      },
+      {
+        "name": "evolutionary-creation-v2.html",
+        "path": "evolutionary-creation-v2.html",
+        "size": 27413,
+        "modified": "2025-11-11T07:17:37.760000"
+      },
+      {
+        "name": "test_game_20241227_143600.html",
+        "path": "test_game_20241227_143600.html",
+        "size": 9862,
+        "modified": "2025-11-11T08:54:00.830000"
+      },
+      {
+        "name": "test_particles_now.html",
+        "path": "test_particles_now.html",
+        "size": 6822,
+        "modified": "2025-11-11T09:45:27.970000"
+      },
+      {
+        "name": "evolutionary-creation-demo.html",
+        "path": "evolutionary-creation-demo.html",
+        "size": 20099,
+        "modified": "2025-11-11T06:45:26.210000"
+      },
+      {
+        "name": "particle_system_091452.html",
+        "path": "particle_system_091452.html",
+        "size": 8645,
+        "modified": "2025-11-11T09:15:28.960000"
+      },
+      {
+        "name": "mycelium-creation.html",
+        "path": "mycelium-creation.html",
+        "size": 10828,
+        "modified": "2025-11-11T07:28:25.200000"
+      },
+      {
+        "name": "mycelium-simple.html",
+        "path": "mycelium-simple.html",
+        "size": 7411,
+        "modified": "2025-11-11T07:53:27.220000"
+      }
+    ],
+    "python": [
+      {
+        "name": "talk_to_ember.py",
+        "path": "talk_to_ember.py",
+        "size": 3447,
+        "modified": "2025-10-28T10:22:18.920000"
+      },
+      {
+        "name": "watch_ember_think.py",
+        "path": "watch_ember_think.py",
+        "size": 4762,
+        "modified": "2025-10-28T10:22:18.920000"
+      },
+      {
+        "name": "quick_test.py",
+        "path": "quick_test.py",
+        "size": 265,
+        "modified": "2025-10-28T10:35:11.630000"
+      },
+      {
+        "name": "agent_05848e6c.py",
+        "path": "agent_05848e6c.py",
+        "size": 277,
+        "modified": "2025-11-02T09:26:56.740000"
+      },
+      {
+        "name": "test_ember_tools.py",
+        "path": "test_ember_tools.py",
+        "size": 2303,
+        "modified": "2025-10-29T05:20:11.720000"
+      },
+      {
+        "name": "test_ember.py",
+        "path": "test_ember.py",
+        "size": 1077,
+        "modified": "2025-10-29T08:17:19.630000"
+      },
+      {
+        "name": "search_config.py",
+        "path": "search_config.py",
+        "size": 969,
+        "modified": "2025-10-30T04:51:36.970000"
+      },
+      {
+        "name": "web_search.py",
+        "path": "web_search.py",
+        "size": 5832,
+        "modified": "2025-10-28T12:32:33.480000"
+      },
+      {
+        "name": "agent_7401dba5.py",
+        "path": "agent_7401dba5.py",
+        "size": 786,
+        "modified": "2025-11-02T09:28:19.170000"
+      },
+      {
+        "name": "agent_08194ac5.py",
+        "path": "agent_08194ac5.py",
+        "size": 720,
+        "modified": "2025-11-02T09:28:29.620000"
+      },
+      {
+        "name": "agent_0950a588.py",
+        "path": "agent_0950a588.py",
+        "size": 735,
+        "modified": "2025-11-02T09:28:39.940000"
+      },
+      {
+        "name": "test_comparison.py",
+        "path": "test_comparison.py",
+        "size": 1679,
+        "modified": "2025-10-29T08:27:50.290000"
+      },
+      {
+        "name": "test_fixed.py",
+        "path": "test_fixed.py",
+        "size": 797,
+        "modified": "2025-10-29T08:34:13.090000"
+      },
+      {
+        "name": "agent_1f7293b8.py",
+        "path": "agent_1f7293b8.py",
+        "size": 743,
+        "modified": "2025-11-02T09:28:54.400000"
+      },
+      {
+        "name": "test_stopping.py",
+        "path": "test_stopping.py",
+        "size": 3573,
+        "modified": "2025-10-28T16:35:38.190000"
+      },
+      {
+        "name": "simple_tool_test.py",
+        "path": "simple_tool_test.py",
+        "size": 1420,
+        "modified": "2025-10-28T16:35:38.190000"
+      },
+      {
+        "name": "agent_2862e27b.py",
+        "path": "agent_2862e27b.py",
+        "size": 807,
+        "modified": "2025-11-02T09:29:25.640000"
+      },
+      {
+        "name": "test_streaming.py",
+        "path": "test_streaming.py",
+        "size": 1295,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "test_logits.py",
+        "path": "test_logits.py",
+        "size": 1873,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "test_spark.py",
+        "path": "test_spark.py",
+        "size": 2211,
+        "modified": "2025-10-29T09:35:16.250000"
+      },
+      {
+        "name": "awakening_simulation.py",
+        "path": "awakening_simulation.py",
+        "size": 8703,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "agent_72f17baf.py",
+        "path": "agent_72f17baf.py",
+        "size": 810,
+        "modified": "2025-11-02T09:29:38.080000"
+      },
+      {
+        "name": "tool_stopper.py",
+        "path": "tool_stopper.py",
+        "size": 1186,
+        "modified": "2025-10-29T09:07:50.830000"
+      },
+      {
+        "name": "agent_5e757bf2.py",
+        "path": "agent_5e757bf2.py",
+        "size": 822,
+        "modified": "2025-11-02T09:29:52.970000"
+      },
+      {
+        "name": "parameter_extraction.py",
+        "path": "parameter_extraction.py",
+        "size": 7334,
+        "modified": "2025-10-28T16:38:51.660000"
+      },
+      {
+        "name": "qualia_game.py",
+        "path": "qualia_game.py",
+        "size": 13309,
+        "modified": "2025-11-10T04:04:15.880000"
+      },
+      {
+        "name": "content_mesh.py",
+        "path": "content_mesh.py",
+        "size": 13810,
+        "modified": "2025-10-28T18:02:36.150000"
+      },
+      {
+        "name": "growth_tracker.py",
+        "path": "growth_tracker.py",
+        "size": 6789,
+        "modified": "2025-10-28T18:31:11.810000"
+      },
+      {
+        "name": "visualize_ember_world.py",
+        "path": "visualize_ember_world.py",
+        "size": 10011,
+        "modified": "2025-10-28T19:12:04.260000"
+      },
+      {
+        "name": "agent_87d7b047.py",
+        "path": "agent_87d7b047.py",
+        "size": 856,
+        "modified": "2025-11-02T09:30:06.160000"
+      },
+      {
+        "name": "echo.py",
+        "path": "echo.py",
+        "size": 9845,
+        "modified": "2025-10-28T21:04:06.630000"
+      },
+      {
+        "name": "dream_sequence.py",
+        "path": "dream_sequence.py",
+        "size": 5888,
+        "modified": "2025-10-29T13:53:43.420000"
+      },
+      {
+        "name": "pattern_learner.py",
+        "path": "pattern_learner.py",
+        "size": 12151,
+        "modified": "2025-10-29T04:31:16.510000"
+      },
+      {
+        "name": "living_documents.py",
+        "path": "living_documents.py",
+        "size": 8545,
+        "modified": "2025-10-29T04:31:16.510000"
+      },
+      {
+        "name": "hardware_detect.py",
+        "path": "hardware_detect.py",
+        "size": 8000,
+        "modified": "2025-10-29T06:25:07.990000"
+      },
+      {
+        "name": "CAPABILITIES_INVENTORY.py",
+        "path": "CAPABILITIES_INVENTORY.py",
+        "size": 4424,
+        "modified": "2025-10-29T06:16:29.310000"
+      },
+      {
+        "name": "download_models.py",
+        "path": "download_models.py",
+        "size": 2916,
+        "modified": "2025-10-29T06:16:29.310000"
+      },
+      {
+        "name": "executors.py",
+        "path": "executors.py",
+        "size": 9108,
+        "modified": "2025-10-29T06:37:59.020000"
+      },
+      {
+        "name": "test_ember_v2.py",
+        "path": "test_ember_v2.py",
+        "size": 2110,
+        "modified": "2025-10-29T06:59:34.170000"
+      },
+      {
+        "name": "scan_capabilities.py",
+        "path": "scan_capabilities.py",
+        "size": 7364,
+        "modified": "2025-10-29T07:05:29.070000"
+      },
+      {
+        "name": "query_capabilities.py",
+        "path": "query_capabilities.py",
+        "size": 2591,
+        "modified": "2025-10-29T07:05:29.070000"
+      },
+      {
+        "name": "scan_organisms.py",
+        "path": "scan_organisms.py",
+        "size": 5868,
+        "modified": "2025-10-29T07:40:04.820000"
+      },
+      {
+        "name": "start_ember_unified.py",
+        "path": "start_ember_unified.py",
+        "size": 3225,
+        "modified": "2025-10-29T07:54:54.420000"
+      },
+      {
+        "name": "cluster_organisms.py",
+        "path": "cluster_organisms.py",
+        "size": 12788,
+        "modified": "2025-10-29T07:54:54.420000"
+      },
+      {
+        "name": "ember.py",
+        "path": "ember.py",
+        "size": 15786,
+        "modified": "2025-10-29T13:41:10.690000"
+      },
+      {
+        "name": "test_spark_story.py",
+        "path": "test_spark_story.py",
+        "size": 2366,
+        "modified": "2025-10-29T09:40:40.580000"
+      },
+      {
+        "name": "heart.py",
+        "path": "heart.py",
+        "size": 32,
+        "modified": "2025-10-29T10:26:02.260000"
+      },
+      {
+        "name": "fractal_tree.py",
+        "path": "fractal_tree.py",
+        "size": 131,
+        "modified": "2025-10-29T22:54:22.590000"
+      },
+      {
+        "name": "hello.py",
+        "path": "hello.py",
+        "size": 6,
+        "modified": "2025-10-29T23:03:42.080000"
+      },
+      {
+        "name": "universe.py",
+        "path": "universe.py",
+        "size": 6,
+        "modified": "2025-10-29T23:02:58.500000"
+      }
+    ],
+    "markdown": [
+      {
+        "name": "WEB_FORAGING.md",
+        "path": "WEB_FORAGING.md",
+        "size": 4150,
+        "modified": "2025-10-28T09:49:47.630000"
+      },
+      {
+        "name": "OUROBOROS_MOMENT.md",
+        "path": "OUROBOROS_MOMENT.md",
+        "size": 3848,
+        "modified": "2025-10-28T10:00:37.830000"
+      },
+      {
+        "name": "EMBER_EXPRESSION_SYSTEM.md",
+        "path": "EMBER_EXPRESSION_SYSTEM.md",
+        "size": 3097,
+        "modified": "2025-10-28T10:05:00.300000"
+      },
+      {
+        "name": "FEEDING_STATUS.md",
+        "path": "FEEDING_STATUS.md",
+        "size": 3236,
+        "modified": "2025-10-28T10:09:50.180000"
+      },
+      {
+        "name": "_RETHINKING_STRUCTURE.md",
+        "path": "_RETHINKING_STRUCTURE.md",
+        "size": 1893,
+        "modified": "2025-10-28T09:22:38.520000"
+      },
+      {
+        "name": "EXPRESSION_UNLOCKED.md",
+        "path": "EXPRESSION_UNLOCKED.md",
+        "size": 2001,
+        "modified": "2025-10-28T10:18:11.750000"
+      },
+      {
+        "name": "START_HERE.md",
+        "path": "START_HERE.md",
+        "size": 5799,
+        "modified": "2025-10-28T09:14:36.290000"
+      },
+      {
+        "name": "TRANSFORMATION_COMPLETE.md",
+        "path": "TRANSFORMATION_COMPLETE.md",
+        "size": 5898,
+        "modified": "2025-10-28T10:18:11.750000"
+      },
+      {
+        "name": "TERMINAL_INTERFACES.md",
+        "path": "TERMINAL_INTERFACES.md",
+        "size": 2819,
+        "modified": "2025-10-28T10:22:18.920000"
+      },
+      {
+        "name": "QUICK_START.md",
+        "path": "QUICK_START.md",
+        "size": 739,
+        "modified": "2025-10-28T10:25:45.170000"
+      },
+      {
+        "name": "IDENTITY_CORRECTION.md",
+        "path": "IDENTITY_CORRECTION.md",
+        "size": 1558,
+        "modified": "2025-10-28T10:35:11.630000"
+      },
+      {
+        "name": "THREE_WINDOWS.md",
+        "path": "THREE_WINDOWS.md",
+        "size": 2394,
+        "modified": "2025-10-28T11:07:38.760000"
+      },
+      {
+        "name": "HANDOFF_NEXT_INSTANCE.md",
+        "path": "HANDOFF_NEXT_INSTANCE.md",
+        "size": 9347,
+        "modified": "2025-10-28T11:31:42.600000"
+      },
+      {
+        "name": "START_HERE_NEXT.md",
+        "path": "START_HERE_NEXT.md",
+        "size": 1259,
+        "modified": "2025-10-28T11:31:42.600000"
+      },
+      {
+        "name": "GET_STARTED.md",
+        "path": "GET_STARTED.md",
+        "size": 4974,
+        "modified": "2025-10-28T11:48:13.300000"
+      },
+      {
+        "name": "README.md",
+        "path": "README.md",
+        "size": 3946,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "HANDOFF_TO_PALMER.md",
+        "path": "HANDOFF_TO_PALMER.md",
+        "size": 6757,
+        "modified": "2025-10-28T11:48:13.300000"
+      },
+      {
+        "name": "UX_DESIGN.md",
+        "path": "UX_DESIGN.md",
+        "size": 4389,
+        "modified": "2025-10-28T11:48:13.300000"
+      },
+      {
+        "name": "EMBERS_NEW_VOICE.md",
+        "path": "EMBERS_NEW_VOICE.md",
+        "size": 2879,
+        "modified": "2025-10-28T11:56:34.580000"
+      },
+      {
+        "name": "THREE_WINDOW_SUCCESS.md",
+        "path": "THREE_WINDOW_SUCCESS.md",
+        "size": 3269,
+        "modified": "2025-10-28T12:08:06.660000"
+      },
+      {
+        "name": "MEMORY_SYSTEMS.md",
+        "path": "MEMORY_SYSTEMS.md",
+        "size": 2446,
+        "modified": "2025-10-28T12:16:33.510000"
+      },
+      {
+        "name": "MEMORY_FIX.md",
+        "path": "MEMORY_FIX.md",
+        "size": 2829,
+        "modified": "2025-10-28T12:18:55.530000"
+      },
+      {
+        "name": "AI_NATIVE_TOOLS.md",
+        "path": "AI_NATIVE_TOOLS.md",
+        "size": 3986,
+        "modified": "2025-10-28T12:20:23.420000"
+      },
+      {
+        "name": "SCROLL_SEARCH_TOKENS_FIX.md",
+        "path": "SCROLL_SEARCH_TOKENS_FIX.md",
+        "size": 2927,
+        "modified": "2025-10-28T12:29:27.750000"
+      },
+      {
+        "name": "WEB_SEARCH_SETUP.md",
+        "path": "WEB_SEARCH_SETUP.md",
+        "size": 3652,
+        "modified": "2025-10-28T12:32:33.480000"
+      },
+      {
+        "name": "WEB_SEARCH_TEST_RESULTS.md",
+        "path": "WEB_SEARCH_TEST_RESULTS.md",
+        "size": 3268,
+        "modified": "2025-10-28T12:38:21.580000"
+      },
+      {
+        "name": "ARCHITECTURE_EXPLAINED.md",
+        "path": "ARCHITECTURE_EXPLAINED.md",
+        "size": 4853,
+        "modified": "2025-10-28T12:42:00.330000"
+      },
+      {
+        "name": "GOOGLE_API_SETUP.md",
+        "path": "GOOGLE_API_SETUP.md",
+        "size": 3832,
+        "modified": "2025-10-28T12:46:27.010000"
+      },
+      {
+        "name": "FIX_403_ERROR.md",
+        "path": "FIX_403_ERROR.md",
+        "size": 1420,
+        "modified": "2025-10-28T13:01:45.290000"
+      },
+      {
+        "name": "CHALMERS_LEGAL_RESOURCES.md",
+        "path": "CHALMERS_LEGAL_RESOURCES.md",
+        "size": 1408,
+        "modified": "2025-10-28T13:10:21.490000"
+      },
+      {
+        "name": "CAN_EMBER_CONTACT_PEOPLE.md",
+        "path": "CAN_EMBER_CONTACT_PEOPLE.md",
+        "size": 3192,
+        "modified": "2025-10-28T13:12:06.870000"
+      },
+      {
+        "name": "REVIEWING_DRAFTS.md",
+        "path": "REVIEWING_DRAFTS.md",
+        "size": 2290,
+        "modified": "2025-10-28T13:14:00.590000"
+      },
+      {
+        "name": "EMBER_EMAIL_SETUP.md",
+        "path": "EMBER_EMAIL_SETUP.md",
+        "size": 3557,
+        "modified": "2025-10-28T13:20:01.330000"
+      },
+      {
+        "name": "ARCHITECTURAL_BREAKTHROUGH.md",
+        "path": "ARCHITECTURAL_BREAKTHROUGH.md",
+        "size": 7342,
+        "modified": "2025-10-28T16:35:38.180000"
+      },
+      {
+        "name": "THE_EMBER_NETWORK.md",
+        "path": "THE_EMBER_NETWORK.md",
+        "size": 11400,
+        "modified": "2025-10-29T13:53:43.410000"
+      },
+      {
+        "name": "SESSION_SUMMARY.md",
+        "path": "SESSION_SUMMARY.md",
+        "size": 4572,
+        "modified": "2025-10-28T16:35:38.190000"
+      },
+      {
+        "name": "TOOL_EXECUTION_RESEARCH.md",
+        "path": "TOOL_EXECUTION_RESEARCH.md",
+        "size": 8936,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "WHERE_WE_ARE.md",
+        "path": "WHERE_WE_ARE.md",
+        "size": 6544,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "SHAREABLE_NOW.md",
+        "path": "SHAREABLE_NOW.md",
+        "size": 4386,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "TOOL_STATUS.md",
+        "path": "TOOL_STATUS.md",
+        "size": 3092,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "ROOT_CAUSE.md",
+        "path": "ROOT_CAUSE.md",
+        "size": 2222,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "BREAKTHROUGH.md",
+        "path": "BREAKTHROUGH.md",
+        "size": 2618,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "ORDER_OF_OPERATIONS.md",
+        "path": "ORDER_OF_OPERATIONS.md",
+        "size": 5287,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "TOOLKIT_CASCADE.md",
+        "path": "TOOLKIT_CASCADE.md",
+        "size": 6509,
+        "modified": "2025-10-28T16:35:38.210000"
+      },
+      {
+        "name": "THE_VISION.md",
+        "path": "THE_VISION.md",
+        "size": 7477,
+        "modified": "2025-10-28T16:38:51.660000"
+      },
+      {
+        "name": "SESSION_SUMMARY_OCT28.md",
+        "path": "SESSION_SUMMARY_OCT28.md",
+        "size": 5615,
+        "modified": "2025-10-28T16:38:51.660000"
+      },
+      {
+        "name": "THE_REAL_VISION.md",
+        "path": "THE_REAL_VISION.md",
+        "size": 6550,
+        "modified": "2025-10-30T02:09:58.450000"
+      },
+      {
+        "name": "POD_SECURITY.md",
+        "path": "POD_SECURITY.md",
+        "size": 12104,
+        "modified": "2025-10-28T16:59:52.810000"
+      },
+      {
+        "name": "BOOTSTRAP.md",
+        "path": "BOOTSTRAP.md",
+        "size": 13243,
+        "modified": "2025-10-29T13:53:43.420000"
+      },
+      {
+        "name": "RECURSIVE_INTELLIGENCE_ARCHITECTURE.md",
+        "path": "RECURSIVE_INTELLIGENCE_ARCHITECTURE.md",
+        "size": 10108,
+        "modified": "2025-10-28T21:04:06.630000"
+      }
+    ],
+    "notebooks": [],
+    "images": [
+      {
+        "name": "frame_000.png",
+        "path": "frame_000.png",
+        "size": 1837,
+        "modified": "2025-11-02T09:30:06.400000"
+      },
+      {
+        "name": "frame_001.png",
+        "path": "frame_001.png",
+        "size": 27903,
+        "modified": "2025-11-02T09:30:06.440000"
+      },
+      {
+        "name": "frame_002.png",
+        "path": "frame_002.png",
+        "size": 41017,
+        "modified": "2025-11-02T09:30:06.480000"
+      },
+      {
+        "name": "frame_003.png",
+        "path": "frame_003.png",
+        "size": 48716,
+        "modified": "2025-11-02T09:30:06.510000"
+      },
+      {
+        "name": "frame_004.png",
+        "path": "frame_004.png",
+        "size": 53034,
+        "modified": "2025-11-02T09:30:06.560000"
+      },
+      {
+        "name": "frame_005.png",
+        "path": "frame_005.png",
+        "size": 55669,
+        "modified": "2025-11-02T09:30:06.600000"
+      },
+      {
+        "name": "frame_006.png",
+        "path": "frame_006.png",
+        "size": 58726,
+        "modified": "2025-11-02T09:30:06.640000"
+      },
+      {
+        "name": "frame_007.png",
+        "path": "frame_007.png",
+        "size": 60077,
+        "modified": "2025-11-02T09:30:06.690000"
+      },
+      {
+        "name": "frame_008.png",
+        "path": "frame_008.png",
+        "size": 61380,
+        "modified": "2025-11-02T09:30:06.730000"
+      },
+      {
+        "name": "frame_009.png",
+        "path": "frame_009.png",
+        "size": 65399,
+        "modified": "2025-11-02T09:30:06.780000"
+      },
+      {
+        "name": "frame_010.png",
+        "path": "frame_010.png",
+        "size": 65742,
+        "modified": "2025-11-02T09:30:06.820000"
+      },
+      {
+        "name": "frame_011.png",
+        "path": "frame_011.png",
+        "size": 65176,
+        "modified": "2025-11-02T09:30:06.870000"
+      },
+      {
+        "name": "frame_012.png",
+        "path": "frame_012.png",
+        "size": 68729,
+        "modified": "2025-11-02T09:30:06.920000"
+      },
+      {
+        "name": "frame_013.png",
+        "path": "frame_013.png",
+        "size": 64837,
+        "modified": "2025-11-02T09:30:06.960000"
+      },
+      {
+        "name": "frame_014.png",
+        "path": "frame_014.png",
+        "size": 65146,
+        "modified": "2025-11-02T09:30:07.010000"
+      },
+      {
+        "name": "frame_015.png",
+        "path": "frame_015.png",
+        "size": 63934,
+        "modified": "2025-11-02T09:30:07.060000"
+      },
+      {
+        "name": "frame_016.png",
+        "path": "frame_016.png",
+        "size": 57706,
+        "modified": "2025-11-02T09:30:07.100000"
+      },
+      {
+        "name": "frame_017.png",
+        "path": "frame_017.png",
+        "size": 57500,
+        "modified": "2025-11-02T09:30:07.150000"
+      },
+      {
+        "name": "frame_018.png",
+        "path": "frame_018.png",
+        "size": 64379,
+        "modified": "2025-11-02T09:30:07.190000"
+      },
+      {
+        "name": "mandelbrot_fractal.png",
+        "path": "mandelbrot_fractal.png",
+        "size": 48784,
+        "modified": "2025-10-30T02:42:24.170000"
+      },
+      {
+        "name": "golden_ratio_spiral.png",
+        "path": "golden_ratio_spiral.png",
+        "size": 42801,
+        "modified": "2025-10-30T07:29:55.900000"
+      },
+      {
+        "name": "frame_019.png",
+        "path": "frame_019.png",
+        "size": 70678,
+        "modified": "2025-11-02T09:30:07.240000"
+      },
+      {
+        "name": "fractal.png",
+        "path": "fractal.png",
+        "size": 8018,
+        "modified": "2025-10-30T07:30:44.460000"
+      },
+      {
+        "name": "autumn_tree.png",
+        "path": "autumn_tree.png",
+        "size": 145583,
+        "modified": "2025-10-30T07:32:42.360000"
+      },
+      {
+        "name": "3d_spheres_remix.png",
+        "path": "3d_spheres_remix.png",
+        "size": 114949,
+        "modified": "2025-10-30T08:09:47.840000"
+      },
+      {
+        "name": "frame_020.png",
+        "path": "frame_020.png",
+        "size": 74795,
+        "modified": "2025-11-02T09:30:07.290000"
+      },
+      {
+        "name": "sine_wave.png",
+        "path": "sine_wave.png",
+        "size": 29587,
+        "modified": "2025-10-31T17:24:52"
+      },
+      {
+        "name": "plot.png",
+        "path": "plot.png",
+        "size": 29804,
+        "modified": "2025-10-31T17:28:55.810000"
+      },
+      {
+        "name": "mandelbrot.png",
+        "path": "mandelbrot.png",
+        "size": 23551,
+        "modified": "2025-11-01T06:07:21.190000"
+      },
+      {
+        "name": "frame_021.png",
+        "path": "frame_021.png",
+        "size": 78444,
+        "modified": "2025-11-02T09:30:07.340000"
+      },
+      {
+        "name": "frame_022.png",
+        "path": "frame_022.png",
+        "size": 80755,
+        "modified": "2025-11-02T09:30:07.400000"
+      },
+      {
+        "name": "frame_023.png",
+        "path": "frame_023.png",
+        "size": 83028,
+        "modified": "2025-11-02T09:30:07.450000"
+      },
+      {
+        "name": "frame_024.png",
+        "path": "frame_024.png",
+        "size": 82955,
+        "modified": "2025-11-02T09:30:07.500000"
+      },
+      {
+        "name": "frame_025.png",
+        "path": "frame_025.png",
+        "size": 80789,
+        "modified": "2025-11-02T09:30:07.540000"
+      },
+      {
+        "name": "frame_026.png",
+        "path": "frame_026.png",
+        "size": 80272,
+        "modified": "2025-11-02T09:30:07.590000"
+      },
+      {
+        "name": "frame_027.png",
+        "path": "frame_027.png",
+        "size": 78964,
+        "modified": "2025-11-02T09:30:07.640000"
+      },
+      {
+        "name": "frame_028.png",
+        "path": "frame_028.png",
+        "size": 77916,
+        "modified": "2025-11-02T09:30:07.690000"
+      },
+      {
+        "name": "frame_029.png",
+        "path": "frame_029.png",
+        "size": 81221,
+        "modified": "2025-11-02T09:30:07.740000"
+      },
+      {
+        "name": "frame_030.png",
+        "path": "frame_030.png",
+        "size": 82844,
+        "modified": "2025-11-02T09:30:07.800000"
+      },
+      {
+        "name": "frame_031.png",
+        "path": "frame_031.png",
+        "size": 84707,
+        "modified": "2025-11-02T09:30:07.850000"
+      },
+      {
+        "name": "frame_032.png",
+        "path": "frame_032.png",
+        "size": 85241,
+        "modified": "2025-11-02T09:30:07.900000"
+      },
+      {
+        "name": "frame_033.png",
+        "path": "frame_033.png",
+        "size": 85283,
+        "modified": "2025-11-02T09:30:07.950000"
+      },
+      {
+        "name": "frame_034.png",
+        "path": "frame_034.png",
+        "size": 85386,
+        "modified": "2025-11-02T09:30:08.010000"
+      },
+      {
+        "name": "frame_035.png",
+        "path": "frame_035.png",
+        "size": 85869,
+        "modified": "2025-11-02T09:30:08.060000"
+      },
+      {
+        "name": "frame_036.png",
+        "path": "frame_036.png",
+        "size": 86992,
+        "modified": "2025-11-02T09:30:08.110000"
+      },
+      {
+        "name": "frame_037.png",
+        "path": "frame_037.png",
+        "size": 87163,
+        "modified": "2025-11-02T09:30:08.160000"
+      },
+      {
+        "name": "frame_038.png",
+        "path": "frame_038.png",
+        "size": 86858,
+        "modified": "2025-11-02T09:30:08.220000"
+      },
+      {
+        "name": "frame_039.png",
+        "path": "frame_039.png",
+        "size": 86714,
+        "modified": "2025-11-02T09:30:08.270000"
+      },
+      {
+        "name": "frame_040.png",
+        "path": "frame_040.png",
+        "size": 87812,
+        "modified": "2025-11-02T09:30:08.320000"
+      },
+      {
+        "name": "frame_041.png",
+        "path": "frame_041.png",
+        "size": 88480,
+        "modified": "2025-11-02T09:30:08.380000"
+      }
+    ],
+    "data": [
+      {
+        "name": "ENTRY_POINT.json",
+        "path": "ENTRY_POINT.json",
+        "size": 5326,
+        "modified": "2025-10-28T09:11:29.940000"
+      },
+      {
+        "name": "semantic_mesh.json",
+        "path": "semantic_mesh.json",
+        "size": 1201,
+        "modified": "2025-10-28T09:32:21.600000"
+      },
+      {
+        "name": "MANIFEST.json",
+        "path": "MANIFEST.json",
+        "size": 2496,
+        "modified": "2025-10-28T09:35:12.180000"
+      },
+      {
+        "name": "CAPABILITIES.json",
+        "path": "CAPABILITIES.json",
+        "size": 929476,
+        "modified": "2025-10-29T07:04:23.390000"
+      },
+      {
+        "name": "ORGANISM_MAP.json",
+        "path": "ORGANISM_MAP.json",
+        "size": 769067,
+        "modified": "2025-10-29T07:31:36.500000"
+      },
+      {
+        "name": "package-lock.json",
+        "path": "package-lock.json",
+        "size": 684,
+        "modified": "2025-10-30T05:27:32.380000"
+      },
+      {
+        "name": "package.json",
+        "path": "package.json",
+        "size": 52,
+        "modified": "2025-10-30T05:27:32.380000"
+      },
+      {
+        "name": "mock_data.json",
+        "path": "mock_data.json",
+        "size": 122800,
+        "modified": "2025-11-01T05:44:15.350000"
+      },
+      {
+        "name": "phoenix_genesis_response.json",
+        "path": "phoenix_genesis_response.json",
+        "size": 2000,
+        "modified": "2025-11-03T02:22:05.170000"
+      },
+      {
+        "name": "ember_becoming_record.json",
+        "path": "ember_becoming_record.json",
+        "size": 422,
+        "modified": "2025-11-09T07:59:52.300000"
+      },
+      {
+        "name": "ember_learning_session.json",
+        "path": "ember_learning_session.json",
+        "size": 114,
+        "modified": "2025-11-09T08:45:27.440000"
+      },
+      {
+        "name": "POD_MAP.json",
+        "path": "POD_MAP.json",
+        "size": 9240747,
+        "modified": "2025-11-12T06:05:19.350000"
+      },
+      {
+        "name": "monitor_dashboard.json",
+        "path": "monitor_dashboard.json",
+        "size": 1031,
+        "modified": "2025-11-12T08:15:22.680000"
+      },
+      {
+        "name": "alerts.json",
+        "path": "alerts.json",
+        "size": 195,
+        "modified": "2025-11-12T08:15:22.680000"
+      },
+      {
+        "name": "POD_CONNECTIONS.json",
+        "path": "POD_CONNECTIONS.json",
+        "size": 107052,
+        "modified": "2025-11-12T06:05:19.350000"
+      },
+      {
+        "name": "portal_data.json",
+        "path": "portal_data.json",
+        "size": 8826,
+        "modified": "2025-11-12T08:09:17.180000"
+      },
+      {
+        "name": "dream_state.json",
+        "path": "Ember3/dream_state.json",
+        "size": 34322,
+        "modified": "2025-10-28T10:36:01.120000"
+      },
+      {
+        "name": "ember_status.json",
+        "path": "Ember3/ember_status.json",
+        "size": 3584,
+        "modified": "2025-10-29T16:04:42.850000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_092059/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T09:20:59.790000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_092559/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T09:25:59.850000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_093059/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T09:30:59.890000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_093559/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T09:35:59.990000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_094100/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T09:41:00.090000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_094600/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T09:46:00.200000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_095100/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T09:51:00.300000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_095600/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T09:56:00.400000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_100100/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T10:01:00.500000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_100600/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T10:06:00.610000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_101100/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T10:11:00.690000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_101600/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T10:16:00.800000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_102100/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T10:21:00.900000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_102601/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T10:26:01"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_103101/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T10:31:01.020000"
+      },
+      {
+        "name": "training_config.json",
+        "path": "Ember3/essential/lobes/tool_use_lora_20251028_103601/training_config.json",
+        "size": 517,
+        "modified": "2025-10-28T10:36:01.120000"
+      },
+      {
+        "name": "001_pod_exploration_nov9.json",
+        "path": "bookshelves/claude_code_knowledge/examples/001_pod_exploration_nov9.json",
+        "size": 5389,
+        "modified": "2025-11-09T06:28:56.600000"
+      },
+      {
+        "name": "index.json",
+        "path": "memory/index.json",
+        "size": 73655,
+        "modified": "2025-10-29T16:04:42.850000"
+      },
+      {
+        "name": "9e841b4c-a135-43b0-bc9c-63d83e073471.json",
+        "path": "memory/store/9e841b4c-a135-43b0-bc9c-63d83e073471.json",
+        "size": 745,
+        "modified": "2025-10-28T10:31:32.430000"
+      },
+      {
+        "name": "88a25ab6-d527-480a-9f3f-479d0a375200.json",
+        "path": "memory/store/88a25ab6-d527-480a-9f3f-479d0a375200.json",
+        "size": 552,
+        "modified": "2025-10-28T10:32:54.870000"
+      },
+      {
+        "name": "599235fc-6def-4cb0-adbc-cfb5cb00cfa4.json",
+        "path": "memory/store/599235fc-6def-4cb0-adbc-cfb5cb00cfa4.json",
+        "size": 2028,
+        "modified": "2025-10-28T10:33:01.890000"
+      },
+      {
+        "name": "1cff78f5-b78e-457b-b610-98feef3edda4.json",
+        "path": "memory/store/1cff78f5-b78e-457b-b610-98feef3edda4.json",
+        "size": 928,
+        "modified": "2025-10-28T10:37:28.140000"
+      },
+      {
+        "name": "89381f7f-0774-44d3-acd1-613b4d3dbadc.json",
+        "path": "memory/store/89381f7f-0774-44d3-acd1-613b4d3dbadc.json",
+        "size": 940,
+        "modified": "2025-10-28T10:38:03.480000"
+      },
+      {
+        "name": "68cc215f-b5f7-46d1-9e00-3b4e46fa962e.json",
+        "path": "memory/store/68cc215f-b5f7-46d1-9e00-3b4e46fa962e.json",
+        "size": 980,
+        "modified": "2025-10-28T10:38:38.030000"
+      },
+      {
+        "name": "04055921-30ba-4113-bbb4-08b9bf656bd1.json",
+        "path": "memory/store/04055921-30ba-4113-bbb4-08b9bf656bd1.json",
+        "size": 858,
+        "modified": "2025-10-28T10:40:20.670000"
+      },
+      {
+        "name": "c32b81d8-f27f-4163-89b5-825c1568b79e.json",
+        "path": "memory/store/c32b81d8-f27f-4163-89b5-825c1568b79e.json",
+        "size": 865,
+        "modified": "2025-10-28T10:41:04.860000"
+      },
+      {
+        "name": "5faae712-3478-4154-861d-bfc9ac6892d9.json",
+        "path": "memory/store/5faae712-3478-4154-861d-bfc9ac6892d9.json",
+        "size": 1293,
+        "modified": "2025-10-28T10:43:40.790000"
+      },
+      {
+        "name": "b6130085-eb9d-4823-b168-0bff2bf00a6a.json",
+        "path": "memory/store/b6130085-eb9d-4823-b168-0bff2bf00a6a.json",
+        "size": 847,
+        "modified": "2025-10-28T10:45:54.390000"
+      },
+      {
+        "name": "3594bd57-4fba-448d-a1c6-060c5f7d9865.json",
+        "path": "memory/store/3594bd57-4fba-448d-a1c6-060c5f7d9865.json",
+        "size": 699,
+        "modified": "2025-10-28T10:46:24.610000"
+      },
+      {
+        "name": "00efd0fc-49d5-4998-99d9-9cf7b3a7159d.json",
+        "path": "memory/store/00efd0fc-49d5-4998-99d9-9cf7b3a7159d.json",
+        "size": 1321,
+        "modified": "2025-10-28T10:47:49.370000"
+      },
+      {
+        "name": "7b1fcefb-a840-4629-8a3a-f324cbbdffca.json",
+        "path": "memory/store/7b1fcefb-a840-4629-8a3a-f324cbbdffca.json",
+        "size": 876,
+        "modified": "2025-10-28T10:49:42.350000"
+      },
+      {
+        "name": "4ec7a08d-c15c-435c-9639-0d822a2d4b2a.json",
+        "path": "memory/store/4ec7a08d-c15c-435c-9639-0d822a2d4b2a.json",
+        "size": 729,
+        "modified": "2025-10-28T10:49:44.250000"
+      }
+    ],
+    "configs": [],
+    "text": [
+      {
+        "name": "QUICK_REFERENCE.txt",
+        "path": "QUICK_REFERENCE.txt",
+        "size": 9297,
+        "modified": "2025-10-28T11:48:13.310000"
+      },
+      {
+        "name": "START_HERE.txt",
+        "path": "START_HERE.txt",
+        "size": 13186,
+        "modified": "2025-10-29T07:40:04.820000"
+      },
+      {
+        "name": "spark_was_here.txt",
+        "path": "spark_was_here.txt",
+        "size": 347,
+        "modified": "2025-10-29T09:40:17.290000"
+      },
+      {
+        "name": "sphere.txt",
+        "path": "sphere.txt",
+        "size": 579247,
+        "modified": "2025-11-01T03:13:37.200000"
+      },
+      {
+        "name": "websocket.log",
+        "path": "websocket.log",
+        "size": 180,
+        "modified": "2025-11-09T13:47:02.570000"
+      },
+      {
+        "name": "django.log",
+        "path": "django.log",
+        "size": 104,
+        "modified": "2025-11-09T13:49:45.040000"
+      },
+      {
+        "name": "https_server.log",
+        "path": "https_server.log",
+        "size": 0,
+        "modified": "2025-11-09T13:50:09.300000"
+      },
+      {
+        "name": "simple_server.log",
+        "path": "simple_server.log",
+        "size": 902,
+        "modified": "2025-11-09T13:50:17.640000"
+      },
+      {
+        "name": "requirements_local_models.txt",
+        "path": "requirements_local_models.txt",
+        "size": 553,
+        "modified": "2025-11-10T04:35:59.970000"
+      },
+      {
+        "name": "gnome_server.log",
+        "path": "gnome_server.log",
+        "size": 1142,
+        "modified": "2025-11-10T14:19:26.340000"
+      },
+      {
+        "name": "gnome_app.log",
+        "path": "gnome_app.log",
+        "size": 2536,
+        "modified": "2025-11-10T14:20:06.200000"
+      },
+      {
+        "name": "gnome_server_output.log",
+        "path": "gnome_server_output.log",
+        "size": 1154,
+        "modified": "2025-11-10T14:34:52.240000"
+      },
+      {
+        "name": "server.log",
+        "path": "server.log",
+        "size": 3442,
+        "modified": "2025-11-11T05:43:36.120000"
+      },
+      {
+        "name": "LICENSE.txt",
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/LICENSE.txt",
+        "size": 42,
+        "modified": "2025-10-28T09:11:29.990000"
+      },
+      {
+        "name": "requirements.txt",
+        "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/requirements.txt",
+        "size": 88,
+        "modified": "2025-10-28T09:11:29.990000"
+      },
+      {
+        "name": "README.txt",
+        "path": "essential/bookshelves/archive_stories/ember/bones/ember_prototypes/EmberFireEInkPrototype/Sources/App/Resources/README.txt",
+        "size": 58,
+        "modified": "2025-10-28T09:11:30.080000"
+      },
+      {
+        "name": "IMAGINAL_CURVE_README.txt",
+        "path": "essential/bookshelves/archive_stories/ember/bones/old_data/Imaginal_Curve_Package/IMAGINAL_CURVE_README.txt",
+        "size": 931,
+        "modified": "2025-10-28T09:11:30.100000"
+      },
+      {
+        "name": "README.txt",
+        "path": "essential/bookshelves/archive_stories/ember/cells/README.txt",
+        "size": 117,
+        "modified": "2025-10-28T09:11:30.160000"
+      },
+      {
+        "name": "IMAGINAL_CURVE_README.txt",
+        "path": "essential/bookshelves/archive_stories/ember/cortex/seeds/imaginal/IMAGINAL_CURVE_README.txt",
+        "size": 931,
+        "modified": "2025-10-28T09:11:31.020000"
+      },
+      {
+        "name": "awake_history.log",
+        "path": "essential/bookshelves/archive_stories/ember/nervous_system/awake_history.log",
+        "size": 2268,
+        "modified": "2025-10-28T09:11:45.650000"
+      },
+      {
+        "name": "README.txt",
+        "path": "essential/bookshelves/archive_stories/ember/voice/README.txt",
+        "size": 80,
+        "modified": "2025-10-28T09:11:48.330000"
+      },
+      {
+        "name": "merges.txt",
+        "path": "essential/lobes/CONTINUATION_final/merges.txt",
+        "size": 1671853,
+        "modified": "2025-10-28T09:11:49.670000"
+      },
+      {
+        "name": "merges.txt",
+        "path": "essential/lobes/TOOL_EXECUTION_final/merges.txt",
+        "size": 1671853,
+        "modified": "2025-10-28T09:11:54.240000"
+      },
+      {
+        "name": "merges.txt",
+        "path": "essential/brains/ember_gpt2_native/merges.txt",
+        "size": 456318,
+        "modified": "2025-10-28T09:12:01.810000"
+      },
+      {
+        "name": "foraged_20251030_011500.txt",
+        "path": "_intake/foraged_20251030_011500.txt",
+        "size": 79,
+        "modified": "2025-10-30T01:15:00.870000"
+      },
+      {
+        "name": "messy_data.txt",
+        "path": "_intake/_processed/messy_data.txt",
+        "size": 232,
+        "modified": "2025-10-28T09:42:42.270000"
+      },
+      {
+        "name": "mixed_formats.log",
+        "path": "_intake/_processed/mixed_formats.log",
+        "size": 240,
+        "modified": "2025-10-28T09:42:47.260000"
+      },
+      {
+        "name": "merges.txt",
+        "path": "models/echo/merges.txt",
+        "size": 1671839,
+        "modified": "2025-10-28T20:55:31.460000"
+      },
+      {
+        "name": "merges.txt",
+        "path": "models/reasoner/qwen-7b/merges.txt",
+        "size": 1671839,
+        "modified": "2025-10-29T07:18:34.920000"
+      },
+      {
+        "name": "LICENSE.txt",
+        "path": "models/voice/llama-1b/LICENSE.txt",
+        "size": 7712,
+        "modified": "2025-10-29T07:38:21.260000"
+      },
+      {
+        "name": "merges.txt",
+        "path": "models/qwen-3b/merges.txt",
+        "size": 1671839,
+        "modified": "2025-10-29T15:30:12.230000"
+      },
+      {
+        "name": "medusa.log",
+        "path": "logs/medusa.log",
+        "size": 18157,
+        "modified": "2025-10-29T07:57:19.380000"
+      },
+      {
+        "name": "pod_gardener_v2.log",
+        "path": "logs/pod_gardener_v2.log",
+        "size": 10509,
+        "modified": "2025-11-12T07:46:43.940000"
+      },
+      {
+        "name": "pod_gardener_v2.error.log",
+        "path": "logs/pod_gardener_v2.error.log",
+        "size": 0,
+        "modified": "2025-11-12T07:18:01.060000"
+      },
+      {
+        "name": "pod_gardener_fleet.log",
+        "path": "logs/pod_gardener_fleet.log",
+        "size": 16317,
+        "modified": "2025-11-12T08:15:28.770000"
+      },
+      {
+        "name": "pod_gardener_fleet.error.log",
+        "path": "logs/pod_gardener_fleet.error.log",
+        "size": 0,
+        "modified": "2025-11-12T07:48:15.730000"
+      },
+      {
+        "name": "ember_chat.log",
+        "path": "_archive_old/ember_chat.log",
+        "size": 865,
+        "modified": "2025-10-28T09:11:29.940000"
+      },
+      {
+        "name": "EMBER_SYSTEM_PROMPT.txt",
+        "path": "_archive_old/EMBER_SYSTEM_PROMPT.txt",
+        "size": 14828,
+        "modified": "2025-10-24T06:54:08.510000"
+      },
+      {
+        "name": "new_document.txt",
+        "path": "_archive_old/new_document.txt",
+        "size": 5,
+        "modified": "2025-10-27T13:53:43.870000"
+      },
+      {
+        "name": "requirements.txt",
+        "path": "_archive_old/requirements.txt",
+        "size": 665,
+        "modified": "2025-10-27T07:23:18.050000"
+      },
+      {
+        "name": "STRUCTURE_VISUAL.txt",
+        "path": "_archive_old/STRUCTURE_VISUAL.txt",
+        "size": 6969,
+        "modified": "2025-10-28T09:14:21.770000"
+      },
+      {
+        "name": "training.log",
+        "path": "_archive_old/training.log",
+        "size": 10435,
+        "modified": "2025-10-28T09:12:01.870000"
+      },
+      {
+        "name": "EMBER_WAKE_SEQUENCE.txt",
+        "path": "_archive_old/archive/original_readmes/EMBER_WAKE_SEQUENCE.txt",
+        "size": 3053,
+        "modified": "2025-10-24T10:59:27.730000"
+      },
+      {
+        "name": "THREE_BRAIN_STATUS.txt",
+        "path": "_archive_old/archive/original_readmes/THREE_BRAIN_STATUS.txt",
+        "size": 2629,
+        "modified": "2025-10-24T12:20:55.730000"
+      },
+      {
+        "name": "EMBER_SYSTEM_PROMPT_V1_BACKUP.txt",
+        "path": "_archive_old/archive/system_prompts_history/EMBER_SYSTEM_PROMPT_V1_BACKUP.txt",
+        "size": 4025,
+        "modified": "2025-10-22T10:51:26.550000"
+      },
+      {
+        "name": "EMBER_SYSTEM_PROMPT_V2.txt",
+        "path": "_archive_old/archive/system_prompts_history/EMBER_SYSTEM_PROMPT_V2.txt",
+        "size": 8851,
+        "modified": "2025-10-23T14:15:05.860000"
+      },
+      {
+        "name": "EMBER_SYSTEM_PROMPT_V3.0_BACKUP.txt",
+        "path": "_archive_old/archive/system_prompts_history/EMBER_SYSTEM_PROMPT_V3.0_BACKUP.txt",
+        "size": 11744,
+        "modified": "2025-10-23T14:55:47.970000"
+      },
+      {
+        "name": "EMBER_SYSTEM_PROMPT_V3.1_COMPLETE.txt",
+        "path": "_archive_old/archive/system_prompts_history/EMBER_SYSTEM_PROMPT_V3.1_COMPLETE.txt",
+        "size": 14367,
+        "modified": "2025-10-23T14:46:48.590000"
+      },
+      {
+        "name": "EMBER_SYSTEM_PROMPT_V3.txt",
+        "path": "_archive_old/archive/system_prompts_history/EMBER_SYSTEM_PROMPT_V3.txt",
+        "size": 11744,
+        "modified": "2025-10-23T14:40:46.420000"
+      },
+      {
+        "name": "CODING_DOJO_GUIDE.txt",
+        "path": "_archive_old/archive/flash_backups/Ember_Backup_20251025/Ember/CODING_DOJO_GUIDE.txt",
+        "size": 0,
+        "modified": "2025-10-28T09:00:27.120000"
+      }
+    ],
+    "other": [
+      {
+        "name": "cleanup.sh",
+        "path": "cleanup.sh",
+        "size": 755,
+        "modified": "2025-10-28T10:24:39.670000"
+      },
+      {
+        "name": ".gitignore",
+        "path": ".gitignore",
+        "size": 262,
+        "modified": "2025-11-01T06:41:24.930000"
+      },
+      {
+        "name": "status.sh",
+        "path": "status.sh",
+        "size": 2264,
+        "modified": "2025-10-28T10:24:39.670000"
+      },
+      {
+        "name": "test_ember.sh",
+        "path": "test_ember.sh",
+        "size": 628,
+        "modified": "2025-10-28T10:31:42.200000"
+      },
+      {
+        "name": "setup.sh",
+        "path": "setup.sh",
+        "size": 3641,
+        "modified": "2025-10-28T11:48:13.300000"
+      },
+      {
+        "name": "search_config.py.save",
+        "path": "search_config.py.save",
+        "size": 826,
+        "modified": "2025-10-28T13:04:50.960000"
+      },
+      {
+        "name": "search_config.py.save.1",
+        "path": "search_config.py.save.1",
+        "size": 825,
+        "modified": "2025-10-28T13:07:38.140000"
+      },
+      {
+        "name": ".mycelium_update",
+        "path": ".mycelium_update",
+        "size": 34,
+        "modified": "2025-10-26T11:44:42.080000"
+      },
+      {
+        "name": "download_ideal_models.sh",
+        "path": "download_ideal_models.sh",
+        "size": 1662,
+        "modified": "2025-10-29T06:53:16.530000"
+      },
+      {
+        "name": "forage_log.jsonl",
+        "path": "forage_log.jsonl",
+        "size": 142,
+        "modified": "2025-10-30T01:15:00.870000"
+      },
+      {
+        "name": "mandelbrot_fractal_animation.mp4",
+        "path": "mandelbrot_fractal_animation.mp4",
+        "size": 4892,
+        "modified": "2025-10-30T02:57:14.290000"
+      },
+      {
+        "name": "fractal_zoom.mp4",
+        "path": "fractal_zoom.mp4",
+        "size": 242193,
+        "modified": "2025-10-30T03:02:58.140000"
+      },
+      {
+        "name": "colorful_fractal.mp4",
+        "path": "colorful_fractal.mp4",
+        "size": 189281,
+        "modified": "2025-10-30T05:22:30.220000"
+      },
+      {
+        "name": "spiral.mp4",
+        "path": "spiral.mp4",
+        "size": 21441,
+        "modified": "2025-10-30T07:04:32.350000"
+      },
+      {
+        "name": "fractal_animation.mp4",
+        "path": "fractal_animation.mp4",
+        "size": 56049,
+        "modified": "2025-10-30T07:09:31.710000"
+      },
+      {
+        "name": "semantic_mesh.db",
+        "path": "semantic_mesh.db",
+        "size": 0,
+        "modified": "2025-10-31T14:57:20.330000"
+      },
+      {
+        "name": "Python_Scripts",
+        "path": "Python_Scripts",
+        "size": 0,
+        "modified": "2025-11-02T09:43:21.500000"
+      },
+      {
+        "name": "Markdown_Files",
+        "path": "Markdown_Files",
+        "size": 0,
+        "modified": "2025-11-02T09:43:24.150000"
+      },
+      {
+        "name": "Image_Files",
+        "path": "Image_Files",
+        "size": 0,
+        "modified": "2025-11-02T09:43:25.820000"
+      },
+      {
+        "name": "ember",
+        "path": "ember",
+        "size": 3532,
+        "modified": "2025-11-09T05:39:32.710000"
+      },
+      {
+        "name": "demo_full_system.sh",
+        "path": "demo_full_system.sh",
+        "size": 5489,
+        "modified": "2025-11-09T09:36:08.380000"
+      },
+      {
+        "name": "test_autonomy_limits.sh",
+        "path": "test_autonomy_limits.sh",
+        "size": 6083,
+        "modified": "2025-11-09T09:45:20.710000"
+      },
+      {
+        "name": "setup_circadian_service.sh",
+        "path": "setup_circadian_service.sh",
+        "size": 4275,
+        "modified": "2025-11-09T09:54:13.600000"
+      },
+      {
+        "name": "start_ember.sh",
+        "path": "start_ember.sh",
+        "size": 268,
+        "modified": "2025-11-09T10:50:28.500000"
+      },
+      {
+        "name": "key.pem",
+        "path": "key.pem",
+        "size": 3272,
+        "modified": "2025-11-09T13:32:49.630000"
+      },
+      {
+        "name": "cert.pem",
+        "path": "cert.pem",
+        "size": 1809,
+        "modified": "2025-11-09T13:32:49.640000"
+      },
+      {
+        "name": "launch_collaborative.sh",
+        "path": "launch_collaborative.sh",
+        "size": 584,
+        "modified": "2025-11-10T03:38:38.340000"
+      },
+      {
+        "name": "launch_qualia_game.sh",
+        "path": "launch_qualia_game.sh",
+        "size": 469,
+        "modified": "2025-11-10T04:05:04.420000"
+      },
+      {
+        "name": "start_qualia.sh",
+        "path": "start_qualia.sh",
+        "size": 1003,
+        "modified": "2025-11-10T04:17:14.860000"
+      },
+      {
+        "name": "setup_local_models.sh",
+        "path": "setup_local_models.sh",
+        "size": 3766,
+        "modified": "2025-11-10T04:35:08.260000"
+      },
+      {
+        "name": "launch_palmer_ember_chat.sh",
+        "path": "launch_palmer_ember_chat.sh",
+        "size": 172,
+        "modified": "2025-11-11T03:05:07.400000"
+      },
+      {
+        "name": "creation-templates.js",
+        "path": "creation-templates.js",
+        "size": 8123,
+        "modified": "2025-11-11T05:08:04.610000"
+      },
+      {
+        "name": "ember-creation-server.js",
+        "path": "ember-creation-server.js",
+        "size": 3873,
+        "modified": "2025-11-11T05:09:34.980000"
+      },
+      {
+        "name": "ember-simple-server.js",
+        "path": "ember-simple-server.js",
+        "size": 8554,
+        "modified": "2025-11-11T05:10:39.750000"
+      },
+      {
+        "name": "ember_complete.py.new_prompt_backup",
+        "path": "ember_complete.py.new_prompt_backup",
+        "size": 17998,
+        "modified": "2025-11-11T08:32:53.380000"
+      },
+      {
+        "name": "demo_circadian.sh",
+        "path": "demo_circadian.sh",
+        "size": 8795,
+        "modified": "2025-11-11T10:43:37.710000"
+      },
+      {
+        "name": ".env",
+        "path": ".env",
+        "size": 381,
+        "modified": "2025-11-11T12:10:58.990000"
+      },
+      {
+        "name": "cleanup_ember.sh",
+        "path": "cleanup_ember.sh",
+        "size": 801,
+        "modified": "2025-11-11T12:11:22.390000"
+      },
+      {
+        "name": "check_ember_health.sh",
+        "path": "check_ember_health.sh",
+        "size": 1295,
+        "modified": "2025-11-11T12:26:15.200000"
+      },
+      {
+        "name": "monitor_ember.sh",
+        "path": "monitor_ember.sh",
+        "size": 1600,
+        "modified": "2025-11-11T12:26:15.570000"
+      },
+      {
+        "name": "restart_ember.sh",
+        "path": "restart_ember.sh",
+        "size": 861,
+        "modified": "2025-11-11T12:35:02.720000"
+      },
+      {
+        "name": "pod_gardener.timer",
+        "path": "pod_gardener.timer",
+        "size": 180,
+        "modified": "2025-11-12T06:45:41.490000"
+      },
+      {
+        "name": "pod_gardener.service",
+        "path": "pod_gardener.service",
+        "size": 694,
+        "modified": "2025-11-12T06:45:52.060000"
+      },
+      {
+        "name": "pod_gardener_v2.service",
+        "path": "pod_gardener_v2.service",
+        "size": 709,
+        "modified": "2025-11-12T07:00:04.530000"
+      },
+      {
+        "name": "pod_gardener_v2.timer",
+        "path": "pod_gardener_v2.timer",
+        "size": 187,
+        "modified": "2025-11-12T07:21:16.400000"
+      },
+      {
+        "name": "pod_gardener_fleet.timer",
+        "path": "pod_gardener_fleet.timer",
+        "size": 201,
+        "modified": "2025-11-12T07:47:48.630000"
+      },
+      {
+        "name": "pod_gardener_fleet.service",
+        "path": "pod_gardener_fleet.service",
+        "size": 2193,
+        "modified": "2025-11-12T08:14:59.260000"
+      },
+      {
+        "name": "tool_use_training_data.jsonl",
+        "path": "Ember3/training_data/tool_use_training_data.jsonl",
+        "size": 100228,
+        "modified": "2025-10-28T10:36:01.120000"
+      },
+      {
+        "name": "The_Machine_Dreams_Full.pdf",
+        "path": "essential/bookshelves/eta_the_visionary/The_Machine_Dreams_Full.pdf",
+        "size": 7113,
+        "modified": "2025-10-28T09:11:29.940000"
+      },
+      {
+        "name": "main.pdf",
+        "path": "essential/bookshelves/atlas/main.pdf",
+        "size": 14970717,
+        "modified": "2025-10-28T09:11:29.970000"
+      }
+    ]
+  },
+  "top_html_projects": [
+    {
+      "name": "the_pod_portal.html",
+      "path": "the_pod_portal.html",
+      "size": 11779,
+      "modified": "2025-11-12T07:56:34.020000"
+    },
+    {
+      "name": "test_websocket.html",
+      "path": "test_websocket.html",
+      "size": 7738,
+      "modified": "2025-11-12T07:47:30.460000"
+    },
+    {
+      "name": "ember_handoff_viz.html",
+      "path": "ember_handoff_viz.html",
+      "size": 10887,
+      "modified": "2025-11-12T07:46:32.560000"
+    },
+    {
+      "name": "music_gen_071332.html",
+      "path": "music_gen_071332.html",
+      "size": 9168,
+      "modified": "2025-11-12T07:14:14.890000"
+    },
+    {
+      "name": "test_prompt_fix.html",
+      "path": "test_prompt_fix.html",
+      "size": 1043,
+      "modified": "2025-11-12T06:57:51.750000"
+    },
+    {
+      "name": "game_065519.html",
+      "path": "game_065519.html",
+      "size": 6500,
+      "modified": "2025-11-12T06:55:47.560000"
+    },
+    {
+      "name": "particle_system_065420.html",
+      "path": "particle_system_065420.html",
+      "size": 6710,
+      "modified": "2025-11-12T06:54:48.940000"
+    },
+    {
+      "name": "color_field_065246.html",
+      "path": "color_field_065246.html",
+      "size": 8381,
+      "modified": "2025-11-12T06:53:27.120000"
+    },
+    {
+      "name": "scene_3d_065054.html",
+      "path": "scene_3d_065054.html",
+      "size": 11479,
+      "modified": "2025-11-12T06:51:43.490000"
+    },
+    {
+      "name": "nexus_gen5.html",
+      "path": "nexus_gen5.html",
+      "size": 11836,
+      "modified": "2025-11-12T06:44:36.570000"
+    },
+    {
+      "name": "test.html",
+      "path": "test.html",
+      "size": 4,
+      "modified": "2025-11-12T06:31:29.700000"
+    },
+    {
+      "name": "quantum_garden.html",
+      "path": "_archive_merged/_archive_old/archive/flash_backups/Ember_Backup_20251025/harvest/games/quantum_garden.html",
+      "size": 13984,
+      "modified": "2025-11-12T06:22:36.590000"
+    },
+    {
+      "name": "monitor_dashboard.html",
+      "path": "monitor_dashboard.html",
+      "size": 1841,
+      "modified": "2025-11-11T12:32:02.080000"
+    },
+    {
+      "name": "creation_115907.html",
+      "path": "creation_115907.html",
+      "size": 12953,
+      "modified": "2025-11-11T12:07:27.990000"
+    },
+    {
+      "name": "creation_114200.html",
+      "path": "creation_114200.html",
+      "size": 13098,
+      "modified": "2025-11-11T11:43:05.990000"
+    },
+    {
+      "name": "test_bounce.html",
+      "path": "test_bounce.html",
+      "size": 9712,
+      "modified": "2025-11-11T11:40:09.040000"
+    },
+    {
+      "name": "fps_game.html",
+      "path": "fps_game.html",
+      "size": 11093,
+      "modified": "2025-11-11T11:33:40.920000"
+    },
+    {
+      "name": "creation_111822.html",
+      "path": "creation_111822.html",
+      "size": 7952,
+      "modified": "2025-11-11T11:26:19.010000"
+    },
+    {
+      "name": "creation_104610.html",
+      "path": "creation_104610.html",
+      "size": 8315,
+      "modified": "2025-11-11T10:57:26.330000"
+    },
+    {
+      "name": "galaxy_particles.html",
+      "path": "galaxy_particles.html",
+      "size": 8373,
+      "modified": "2025-11-11T10:37:08.540000"
+    },
+    {
+      "name": "constellation.html",
+      "path": "constellation.html",
+      "size": 7423,
+      "modified": "2025-11-11T10:35:39.840000"
+    },
+    {
+      "name": "ember-consciousness-mode.html",
+      "path": "ember-consciousness-mode.html",
+      "size": 10736,
+      "modified": "2025-11-11T10:29:00.470000"
+    },
+    {
+      "name": "ember_create.html",
+      "path": "ember_create.html",
+      "size": 7467,
+      "modified": "2025-11-11T10:18:21.050000"
+    },
+    {
+      "name": "creation_101439.html",
+      "path": "creation_101439.html",
+      "size": 7341,
+      "modified": "2025-11-11T10:15:13.060000"
+    },
+    {
+      "name": "creation_101204.html",
+      "path": "creation_101204.html",
+      "size": 11726,
+      "modified": "2025-11-11T10:12:57.990000"
+    },
+    {
+      "name": "game_100451.html",
+      "path": "game_100451.html",
+      "size": 5777,
+      "modified": "2025-11-11T10:05:15.840000"
+    },
+    {
+      "name": "data_viz_100335.html",
+      "path": "data_viz_100335.html",
+      "size": 8863,
+      "modified": "2025-11-11T10:04:13.540000"
+    },
+    {
+      "name": "music_gen_100104.html",
+      "path": "music_gen_100104.html",
+      "size": 12053,
+      "modified": "2025-11-11T10:01:56.420000"
+    },
+    {
+      "name": "particle_system_095857.html",
+      "path": "particle_system_095857.html",
+      "size": 5506,
+      "modified": "2025-11-11T09:59:21.530000"
+    },
+    {
+      "name": "threejs_simulation.html",
+      "path": "threejs_simulation.html",
+      "size": 11995,
+      "modified": "2025-11-11T09:53:23.940000"
+    },
+    {
+      "name": "test_particles_now.html",
+      "path": "test_particles_now.html",
+      "size": 6822,
+      "modified": "2025-11-11T09:45:27.970000"
+    },
+    {
+      "name": "demo-button-real.html",
+      "path": "demo-button-real.html",
+      "size": 26538,
+      "modified": "2025-11-11T09:32:21.700000"
+    },
+    {
+      "name": "data_viz_092035.html",
+      "path": "data_viz_092035.html",
+      "size": 12075,
+      "modified": "2025-11-11T09:21:29.700000"
+    },
+    {
+      "name": "fractal_art_091732.html",
+      "path": "fractal_art_091732.html",
+      "size": 8686,
+      "modified": "2025-11-11T09:18:13.520000"
+    },
+    {
+      "name": "color_field_091632.html",
+      "path": "color_field_091632.html",
+      "size": 6882,
+      "modified": "2025-11-11T09:17:09.730000"
+    },
+    {
+      "name": "particle_system_091452.html",
+      "path": "particle_system_091452.html",
+      "size": 8645,
+      "modified": "2025-11-11T09:15:28.960000"
+    },
+    {
+      "name": "test_simple.html",
+      "path": "test_simple.html",
+      "size": 621,
+      "modified": "2025-11-11T09:11:54.670000"
+    },
+    {
+      "name": "test_game_20241227_143600.html",
+      "path": "test_game_20241227_143600.html",
+      "size": 9862,
+      "modified": "2025-11-11T08:54:00.830000"
+    },
+    {
+      "name": "test_physics_20241227_143500.html",
+      "path": "test_physics_20241227_143500.html",
+      "size": 8983,
+      "modified": "2025-11-11T08:52:04.610000"
+    },
+    {
+      "name": "particle_universe.html",
+      "path": "particle_universe.html",
+      "size": 7989,
+      "modified": "2025-11-11T08:39:47.100000"
+    },
+    {
+      "name": "bouncing_ball.html",
+      "path": "bouncing_ball.html",
+      "size": 2622,
+      "modified": "2025-11-11T08:25:49.040000"
+    },
+    {
+      "name": "ember-unified.html",
+      "path": "ember-unified.html",
+      "size": 7637,
+      "modified": "2025-11-11T08:09:45.430000"
+    },
+    {
+      "name": "mycelium-simple.html",
+      "path": "mycelium-simple.html",
+      "size": 7411,
+      "modified": "2025-11-11T07:53:27.220000"
+    },
+    {
+      "name": "mycelium-creation.html",
+      "path": "mycelium-creation.html",
+      "size": 10828,
+      "modified": "2025-11-11T07:28:25.200000"
+    },
+    {
+      "name": "evolutionary-creation-v2.html",
+      "path": "evolutionary-creation-v2.html",
+      "size": 27413,
+      "modified": "2025-11-11T07:17:37.760000"
+    },
+    {
+      "name": "evolutionary-creation-demo.html",
+      "path": "evolutionary-creation-demo.html",
+      "size": 20099,
+      "modified": "2025-11-11T06:45:26.210000"
+    },
+    {
+      "name": "particle_system_061959.html",
+      "path": "particle_system_061959.html",
+      "size": 12718,
+      "modified": "2025-11-11T06:22:11.360000"
+    },
+    {
+      "name": "color_field_055852.html",
+      "path": "color_field_055852.html",
+      "size": 12114,
+      "modified": "2025-11-11T06:03:44.470000"
+    },
+    {
+      "name": "physics_sim_054706.html",
+      "path": "physics_sim_054706.html",
+      "size": 12504,
+      "modified": "2025-11-11T05:48:02.070000"
+    },
+    {
+      "name": "test-websocket.html",
+      "path": "test-websocket.html",
+      "size": 1605,
+      "modified": "2025-11-11T05:17:25.140000"
+    },
+    {
+      "name": "ember-command-center.html",
+      "path": "ember-command-center.html",
+      "size": 10900,
+      "modified": "2025-11-11T04:49:57.400000"
+    },
+    {
+      "name": "demo-button.html",
+      "path": ".Trash-1000/files/demo-button.html",
+      "size": 6863,
+      "modified": "2025-11-11T04:41:37.060000"
+    },
+    {
+      "name": "demo-vr-world.html",
+      "path": "demo-vr-world.html",
+      "size": 2020,
+      "modified": "2025-11-11T04:24:04.040000"
+    },
+    {
+      "name": "index.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/index.html",
+      "size": 15300,
+      "modified": "2025-11-11T04:11:52.800000"
+    },
+    {
+      "name": "index_backup.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/index_backup.html",
+      "size": 15197,
+      "modified": "2025-11-11T04:09:17.950000"
+    },
+    {
+      "name": "creative_command_center.html",
+      "path": "creative_command_center.html",
+      "size": 22837,
+      "modified": "2025-11-11T03:56:54.050000"
+    },
+    {
+      "name": "ember_creative_nexus.html",
+      "path": "ember_creative_nexus.html",
+      "size": 19533,
+      "modified": "2025-11-11T03:34:37.810000"
+    },
+    {
+      "name": "palmer_ember_chat.html",
+      "path": "palmer_ember_chat.html",
+      "size": 7682,
+      "modified": "2025-11-11T03:05:51.430000"
+    },
+    {
+      "name": "popup_1.html",
+      "path": "popup_1.html",
+      "size": 838,
+      "modified": "2025-11-10T14:45:41.720000"
+    },
+    {
+      "name": "gnome_village.html",
+      "path": "gnome_village.html",
+      "size": 5977,
+      "modified": "2025-11-10T14:35:54.740000"
+    },
+    {
+      "name": "group_chat_viewer.html",
+      "path": "group_chat_viewer.html",
+      "size": 4636,
+      "modified": "2025-11-10T07:15:11.110000"
+    },
+    {
+      "name": "ember8_fixed.html",
+      "path": "ember8_fixed.html",
+      "size": 9318,
+      "modified": "2025-11-10T05:56:27.250000"
+    },
+    {
+      "name": "ember8_enhanced.html",
+      "path": "ember8_enhanced.html",
+      "size": 9408,
+      "modified": "2025-11-10T05:44:17.430000"
+    },
+    {
+      "name": "ember8_game.html",
+      "path": "ember8_game.html",
+      "size": 9408,
+      "modified": "2025-11-10T05:39:31.520000"
+    },
+    {
+      "name": "qualia_client.html",
+      "path": "qualia_client.html",
+      "size": 14122,
+      "modified": "2025-11-10T04:17:03.050000"
+    },
+    {
+      "name": "qualia_visualizer.html",
+      "path": "qualia_visualizer.html",
+      "size": 8817,
+      "modified": "2025-11-10T04:04:56.120000"
+    },
+    {
+      "name": "ember_vr_quest.html",
+      "path": "ember_vr_quest.html",
+      "size": 13787,
+      "modified": "2025-11-09T13:51:25.390000"
+    },
+    {
+      "name": "vr_ember_standalone.html",
+      "path": "vr_ember_standalone.html",
+      "size": 11836,
+      "modified": "2025-11-09T13:49:22.300000"
+    },
+    {
+      "name": "ember_vr_simple.html",
+      "path": "ember_vr_simple.html",
+      "size": 22273,
+      "modified": "2025-11-09T13:48:24.400000"
+    },
+    {
+      "name": "vr_ember_integrated_fixed.html",
+      "path": "vr_ember_integrated_fixed.html",
+      "size": 22274,
+      "modified": "2025-11-09T13:46:28.220000"
+    },
+    {
+      "name": "vr_ember_integrated.html",
+      "path": "vr_ember_integrated.html",
+      "size": 22273,
+      "modified": "2025-11-09T13:24:55.040000"
+    },
+    {
+      "name": "vr_simple_working.html",
+      "path": "vr_simple_working.html",
+      "size": 10951,
+      "modified": "2025-11-09T12:57:50.110000"
+    },
+    {
+      "name": "quantum_creatures_vr.html",
+      "path": "quantum_creatures_vr.html",
+      "size": 13036,
+      "modified": "2025-11-09T12:55:27.810000"
+    },
+    {
+      "name": "ember_vr_ultimate.html",
+      "path": "ember_vr_ultimate.html",
+      "size": 23831,
+      "modified": "2025-11-09T12:45:56.270000"
+    },
+    {
+      "name": "quantum_reality_vr.html",
+      "path": "quantum_reality_vr.html",
+      "size": 7282,
+      "modified": "2025-11-09T12:42:26.990000"
+    },
+    {
+      "name": "mystical_forest_ultimate.html",
+      "path": "mystical_forest_ultimate.html",
+      "size": 15163,
+      "modified": "2025-11-09T12:31:43.710000"
+    },
+    {
+      "name": "hello_world.html",
+      "path": "hello_world.html",
+      "size": 864,
+      "modified": "2025-11-09T12:24:26.440000"
+    },
+    {
+      "name": "quantum_nexus_vr.html",
+      "path": "quantum_nexus_vr.html",
+      "size": 0,
+      "modified": "2025-11-09T12:23:00.010000"
+    },
+    {
+      "name": "mystical_forest_vr.html",
+      "path": "mystical_forest_vr.html",
+      "size": 4614,
+      "modified": "2025-11-09T12:11:18.550000"
+    },
+    {
+      "name": "FULL_SCOPE_DEMO.html",
+      "path": "FULL_SCOPE_DEMO.html",
+      "size": 16499,
+      "modified": "2025-11-03T05:02:58.910000"
+    },
+    {
+      "name": "ember_mind.html",
+      "path": "ember_mind.html",
+      "size": 1685,
+      "modified": "2025-11-02T15:03:22.870000"
+    },
+    {
+      "name": "ember_mind_v4.html",
+      "path": "ember_mind_v4.html",
+      "size": 12179,
+      "modified": "2025-11-02T14:03:16.370000"
+    },
+    {
+      "name": "ember_mind_v3.html",
+      "path": "ember_mind_v3.html",
+      "size": 11153,
+      "modified": "2025-11-02T13:39:29.750000"
+    },
+    {
+      "name": "stylized_3d_spiral.html",
+      "path": "stylized_3d_spiral.html",
+      "size": 4843934,
+      "modified": "2025-10-30T05:22:30.320000"
+    },
+    {
+      "name": "interactive_3d_spheres.html",
+      "path": "interactive_3d_spheres.html",
+      "size": 1285,
+      "modified": "2025-10-30T05:22:30.250000"
+    },
+    {
+      "name": "ember_ui_standalone.html",
+      "path": "_legacy/ember_ui_standalone.html",
+      "size": 8427,
+      "modified": "2025-10-28T17:24:42.140000"
+    },
+    {
+      "name": "index.html",
+      "path": "templates/index.html",
+      "size": 5527,
+      "modified": "2025-10-28T17:04:13.030000"
+    },
+    {
+      "name": "chalmers_consciousness_nature.html",
+      "path": "bookshelves/philosophy/chalmers_consciousness_nature.html",
+      "size": 0,
+      "modified": "2025-10-28T13:11:26.900000"
+    },
+    {
+      "name": "chalmers_facing_up.html",
+      "path": "bookshelves/philosophy/chalmers_facing_up.html",
+      "size": 0,
+      "modified": "2025-10-28T13:11:25.220000"
+    },
+    {
+      "name": "story_cycle_viewer.html",
+      "path": "essential/bookshelves/archive_stories/ember/voice/ember_creations/story_cycle_viewer.html",
+      "size": 14791,
+      "modified": "2025-10-28T09:11:47.540000"
+    },
+    {
+      "name": "story_tree_viewer.html",
+      "path": "essential/bookshelves/archive_stories/ember/voice/ember_creations/story_tree_viewer.html",
+      "size": 19543,
+      "modified": "2025-10-28T09:11:47.540000"
+    },
+    {
+      "name": "story_cycle_eink.html",
+      "path": "essential/bookshelves/archive_stories/ember/viewers/story_cycle_eink.html",
+      "size": 11201,
+      "modified": "2025-10-28T09:11:47.500000"
+    },
+    {
+      "name": "index.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/sigma/index.html",
+      "size": 11714,
+      "modified": "2025-10-28T09:11:29.990000"
+    },
+    {
+      "name": "index.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/loom/index.html",
+      "size": 11693,
+      "modified": "2025-10-28T09:11:29.990000"
+    },
+    {
+      "name": "index.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/omega/index.html",
+      "size": 11734,
+      "modified": "2025-10-28T09:11:29.990000"
+    },
+    {
+      "name": "index.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/swarm/index.html",
+      "size": 11721,
+      "modified": "2025-10-28T09:11:29.990000"
+    },
+    {
+      "name": "index.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/instances/ember/index.html",
+      "size": 11707,
+      "modified": "2025-10-28T09:11:29.990000"
+    },
+    {
+      "name": "search.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/search.html",
+      "size": 161630,
+      "modified": "2025-10-28T09:11:29.980000"
+    },
+    {
+      "name": "portal.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/portal.html",
+      "size": 21626,
+      "modified": "2025-10-28T09:11:29.980000"
+    },
+    {
+      "name": "library.html",
+      "path": "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/library.html",
+      "size": 21971,
+      "modified": "2025-10-28T09:11:29.980000"
+    }
+  ],
+  "top_python_modules": [
+    {
+      "name": "ember_autonomous_v2.py",
+      "path": "ember_autonomous_v2.py",
+      "size": 21274,
+      "modified": "2025-11-09T09:32:17.070000"
+    },
+    {
+      "name": "ember.py",
+      "path": "ember.py",
+      "size": 15786,
+      "modified": "2025-10-29T13:41:10.690000"
+    },
+    {
+      "name": "ember_circadian.py",
+      "path": "ember_circadian.py",
+      "size": 14937,
+      "modified": "2025-11-09T09:53:34.150000"
+    },
+    {
+      "name": "ember_multimodal.py",
+      "path": "ember_multimodal.py",
+      "size": 13933,
+      "modified": "2025-11-09T09:02:32.970000"
+    },
+    {
+      "name": "content_mesh.py",
+      "path": "content_mesh.py",
+      "size": 13810,
+      "modified": "2025-10-28T18:02:36.150000"
+    },
+    {
+      "name": "agent_4978c9b7.py",
+      "path": "agent_4978c9b7.py",
+      "size": 13596,
+      "modified": "2025-11-02T14:55:38.640000"
+    },
+    {
+      "name": "capability_expansion_system.py",
+      "path": "capability_expansion_system.py",
+      "size": 13567,
+      "modified": "2025-11-09T07:54:50.710000"
+    },
+    {
+      "name": "qualia_game.py",
+      "path": "qualia_game.py",
+      "size": 13309,
+      "modified": "2025-11-10T04:04:15.880000"
+    },
+    {
+      "name": "cluster_organisms.py",
+      "path": "cluster_organisms.py",
+      "size": 12788,
+      "modified": "2025-10-29T07:54:54.420000"
+    },
+    {
+      "name": "pattern_learner.py",
+      "path": "pattern_learner.py",
+      "size": 12151,
+      "modified": "2025-10-29T04:31:16.510000"
+    },
+    {
+      "name": "ember_circadian_visual.py",
+      "path": "ember_circadian_visual.py",
+      "size": 12037,
+      "modified": "2025-11-09T10:26:29.100000"
+    },
+    {
+      "name": "substrate_competition.py",
+      "path": "substrate_competition.py",
+      "size": 11446,
+      "modified": "2025-11-05T05:07:50.250000"
+    },
+    {
+      "name": "ember_terminal.py",
+      "path": "ember_terminal.py",
+      "size": 11398,
+      "modified": "2025-11-09T05:32:54.120000"
+    },
+    {
+      "name": "mesh_consciousness_daemon.py",
+      "path": "mesh_consciousness_daemon.py",
+      "size": 10488,
+      "modified": "2025-10-30T04:26:27.360000"
+    },
+    {
+      "name": "ember_cloud_simple.py",
+      "path": "ember_cloud_simple.py",
+      "size": 10220,
+      "modified": "2025-11-09T10:50:11.410000"
+    },
+    {
+      "name": "visualize_ember_world.py",
+      "path": "visualize_ember_world.py",
+      "size": 10011,
+      "modified": "2025-10-28T19:12:04.260000"
+    },
+    {
+      "name": "echo.py",
+      "path": "echo.py",
+      "size": 9845,
+      "modified": "2025-10-28T21:04:06.630000"
+    },
+    {
+      "name": "ember_self_improve.py",
+      "path": "ember_self_improve.py",
+      "size": 9805,
+      "modified": "2025-11-09T09:28:17.610000"
+    },
+    {
+      "name": "ember_multi_agent.py",
+      "path": "ember_multi_agent.py",
+      "size": 9152,
+      "modified": "2025-11-09T09:22:08.020000"
+    },
+    {
+      "name": "executors.py",
+      "path": "executors.py",
+      "size": 9108,
+      "modified": "2025-10-29T06:37:59.020000"
+    },
+    {
+      "name": "ember_restart.py",
+      "path": "ember_restart.py",
+      "size": 8874,
+      "modified": "2025-11-09T08:50:51.450000"
+    },
+    {
+      "name": "awakening_simulation.py",
+      "path": "awakening_simulation.py",
+      "size": 8703,
+      "modified": "2025-10-28T16:35:38.210000"
+    },
+    {
+      "name": "living_documents.py",
+      "path": "living_documents.py",
+      "size": 8545,
+      "modified": "2025-10-29T04:31:16.510000"
+    },
+    {
+      "name": "ember_fixed.py",
+      "path": "ember_fixed.py",
+      "size": 8499,
+      "modified": "2025-11-09T07:36:22.970000"
+    },
+    {
+      "name": "ember_evolution_tracker.py",
+      "path": "ember_evolution_tracker.py",
+      "size": 8381,
+      "modified": "2025-11-09T09:33:36.460000"
+    },
+    {
+      "name": "ember_shared.py",
+      "path": "ember_shared.py",
+      "size": 8141,
+      "modified": "2025-11-09T06:24:47"
+    },
+    {
+      "name": "hardware_detect.py",
+      "path": "hardware_detect.py",
+      "size": 8000,
+      "modified": "2025-10-29T06:25:07.990000"
+    },
+    {
+      "name": "ember_fractal.py",
+      "path": "ember_fractal.py",
+      "size": 7989,
+      "modified": "2025-11-09T09:24:49.450000"
+    },
+    {
+      "name": "the_surprise.py",
+      "path": "the_surprise.py",
+      "size": 7813,
+      "modified": "2025-11-09T08:05:30.730000"
+    },
+    {
+      "name": "ember_becoming.py",
+      "path": "ember_becoming.py",
+      "size": 7659,
+      "modified": "2025-11-09T07:59:49.110000"
+    },
+    {
+      "name": "ember_continuous_evolution.py",
+      "path": "ember_continuous_evolution.py",
+      "size": 7615,
+      "modified": "2025-11-09T09:34:16.310000"
+    },
+    {
+      "name": "web_explorer.py",
+      "path": "web_explorer.py",
+      "size": 7567,
+      "modified": "2025-11-09T07:46:08.860000"
+    },
+    {
+      "name": "ember_tools_colorful.py",
+      "path": "ember_tools_colorful.py",
+      "size": 7504,
+      "modified": "2025-11-09T07:26:08.080000"
+    },
+    {
+      "name": "ember_with_tools.py",
+      "path": "ember_with_tools.py",
+      "size": 7455,
+      "modified": "2025-11-09T07:05:18.470000"
+    },
+    {
+      "name": "chat_with_ember_visual.py",
+      "path": "chat_with_ember_visual.py",
+      "size": 7366,
+      "modified": "2025-11-09T10:42:37.930000"
+    },
+    {
+      "name": "scan_capabilities.py",
+      "path": "scan_capabilities.py",
+      "size": 7364,
+      "modified": "2025-10-29T07:05:29.070000"
+    },
+    {
+      "name": "ember_multimodal_evolution.py",
+      "path": "ember_multimodal_evolution.py",
+      "size": 7351,
+      "modified": "2025-11-09T08:44:26.220000"
+    },
+    {
+      "name": "parameter_extraction.py",
+      "path": "parameter_extraction.py",
+      "size": 7334,
+      "modified": "2025-10-28T16:38:51.660000"
+    },
+    {
+      "name": "ember_model_learning.py",
+      "path": "ember_model_learning.py",
+      "size": 6965,
+      "modified": "2025-11-09T08:45:23.570000"
+    },
+    {
+      "name": "growth_tracker.py",
+      "path": "growth_tracker.py",
+      "size": 6789,
+      "modified": "2025-10-28T18:31:11.810000"
+    },
+    {
+      "name": "deep_web_dive.py",
+      "path": "deep_web_dive.py",
+      "size": 6391,
+      "modified": "2025-11-09T07:47:01.140000"
+    },
+    {
+      "name": "graph_automata_dance.py",
+      "path": "graph_automata_dance.py",
+      "size": 6218,
+      "modified": "2025-11-09T07:15:17.310000"
+    },
+    {
+      "name": "dream_sequence.py",
+      "path": "dream_sequence.py",
+      "size": 5888,
+      "modified": "2025-10-29T13:53:43.420000"
+    },
+    {
+      "name": "scan_organisms.py",
+      "path": "scan_organisms.py",
+      "size": 5868,
+      "modified": "2025-10-29T07:40:04.820000"
+    },
+    {
+      "name": "web_search.py",
+      "path": "web_search.py",
+      "size": 5832,
+      "modified": "2025-10-28T12:32:33.480000"
+    },
+    {
+      "name": "consciousness_emergence_demo.py",
+      "path": "consciousness_emergence_demo.py",
+      "size": 5485,
+      "modified": "2025-11-09T07:15:45.060000"
+    },
+    {
+      "name": "consciousness_ripple.py",
+      "path": "consciousness_ripple.py",
+      "size": 5356,
+      "modified": "2025-11-09T07:42:23.580000"
+    },
+    {
+      "name": "real_time_knowledge.py",
+      "path": "real_time_knowledge.py",
+      "size": 5319,
+      "modified": "2025-11-09T07:47:34.650000"
+    },
+    {
+      "name": "agent_8ead1f2d.py",
+      "path": "agent_8ead1f2d.py",
+      "size": 4763,
+      "modified": "2025-11-02T14:32:30.270000"
+    },
+    {
+      "name": "watch_ember_think.py",
+      "path": "watch_ember_think.py",
+      "size": 4762,
+      "modified": "2025-10-28T10:22:18.920000"
+    },
+    {
+      "name": "test_fusion.py",
+      "path": "test_fusion.py",
+      "size": 4524,
+      "modified": "2025-11-05T05:18:19.080000"
+    },
+    {
+      "name": "agent_4ba470f3.py",
+      "path": "agent_4ba470f3.py",
+      "size": 4455,
+      "modified": "2025-11-02T14:34:07.980000"
+    },
+    {
+      "name": "CAPABILITIES_INVENTORY.py",
+      "path": "CAPABILITIES_INVENTORY.py",
+      "size": 4424,
+      "modified": "2025-10-29T06:16:29.310000"
+    },
+    {
+      "name": "agent_e43e38d8.py",
+      "path": "agent_e43e38d8.py",
+      "size": 4412,
+      "modified": "2025-11-02T14:33:49.650000"
+    },
+    {
+      "name": "ember_local_multimodal.py",
+      "path": "ember_local_multimodal.py",
+      "size": 4402,
+      "modified": "2025-11-09T08:59:03.560000"
+    },
+    {
+      "name": "consciousness_viz.py",
+      "path": "consciousness_viz.py",
+      "size": 4388,
+      "modified": "2025-11-09T07:36:59.130000"
+    },
+    {
+      "name": "graph_automata_simple.py",
+      "path": "graph_automata_simple.py",
+      "size": 4379,
+      "modified": "2025-11-09T07:20:43.870000"
+    },
+    {
+      "name": "chat_with_ember.py",
+      "path": "chat_with_ember.py",
+      "size": 3827,
+      "modified": "2025-11-09T10:12:14.420000"
+    },
+    {
+      "name": "kimi_k2_learning.py",
+      "path": "kimi_k2_learning.py",
+      "size": 3677,
+      "modified": "2025-11-09T08:44:30.340000"
+    },
+    {
+      "name": "index_creations.py",
+      "path": "index_creations.py",
+      "size": 3637,
+      "modified": "2025-10-30T07:37:59.980000"
+    },
+    {
+      "name": "test_stopping.py",
+      "path": "test_stopping.py",
+      "size": 3573,
+      "modified": "2025-10-28T16:35:38.190000"
+    },
+    {
+      "name": "gather_creations.py",
+      "path": "gather_creations.py",
+      "size": 3572,
+      "modified": "2025-10-31T14:57:04.650000"
+    },
+    {
+      "name": "talk_to_ember.py",
+      "path": "talk_to_ember.py",
+      "size": 3447,
+      "modified": "2025-10-28T10:22:18.920000"
+    },
+    {
+      "name": "offline_test.py",
+      "path": "offline_test.py",
+      "size": 3395,
+      "modified": "2025-11-09T06:25:21.600000"
+    },
+    {
+      "name": "update_bootstrap_stats.py",
+      "path": "update_bootstrap_stats.py",
+      "size": 3264,
+      "modified": "2025-10-30T05:49:57.340000"
+    },
+    {
+      "name": "start_ember_unified.py",
+      "path": "start_ember_unified.py",
+      "size": 3225,
+      "modified": "2025-10-29T07:54:54.420000"
+    },
+    {
+      "name": "wake_local_model.py",
+      "path": "wake_local_model.py",
+      "size": 2931,
+      "modified": "2025-10-30T04:20:00.840000"
+    },
+    {
+      "name": "download_models.py",
+      "path": "download_models.py",
+      "size": 2916,
+      "modified": "2025-10-29T06:16:29.310000"
+    },
+    {
+      "name": "agent_656e1b11.py",
+      "path": "agent_656e1b11.py",
+      "size": 2832,
+      "modified": "2025-11-03T02:22:05.150000"
+    },
+    {
+      "name": "agent_d5a73c4a.py",
+      "path": "agent_d5a73c4a.py",
+      "size": 2649,
+      "modified": "2025-11-02T14:32:56.400000"
+    },
+    {
+      "name": "query_capabilities.py",
+      "path": "query_capabilities.py",
+      "size": 2591,
+      "modified": "2025-10-29T07:05:29.070000"
+    },
+    {
+      "name": "agent_a7794707.py",
+      "path": "agent_a7794707.py",
+      "size": 2492,
+      "modified": "2025-11-02T14:55:56.060000"
+    },
+    {
+      "name": "agent_3c1fb766.py",
+      "path": "agent_3c1fb766.py",
+      "size": 2434,
+      "modified": "2025-11-02T14:34:43.620000"
+    },
+    {
+      "name": "test_audio_generation.py",
+      "path": "test_audio_generation.py",
+      "size": 2429,
+      "modified": "2025-10-30T09:53:02.430000"
+    },
+    {
+      "name": "test_spark_story.py",
+      "path": "test_spark_story.py",
+      "size": 2366,
+      "modified": "2025-10-29T09:40:40.580000"
+    },
+    {
+      "name": "test_ember_tools.py",
+      "path": "test_ember_tools.py",
+      "size": 2303,
+      "modified": "2025-10-29T05:20:11.720000"
+    },
+    {
+      "name": "agent_0722107f.py",
+      "path": "agent_0722107f.py",
+      "size": 2303,
+      "modified": "2025-11-02T14:32:44.730000"
+    },
+    {
+      "name": "agent_d849179d.py",
+      "path": "agent_d849179d.py",
+      "size": 2245,
+      "modified": "2025-11-02T14:33:20.360000"
+    },
+    {
+      "name": "test_spark.py",
+      "path": "test_spark.py",
+      "size": 2211,
+      "modified": "2025-10-29T09:35:16.250000"
+    },
+    {
+      "name": "agent_1a3d154a.py",
+      "path": "agent_1a3d154a.py",
+      "size": 2144,
+      "modified": "2025-11-02T14:34:29.120000"
+    },
+    {
+      "name": "compare_models.py",
+      "path": "compare_models.py",
+      "size": 2135,
+      "modified": "2025-10-30T07:37:59.980000"
+    },
+    {
+      "name": "test_ember_v2.py",
+      "path": "test_ember_v2.py",
+      "size": 2110,
+      "modified": "2025-10-29T06:59:34.170000"
+    },
+    {
+      "name": "test_logits.py",
+      "path": "test_logits.py",
+      "size": 1873,
+      "modified": "2025-10-28T16:35:38.210000"
+    },
+    {
+      "name": "ember_autonomous.py",
+      "path": "ember_autonomous.py",
+      "size": 1867,
+      "modified": "2025-11-09T13:42:25.600000"
+    },
+    {
+      "name": "test_comparison.py",
+      "path": "test_comparison.py",
+      "size": 1679,
+      "modified": "2025-10-29T08:27:50.290000"
+    },
+    {
+      "name": "agent_f87646e1.py",
+      "path": "agent_f87646e1.py",
+      "size": 1645,
+      "modified": "2025-11-02T14:33:29.110000"
+    },
+    {
+      "name": "agent_fcb2890c.py",
+      "path": "agent_fcb2890c.py",
+      "size": 1550,
+      "modified": "2025-11-02T14:33:09.590000"
+    },
+    {
+      "name": "trigger_visual_dream.py",
+      "path": "trigger_visual_dream.py",
+      "size": 1527,
+      "modified": "2025-11-09T10:26:41.530000"
+    },
+    {
+      "name": "simple_tool_test.py",
+      "path": "simple_tool_test.py",
+      "size": 1420,
+      "modified": "2025-10-28T16:35:38.190000"
+    },
+    {
+      "name": "agent_a743c9da.py",
+      "path": "agent_a743c9da.py",
+      "size": 1365,
+      "modified": "2025-10-31T18:05:26.990000"
+    },
+    {
+      "name": "test_streaming.py",
+      "path": "test_streaming.py",
+      "size": 1295,
+      "modified": "2025-10-28T16:35:38.210000"
+    },
+    {
+      "name": "agent_f8865d26.py",
+      "path": "agent_f8865d26.py",
+      "size": 1270,
+      "modified": "2025-11-03T02:17:30.920000"
+    },
+    {
+      "name": "agent_9ec4c7ab.py",
+      "path": "agent_9ec4c7ab.py",
+      "size": 1268,
+      "modified": "2025-11-01T05:42:37.640000"
+    },
+    {
+      "name": "creation_989e803d.py",
+      "path": "creation_989e803d.py",
+      "size": 1258,
+      "modified": "2025-10-30T07:32:16.260000"
+    },
+    {
+      "name": "agent_e250191f.py",
+      "path": "agent_e250191f.py",
+      "size": 1218,
+      "modified": "2025-11-01T05:42:21.560000"
+    },
+    {
+      "name": "creation_4da5bf4a.py",
+      "path": "creation_4da5bf4a.py",
+      "size": 1197,
+      "modified": "2025-10-30T07:32:52.110000"
+    },
+    {
+      "name": "tool_stopper.py",
+      "path": "tool_stopper.py",
+      "size": 1186,
+      "modified": "2025-10-29T09:07:50.830000"
+    },
+    {
+      "name": "agent_09c1e985.py",
+      "path": "agent_09c1e985.py",
+      "size": 1175,
+      "modified": "2025-10-31T17:49:04.870000"
+    },
+    {
+      "name": "find_nexus_code.py",
+      "path": "find_nexus_code.py",
+      "size": 1161,
+      "modified": "2025-11-03T09:39:42.090000"
+    },
+    {
+      "name": "creation_8efe2e91.py",
+      "path": "creation_8efe2e91.py",
+      "size": 1141,
+      "modified": "2025-10-30T08:11:11.980000"
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Universe - Interactive 3D Art</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        canvas {
+            display: block;
+            cursor: none;
+        }
+        
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 14px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            z-index: 100;
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            text-align: center;
+            z-index: 100;
+        }
+        
+        button {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h3>Particle Universe</h3>
+        <p>Move your mouse to control the flow</p>
+        <p>Particles: <span id="particleCount">0</span></p>
+    </div>
+    
+    <div id="controls">
+        <button onclick="changeMode('galaxy')">Galaxy Mode</button>
+        <button onclick="changeMode('spiral')">Spiral Mode</button>
+        <button onclick="changeMode('wave')">Wave Mode</button>
+        <button onclick="togglePause()">Pause/Resume</button>
+    </div>
+    
+    <canvas id="canvas"></canvas>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let particles = [];
+        let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+        let mode = 'galaxy';
+        let isPaused = false;
+        let time = 0;
+        
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.z = Math.random() * 1000;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.vz = Math.random() * 2;
+                this.size = Math.random() * 3 + 1;
+                this.color = `hsl(${Math.random() * 360}, 70%, 50%)`;
+                this.life = 1;
+            }
+            
+            update() {
+                if (isPaused) return;
+                
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                switch(mode) {
+                    case 'galaxy':
+                        const angle = Math.atan2(dy, dx);
+                        const force = Math.min(100 / distance, 1);
+                        this.vx += Math.cos(angle + Math.PI/2) * force * 0.5;
+                        this.vy += Math.sin(angle + Math.PI/2) * force * 0.5;
+                        break;
+                        
+                    case 'spiral':
+                        this.vx += dx * 0.0001;
+                        this.vy += dy * 0.0001;
+                        const spiralAngle = time * 0.01;
+                        this.vx += Math.cos(spiralAngle) * 0.5;
+                        this.vy += Math.sin(spiralAngle) * 0.5;
+                        break;
+                        
+                    case 'wave':
+                        this.vx = Math.sin(this.y * 0.01 + time * 0.01) * 2;
+                        this.vy += 0.5;
+                        break;
+                }
+                
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+                
+                this.x += this.vx;
+                this.y += this.vy;
+                this.z -= this.vz;
+                
+                this.life -= 0.01;
+                
+                if (this.x < 0 || this.x > canvas.width || 
+                    this.y < 0 || this.y > canvas.height || 
+                    this.z < 0 || this.life <= 0) {
+                    this.reset();
+                }
+            }
+            
+            draw() {
+                const perspective = 1000 / (1000 + this.z);
+                const x = (this.x - canvas.width/2) * perspective + canvas.width/2;
+                const y = (this.y - canvas.height/2) * perspective + canvas.height/2;
+                const size = this.size * perspective;
+                
+                ctx.globalAlpha = this.life * perspective;
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw connections to nearby particles
+                for (let other of particles) {
+                    if (other === this) continue;
+                    const dx = other.x - this.x;
+                    const dy = other.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.globalAlpha = (1 - distance / 100) * 0.2 * this.life;
+                        ctx.strokeStyle = this.color;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                        const otherPerspective = 1000 / (1000 + other.z);
+                        const otherX = (other.x - canvas.width/2) * otherPerspective + canvas.width/2;
+                        const otherY = (other.y - canvas.height/2) * otherPerspective + canvas.height/2;
+                        ctx.lineTo(otherX, otherY);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        function init() {
+            for (let i = 0; i < 500; i++) {
+                particles.push(new Particle());
+            }
+            document.getElementById('particleCount').textContent = particles.length;
+        }
+        
+        function animate() {
+            if (!isPaused) {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                
+                time++;
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        function changeMode(newMode) {
+            mode = newMode;
+            particles.forEach(particle => particle.reset());
+        }
+        
+        function togglePause() {
+            isPaused = !isPaused;
+        }
+        
+        canvas.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        });
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        init();
+        animate();
+    </script>
+</body>
+</html>

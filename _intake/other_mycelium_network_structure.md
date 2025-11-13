@@ -1,0 +1,1 @@
+Hyphal network connecting all brains — nutrient flow.

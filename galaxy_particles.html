@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Galaxy Particles</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            cursor: none;
+        }
+        canvas {
+            display: block;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="info">Move your mouse to attract particles • Click to create gravitational waves</div>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Mouse tracking
+        const mouse = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: 150,
+            clicking: false
+        };
+        
+        // Particle class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1;
+                this.distance = 0;
+                
+                // Velocity
+                this.vx = Math.random() * 2 - 1;
+                this.vy = Math.random() * 2 - 1;
+                
+                // Color variation
+                const colorChoice = Math.random();
+                if (colorChoice < 0.3) {
+                    this.color = `hsl(${200 + Math.random() * 60}, 80%, ${50 + Math.random() * 30}%)`;
+                } else if (colorChoice < 0.6) {
+                    this.color = `hsl(${280 + Math.random() * 40}, 70%, ${50 + Math.random() * 30}%)`;
+                } else {
+                    this.color = `hsl(${30 + Math.random() * 30}, 90%, ${60 + Math.random() * 20}%)`;
+                }
+            }
+            
+            update() {
+                // Calculate distance from mouse
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                this.distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Gravitational force
+                let forceDirectionX = dx / this.distance;
+                let forceDirectionY = dy / this.distance;
+                
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - this.distance) / maxDistance;
+                
+                if (this.distance < mouse.radius) {
+                    if (mouse.clicking) {
+                        // Strong repulsion on click
+                        force = -force * 3;
+                    }
+                    let directionX = forceDirectionX * force * this.density;
+                    let directionY = forceDirectionY * force * this.density;
+                    
+                    this.vx += directionX * 0.02;
+                    this.vy += directionY * 0.02;
+                } else {
+                    // Return to base position with some wandering
+                    this.vx += (this.baseX - this.x) * 0.001;
+                    this.vy += (this.baseY - this.y) * 0.001;
+                    
+                    // Add some random movement
+                    this.vx += (Math.random() - 0.5) * 0.1;
+                    this.vy += (Math.random() - 0.5) * 0.1;
+                }
+                
+                // Apply velocity with damping
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+                
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Wrap around edges
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            
+            draw() {
+                ctx.save();
+                
+                // Glow effect
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 3);
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(1, 'transparent');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Core
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+        }
+        
+        // Create particles
+        const particlesArray = [];
+        const numberOfParticles = 800;
+        
+        function init() {
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+        
+        // Connect particles
+        function connectParticles() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let dx = particlesArray[a].x - particlesArray[b].x;
+                    let dy = particlesArray[a].y - particlesArray[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 50) {
+                        opacityValue = 1 - (distance / 50);
+                        ctx.strokeStyle = `rgba(140, 170, 255, ${opacityValue * 0.5})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            
+            connectParticles();
+            
+            // Draw mouse cursor
+            ctx.save();
+            ctx.strokeStyle = mouse.clicking ? 'rgba(255, 100, 100, 0.8)' : 'rgba(255, 255, 255, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Inner cursor
+            ctx.fillStyle = mouse.clicking ? 'rgba(255, 100, 100, 0.5)' : 'rgba(255, 255, 255, 0.1)';
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Event listeners
+        canvas.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+        
+        canvas.addEventListener('mousedown', () => {
+            mouse.clicking = true;
+            mouse.radius = 200;
+        });
+        
+        canvas.addEventListener('mouseup', () => {
+            mouse.clicking = false;
+            mouse.radius = 150;
+        });
+        
+        canvas.addEventListener('touchmove', (e) => {
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        });
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Initialize and start
+        init();
+        animate();
+    </script>
+</body>
+</html>

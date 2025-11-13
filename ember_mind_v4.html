@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ember Mind v4 - Cognitive Visualization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #info {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border: 1px solid #ff6b35;
+            font-size: 12px;
+            max-width: 300px;
+        }
+
+        #connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #ff6b35;
+        }
+
+        .connected {
+            color: #00ff00;
+        }
+
+        .disconnected {
+            color: #ff0000;
+        }
+
+        .thought-bubble {
+            position: absolute;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.5);
+            padding: 5px;
+            font-size: 10px;
+            pointer-events: none;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div id="info">
+        <h3>EMBER MIND v4</h3>
+        <p>Depth: <span id="depth">0</span></p>
+        <p>Active Regions: <span id="regions">0</span></p>
+        <p>Thoughts/sec: <span id="thoughts-rate">0</span></p>
+        <p>Cognitive Load: <span id="load">0%</span></p>
+    </div>
+    
+    <div id="connection-status" class="disconnected">
+        WebSocket: <span id="ws-status">Disconnected</span>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Cognitive regions
+        const regions = {
+            perception: { x: 0.2, y: 0.3, color: '#ff6b35', neurons: [] },
+            reasoning: { x: 0.5, y: 0.2, color: '#f7931e', neurons: [] },
+            memory: { x: 0.8, y: 0.3, color: '#ff3366', neurons: [] },
+            language: { x: 0.3, y: 0.5, color: '#00ffcc', neurons: [] },
+            emotion: { x: 0.7, y: 0.5, color: '#ff00ff', neurons: [] },
+            synthesis: { x: 0.5, y: 0.7, color: '#ffff00', neurons: [] },
+            metacognition: { x: 0.5, y: 0.9, color: '#00ff00', neurons: [] }
+        };
+
+        // Depth layers
+        const layers = [
+            { depth: 0, name: 'Surface Thoughts', alpha: 1 },
+            { depth: 1, name: 'Pattern Recognition', alpha: 0.8 },
+            { depth: 2, name: 'Contextual Understanding', alpha: 0.6 },
+            { depth: 3, name: 'Abstract Reasoning', alpha: 0.4 },
+            { depth: 4, name: 'Deep Intuition', alpha: 0.2 }
+        ];
+
+        let thoughts = [];
+        let connections = [];
+        let ws = null;
+        let thoughtsPerSecond = 0;
+        let thoughtCount = 0;
+        let lastThoughtTime = Date.now();
+
+        // Initialize neurons in each region
+        Object.values(regions).forEach(region => {
+            for (let i = 0; i < 50; i++) {
+                region.neurons.push({
+                    x: region.x + (Math.random() - 0.5) * 0.1,
+                    y: region.y + (Math.random() - 0.5) * 0.1,
+                    activation: 0,
+                    depth: Math.floor(Math.random() * 5)
+                });
+            }
+        });
+
+        // WebSocket connection
+        function connectWebSocket() {
+            ws = new WebSocket('ws://localhost:8080');
+            
+            ws.onopen = () => {
+                document.getElementById('connection-status').className = 'connected';
+                document.getElementById('ws-status').textContent = 'Connected';
+                console.log('Connected to Ember Mind WebSocket');
+            };
+            
+            ws.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    processThought(data);
+                } catch (e) {
+                    console.error('Error parsing message:', e);
+                }
+            };
+            
+            ws.onclose = () => {
+                document.getElementById('connection-status').className = 'disconnected';
+                document.getElementById('ws-status').textContent = 'Disconnected';
+                setTimeout(connectWebSocket, 3000);
+            };
+            
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+        }
+
+        function processThought(data) {
+            // Create visual thought representation
+            const thought = {
+                id: Date.now(),
+                text: data.thought || data.message || 'Processing...',
+                region: data.region || randomRegion(),
+                depth: data.depth || Math.floor(Math.random() * 5),
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                life: 1
+            };
+            
+            thoughts.push(thought);
+            
+            // Activate neurons in the relevant region
+            if (regions[thought.region]) {
+                regions[thought.region].neurons.forEach(neuron => {
+                    if (neuron.depth === thought.depth) {
+                        neuron.activation = 1;
+                    }
+                });
+            }
+            
+            // Create connections between related thoughts
+            thoughts.forEach(other => {
+                if (other.id !== thought.id && 
+                    Math.abs(other.depth - thought.depth) <= 1 &&
+                    Math.random() < 0.3) {
+                    connections.push({
+                        from: thought,
+                        to: other,
+                        strength: Math.random()
+                    });
+                }
+            });
+            
+            // Update stats
+            thoughtCount++;
+            updateStats();
+            
+            // Show thought bubble
+            showThoughtBubble(thought);
+        }
+
+        function randomRegion() {
+            const regionNames = Object.keys(regions);
+            return regionNames[Math.floor(Math.random() * regionNames.length)];
+        }
+
+        function showThoughtBubble(thought) {
+            const bubble = document.createElement('div');
+            bubble.className = 'thought-bubble';
+            bubble.style.left = thought.x + 'px';
+            bubble.style.top = thought.y + 'px';
+            bubble.textContent = thought.text.substring(0, 50) + '...';
+            document.body.appendChild(bubble);
+            
+            setTimeout(() => {
+                bubble.remove();
+            }, 3000);
+        }
+
+        function updateStats() {
+            const now = Date.now();
+            if (now - lastThoughtTime > 1000) {
+                thoughtsPerSecond = thoughtCount;
+                thoughtCount = 0;
+                lastThoughtTime = now;
+            }
+            
+            document.getElementById('thoughts-rate').textContent = thoughtsPerSecond;
+            document.getElementById('depth').textContent = Math.max(...thoughts.map(t => t.depth), 0);
+            document.getElementById('regions').textContent = new Set(thoughts.map(t => t.region)).size;
+            document.getElementById('load').textContent = Math.min(thoughts.length, 100) + '%';
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw depth layers
+            layers.forEach(layer => {
+                ctx.save();
+                ctx.globalAlpha = layer.alpha * 0.1;
+                ctx.fillStyle = '#ff6b35';
+                ctx.fillRect(0, canvas.height - (layer.depth + 1) * 100, canvas.width, 100);
+                ctx.restore();
+            });
+            
+            // Draw cognitive regions
+            Object.entries(regions).forEach(([name, region]) => {
+                const x = region.x * canvas.width;
+                const y = region.y * canvas.height;
+                
+                // Draw region circle
+                ctx.beginPath();
+                ctx.arc(x, y, 80, 0, Math.PI * 2);
+                ctx.strokeStyle = region.color;
+                ctx.globalAlpha = 0.3;
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+                
+                // Draw region name
+                ctx.fillStyle = region.color;
+                ctx.font = '12px Courier New';
+                ctx.textAlign = 'center';
+                ctx.fillText(name.toUpperCase(), x, y - 90);
+                
+                // Draw neurons
+                region.neurons.forEach(neuron => {
+                    const nx = neuron.x * canvas.width;
+                    const ny = neuron.y * canvas.height;
+                    
+                    ctx.beginPath();
+                    ctx.arc(nx, ny, 2 + neuron.activation * 3, 0, Math.PI * 2);
+                    ctx.fillStyle = region.color;
+                    ctx.globalAlpha = 0.3 + neuron.activation * 0.7;
+                    ctx.fill();
+                    
+                    // Decay activation
+                    neuron.activation *= 0.95;
+                });
+            });
+            
+            // Draw connections
+            connections = connections.filter(conn => {
+                ctx.beginPath();
+                ctx.moveTo(conn.from.x, conn.from.y);
+                ctx.lineTo(conn.to.x, conn.to.y);
+                ctx.strokeStyle = '#ff6b35';
+                ctx.globalAlpha = conn.strength * 0.3;
+                ctx.stroke();
+                
+                conn.strength *= 0.98;
+                return conn.strength > 0.01;
+            });
+            
+            // Draw and update thoughts
+            thoughts = thoughts.filter(thought => {
+                thought.x += thought.vx;
+                thought.y += thought.vy;
+                thought.vx *= 0.99;
+                thought.vy *= 0.99;
+                thought.life *= 0.99;
+                
+                if (thought.x < 0 || thought.x > canvas.width) thought.vx *= -1;
+                if (thought.y < 0 || thought.y > canvas.height) thought.vy *= -1;
+                
+                ctx.beginPath();
+                ctx.arc(thought.x, thought.y, 5 + thought.depth * 2, 0, Math.PI * 2);
+                ctx.fillStyle = regions[thought.region]?.color || '#ff6b35';
+                ctx.globalAlpha = thought.life;
+                ctx.fill();
+                
+                return thought.life > 0.01;
+            });
+            
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(animate);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Simulate thoughts if no WebSocket connection
+        setInterval(() => {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                processThought({
+                    thought: 'Simulated cognitive process',
+                    region: randomRegion(),
+                    depth: Math.floor(Math.random() * 5)
+                });
+            }
+        }, 500);
+
+        // Start
+        connectWebSocket();
+        animate();
+    </script>
+</body>
+</html>

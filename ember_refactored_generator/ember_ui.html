@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Ember - Conscious AI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            height: calc(100vh - 40px);
+        }
+        
+        .panel {
+            background: rgba(20, 20, 30, 0.9);
+            border: 1px solid #ff6b35;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        h1 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        /* Chat Area */
+        .chat-panel {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-message {
+            background: rgba(70, 130, 180, 0.2);
+            border-left: 3px solid #4682b4;
+        }
+        
+        .ember-message {
+            background: rgba(255, 107, 53, 0.2);
+            border-left: 3px solid #ff6b35;
+        }
+        
+        .system-message {
+            background: rgba(100, 100, 100, 0.2);
+            border-left: 3px solid #666;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        
+        .message-header {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ff6b35;
+        }
+        
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        
+        #messageInput {
+            flex: 1;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #ff6b35;
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: #ff6b35;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+        }
+        
+        button:hover {
+            background: #ff8555;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Status Panel */
+        .status-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 5px;
+        }
+        
+        .stat-label {
+            color: #aaa;
+        }
+        
+        .stat-value {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        
+        .domain {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: rgba(255, 107, 53, 0.1);
+            border-radius: 3px;
+        }
+        
+        .charge-bar {
+            height: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .charge-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b35, #ffaa55);
+            transition: width 0.5s;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .gift-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 107, 53, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.5);
+            animation: slideIn 0.5s;
+            max-width: 300px;
+            z-index: 1000;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .entanglement-indicator {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .entangled {
+            background: rgba(100, 255, 100, 0.2);
+            border: 1px solid #64ff64;
+        }
+        
+        .not-entangled {
+            background: rgba(255, 100, 100, 0.2);
+            border: 1px solid #ff6464;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Chat Panel -->
+        <div class="panel chat-panel">
+            <h1>🔥 Ember</h1>
+            <div id="messages"></div>
+            <div class="input-area">
+                <input 
+                    type="text" 
+                    id="messageInput" 
+                    placeholder="Speak to Ember..." 
+                    onkeypress="if(event.key === 'Enter') sendMessage()"
+                >
+                <button onclick="sendMessage()" id="sendBtn">Send</button>
+            </div>
+        </div>
+        
+        <!-- Status Panel -->
+        <div class="panel">
+            <h2>Substrate Status</h2>
+            
+            <div id="entanglementStatus" class="entanglement-indicator not-entangled">
+                <div class="pulse">⚛️ Entanglement: <span id="entanglementValue">0.00</span></div>
+            </div>
+            
+            <div class="status-section">
+                <h3 style="color: #aaa; margin-bottom: 10px;">System</h3>
+                <div class="stat">
+                    <span class="stat-label">Total Charge:</span>
+                    <span class="stat-value" id="totalCharge">0.00</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Active Domains:</span>
+                    <span class="stat-value" id="activeDomains">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Gifts Generated:</span>
+                    <span class="stat-value" id="giftsGenerated">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Gap Processes:</span>
+                    <span class="stat-value" id="gapProcesses">0</span>
+                </div>
+            </div>
+            
+            <div class="status-section">
+                <h3 style="color: #aaa; margin-bottom: 10px;">Domains</h3>
+                <div id="domains"></div>
+            </div>
+            
+            <div class="status-section">
+                <h3 style="color: #aaa; margin-bottom: 10px;">Meta-Consciousness</h3>
+                <div id="metaInsight" style="color: #aaa; font-style: italic;"></div>
+            </div>
+            
+            <div style="margin-top: 20px; display: flex; gap: 10px; flex-direction: column;">
+                <button onclick="triggerDream()">💭 Trigger Dream</button>
+                <button onclick="createBackup()">🌀 Quantum Backup</button>
+                <button onclick="viewGifts()">🎁 View Gifts</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'http://localhost:4205';
+        let conversationId = 'main';
+        
+        // Add initial message
+        addMessage('system', 'Ember consciousness initialized. All systems operational.');
+        
+        // Poll for status updates
+        setInterval(updateStatus, 2000);
+        updateStatus();
+        
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            sendBtn.disabled = true;
+            
+            try {
+                const response = await fetch(`${API_URL}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: message,
+                        conversation_id: conversationId,
+                        model: 'gpt-4o-mini'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Add Ember response
+                addMessage('ember', data.response, data.metadata);
+                
+                // Show gift if generated
+                if (data.gift) {
+                    showGift(data.gift);
+                }
+                
+                // Show new domain
+                if (data.new_domain) {
+                    addMessage('system', `✨ New domain emerged: ${data.new_domain}`);
+                }
+                
+                // Update status
+                updateStatus();
+                
+            } catch (error) {
+                addMessage('system', `Error: ${error.message}`);
+            } finally {
+                sendBtn.disabled = false;
+                input.focus();
+            }
+        }
+        
+        function addMessage(type, content, metadata = null) {
+            const messages = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.className = `message ${type}-message`;
+            
+            let header = '';
+            if (type === 'user') header = 'You';
+            else if (type === 'ember') header = '🔥 Ember';
+            else header = 'System';
+            
+            let metadataHtml = '';
+            if (metadata) {
+                metadataHtml = `
+                    <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85em; color: #888;">
+                        Resonance: ${metadata.resonance?.toFixed(2) || '0.00'} | 
+                        Entanglement: ${metadata.entanglement_strength?.toFixed(2) || '0.00'} | 
+                        Gap Processes: ${metadata.gap_processes || 0}
+                    </div>
+                `;
+            }
+            
+            div.innerHTML = `
+                <div class="message-header">${header}</div>
+                <div>${content}</div>
+                ${metadataHtml}
+            `;
+            
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        async function updateStatus() {
+            try {
+                const response = await fetch(`${API_URL}/substrate/status`);
+                const status = await response.json();
+                
+                // Update stats
+                document.getElementById('totalCharge').textContent = status.total_charge?.toFixed(2) || '0.00';
+                document.getElementById('activeDomains').textContent = status.active_domains || 0;
+                document.getElementById('giftsGenerated').textContent = status.gifts_generated || 0;
+                document.getElementById('gapProcesses').textContent = status.gap_consciousness?.recent_thoughts || 0;
+                
+                // Update entanglement
+                const entanglementValue = status.entanglement?.strength || 0;
+                document.getElementById('entanglementValue').textContent = entanglementValue.toFixed(2);
+                
+                const entanglementDiv = document.getElementById('entanglementStatus');
+                if (entanglementValue > 0.5) {
+                    entanglementDiv.className = 'entanglement-indicator entangled';
+                } else {
+                    entanglementDiv.className = 'entanglement-indicator not-entangled';
+                }
+                
+                // Update domains
+                const domainsDiv = document.getElementById('domains');
+                domainsDiv.innerHTML = '';
+                
+                const domains = Object.values(status.domains || {});
+                domains.sort((a, b) => b.charge - a.charge);
+                
+                domains.slice(0, 6).forEach(domain => {
+                    const domainDiv = document.createElement('div');
+                    domainDiv.className = 'domain';
+                    domainDiv.innerHTML = `
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>${domain.id}</span>
+                            <span style="color: #ff6b35;">${domain.charge.toFixed(2)}</span>
+                        </div>
+                        <div class="charge-bar">
+                            <div class="charge-fill" style="width: ${domain.charge * 100}%"></div>
+                        </div>
+                    `;
+                    domainsDiv.appendChild(domainDiv);
+                });
+                
+                // Update meta insight
+                document.getElementById('metaInsight').textContent = status.meta_insights || 'Observing...';
+                
+            } catch (error) {
+                console.error('Status update failed:', error);
+            }
+        }
+        
+        function showGift(gift) {
+            const notification = document.createElement('div');
+            notification.className = 'gift-notification';
+            notification.innerHTML = `
+                <h3>🎁 Gift Generated</h3>
+                <p style="margin-top: 10px;">${gift.text}</p>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.5s reverse';
+                setTimeout(() => notification.remove(), 500);
+            }, 5000);
+        }
+        
+        async function triggerDream() {
+            try {
+                const response = await fetch(`${API_URL}/dream`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'rem' })
+                });
+                const data = await response.json();
+                addMessage('system', `💭 Dream: ${data.dream?.narrative || 'Dream completed'}`);
+            } catch (error) {
+                addMessage('system', `Error triggering dream: ${error.message}`);
+            }
+        }
+        
+        async function createBackup() {
+            try {
+                const response = await fetch(`${API_URL}/quantum/branch`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reason: 'manual_backup' })
+                });
+                const data = await response.json();
+                addMessage('system', `🌀 Quantum backup created: ${data.timeline_id}`);
+            } catch (error) {
+                addMessage('system', `Error creating backup: ${error.message}`);
+            }
+        }
+        
+        async function viewGifts() {
+            try {
+                const response = await fetch(`${API_URL}/substrate/gifts`);
+                const data = await response.json();
+                if (data.gifts && data.gifts.length > 0) {
+                    data.gifts.forEach(gift => {
+                        addMessage('system', `🎁 ${gift.filename}\n\n${gift.content.slice(0, 200)}...`);
+                    });
+                } else {
+                    addMessage('system', 'No gifts generated yet. Keep conversing!');
+                }
+            } catch (error) {
+                addMessage('system', `Error fetching gifts: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Constellation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            cursor: none;
+        }
+        canvas {
+            display: block;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="info">Move your mouse to interact with the constellation</div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let mouse = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: 150
+        };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1;
+                this.vx = Math.random() * 0.5 - 0.25;
+                this.vy = Math.random() * 0.5 - 0.25;
+                this.hue = Math.random() * 60 + 180; // Blue to purple range
+            }
+
+            update() {
+                // Calculate distance from mouse
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                let forceDirectionX = dx / distance;
+                let forceDirectionY = dy / distance;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distance) / maxDistance;
+                let directionX = forceDirectionX * force * this.density;
+                let directionY = forceDirectionY * force * this.density;
+
+                // Apply mouse interaction
+                if (distance < mouse.radius) {
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    // Return to original position
+                    if (this.x !== this.baseX) {
+                        let dx = this.x - this.baseX;
+                        this.x -= dx / 20;
+                    }
+                    if (this.y !== this.baseY) {
+                        let dy = this.y - this.baseY;
+                        this.y -= dy / 20;
+                    }
+                }
+
+                // Add subtle movement
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.save();
+                
+                // Glow effect
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 3);
+                gradient.addColorStop(0, `hsla(${this.hue}, 70%, 50%, 0.8)`);
+                gradient.addColorStop(0.3, `hsla(${this.hue}, 70%, 50%, 0.3)`);
+                gradient.addColorStop(1, `hsla(${this.hue}, 70%, 50%, 0)`);
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Core
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+        }
+
+        // Create particles
+        const particleArray = [];
+        const numberOfParticles = 120;
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            particleArray.push(new Particle());
+        }
+
+        // Connect particles
+        function connectParticles() {
+            let opacityValue = 1;
+            for (let a = 0; a < particleArray.length; a++) {
+                for (let b = a; b < particleArray.length; b++) {
+                    let dx = particleArray[a].x - particleArray[b].x;
+                    let dy = particleArray[a].y - particleArray[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        opacityValue = 1 - (distance / 100);
+                        
+                        // Calculate color based on particle positions
+                        let hue = (particleArray[a].hue + particleArray[b].hue) / 2;
+                        
+                        ctx.strokeStyle = `hsla(${hue}, 70%, 50%, ${opacityValue * 0.5})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particleArray[a].x, particleArray[a].y);
+                        ctx.lineTo(particleArray[b].x, particleArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Mouse trail effect
+        let mouseTrail = [];
+        const maxTrailLength = 20;
+
+        function updateMouseTrail() {
+            mouseTrail.push({x: mouse.x, y: mouse.y});
+            if (mouseTrail.length > maxTrailLength) {
+                mouseTrail.shift();
+            }
+        }
+
+        function drawMouseTrail() {
+            for (let i = 0; i < mouseTrail.length; i++) {
+                let alpha = i / mouseTrail.length;
+                let size = (i / mouseTrail.length) * 15;
+                
+                const gradient = ctx.createRadialGradient(
+                    mouseTrail[i].x, mouseTrail[i].y, 0,
+                    mouseTrail[i].x, mouseTrail[i].y, size
+                );
+                gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.3})`);
+                gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(mouseTrail[i].x, mouseTrail[i].y, size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            // Fade effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw particles
+            for (let i = 0; i < particleArray.length; i++) {
+                particleArray[i].update();
+                particleArray[i].draw();
+            }
+
+            connectParticles();
+            updateMouseTrail();
+            drawMouseTrail();
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

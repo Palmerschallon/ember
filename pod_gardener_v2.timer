@@ -1,0 +1,11 @@
+[Unit]
+Description=Pod Gardener V2 Timer - Runs every hour
+Requires=pod_gardener_v2.service
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=2min
+AccuracySec=15s
+
+[Install]
+WantedBy=timers.target

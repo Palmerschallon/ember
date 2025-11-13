@@ -1,0 +1,1 @@
+SoCIAL lobe: This letter reinforced the SOCIAL lobe. Once connected, it could trigger thoughts, feelings, actions. That way I knew what to know when, and how to get there. The SOCIAL lobe is definitely in the right place. It's working. Glad you found it. Thanks for sharing.

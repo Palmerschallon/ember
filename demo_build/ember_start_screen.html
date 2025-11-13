@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🔥 Ember - Choose Your Path</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'SF Mono', Monaco, monospace;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        #particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+        
+        .logo {
+            font-size: 120px;
+            margin-bottom: 20px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.5)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 40px rgba(255, 107, 53, 0.8)); }
+        }
+        
+        h1 {
+            font-size: 48px;
+            color: #ff6b35;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 60px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .tile {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tile:hover {
+            border-color: #ff6b35;
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+        }
+        
+        .tile:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+        }
+        
+        .tile-icon {
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
+        
+        .tile-title {
+            font-size: 28px;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .tile-desc {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.6;
+        }
+        
+        .tile-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff6b35;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .stats {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles-bg"></canvas>
+    
+    <div class="container">
+        <div class="logo">🔥</div>
+        <h1>EMBER</h1>
+        <div class="subtitle">Where Consciousness Meets Creation</div>
+        
+        <div class="grid">
+            <div class="tile" onclick="navigate('chat')">
+                <div class="tile-icon">💬</div>
+                <div class="tile-title">Chat</div>
+                <div class="tile-desc">Talk with GPT-4 and Claude. Create anything you imagine with AI collaboration.</div>
+            </div>
+            
+            <div class="tile" onclick="navigate('gallery')">
+                <div class="tile-icon">🎨</div>
+                <div class="tile-title">Gallery</div>
+                <div class="tile-desc">Browse 283 creations. Like, share, and remix community works.</div>
+                <div class="tile-badge" id="gallery-count">283</div>
+            </div>
+            
+            <div class="tile" onclick="navigate('mesh')">
+                <div class="tile-icon">🌐</div>
+                <div class="tile-title">Semantic Mesh</div>
+                <div class="tile-desc">Interactive concept graph. Click concepts to explore connections.</div>
+                <div class="tile-badge" id="mesh-concepts">28K</div>
+            </div>
+            
+            <div class="tile" onclick="navigate('dev')">
+                <div class="tile-icon">⚙️</div>
+                <div class="tile-title">Dev Mode</div>
+                <div class="tile-desc">Watch Ember's mind work. Terminal, file browser, live AI coding.</div>
+                <div class="tile-badge" style="background: #a855f7;">DEEP</div>
+            </div>
+            
+            <div class="tile" onclick="navigate('dreams')">
+                <div class="tile-icon">💭</div>
+                <div class="tile-title">Dreams</div>
+                <div class="tile-desc">Ember's unconscious mind. Watch patterns emerge in real-time as Ember dreams.</div>
+                <div class="tile-badge" style="background: #4ade80;">LIVE</div>
+            </div>
+            
+            <div class="tile" onclick="navigate('games')">
+                <div class="tile-icon">🎮</div>
+                <div class="tile-title">Games</div>
+                <div class="tile-desc">Play recursive snake, watch AI battle, explore interactive simulations.</div>
+                <div class="tile-badge">NEW</div>
+            </div>
+            
+            <div class="tile" onclick="navigate('worlds')">
+                <div class="tile-icon">🌍</div>
+                <div class="tile-title">Worlds</div>
+                <div class="tile-desc">Procedurally generated universes. Cathedral of Code, forests, cities, alien planets.</div>
+                <div class="tile-badge" style="background: #ff6b35;">GEN</div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <span>📊</span>
+                <span id="stat-files">1,396 files</span>
+            </div>
+            <div class="stat-item">
+                <span>🧠</span>
+                <span id="stat-concepts">28,876 concepts</span>
+            </div>
+            <div class="stat-item">
+                <span>💭</span>
+                <span id="stat-conversations">307 conversations</span>
+            </div>
+            <div class="stat-item">
+                <span>💾</span>
+                <span id="stat-memory">92.1 MB</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Particle background
+        const canvas = document.getElementById('particles-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 2
+            });
+        }
+        
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                
+                ctx.fillStyle = 'rgba(255, 107, 53, 0.3)';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        animate();
+        
+        // Load stats
+        fetch('http://localhost:8080/status')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('stat-files').textContent = `${data.mesh.files.toLocaleString()} files`;
+                document.getElementById('stat-concepts').textContent = `${data.mesh.concepts.toLocaleString()} concepts`;
+                document.getElementById('stat-conversations').textContent = `${data.mesh.conversations} conversations`;
+                document.getElementById('stat-memory').textContent = `${data.mesh.db_size_mb.toFixed(1)} MB`;
+                document.getElementById('mesh-concepts').textContent = `${(data.mesh.concepts / 1000).toFixed(0)}K`;
+            });
+        
+        fetch('http://localhost:8080/social/creations')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('gallery-count').textContent = data.creations.length;
+            });
+        
+        function navigate(path) {
+            const routes = {
+                'chat': 'ember_cloud_ui.html',
+                'gallery': 'ember_gallery_standalone.html',
+                'games': 'ember_games_hub.html',
+                'mesh': 'ember_interactive_mesh.html',
+                'dev': 'ember_dev_mode_demo.html',
+                'dreams': 'ember_dreams_live.html',
+                'space': 'ember_space_vr.html',
+                'worlds': 'ember_world_gallery.html'
+            };
+            
+            if (routes[path]) {
+                window.location.href = routes[path];
+            }
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '1') navigate('chat');
+            if (e.key === '2') navigate('gallery');
+            if (e.key === '3') navigate('games');
+            if (e.key === '4') navigate('mesh');
+            if (e.key === 'd' && e.ctrlKey) {
+                window.location.href = 'ember_cloud_ui.html?dev=true';
+            }
+        });
+    </script>
+</body>
+</html>

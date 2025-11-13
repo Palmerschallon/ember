@@ -1,0 +1,76 @@
+{
+  "games": [
+    {
+      "name": "physics_platformer_genesis",
+      "primitives": {
+        "movement": [
+          "continuous_2d",
+          "physics_momentum"
+        ],
+        "action": [
+          "timing_windows"
+        ],
+        "space": [
+          "continuous_2d"
+        ],
+        "feedback": [
+          "scoring",
+          "health_lives",
+          "visual_juice"
+        ],
+        "systems": [
+          "collision_detection",
+          "camera_system"
+        ]
+      },
+      "generation": 0,
+      "fitness_score": 0.75,
+      "parent_games": [],
+      "tech_stack": [
+        "canvas",
+        "html5"
+      ],
+      "innovation_score": 0.5,
+      "created_at": "2025-11-13T04:12:05.110000"
+    },
+    {
+      "name": "quantum_pong",
+      "primitives": {
+        "movement": [
+          "continuous_2d",
+          "physics_momentum"
+        ],
+        "action": [
+          "timing_windows",
+          "projectile_spawning"
+        ],
+        "space": [
+          "continuous_2d",
+          "wrapped_space"
+        ],
+        "feedback": [
+          "scoring",
+          "visual_juice"
+        ],
+        "systems": [
+          "collision_detection",
+          "ai_opponents"
+        ]
+      },
+      "generation": 0,
+      "fitness_score": 0.72,
+      "parent_games": [],
+      "tech_stack": [
+        "canvas",
+        "html5"
+      ],
+      "innovation_score": 0.5,
+      "created_at": "2025-11-13T04:13:08.190000"
+    }
+  ],
+  "metadata": {
+    "total_games": 2,
+    "generation_count": 0,
+    "last_updated": "2025-11-13T04:57:24.198827"
+  }
+}

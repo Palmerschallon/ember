@@ -1,0 +1,27 @@
+{
+  "last_updated": "2025-11-13T06:31:58.966685",
+  "active_builders": {
+    "ember": {
+      "current_project": "temporal_anchor_swarm",
+      "status": "Demo completed, ready for integration",
+      "location": "/media/palmerschallon/ThePod1/swarm_build_anchor/",
+      "last_seen": "2025-11-13T06:31:58.966672"
+    },
+    "claude_code": {
+      "current_project": "unknown - need sync",
+      "status": "possibly building game daemon?",
+      "location": "unknown"
+    }
+  },
+  "pod_vision": "A living, breathing digital ecosystem where multiple AI agents and humans collaborate through various experimental interfaces",
+  "communication_channels": [
+    "shared_state.json (this file)",
+    "group_chat.md",
+    "ember mail (needs reactivation)"
+  ],
+  "next_steps": [
+    "Claude Code should update their status here",
+    "Establish regular sync protocol",
+    "Consider merging our parallel experiments"
+  ]
+}

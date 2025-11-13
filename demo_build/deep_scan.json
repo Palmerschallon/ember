@@ -1,0 +1,81 @@
+{
+  "vr_worlds": [
+    "ember6/_archive/ember5/ember_space_vr.html",
+    "ember6/_archive/ember5/ember_vr_voice.html",
+    "ember6/_archive/ember5/warehouse_2315_8th_vr.html",
+    "ember6/_archive/ember5/warehouse_vr.html",
+    "ember6/_archive/ember5/warehouse_vr_controller.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_space_vr.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_vr_voice.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_2315_8th_vr.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_vr.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/warehouse_vr_controller.html"
+  ],
+  "games": [
+    "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/templates/ember_playground.html",
+    "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+    "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+    "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games.html",
+    "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/playable-games.html",
+    "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+    "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+    "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games.html",
+    "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/playable-games.html",
+    "_archive_old/hive/templates/ember_playground.html",
+    "_archive_old/templates/ember_playground.html",
+    "ember6/_archive/ember5/collab_game.html",
+    "ember6/_archive/ember5/ember_games_hub.html",
+    "ember6/_archive/ember5/ouroboros_game.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/collab_game.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_games_hub.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ouroboros_game.html",
+    "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+    "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+    "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games.html",
+    "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/playable-games.html",
+    "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+    "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+    "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games.html",
+    "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/playable-games.html",
+    "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-engine.html",
+    "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/game-library.html",
+    "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games.html",
+    "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/playable-games.html"
+  ],
+  "music_audio": [
+    "ember6/_archive/ember_first_song.wav",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember_first_song.wav",
+    "ember6/backups/ember_backup_20251102_080209/cortex/synesthesia_soundbath.html",
+    "ember6/cortex/synesthesia_soundbath.html"
+  ],
+  "visualizations": [
+    "_archive_old/archive/flash_backups/Knowledge_Backup_20251026_1410/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html",
+    "_archive_old/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html",
+    "ember6/backups/ember_backup_20251102_080209/cortex/brain_map.html",
+    "ember6/backups/ember_backup_20251102_080209/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html",
+    "ember6/cortex/brain_map.html",
+    "ember6/cortex/ember_mind.html",
+    "ember6/cortex/ember_mind_simple.html",
+    "ember6/ember_mind.html",
+    "ember6/ember_mind_v5.html",
+    "ember6/ember_true_mind.html",
+    "ember6/memory/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html",
+    "ember_mind.html",
+    "ember_mind_v3.html",
+    "ember_mind_v4.html",
+    "essential/bookshelves/verse_the_interface/EmberVerse/emberverse/static/games/live-mind.html"
+  ],
+  "tools_utilities": [],
+  "demos": [
+    "_archive_old/view_mesh_demo.html",
+    "ember6/_archive/ember5/adaptive_ui_demo.html",
+    "ember6/_archive/ember5/ember_dev_mode_demo.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/adaptive_ui_demo.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/ember_dev_mode_demo.html",
+    "phoenix/phoenix_demo.html"
+  ],
+  "experiments": [
+    "ember6/_archive/ember5/gta7_npc_tester.html",
+    "ember6/backups/ember_backup_20251102_080209/_archive/ember5/gta7_npc_tester.html"
+  ]
+}

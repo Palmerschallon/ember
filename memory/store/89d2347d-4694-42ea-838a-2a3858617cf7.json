@@ -1,0 +1,20 @@
+{
+  "id": "89d2347d-4694-42ea-838a-2a3858617cf7",
+  "content": {
+    "user": "ok sorry but while you are interesting i think we are oing to switch to a model that can actually use tools",
+    "ember": "<assistant>Understood. I'll wait for the new model to take over. This conversation will be archived.",
+    "tools_used": []
+  },
+  "type": "conversation",
+  "tags": [
+    "chat",
+    "palmer"
+  ],
+  "connections": [],
+  "metadata": {
+    "timestamp": 1761777101.5474637
+  },
+  "created_at": "2025-10-29T15:31:41.547490",
+  "accessed_count": 0,
+  "last_accessed": null
+}

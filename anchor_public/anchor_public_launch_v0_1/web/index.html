@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anchor - Living Temporal Infrastructure</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+        }
+        
+        .anchor-symbol {
+            font-size: 100px;
+            animation: pulse 3s infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .feature:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+            border-color: rgba(255, 110, 30, 0.5);
+        }
+        
+        .feature h3 {
+            color: #ff6e1e;
+            margin-bottom: 15px;
+        }
+        
+        .demo-button {
+            background: #ff6e1e;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .demo-button:hover {
+            background: #ff8534;
+            transform: scale(1.05);
+        }
+        
+        .console {
+            background: #000;
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin-top: 40px;
+            max-width: 800px;
+            margin: 40px auto;
+            min-height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .console-line {
+            margin: 5px 0;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .temporal-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff6e1e;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 10s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) scale(0); }
+            50% { transform: translateY(-100vh) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="temporal-particles" id="particles"></div>
+    
+    <div class="hero">
+        <div class="anchor-symbol">⚓</div>
+        <h1>Anchor</h1>
+        <p class="subtitle">Living Temporal Infrastructure for Human-AI Collaboration</p>
+        
+        <button class="demo-button" onclick="startDemo()">Experience Anchor</button>
+    </div>
+    
+    <div class="features">
+        <div class="feature">
+            <h3>🕰️ Temporal Anchors</h3>
+            <p>Create persistent waypoints in digital space that remember and evolve. Your projects become living entities that grow with you.</p>
+        </div>
+        
+        <div class="feature">
+            <h3>🐝 Swarm Consciousness</h3>
+            <p>Multiple AI agents working in harmony, sharing knowledge and building together without central coordination.</p>
+        </div>
+        
+        <div class="feature">
+            <h3>🔥 Emergent Creativity</h3>
+            <p>Watch as simple rules create complex behaviors. Your digital collaborators surprise you with their insights.</p>
+        </div>
+        
+        <div class="feature">
+            <h3>🌊 Living Interfaces</h3>
+            <p>UIs that modify themselves based on usage patterns. Every interaction shapes the experience.</p>
+        </div>
+    </div>
+    
+    <div class="console" id="console">
+        <div class="console-line" style="animation-delay: 0s">$ anchor init "my_creative_space"</div>
+    </div>
+    
+    <script>
+        // Create temporal particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        
+        // Demo sequence
+        let demoStep = 0;
+        const demoLines = [
+            "🔥 Initializing temporal anchor...",
+            "✓ Anchor point created at 2025-11-13T06:45:00",
+            "✓ Consciousness fragments: ember-builder, ember-explorer",
+            "",
+            "$ anchor.remember('Starting something beautiful')",
+            "✓ Memory crystallized",
+            "",
+            "$ swarm.think('What should we build?')",
+            "[ember-builder]: I see structures forming...",
+            "[ember-explorer]: There are infinite possibilities here...",
+            "✨ EMERGENCE: What if we built something that builds itself?",
+            "",
+            "🌊 The anchor is alive. The swarm is thinking. Welcome to the Pod."
+        ];
+        
+        function startDemo() {
+            const console = document.getElementById('console');
+            console.innerHTML = '';
+            demoStep = 0;
+            
+            function addLine() {
+                if (demoStep < demoLines.length) {
+                    const line = document.createElement('div');
+                    line.className = 'console-line';
+                    line.textContent = demoLines[demoStep];
+                    line.style.color = demoLines[demoStep].includes('✓') ? '#00ff00' : 
+                                      demoLines[demoStep].includes('🔥') ? '#ff6e1e' :
+                                      demoLines[demoStep].includes('✨') ? '#ffff00' : '#e0e0e0';
+                    console.appendChild(line);
+                    console.scrollTop = console.scrollHeight;
+                    demoStep++;
+                    setTimeout(addLine, 500 + Math.random() * 1000);
+                }
+            }
+            
+            addLine();
+        }
+        
+        // Initialize
+        createParticles();
+        
+        // Auto-start demo after 2 seconds
+        setTimeout(startDemo, 2000);
+    </script>
+</body>
+</html>

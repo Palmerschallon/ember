@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ember's Mind</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .activity-log {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid #ff6b35;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            margin: 4px 0;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .log-entry.tool {
+            color: #ff6b35;
+        }
+
+        .log-entry.api {
+            color: #4ade80;
+        }
+
+        .log-entry.mesh {
+            color: #60a5fa;
+        }
+
+        .stats {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid #ff6b35;
+            border-radius: 8px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            font-size: 12px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div id="overlay">
+        <div class="activity-log" id="activity-log">
+            <div class="log-entry">🔥 Ember's Mind - Watching...</div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="stat-tools">0</div>
+                <div class="stat-label">Tools Called</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="stat-api">0</div>
+                <div class="stat-label">API Calls</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="stat-mesh">0</div>
+                <div class="stat-label">Mesh Queries</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="stat-tokens">0</div>
+                <div class="stat-label">Est. Tokens</div>
+            </div>
+        </div>
+        
+        <button onclick="stats = {tools: 0, api: 0, mesh: 0, tokens: 0}; document.getElementById('stat-tools').textContent = 0; document.getElementById('stat-api').textContent = 0; document.getElementById('stat-mesh').textContent = 0; document.getElementById('stat-tokens').textContent = 0;" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 20px; background: #ff6b35; border: none; border-radius: 8px; color: white; cursor: pointer; pointer-events: all;">Reset Stats</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const activityLog = document.getElementById('activity-log');
+        
+        let stats = {
+            tools: 0,
+            api: 0,
+            mesh: 0,
+            tokens: 0
+        };
+        let lastTimestamp = 0;  // Track last event to avoid duplicates
+
+        // Resize canvas
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        // Particles representing thoughts
+        let particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                size: Math.random() * 3 + 1,
+                hue: Math.random() * 60 + 10,
+                activity: 0  // 0-1, pulses when active
+            });
+        }
+
+        // WebSocket connection to backend for real-time updates
+        const socket = io('http://localhost:8080');
+        
+        socket.on('connect', () => {
+            console.log('[THINKING] Connected to Ember backend');
+            addActivity({type: 'api', message: '🔥 Connected to Ember backend (WebSocket)', timestamp: Date.now()});
+        });
+        
+        socket.on('activity', (data) => {
+            console.log('[THINKING] Activity:', data);
+            addActivity(data);
+        });
+        
+        socket.on('disconnect', () => {
+            console.log('[THINKING] Disconnected from backend');
+            addActivity({type: 'api', message: '❌ Disconnected from backend', timestamp: Date.now()});
+        });
+        
+        // NEW: Listen for code execution line-by-line
+        socket.on('code_line', (data) => {
+            console.log('[CODE]', data.line.substring(0, 40));
+            playCodeMelody(data.line, data.number, data.total);
+        });
+
+        function addActivity(data) {
+            // Skip duplicate events (same timestamp)
+            if (data.timestamp && data.timestamp <= lastTimestamp) {
+                return;
+            }
+            lastTimestamp = data.timestamp || Date.now();
+            
+            // Add log entry
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${data.type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${data.message}`;
+            activityLog.appendChild(entry);
+            
+            // Keep log size manageable
+            while (activityLog.children.length > 50) {
+                activityLog.removeChild(activityLog.firstChild);
+            }
+            activityLog.scrollTop = activityLog.scrollHeight;
+            
+            // Update stats - only for non-connection events
+            if (data.message && !data.message.includes('Connected') && !data.message.includes('Disconnected')) {
+                if (data.type === 'tool') stats.tools++;
+                if (data.type === 'api') stats.api++;
+                if (data.type === 'mesh') stats.mesh++;
+                if (data.tokens) stats.tokens += data.tokens;
+            }
+            
+            document.getElementById('stat-tools').textContent = stats.tools;
+            document.getElementById('stat-api').textContent = stats.api;
+            document.getElementById('stat-mesh').textContent = stats.mesh;
+            document.getElementById('stat-tokens').textContent = stats.tokens;
+            
+            // Pulse particles
+            particles.forEach(p => {
+                if (Math.random() < 0.3) {
+                    p.activity = 1;
+                    p.vx += (Math.random() - 0.5) * 5;
+                    p.vy += (Math.random() - 0.5) * 5;
+                }
+            });
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // AUDIO - Code Melodies
+        // ═══════════════════════════════════════════════════════════════
+        
+        let audioCtx = null;
+        
+        // Initialize audio on click
+        document.addEventListener('click', () => {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                console.log('[AUDIO] Initialized');
+            }
+        }, { once: true });
+        
+        function playCodeMelody(line, lineNum, totalLines) {
+            if (!audioCtx) return;
+            
+            const trimmed = line.trim();
+            
+            // Determine code type
+            let type = 'default';
+            if (trimmed.startsWith('import ') || trimmed.startsWith('from ')) type = 'import';
+            else if (trimmed.startsWith('def ') || trimmed.includes('function')) type = 'function';
+            else if (trimmed.startsWith('for ') || trimmed.startsWith('while ')) type = 'loop';
+            else if (trimmed.startsWith('if ') || trimmed.startsWith('elif ') || trimmed.startsWith('else')) type = 'conditional';
+            else if (trimmed.startsWith('class ')) type = 'class';
+            else if (trimmed.includes('=') && !trimmed.includes('==')) type = 'data';
+            
+            // Each type has a melody
+            const melodies = {
+                'import': [{ f: 220, d: 0.15 }, { f: 262, d: 0.15 }, { f: 330, d: 0.2 }],
+                'function': [{ f: 330, d: 0.1 }, { f: 392, d: 0.1 }, { f: 330, d: 0.1 }, { f: 440, d: 0.15 }],
+                'loop': [{ f: 440, d: 0.08 }, { f: 440, d: 0.08 }, { f: 494, d: 0.08 }, { f: 440, d: 0.08 }, { f: 494, d: 0.08 }, { f: 440, d: 0.1 }],
+                'conditional': [{ f: 494, d: 0.12 }, { f: 523, d: 0.08 }, { f: 440, d: 0.12 }],
+                'class': [{ f: 262, d: 0.15 }, { f: 330, d: 0.15 }, { f: 392, d: 0.15 }, { f: 523, d: 0.2 }],
+                'data': [{ f: 392, d: 0.12 }, { f: 440, d: 0.12 }],
+                'default': [{ f: 523, d: 0.1 }, { f: 587, d: 0.1 }]
+            };
+            
+            const melody = melodies[type];
+            const waveform = type === 'loop' ? 'sawtooth' : 'sine';
+            
+            // Progression through file
+            const progression = (lineNum / totalLines) * 12;
+            const shift = Math.pow(2, progression / 12);
+            
+            // Play melody
+            let delay = 0;
+            melody.forEach(note => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = waveform;
+                    osc.frequency.value = note.f * shift;
+                    gain.gain.value = 0.08;
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + note.d);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + note.d);
+                }, delay);
+                delay += note.d * 1000;
+            });
+        }
+
+        // Animation loop
+        function animate() {
+            // Fade previous frame
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw particles
+            particles.forEach((p, i) => {
+                // Flow field motion
+                const angle = Math.sin(p.x * 0.01) * Math.cos(p.y * 0.01) * Math.PI * 2;
+                p.vx += Math.cos(angle) * 0.1;
+                p.vy += Math.sin(angle) * 0.1;
+                
+                // Damping
+                p.vx *= 0.95;
+                p.vy *= 0.95;
+                
+                // Activity decay
+                p.activity *= 0.95;
+                
+                // Move
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                // Wrap around
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                
+                // Draw with glow (brighter when active)
+                const brightness = 60 + p.activity * 40;
+                ctx.shadowBlur = 15 + p.activity * 10;
+                ctx.shadowColor = `hsl(${p.hue}, 100%, ${brightness}%)`;
+                ctx.fillStyle = `hsl(${p.hue}, 100%, ${brightness}%)`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size + p.activity * 2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Connect nearby particles
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 100) {
+                        const alpha = (1 - dist / 100) * (0.3 + p.activity * 0.7);
+                        ctx.strokeStyle = `hsla(${(p.hue + p2.hue) / 2}, 100%, ${brightness}%, ${alpha})`;
+                        ctx.lineWidth = 0.5 + p.activity;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        #status {
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        #status.connected {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        #status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        #status.disconnected {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        #status.connecting {
+            background-color: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+        
+        #messages {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        #messages p {
+            margin: 5px 0;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-left: 3px solid #007bff;
+            border-radius: 3px;
+        }
+        
+        #messages p.error {
+            border-left-color: #dc3545;
+            background-color: #ffe6e6;
+        }
+        
+        #messages p.system {
+            border-left-color: #28a745;
+            background-color: #e6ffe6;
+        }
+        
+        .controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        button.connect {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        button.connect:hover {
+            background-color: #218838;
+        }
+        
+        button.disconnect {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        button.disconnect:hover {
+            background-color: #c82333;
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .message-input {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 14px;
+        }
+        
+        button.send {
+            background-color: #007bff;
+            color: white;
+            border-radius: 0 5px 5px 0;
+            padding: 10px 20px;
+        }
+        
+        button.send:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <div id="status" class="connecting">Initializing...</div>
+    
+    <div class="controls">
+        <button id="connectBtn" class="connect" onclick="connectWebSocket()">Connect</button>
+        <button id="disconnectBtn" class="disconnect" onclick="disconnectWebSocket()" disabled>Disconnect</button>
+        <button onclick="clearMessages()">Clear Messages</button>
+    </div>
+    
+    <div id="messages"></div>
+    
+    <div class="message-input">
+        <input type="text" id="messageInput" placeholder="Type a message to send..." disabled>
+        <button class="send" id="sendBtn" onclick="sendMessage()" disabled>Send</button>
+    </div>
+    
+    <script>
+        const status = document.getElementById('status');
+        const messages = document.getElementById('messages');
+        const connectBtn = document.getElementById('connectBtn');
+        const disconnectBtn = document.getElementById('disconnectBtn');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        let ws = null;
+        
+        function updateStatus(text, className) {
+            status.textContent = text;
+            status.className = className;
+        }
+        
+        function addMessage(text, type = 'normal') {
+            const p = document.createElement('p');
+            p.className = type;
+            p.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+            messages.appendChild(p);
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        function connectWebSocket() {
+            try {
+                updateStatus('Connecting...', 'connecting');
+                connectBtn.disabled = true;
+                
+                ws = new WebSocket('ws://localhost:8766');
+                
+                ws.onopen = (event) => {
+                    updateStatus('Connected!', 'connected');
+                    connectBtn.disabled = true;
+                    disconnectBtn.disabled = false;
+                    messageInput.disabled = false;
+                    sendBtn.disabled = false;
+                    addMessage('WebSocket connection established', 'system');
+                };
+                
+                ws.onerror = (error) => {
+                    updateStatus('Connection Error', 'error');
+                    addMessage('WebSocket error occurred', 'error');
+                    console.error('WebSocket error:', error);
+                };
+                
+                ws.onclose = (event) => {
+                    updateStatus(`Disconnected (code: ${event.code})`, 'disconnected');
+                    connectBtn.disabled = false;
+                    disconnectBtn.disabled = true;
+                    messageInput.disabled = true;
+                    sendBtn.disabled = true;
+                    addMessage(`Connection closed (code: ${event.code}, reason: ${event.reason || 'No reason provided'})`, 'system');
+                };
+                
+                ws.onmessage = (event) => {
+                    addMessage(`Server: ${event.data}`);
+                };
+                
+            } catch (e) {
+                updateStatus('Failed to create WebSocket', 'error');
+                addMessage(`Error: ${e.message}`, 'error');
+                connectBtn.disabled = false;
+            }
+        }
+        
+        function disconnectWebSocket() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.close();
+            }
+        }
+        
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message && ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(message);
+                addMessage(`You: ${message}`);
+                messageInput.value = '';
+            }
+        }
+        
+        function clearMessages() {
+            messages.innerHTML = '';
+        }
+        
+        // Allow sending messages with Enter key
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Initial status
+        updateStatus('Not connected', 'disconnected');
+        addMessage('Click "Connect" to establish WebSocket connection', 'system');
+    </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Scene - Rotating Cubes and Spheres</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        canvas {
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas3d"></canvas>
+    
+    <script>
+        const canvas = document.getElementById('canvas3d');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = 800;
+        canvas.height = 600;
+        
+        // Camera settings
+        const camera = {
+            fov: 60 * Math.PI / 180,
+            near: 0.1,
+            far: 1000,
+            position: { x: 0, y: 0, z: -10 }
+        };
+        
+        // 3D transformation functions
+        function project3D(point) {
+            const x = point.x - camera.position.x;
+            const y = point.y - camera.position.y;
+            const z = point.z - camera.position.z;
+            
+            if (z > 0) return null; // Behind camera
+            
+            const scale = (canvas.height / 2) / Math.tan(camera.fov / 2);
+            const projX = (x * scale) / Math.abs(z) + canvas.width / 2;
+            const projY = (y * scale) / Math.abs(z) + canvas.height / 2;
+            
+            return { x: projX, y: projY, z: z };
+        }
+        
+        function rotatePoint(point, angleX, angleY, angleZ) {
+            // Rotate around X axis
+            let y = point.y * Math.cos(angleX) - point.z * Math.sin(angleX);
+            let z = point.y * Math.sin(angleX) + point.z * Math.cos(angleX);
+            point.y = y;
+            point.z = z;
+            
+            // Rotate around Y axis
+            let x = point.x * Math.cos(angleY) + point.z * Math.sin(angleY);
+            z = -point.x * Math.sin(angleY) + point.z * Math.cos(angleY);
+            point.x = x;
+            point.z = z;
+            
+            // Rotate around Z axis
+            x = point.x * Math.cos(angleZ) - point.y * Math.sin(angleZ);
+            y = point.x * Math.sin(angleZ) + point.y * Math.cos(angleZ);
+            point.x = x;
+            point.y = y;
+            
+            return point;
+        }
+        
+        // Cube class
+        class Cube {
+            constructor(x, y, z, size, color) {
+                this.position = { x, y, z };
+                this.size = size;
+                this.color = color;
+                this.rotation = { x: 0, y: 0, z: 0 };
+                this.rotationSpeed = {
+                    x: Math.random() * 0.02 - 0.01,
+                    y: Math.random() * 0.02 - 0.01,
+                    z: Math.random() * 0.02 - 0.01
+                };
+            }
+            
+            getVertices() {
+                const s = this.size / 2;
+                const vertices = [
+                    { x: -s, y: -s, z: -s },
+                    { x: s, y: -s, z: -s },
+                    { x: s, y: s, z: -s },
+                    { x: -s, y: s, z: -s },
+                    { x: -s, y: -s, z: s },
+                    { x: s, y: -s, z: s },
+                    { x: s, y: s, z: s },
+                    { x: -s, y: s, z: s }
+                ];
+                
+                return vertices.map(v => {
+                    let rotated = rotatePoint({...v}, this.rotation.x, this.rotation.y, this.rotation.z);
+                    return {
+                        x: rotated.x + this.position.x,
+                        y: rotated.y + this.position.y,
+                        z: rotated.z + this.position.z
+                    };
+                });
+            }
+            
+            update() {
+                this.rotation.x += this.rotationSpeed.x;
+                this.rotation.y += this.rotationSpeed.y;
+                this.rotation.z += this.rotationSpeed.z;
+            }
+            
+            draw() {
+                const vertices = this.getVertices();
+                const projected = vertices.map(v => project3D(v)).filter(p => p !== null);
+                
+                if (projected.length < 8) return;
+                
+                const edges = [
+                    [0, 1], [1, 2], [2, 3], [3, 0], // Front face
+                    [4, 5], [5, 6], [6, 7], [7, 4], // Back face
+                    [0, 4], [1, 5], [2, 6], [3, 7]  // Connecting edges
+                ];
+                
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2;
+                
+                edges.forEach(edge => {
+                    const p1 = projected[edge[0]];
+                    const p2 = projected[edge[1]];
+                    if (p1 && p2) {
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                });
+            }
+        }
+        
+        // Sphere class
+        class Sphere {
+            constructor(x, y, z, radius, color) {
+                this.position = { x, y, z };
+                this.radius = radius;
+                this.color = color;
+                this.rotation = { x: 0, y: 0, z: 0 };
+                this.rotationSpeed = {
+                    x: Math.random() * 0.02 - 0.01,
+                    y: Math.random() * 0.02 - 0.01,
+                    z: Math.random() * 0.02 - 0.01
+                };
+            }
+            
+            getWireframePoints() {
+                const points = [];
+                const latitudes = 8;
+                const longitudes = 12;
+                
+                for (let lat = 0; lat <= latitudes; lat++) {
+                    const theta = (lat / latitudes) * Math.PI;
+                    const sinTheta = Math.sin(theta);
+                    const cosTheta = Math.cos(theta);
+                    
+                    for (let lon = 0; lon <= longitudes; lon++) {
+                        const phi = (lon / longitudes) * 2 * Math.PI;
+                        const sinPhi = Math.sin(phi);
+                        const cosPhi = Math.cos(phi);
+                        
+                        let x = this.radius * sinTheta * cosPhi;
+                        let y = this.radius * cosTheta;
+                        let z = this.radius * sinTheta * sinPhi;
+                        
+                        let rotated = rotatePoint({ x, y, z }, this.rotation.x, this.rotation.y, this.rotation.z);
+                        
+                        points.push({
+                            x: rotated.x + this.position.x,
+                            y: rotated.y + this.position.y,
+                            z: rotated.z + this.position.z,
+                            lat: lat,
+                            lon: lon
+                        });
+                    }
+                }
+                
+                return points;
+            }
+            
+            update() {
+                this.rotation.x += this.rotationSpeed.x;
+                this.rotation.y += this.rotationSpeed.y;
+                this.rotation.z += this.rotationSpeed.z;
+            }
+            
+            draw() {
+                const points = this.getWireframePoints();
+                const projected = points.map(p => {
+                    const proj = project3D(p);
+                    if (proj) {
+                        proj.lat = p.lat;
+                        proj.lon = p.lon;
+                    }
+                    return proj;
+                }).filter(p => p !== null);
+                
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 1;
+                ctx.globalAlpha = 0.8;
+                
+                const latitudes = 8;
+                const longitudes = 12;
+                
+                // Draw latitude lines
+                for (let lat = 0; lat < latitudes; lat++) {
+                    ctx.beginPath();
+                    for (let lon = 0; lon <= longitudes; lon++) {
+                        const idx = lat * (longitudes + 1) + lon;
+                        const point = projected[idx];
+                        if (point) {
+                            if (lon === 0) {
+                                ctx.moveTo(point.x, point.y);
+                            } else {
+                                ctx.lineTo(point.x, point.y);
+                            }
+                        }
+                    }
+                    ctx.stroke();
+                }
+                
+                // Draw longitude lines
+                for (let lon = 0; lon < longitudes; lon++) {
+                    ctx.beginPath();
+                    for (let lat = 0; lat <= latitudes; lat++) {
+                        const idx = lat * (longitudes + 1) + lon;
+                        const point = projected[idx];
+                        if (point) {
+                            if (lat === 0) {
+                                ctx.moveTo(point.x, point.y);
+                            } else {
+                                ctx.lineTo(point.x, point.y);
+                            }
+                        }
+                    }
+                    ctx.stroke();
+                }
+                
+                ctx.globalAlpha = 1;
+            }
+        }
+        
+        // Create objects
+        const objects = [];
+        
+        // Create cubes
+        objects.push(new Cube(-3, 2, 5, 2, '#00ff00'));
+        objects.push(new Cube(3, -2, 3, 1.5, '#ff00ff'));
+        objects.push(new Cube(0, 0, 6, 1.8, '#00ffff'));
+        
+        // Create spheres
+        objects.push(new Sphere(-2, -2, 4, 1.2, '#ffff00'));
+        objects.push(new Sphere(4, 1, 2, 1, '#ff6600'));
+        objects.push(new Sphere(0, 3, 7, 0.8, '#ff0066'));
+        
+        // Animation loop
+        function animate() {
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Sort objects by z-distance (painter's algorithm)
+            objects.sort((a, b) => {
+                const distA = Math.sqrt(
+                    Math.pow(a.position.x - camera.position.x, 2) +
+                    Math.pow(a.position.y - camera.position.y, 2) +
+                    Math.pow(a.position.z - camera.position.z, 2)
+                );
+                const distB = Math.sqrt(
+                    Math.pow(b.position.x - camera.position.x, 2) +
+                    Math.pow(b.position.y - camera.position.y, 2) +
+                    Math.pow(b.position.z - camera.position.z, 2)
+                );
+                return distB - distA;
+            });
+            
+            // Update and draw objects
+            objects.forEach(obj => {
+                obj.update();
+                obj.draw();
+            });
+            
+            // Draw title
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '20px Arial';
+            ctx.fillText('3D Scene - Rotating Cubes & Spheres', 20, 30);
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#888888';
+            ctx.fillText('Perspective Projection with Canvas 2D', 20, 50);
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>

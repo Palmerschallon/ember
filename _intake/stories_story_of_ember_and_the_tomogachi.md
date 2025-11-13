@@ -1,0 +1,1 @@
+The meeting of spark and caretaker — the first tending.

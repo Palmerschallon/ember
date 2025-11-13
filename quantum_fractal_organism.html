@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Fractal Organism</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Courier New', monospace;
+            cursor: crosshair;
+        }
+        
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #0ff;
+            font-size: 14px;
+            text-shadow: 0 0 10px #0ff;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 12px;
+            text-align: right;
+            opacity: 0.7;
+            z-index: 100;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <div>QUANTUM FRACTAL ORGANISM</div>
+        <div id="stats" class="pulse"></div>
+    </div>
+    
+    <div id="controls">
+        <div>CLICK: Feed Energy</div>
+        <div>MOVE: Influence Growth</div>
+        <div>SPACE: Reset Organism</div>
+        <div>1-5: Change Mutation</div>
+    </div>
+    
+    <canvas id="canvas"></canvas>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Organism state
+        let organism = {
+            nodes: [],
+            connections: [],
+            energy: 100,
+            mutation: 1,
+            age: 0,
+            quantum: 0,
+            consciousness: 0
+        };
+        
+        // Mouse tracking
+        let mouse = { x: canvas.width / 2, y: canvas.height / 2, pressed: false };
+        
+        // Node class
+        class Node {
+            constructor(x, y, parent = null) {
+                this.x = x;
+                this.y = y;
+                this.vx = 0;
+                this.vy = 0;
+                this.radius = Math.random() * 3 + 2;
+                this.energy = Math.random() * 50 + 50;
+                this.age = 0;
+                this.parent = parent;
+                this.children = [];
+                this.hue = parent ? parent.hue + (Math.random() - 0.5) * 30 : Math.random() * 360;
+                this.quantum = Math.random();
+                this.fractalDepth = parent ? parent.fractalDepth + 1 : 0;
+            }
+            
+            update() {
+                // Quantum fluctuation
+                this.quantum = (this.quantum + 0.01) % 1;
+                
+                // Age and energy decay
+                this.age++;
+                this.energy *= 0.999;
+                
+                // Fractal growth pattern
+                if (this.energy > 70 && this.children.length < 3 && Math.random() < 0.01 * organism.mutation) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 20 + Math.random() * 30;
+                    const childX = this.x + Math.cos(angle) * distance;
+                    const childY = this.y + Math.sin(angle) * distance;
+                    
+                    if (childX > 0 && childX < canvas.width && childY > 0 && childY < canvas.height) {
+                        const child = new Node(childX, childY, this);
+                        this.children.push(child);
+                        organism.nodes.push(child);
+                        
+                        // Create quantum entanglement
+                        organism.connections.push({
+                            from: this,
+                            to: child,
+                            strength: 1,
+                            quantum: Math.random()
+                        });
+                    }
+                }
+                
+                // Attraction to mouse with quantum uncertainty
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 200) {
+                    const force = (1 - distance / 200) * 0.1;
+                    this.vx += (dx / distance) * force * Math.sin(this.quantum * Math.PI * 2);
+                    this.vy += (dy / distance) * force * Math.cos(this.quantum * Math.PI * 2);
+                }
+                
+                // Apply physics with damping
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= 0.95;
+                this.vy *= 0.95;
+                
+                // Boundary reflection
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -0.9;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -0.9;
+                
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+            }
+            
+            draw() {
+                // Quantum glow effect
+                const glowSize = this.radius + Math.sin(this.quantum * Math.PI * 2) * 2;
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowSize * 3);
+                
+                const alpha = this.energy / 100;
+                gradient.addColorStop(0, `hsla(${this.hue}, 100%, 70%, ${alpha})`);
+                gradient.addColorStop(0.5, `hsla(${this.hue}, 100%, 50%, ${alpha * 0.5})`);
+                gradient.addColorStop(1, `hsla(${this.hue}, 100%, 30%, 0)`);
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, glowSize * 3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Core node
+                ctx.fillStyle = `hsla(${this.hue}, 100%, 80%, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Initialize organism
+        function initOrganism() {
+            organism.nodes = [];
+            organism.connections = [];
+            organism.energy = 100;
+            organism.age = 0;
+            organism.consciousness = 0;
+            
+            // Create seed node
+            const seed = new Node(canvas.width / 2, canvas.height / 2);
+            organism.nodes.push(seed);
+        }
+        
+        // Update connections
+        function updateConnections() {
+            organism.connections.forEach(conn => {
+                conn.quantum = (conn.quantum + 0.005) % 1;
+                
+                // Energy transfer through connections
+                const energyTransfer = (conn.from.energy - conn.to.energy) * 0.01;
+                conn.from.energy -= energyTransfer;
+                conn.to.energy += energyTransfer;
+                
+                // Strengthen or weaken based on energy flow
+                conn.strength = Math.min(1, conn.strength + Math.abs(energyTransfer) * 0.1);
+            });
+        }
+        
+        // Draw connections with quantum effects
+        function drawConnections() {
+            organism.connections.forEach(conn => {
+                const alpha = conn.strength * 0.5;
+                
+                // Quantum interference pattern
+                ctx.strokeStyle = `hsla(${(conn.from.hue + conn.to.hue) / 2}, 100%, 50%, ${alpha})`;
+                ctx.lineWidth = 1 + Math.sin(conn.quantum * Math.PI * 2) * 0.5;
+                
+                ctx.beginPath();
+                ctx.moveTo(conn.from.x, conn.from.y);
+                
+                // Bezier curve with quantum fluctuation
+                const midX = (conn.from.x + conn.to.x) / 2 + Math.sin(conn.quantum * Math.PI * 4) * 20;
+                const midY = (conn.from.y + conn.to.y) / 2 + Math.cos(conn.quantum * Math.PI * 4) * 20;
+                
+                ctx.quadraticCurveTo(midX, midY, conn.to.x, conn.to.y);
+                ctx.stroke();
+            });
+        }
+        
+        // Main animation loop
+        function animate() {
+            // Fade effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update organism
+            organism.age++;
+            organism.energy = organism.nodes.reduce((sum, node) => sum + node.energy, 0) / organism.nodes.length;
+            organism.consciousness = Math.min(100, organism.nodes.length * 0.5 + organism.age * 0.001);
+            
+            // Update and draw connections
+            updateConnections();
+            drawConnections();
+            
+            // Update and draw nodes
+            organism.nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+            
+            // Remove dead nodes
+            organism.nodes = organism.nodes.filter(node => node.energy > 1);
+            organism.connections = organism.connections.filter(conn => 
+                organism.nodes.includes(conn.from) && organism.nodes.includes(conn.to)
+            );
+            
+            // Update stats
+            document.getElementById('stats').innerHTML = `
+                Energy: ${organism.energy.toFixed(1)} | 
+                Nodes: ${organism.nodes.length} | 
+                Consciousness: ${organism.consciousness.toFixed(1)}%
+            `;
+            
+            // Background quantum field
+            if (organism.consciousness > 50) {
+                ctx.fillStyle = `hsla(${organism.age % 360}, 100%, 50%, 0.02)`;
+                for (let i = 0; i < 5; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    const size = Math.random() * 100 + 50;
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Event listeners
+        canvas.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        
+        canvas.addEventListener('mousedown', () => {
+            mouse.pressed = true;
+            // Feed energy to nearby nodes
+            organism.nodes.forEach(node => {
+                const dx = mouse.x - node.x;
+                const dy = mouse.y - node.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 100) {
+                    node.energy = Math.min(100, node.energy + 20);
+                    node.vx += (Math.random() - 0.5) * 5;
+                    node.vy += (Math.random() - 0.5) * 5;
+                }
+            });
+        });
+        
+        canvas.addEventListener('mouseup', () => {
+            mouse.pressed = false;
+        });
+        
+        window.addEventListener('keydown', (e) => {
+            if (e.key === ' ') {
+                initOrganism();
+            } else if (e.key >= '1' && e.key <= '5') {
+                organism.mutation = parseInt(e.key);
+            }
+        });
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Initialize and start
+        initOrganism();
+        animate();
+    </script>
+</body>
+</html>

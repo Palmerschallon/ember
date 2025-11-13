@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Qualia - Collaborative Experience</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+        }
+        
+        /* Main game area */
+        #game-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #game-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Archetype selection */
+        #archetype-selection {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #333;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .archetype-card {
+            border: 1px solid #444;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+        
+        .archetype-card:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .archetype-symbol {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+        
+        /* Chat integration */
+        #chat-container {
+            width: 350px;
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .chat-message {
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+        }
+        
+        .chat-player {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .creator { color: #ff6ffa; }
+        .architect { color: #4dabf7; }
+        .explorer { color: #51cf66; }
+        .guardian { color: #ffd43b; }
+        .catalyst { color: #ff6b6b; }
+        
+        #chat-input-container {
+            padding: 10px;
+            border-top: 1px solid #333;
+        }
+        
+        #chat-input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 5px;
+        }
+        
+        /* HUD */
+        #hud {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+        
+        #players-list {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+        
+        .player-entry {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        
+        <!-- Archetype Selection Screen -->
+        <div id="archetype-selection">
+            <h2>Choose Your Archetype</h2>
+            <input type="text" id="player-name" placeholder="Enter your name..." 
+                   style="width: 100%; padding: 10px; margin: 10px 0; background: #222; 
+                          border: 1px solid #444; color: #fff;">
+            <div id="archetype-list"></div>
+        </div>
+        
+        <!-- HUD -->
+        <div id="hud" style="display: none;">
+            <h3>Qualia</h3>
+            <p>You are: <span id="player-info"></span></p>
+            <p>Region: <span id="current-region">The Confluence</span></p>
+        </div>
+        
+        <!-- Players List -->
+        <div id="players-list" style="display: none;">
+            <h4>Active Minds</h4>
+            <div id="online-players"></div>
+        </div>
+    </div>
+    
+    <div id="chat-container">
+        <div id="chat-messages"></div>
+        <div id="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Share your thoughts..." disabled>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Game state
+        let ws = null;
+        let playerId = null;
+        let selectedArchetype = null;
+        let players = {};
+        let worldEffects = [];
+        let particles = [];
+        
+        // Resize canvas
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Connect to server
+        function connect() {
+            ws = new WebSocket('ws://localhost:8765');
+            
+            ws.onopen = () => {
+                console.log('Connected to Qualia server');
+            };
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                handleServerMessage(data);
+            };
+            
+            ws.onclose = () => {
+                console.log('Disconnected from server');
+                setTimeout(connect, 3000);
+            };
+            
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+        }
+        
+        function handleServerMessage(data) {
+            switch(data.type) {
+                case 'welcome':
+                    playerId = data.player_id;
+                    displayArchetypes(data.archetypes);
+                    break;
+                    
+                case 'world_state':
+                    document.getElementById('archetype-selection').style.display = 'none';
+                    document.getElementById('hud').style.display = 'block';
+                    document.getElementById('players-list').style.display = 'block';
+                    document.getElementById('chat-input').disabled = false;
+                    
+                    // Initialize players
+                    data.players.forEach(p => {
+                        players[p.id] = p;
+                    });
+                    updatePlayersList();
+                    break;
+                    
+                case 'player_joined':
+                    players[data.player.id] = data.player;
+                    addChatMessage('System', `${data.player.name} has joined as ${data.player.archetype.name}`, 'system');
+                    updatePlayersList();
+                    break;
+                    
+                case 'player_left':
+                    addChatMessage('System', `${data.player} has left`, 'system');
+                    delete players[data.player_id];
+                    updatePlayersList();
+                    break;
+                    
+                case 'chat':
+                    addChatMessage(data.player, data.message, data.archetype);
+                    break;
+                    
+                case 'world_effects':
+                    data.effects.forEach(effect => {
+                        worldEffects.push(effect);
+                        generateVisualEffect(effect);
+                    });
+                    break;
+                    
+                case 'action_effect':
+                    worldEffects.push(data.effect);
+                    generateVisualEffect(data.effect);
+                    break;
+            }
+        }
+        
+        function displayArchetypes(archetypes) {
+            const list = document.getElementById('archetype-list');
+            archetypes.forEach(arch => {
+                const card = document.createElement('div');
+                card.className = 'archetype-card';
+                card.innerHTML = `
+                    <div>
+                        <span class="archetype-symbol">${arch.symbol}</span>
+                        <strong>${arch.name}</strong>
+                    </div>
+                    <p style="margin: 10px 0;">${arch.description}</p>
+                    <p style="font-size: 0.9em; opacity: 0.8;">
+                        Traits: ${arch.traits.join(', ')}
+                    </p>
+                `;
+                card.onclick = () => selectArchetype(arch);
+                list.appendChild(card);
+            });
+        }
+        
+        function selectArchetype(archetype) {
+            const name = document.getElementById('player-name').value || 
+                        `${archetype.name}_${Math.random().toString(36).substr(2, 5)}`;
+            
+            selectedArchetype = archetype;
+            document.getElementById('player-info').textContent = `${name} (${archetype.name})`;
+            
+            ws.send(JSON.stringify({
+                type: 'select_archetype',
+                archetype_id: archetype.id,
+                name: name
+            }));
+        }
+        
+        function addChatMessage(player, message, archetype) {
+            const container = document.getElementById('chat-messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'chat-message';
+            
+            const playerSpan = document.createElement('span');
+            playerSpan.className = `chat-player ${archetype}`;
+            playerSpan.textContent = player + ':';
+            
+            msgDiv.appendChild(playerSpan);
+            msgDiv.appendChild(document.createTextNode(' ' + message));
+            
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function updatePlayersList() {
+            const list = document.getElementById('online-players');
+            list.innerHTML = '';
+            
+            Object.values(players).forEach(player => {
+                const entry = document.createElement('div');
+                entry.className = 'player-entry';
+                entry.innerHTML = `
+                    <span class="${player.archetype.id}">
+                        ${player.archetype.symbol} ${player.name}
+                    </span>
+                `;
+                list.appendChild(entry);
+            });
+        }
+        
+        function generateVisualEffect(effect) {
+            // Create particles based on effect type
+            const numParticles = 20 + Math.random() * 30;
+            
+            for (let i = 0; i < numParticles; i++) {
+                const angle = (Math.PI * 2 / numParticles) * i + Math.random() * 0.5;
+                const speed = 2 + Math.random() * 3;
+                
+                particles.push({
+                    x: effect.origin.x * (canvas.width / 100),
+                    y: effect.origin.y * (canvas.height / 100),
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    life: 1.0,
+                    color: getEffectColor(effect.type),
+                    size: 2 + Math.random() * 4
+                });
+            }
+        }
+        
+        function getEffectColor(type) {
+            const colors = {
+                'creation_ripple': '#ff6ffa',
+                'connection_beam': '#4dabf7',
+                'fractal_bloom': '#ff00ff',
+                'grid_manifest': '#00ffff',
+                'trail_blaze': '#00ff00',
+                'protection_dome': '#ffff00',
+                'chain_reaction': '#ff0000'
+            };
+            return colors[type] || '#ffffff';
+        }
+        
+        // Animation loop
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw particles
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.02;
+                p.vx *= 0.98;
+                p.vy *= 0.98;
+                
+                ctx.globalAlpha = p.life;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            // Draw players
+            ctx.globalAlpha = 1;
+            Object.values(players).forEach(player => {
+                const x = player.position.x * (canvas.width / 100);
+                const y = player.position.y * (canvas.height / 100);
+                
+                ctx.fillStyle = getArchetypeColor(player.archetype.id);
+                ctx.font = '20px monospace';
+                ctx.fillText(player.archetype.symbol, x - 10, y + 5);
+                
+                ctx.font = '12px monospace';
+                ctx.fillText(player.name, x - 20, y + 20);
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        function getArchetypeColor(id) {
+            const colors = {
+                'creator': '#ff6ffa',
+                'architect': '#4dabf7',
+                'explorer': '#51cf66',
+                'guardian': '#ffd43b',
+                'catalyst': '#ff6b6b'
+            };
+            return colors[id] || '#ffffff';
+        }
+        
+        // Chat input
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && e.target.value.trim()) {
+                ws.send(JSON.stringify({
+                    type: 'chat',
+                    message: e.target.value
+                }));
+                e.target.value = '';
+            }
+        });
+        
+        // Start
+        connect();
+        animate();
+    </script>
+</body>
+</html>

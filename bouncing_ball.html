@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bouncing Ball</title>
+    <style>
+        body {
+            margin: 0;
+            background: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        canvas {
+            border: 2px solid #444;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Ball properties
+        const ball = {
+            x: canvas.width / 2,
+            y: 50,
+            radius: 20,
+            vx: 5,  // velocity x
+            vy: 0,  // velocity y
+            gravity: 0.5,
+            damping: 0.9,
+            color: '#00ff88'
+        };
+        
+        function drawBall() {
+            // Clear canvas
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw ball
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fillStyle = ball.color;
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+        
+        function updateBall() {
+            // Apply gravity
+            ball.vy += ball.gravity;
+            
+            // Update position
+            ball.x += ball.vx;
+            ball.y += ball.vy;
+            
+            // Bounce off walls (left and right)
+            if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+                ball.vx *= -ball.damping;
+                ball.x = ball.x + ball.radius > canvas.width ? 
+                         canvas.width - ball.radius : ball.radius;
+            }
+            
+            // Bounce off floor and ceiling
+            if (ball.y + ball.radius > canvas.height) {
+                ball.vy *= -ball.damping;
+                ball.y = canvas.height - ball.radius;
+                // Add some random color change on bounce
+                ball.color = `hsl(${Math.random() * 360}, 70%, 50%)`;
+            }
+            if (ball.y - ball.radius < 0) {
+                ball.vy *= -ball.damping;
+                ball.y = ball.radius;
+            }
+        }
+        
+        function animate() {
+            updateBall();
+            drawBall();
+            requestAnimationFrame(animate);
+        }
+        
+        // Start animation
+        animate();
+    </script>
+</body>
+</html>

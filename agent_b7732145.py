@@ -1,0 +1,1 @@
+[Python code to generate Mandelbrot fractal and save as mandelbrot.png]

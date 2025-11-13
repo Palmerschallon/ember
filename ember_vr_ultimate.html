@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>🔥 Ember VR Ultimate - Reality Builder</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #000; font-family: monospace; }
+        canvas { display: block; }
+
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ff6b35;
+            max-width: 300px;
+            z-index: 100;
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #4ade80;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            z-index: 100;
+        }
+
+        .mode {
+            padding: 8px 15px;
+            background: #ff6b35;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            margin: 5px;
+            font-family: monospace;
+        }
+
+        .mode.active {
+            background: #4ade80;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <h3 style="color: #ff6b35; margin: 0 0 10px 0;">🔥 EMBER VR ULTIMATE</h3>
+        <div id="status">Initializing...</div>
+        <div style="margin-top: 15px;">
+            <button class="mode" onclick="setMode('explore')">🌟 Explore</button>
+            <button class="mode" onclick="setMode('create')">✨ Create</button>
+            <button class="mode" onclick="setMode('sculpt')">🗿 Sculpt</button>
+        </div>
+        <div id="mode-info" style="margin-top: 10px; font-size: 11px; color: #888;">
+            Mode: Explore
+        </div>
+    </div>
+
+    <div id="controls">
+        <strong>Controls:</strong><br>
+        WASD - Move | Space/Shift - Up/Down<br>
+        Click - Pointer Lock | ESC - Release<br>
+        C - Creation Mode | V - Voice Commands<br>
+        1-5 - Spawn Objects | R - Reset View
+    </div>
+
+    <script>
+        // Define setMode early so onclick handlers work
+        window.currentMode = 'explore';
+        window.setMode = function(mode) {
+            window.currentMode = mode;
+            document.getElementById('mode-info').textContent = `Mode: ${mode.charAt(0).toUpperCase() + mode.slice(1)}`;
+            document.querySelectorAll('.mode').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.mode').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(mode)) {
+                    btn.classList.add('active');
+                }
+            });
+            console.log('Mode:', mode);
+        };
+    </script>
+
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+        import { VRButton } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/webxr/VRButton.js';
+        import { XRControllerModelFactory } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/webxr/XRControllerModelFactory.js';
+
+        // ═══════════════════════════════════════════════════════════
+        // 🎵 GENERATIVE SPATIAL AUDIO SYSTEM
+        // ═══════════════════════════════════════════════════════════
+
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const masterGain = audioContext.createGain();
+        masterGain.gain.value = 0.2;
+        masterGain.connect(audioContext.destination);
+
+        let audioInitialized = false;
+
+        function initAudio() {
+            if (audioInitialized) return;
+            audioInitialized = true;
+
+            // Ambient drone
+            const drone1 = audioContext.createOscillator();
+            const drone2 = audioContext.createOscillator();
+            const droneGain = audioContext.createGain();
+
+            drone1.type = 'sine';
+            drone2.type = 'sine';
+            drone1.frequency.value = 55;  // A1
+            drone2.frequency.value = 55.5; // Slight detune
+            droneGain.gain.value = 0.08;
+
+            drone1.connect(droneGain);
+            drone2.connect(droneGain);
+            droneGain.connect(masterGain);
+
+            drone1.start();
+            drone2.start();
+
+            console.log('🎵 Spatial audio initialized');
+        }
+
+        function playTone(freq, duration = 0.3) {
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+
+            osc.connect(gain);
+            gain.connect(masterGain);
+            osc.start();
+            osc.stop(audioContext.currentTime + duration);
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // 🌍 SCENE SETUP
+        // ═══════════════════════════════════════════════════════════
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000815);
+        scene.fog = new THREE.FogExp2(0x000815, 0.0003);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+        camera.position.set(0, 1.6, 5);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.xr.enabled = true;
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        // VR Button
+        const vrButton = VRButton.createButton(renderer);
+        vrButton.style.bottom = '80px';
+        document.body.appendChild(vrButton);
+
+        document.getElementById('status').textContent = 'VR Ready 🥽';
+
+        // ═══════════════════════════════════════════════════════════
+        // 💡 DYNAMIC LIGHTING SYSTEM
+        // ═══════════════════════════════════════════════════════════
+
+        const ambientLight = new THREE.AmbientLight(0x404060, 0.4);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xfff5e6, 0.8);
+        sunLight.position.set(100, 100, 50);
+        sunLight.castShadow = true;
+        sunLight.shadow.mapSize.width = 2048;
+        sunLight.shadow.mapSize.height = 2048;
+        scene.add(sunLight);
+
+        // Ember core light
+        const emberLight = new THREE.PointLight(0xff6b35, 3, 30);
+        emberLight.position.set(0, 1.6, 0);
+        scene.add(emberLight);
+
+        // ═══════════════════════════════════════════════════════════
+        // 🌊 INFINITE TERRAIN WITH PERLIN-STYLE WAVES
+        // ═══════════════════════════════════════════════════════════
+
+        const terrainSize = 200;
+        const terrainResolution = 100;
+        const terrainGeometry = new THREE.PlaneGeometry(
+            terrainSize, terrainSize,
+            terrainResolution, terrainResolution
+        );
+
+        const terrainMaterial = new THREE.MeshStandardMaterial({
+            color: 0x1a2332,
+            roughness: 0.9,
+            metalness: 0.1,
+            wireframe: false
+        });
+
+        const terrain = new THREE.Mesh(terrainGeometry, terrainMaterial);
+        terrain.rotation.x = -Math.PI / 2;
+        terrain.receiveShadow = true;
+        scene.add(terrain);
+
+        // Animate terrain vertices
+        const originalPositions = terrainGeometry.attributes.position.array.slice();
+
+        function animateTerrain(time) {
+            const positions = terrainGeometry.attributes.position.array;
+            for (let i = 0; i < positions.length; i += 3) {
+                const x = originalPositions[i];
+                const y = originalPositions[i + 1];
+
+                // Multiple sine waves for organic feel
+                const wave1 = Math.sin(x * 0.05 + time * 0.5) * 2;
+                const wave2 = Math.cos(y * 0.05 + time * 0.3) * 1.5;
+                const wave3 = Math.sin((x + y) * 0.03 + time * 0.4) * 1;
+
+                positions[i + 2] = wave1 + wave2 + wave3;
+            }
+            terrainGeometry.attributes.position.needsUpdate = true;
+            terrainGeometry.computeVertexNormals();
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // ✨ BOID FLOCKING SYSTEM - Living Ideas
+        // ═══════════════════════════════════════════════════════════
+
+        const boidCount = 1000;
+        const boids = [];
+        const boidGeometry = new THREE.BufferGeometry();
+        const boidPositions = new Float32Array(boidCount * 3);
+        const boidColors = new Float32Array(boidCount * 3);
+
+        for (let i = 0; i < boidCount; i++) {
+            const i3 = i * 3;
+            const radius = 30 + Math.random() * 50;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.random() * Math.PI;
+
+            boidPositions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+            boidPositions[i3 + 1] = Math.abs(radius * Math.cos(phi)) + 10;
+            boidPositions[i3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
+
+            const hue = Math.random();
+            boidColors[i3] = 0.5 + Math.sin(hue * Math.PI * 2) * 0.5;
+            boidColors[i3 + 1] = 0.5 + Math.sin((hue + 0.33) * Math.PI * 2) * 0.5;
+            boidColors[i3 + 2] = 0.5 + Math.sin((hue + 0.67) * Math.PI * 2) * 0.5;
+
+            boids.push({
+                velocity: new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.3,
+                    (Math.random() - 0.5) * 0.3,
+                    (Math.random() - 0.5) * 0.3
+                )
+            });
+        }
+
+        boidGeometry.setAttribute('position', new THREE.BufferAttribute(boidPositions, 3));
+        boidGeometry.setAttribute('color', new THREE.BufferAttribute(boidColors, 3));
+
+        const boidMaterial = new THREE.PointsMaterial({
+            size: 1.2,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        const boidSystem = new THREE.Points(boidGeometry, boidMaterial);
+        scene.add(boidSystem);
+
+        function updateBoids() {
+            const positions = boidGeometry.attributes.position.array;
+
+            for (let i = 0; i < boidCount; i++) {
+                const i3 = i * 3;
+                const boid = boids[i];
+
+                // Simple flocking toward center with wander
+                const toCenter = new THREE.Vector3(
+                    -positions[i3],
+                    5 - positions[i3 + 1],
+                    -positions[i3 + 2]
+                ).multiplyScalar(0.0005);
+
+                const wander = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.01,
+                    (Math.random() - 0.5) * 0.01,
+                    (Math.random() - 0.5) * 0.01
+                );
+
+                boid.velocity.add(toCenter).add(wander).multiplyScalar(0.98);
+
+                // Limit speed
+                if (boid.velocity.length() > 0.5) {
+                    boid.velocity.normalize().multiplyScalar(0.5);
+                }
+
+                positions[i3] += boid.velocity.x;
+                positions[i3 + 1] += boid.velocity.y;
+                positions[i3 + 2] += boid.velocity.z;
+            }
+
+            boidGeometry.attributes.position.needsUpdate = true;
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // 🎨 CREATION SYSTEM - Spawn Objects
+        // ═══════════════════════════════════════════════════════════
+
+        const createdObjects = [];
+
+        // currentMode is now defined globally outside the module
+        // setMode calls playTone from within the module
+        const originalSetMode = window.setMode;
+        window.setMode = function(mode) {
+            originalSetMode(mode);
+            playTone(440 + mode.length * 100, 0.2);
+        };
+
+        function spawnObject(type, position) {
+            let mesh;
+
+            switch(type) {
+                case 'crystal':
+                    const crystalGeo = new THREE.OctahedronGeometry(0.5);
+                    const crystalMat = new THREE.MeshStandardMaterial({
+                        color: Math.random() * 0xffffff,
+                        emissive: Math.random() * 0xffffff,
+                        emissiveIntensity: 0.5,
+                        transparent: true,
+                        opacity: 0.8
+                    });
+                    mesh = new THREE.Mesh(crystalGeo, crystalMat);
+                    break;
+
+                case 'sphere':
+                    const sphereGeo = new THREE.SphereGeometry(0.3, 32, 32);
+                    const sphereMat = new THREE.MeshStandardMaterial({
+                        color: Math.random() * 0xffffff,
+                        emissive: Math.random() * 0xffffff,
+                        emissiveIntensity: 1
+                    });
+                    mesh = new THREE.Mesh(sphereGeo, sphereMat);
+                    break;
+
+                case 'cube':
+                    const cubeGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+                    const cubeMat = new THREE.MeshStandardMaterial({
+                        color: Math.random() * 0xffffff
+                    });
+                    mesh = new THREE.Mesh(cubeGeo, cubeMat);
+                    break;
+
+                case 'torus':
+                    const torusGeo = new THREE.TorusGeometry(0.3, 0.1, 16, 32);
+                    const torusMat = new THREE.MeshStandardMaterial({
+                        color: Math.random() * 0xffffff,
+                        emissive: Math.random() * 0xffffff,
+                        emissiveIntensity: 0.5
+                    });
+                    mesh = new THREE.Mesh(torusGeo, torusMat);
+                    break;
+
+                default:
+                    return;
+            }
+
+            mesh.position.copy(position);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            mesh.userData.createdAt = Date.now();
+
+            scene.add(mesh);
+            createdObjects.push(mesh);
+
+            playTone(200 + Math.random() * 400, 0.3);
+
+            console.log(`Created ${type} at`, position);
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // 🎮 VR CONTROLLERS
+        // ═══════════════════════════════════════════════════════════
+
+        const controller1 = renderer.xr.getController(0);
+        const controller2 = renderer.xr.getController(1);
+
+        controller1.addEventListener('selectstart', () => onControllerSelect(controller1));
+        controller2.addEventListener('selectstart', () => onControllerSelect(controller2));
+
+        scene.add(controller1);
+        scene.add(controller2);
+
+        const controllerModelFactory = new XRControllerModelFactory();
+
+        const controllerGrip1 = renderer.xr.getControllerGrip(0);
+        controllerGrip1.add(controllerModelFactory.createControllerModel(controllerGrip1));
+        scene.add(controllerGrip1);
+
+        const controllerGrip2 = renderer.xr.getControllerGrip(1);
+        controllerGrip2.add(controllerModelFactory.createControllerModel(controllerGrip2));
+        scene.add(controllerGrip2);
+
+        // Controller ray
+        const rayGeometry = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 0, -5)
+        ]);
+        const rayMaterial = new THREE.LineBasicMaterial({ color: 0xff6b35 });
+
+        const ray1 = new THREE.Line(rayGeometry, rayMaterial);
+        const ray2 = new THREE.Line(rayGeometry, rayMaterial);
+        controller1.add(ray1);
+        controller2.add(ray2);
+
+        function onControllerSelect(controller) {
+            const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(controller.quaternion);
+            const spawnPos = controller.position.clone().add(direction.multiplyScalar(2));
+
+            const types = ['crystal', 'sphere', 'cube', 'torus'];
+            const randomType = types[Math.floor(Math.random() * types.length)];
+
+            spawnObject(randomType, spawnPos);
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // ⌨️ KEYBOARD CONTROLS
+        // ═══════════════════════════════════════════════════════════
+
+        const movement = { forward: 0, backward: 0, left: 0, right: 0, up: 0, down: 0 };
+
+        document.addEventListener('keydown', (e) => {
+            initAudio();
+
+            switch(e.key.toLowerCase()) {
+                case 'w': movement.forward = 1; break;
+                case 's': movement.backward = 1; break;
+                case 'a': movement.left = 1; break;
+                case 'd': movement.right = 1; break;
+                case ' ': movement.up = 1; break;
+                case 'shift': movement.down = 1; break;
+
+                case '1': spawnInFrontOfCamera('crystal'); break;
+                case '2': spawnInFrontOfCamera('sphere'); break;
+                case '3': spawnInFrontOfCamera('cube'); break;
+                case '4': spawnInFrontOfCamera('torus'); break;
+                case '5': spawnInFrontOfCamera('random'); break;
+
+                case 'r': camera.position.set(0, 1.6, 5); camera.rotation.set(0, 0, 0); break;
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            switch(e.key.toLowerCase()) {
+                case 'w': movement.forward = 0; break;
+                case 's': movement.backward = 0; break;
+                case 'a': movement.left = 0; break;
+                case 'd': movement.right = 0; break;
+                case ' ': movement.up = 0; break;
+                case 'shift': movement.down = 0; break;
+            }
+        });
+
+        function spawnInFrontOfCamera(type) {
+            const direction = new THREE.Vector3(0, 0, -1);
+            direction.applyQuaternion(camera.quaternion);
+            const spawnPos = camera.position.clone().add(direction.multiplyScalar(3));
+
+            if (type === 'random') {
+                const types = ['crystal', 'sphere', 'cube', 'torus'];
+                type = types[Math.floor(Math.random() * types.length)];
+            }
+
+            spawnObject(type, spawnPos);
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // 🖱️ MOUSE CONTROLS
+        // ═══════════════════════════════════════════════════════════
+
+        let mouseX = 0, mouseY = 0;
+        let isPointerLocked = false;
+
+        document.addEventListener('click', () => {
+            if (!renderer.xr.isPresenting) {
+                document.body.requestPointerLock();
+                initAudio();
+            }
+        });
+
+        document.addEventListener('pointerlockchange', () => {
+            isPointerLocked = document.pointerLockElement === document.body;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isPointerLocked) {
+                mouseX += e.movementX * 0.002;
+                mouseY += e.movementY * 0.002;
+                mouseY = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, mouseY));
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════════
+        // 🔄 ANIMATION LOOP
+        // ═══════════════════════════════════════════════════════════
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
+
+            // Terrain animation
+            animateTerrain(time);
+
+            // Boid update
+            updateBoids();
+
+            // Ember light pulse
+            emberLight.intensity = 3 + Math.sin(time * 2) * 0.5;
+
+            // Rotate created objects
+            createdObjects.forEach(obj => {
+                obj.rotation.x += 0.01;
+                obj.rotation.y += 0.01;
+            });
+
+            // Desktop movement
+            if (!renderer.xr.isPresenting) {
+                const speed = 0.3;
+                const forward = new THREE.Vector3(0, 0, -1);
+                const right = new THREE.Vector3(1, 0, 0);
+
+                forward.applyQuaternion(camera.quaternion);
+                right.applyQuaternion(camera.quaternion);
+
+                camera.position.addScaledVector(forward, (movement.forward - movement.backward) * speed);
+                camera.position.addScaledVector(right, (movement.right - movement.left) * speed);
+                camera.position.y += (movement.up - movement.down) * speed;
+
+                camera.rotation.order = 'YXZ';
+                camera.rotation.y = -mouseX;
+                camera.rotation.x = -mouseY;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        renderer.setAnimationLoop(animate);
+
+        // Window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        console.log('🔥 Ember VR Ultimate initialized!');
+        console.log('Press 1-5 to spawn objects in front of you');
+        console.log('Click to lock pointer, ESC to release');
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "anchor_id": "ALPHA_001",
+  "created": "2025-11-13T06:16:47.801366",
+  "status": "completed",
+  "phase": "initialization",
+  "agents": {},
+  "temporal_sync": {
+    "heartbeat": 1.0,
+    "last_pulse": 1763043407.801377
+  },
+  "ended": "2025-11-13T06:18:22.902313"
+}

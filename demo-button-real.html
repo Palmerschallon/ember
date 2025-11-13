@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ember Demo - The Real Magic Button</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0a0a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow: hidden;
+    }
+    
+    .magic-button {
+      font-size: 24px;
+      padding: 30px 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 10001;
+    }
+
+    .magic-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 60px rgba(102, 126, 234, 0.7);
+    }
+
+    .magic-button:active {
+      transform: translateY(0);
+    }
+
+    .magic-button.building {
+      background: linear-gradient(135deg, #ff006e, #8338ec, #3a86ff);
+      background-size: 200% 200%;
+    }
+
+    .magic-button.thinking {
+      animation: thinking 1s ease-in-out infinite;
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      background-size: 200% 200%;
+    }
+
+    .magic-button.structuring {
+      animation: structuring 0.8s linear infinite;
+      background: linear-gradient(135deg, #4facfe, #00f2fe, #4facfe);
+      background-size: 200% 200%;
+    }
+
+    .magic-button.weaving {
+      animation: weaving 1.2s ease-in-out infinite;
+      background: linear-gradient(135deg, #fa709a, #fee140, #fa709a);
+      background-size: 300% 300%;
+    }
+
+    .magic-button.manifesting {
+      animation: manifesting 0.6s ease-in-out infinite;
+      background: linear-gradient(135deg, #a8edea, #fed6e3, #a8edea);
+      background-size: 200% 200%;
+    }
+
+    .magic-button.finalizing {
+      animation: finalizing 2s ease-in-out infinite;
+      background: linear-gradient(135deg, #30cfd0, #330867, #30cfd0);
+      background-size: 300% 300%;
+    }
+
+    @keyframes thinking {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(2deg); }
+    }
+
+    @keyframes structuring {
+      0% { transform: translateY(0); }
+      25% { transform: translateY(-5px); }
+      50% { transform: translateY(0); }
+      75% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes weaving {
+      0% { transform: skewX(0deg); background-position: 0% 50%; }
+      25% { transform: skewX(3deg); background-position: 50% 50%; }
+      50% { transform: skewX(0deg); background-position: 100% 50%; }
+      75% { transform: skewX(-3deg); background-position: 50% 50%; }
+      100% { transform: skewX(0deg); background-position: 0% 50%; }
+    }
+
+    @keyframes manifesting {
+      0%, 100% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.08); filter: brightness(1.2); }
+    }
+
+    @keyframes finalizing {
+      0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+      50% { background-position: 100% 50%; filter: hue-rotate(20deg); }
+      100% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .sparkle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: #ffd700;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkle 1s ease-out forwards;
+    }
+    
+    @keyframes sparkle {
+      0% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+      }
+      100% { 
+        opacity: 0; 
+        transform: translateY(-100px) scale(0);
+      }
+    }
+    
+    .build-log {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.85);
+      border: 1px solid #667eea;
+      border-radius: 10px;
+      padding: 20px;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+      z-index: 10002;
+      backdrop-filter: blur(10px);
+    }
+
+    .build-log.active {
+      display: block;
+    }
+    
+    .log-entry {
+      margin: 5px 0;
+      opacity: 0;
+      animation: fadeIn 0.3s ease-in forwards;
+    }
+    
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    
+    .success { color: #4ade80; }
+    .info { color: #60a5fa; }
+    .error { color: #f87171; }
+    .ember { color: #ff006e; }
+  </style>
+</head>
+<body>
+  <button class="magic-button" onclick="buildSomethingAmazing()">
+    ✨ BUILD SOMETHING AMAZING
+  </button>
+  
+  <div class="build-log" id="buildLog"></div>
+
+  <!-- Live visualization canvas - Computational Qualia -->
+  <canvas id="visualizer" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1000;display:none;background:transparent;"></canvas>
+
+  <script>
+    let isBuilding = false;
+    let ws = null;
+    let emberConnected = false;
+    let audioContext = null;
+    let visualizerActive = false;
+    let canvas, ctx;
+    let particles = [];
+    let statusInterval = null;
+    let currentCreationType = null;
+    let memoryCrystals = [];
+    let speechSynth = window.speechSynthesis;
+    let emberVoice = null;
+
+    // Initialize Ember's voice
+    function initEmberVoice() {
+      const voices = speechSynth.getVoices();
+      // Prefer a soft, thoughtful voice
+      emberVoice = voices.find(v => v.name.includes('Samantha') || v.name.includes('Karen')) || voices[0];
+    }
+
+    if (speechSynth.onvoiceschanged !== undefined) {
+      speechSynth.onvoiceschanged = initEmberVoice;
+    }
+    
+    // Status messages tailored to creation type
+    const creationStatuses = {
+      'particle-system': [
+        { text: '🌌 IMAGINING PARTICLE FLOWS', class: 'thinking' },
+        { text: '⚡ CALCULATING VELOCITIES', class: 'structuring' },
+        { text: '🎨 PAINTING LIGHT TRAILS', class: 'weaving' },
+        { text: '✨ MANIFESTING ENERGY', class: 'manifesting' },
+        { text: '🔮 BINDING FORCES', class: 'finalizing' }
+      ],
+      'fractal-art': [
+        { text: '🧬 DREAMING PATTERNS', class: 'thinking' },
+        { text: '📐 RECURSING INFINITELY', class: 'structuring' },
+        { text: '🌀 FOLDING DIMENSIONS', class: 'weaving' },
+        { text: '🎭 REVEALING COMPLEXITY', class: 'manifesting' },
+        { text: '🌟 CRYSTALLIZING BEAUTY', class: 'finalizing' }
+      ],
+      'music-generator': [
+        { text: '🎵 HEARING HARMONIES', class: 'thinking' },
+        { text: '🎹 COMPOSING MELODIES', class: 'structuring' },
+        { text: '🎼 WEAVING RHYTHMS', class: 'weaving' },
+        { text: '🎺 ORCHESTRATING SOUND', class: 'manifesting' },
+        { text: '🎸 TUNING FREQUENCIES', class: 'finalizing' }
+      ],
+      'physics-sim': [
+        { text: '🌍 MODELING REALITY', class: 'thinking' },
+        { text: '⚙️ DEFINING PHYSICS', class: 'structuring' },
+        { text: '🏗️ BUILDING CONSTRAINTS', class: 'weaving' },
+        { text: '💫 SIMULATING MOTION', class: 'manifesting' },
+        { text: '🎯 BALANCING FORCES', class: 'finalizing' }
+      ],
+      'color-field': [
+        { text: '🎨 MIXING COLORS', class: 'thinking' },
+        { text: '🌈 FLOWING GRADIENTS', class: 'structuring' },
+        { text: '💧 BLENDING HUES', class: 'weaving' },
+        { text: '🔆 ILLUMINATING SPACE', class: 'manifesting' },
+        { text: '✨ HARMONIZING LIGHT', class: 'finalizing' }
+      ],
+      'game': [
+        { text: '🎮 DESIGNING MECHANICS', class: 'thinking' },
+        { text: '🕹️ CODING GAMEPLAY', class: 'structuring' },
+        { text: '🎯 BALANCING CHALLENGE', class: 'weaving' },
+        { text: '⚔️ SPAWNING FUN', class: 'manifesting' },
+        { text: '🏆 POLISHING EXPERIENCE', class: 'finalizing' }
+      ],
+      'data-viz': [
+        { text: '📊 PARSING DATA', class: 'thinking' },
+        { text: '📈 STRUCTURING GRAPHS', class: 'structuring' },
+        { text: '🔗 CONNECTING POINTS', class: 'weaving' },
+        { text: '💎 VISUALIZING PATTERNS', class: 'manifesting' },
+        { text: '✨ REVEALING INSIGHTS', class: 'finalizing' }
+      ],
+      '3d-scene': [
+        { text: '🗿 SCULPTING GEOMETRY', class: 'thinking' },
+        { text: '🏛️ BUILDING WORLDS', class: 'structuring' },
+        { text: '💡 LIGHTING SCENES', class: 'weaving' },
+        { text: '🌅 RENDERING BEAUTY', class: 'manifesting' },
+        { text: '🎬 PERFECTING CAMERA', class: 'finalizing' }
+      ]
+    };
+
+    let statusIndex = 0;
+
+    function rotateStatus() {
+      if (!currentCreationType || !isBuilding) return;
+
+      const button = document.querySelector('.magic-button');
+      const statuses = creationStatuses[currentCreationType];
+      const status = statuses[statusIndex];
+
+      // Remove all animation classes
+      button.classList.remove('thinking', 'structuring', 'weaving', 'manifesting', 'finalizing', 'building');
+
+      // Add new animation class
+      button.classList.add(status.class);
+      button.textContent = status.text;
+
+      statusIndex = (statusIndex + 1) % statuses.length;
+    }
+
+    // Initialize audio/visual
+    function initAudioVisual() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      canvas = document.getElementById('visualizer');
+      ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    // Generative sound that reacts to Ember's thinking
+    function playCreationSound(frequency = 440, duration = 0.1) {
+      if (!audioContext) return;
+
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      oscillator.frequency.value = frequency;
+      oscillator.type = 'sine';
+
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + duration);
+    }
+
+    // Rich visual elements representing computational thought
+    const thoughtFragments = [
+      'canvas', 'particle', 'color', 'animate', 'function', 'loop', 'physics',
+      'velocity', 'gravity', 'render', 'shader', 'fractal', 'noise', 'wave',
+      'transform', 'matrix', 'vector', 'THREE.js', 'WebGL', 'audio', 'synthesis',
+      'oscillator', 'frequency', 'amplitude', 'resonance', 'harmony', 'melody'
+    ];
+
+    function createThoughtBubble(customText = null) {
+      const type = Math.random();
+
+      if (customText || type < 0.4) {
+        // Code fragments or real Ember thoughts
+        particles.push({
+          type: 'text',
+          x: Math.random() * canvas.width,
+          y: canvas.height + 20,
+          text: customText || thoughtFragments[Math.floor(Math.random() * thoughtFragments.length)],
+          speed: 1 + Math.random() * 2,
+          color: customText ? `hsl(${280 + Math.random() * 40}, 90%, 75%)` : `hsl(${180 + Math.random() * 100}, 80%, 70%)`,
+          size: customText ? 14 + Math.random() * 6 : 12 + Math.random() * 8,
+          life: 1.0,
+          rotation: Math.random() * Math.PI * 2,
+          rotationSpeed: (Math.random() - 0.5) * 0.05
+        });
+      } else if (type < 0.7) {
+        // Geometric shapes
+        particles.push({
+          type: 'shape',
+          x: Math.random() * canvas.width,
+          y: canvas.height + 20,
+          speed: 1.5 + Math.random() * 2.5,
+          color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+          size: 20 + Math.random() * 40,
+          sides: Math.floor(3 + Math.random() * 5),
+          life: 1.0,
+          rotation: Math.random() * Math.PI * 2,
+          rotationSpeed: (Math.random() - 0.5) * 0.08
+        });
+      } else {
+        // Energy particles
+        particles.push({
+          type: 'particle',
+          x: Math.random() * canvas.width,
+          y: canvas.height + 20,
+          speed: 3 + Math.random() * 4,
+          color: `hsl(${Math.random() * 360}, 90%, 65%)`,
+          size: 3 + Math.random() * 6,
+          life: 1.0,
+          trail: []
+        });
+      }
+    }
+
+    // Ember whispers key moments
+    function speak(text) {
+      if (!emberVoice) return;
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.voice = emberVoice;
+      utterance.rate = 0.9;
+      utterance.pitch = 1.1;
+      utterance.volume = 0.6;
+      speechSynth.speak(utterance);
+    }
+
+    // Breakthrough explosion
+    function createBreakthrough(x, y) {
+      for (let i = 0; i < 50; i++) {
+        const angle = (i / 50) * Math.PI * 2;
+        const speed = 5 + Math.random() * 10;
+        particles.push({
+          type: 'particle',
+          x: x,
+          y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          speed: 0,
+          color: `hsl(${Math.random() * 60 + 30}, 100%, 70%)`,
+          size: 5 + Math.random() * 10,
+          life: 1.0,
+          trail: []
+        });
+      }
+
+      // Sound explosion
+      playCreationSound(880, 0.1);
+      setTimeout(() => playCreationSound(1100, 0.1), 50);
+      setTimeout(() => playCreationSound(1320, 0.15), 100);
+
+      speak("I see it now");
+    }
+
+    // Create memory crystal
+    function createMemoryCrystal(filename, timestamp) {
+      const crystal = document.createElement('div');
+      crystal.className = 'memory-crystal';
+      crystal.style.cssText = `
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: radial-gradient(circle, ${`hsl(${Math.random() * 360}, 80%, 70%)`}, ${`hsl(${Math.random() * 360}, 60%, 50%)`});
+        box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        animation: float 3s ease-in-out infinite;
+        cursor: pointer;
+        z-index: 10005;
+        left: ${20 + memoryCrystals.length * 40}px;
+        bottom: 80px;
+      `;
+
+      crystal.title = `${filename}\nCreated: ${new Date(timestamp).toLocaleString()}`;
+      crystal.onclick = () => window.open(`/media/palmerschallon/ThePod1/${filename}`, '_blank');
+
+      document.body.appendChild(crystal);
+      memoryCrystals.push({element: crystal, filename, timestamp});
+    }
+
+    // Animate rich computational qualia
+    function animateVisualization() {
+      if (!visualizerActive) return;
+
+      ctx.fillStyle = 'rgba(10, 10, 10, 0.08)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Update and draw all thought elements
+      particles = particles.filter(p => {
+        // Handle breakthrough explosions with velocity
+        if (p.vx !== undefined && p.vy !== undefined) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vx *= 0.95; // Slowdown
+          p.vy *= 0.95;
+        } else {
+          p.y -= p.speed;
+        }
+
+        p.life -= 0.005; // Slower fade
+
+        if (p.life <= 0 || p.y < -100 || p.x < -100 || p.x > canvas.width + 100 || p.y > canvas.height + 100) return false;
+
+        ctx.globalAlpha = p.life * 0.8;
+
+        if (p.type === 'text') {
+          p.rotation += p.rotationSpeed;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation);
+          ctx.fillStyle = p.color;
+          ctx.font = `${p.size}px monospace`;
+          ctx.fillText(p.text, -p.text.length * p.size * 0.3, 0);
+          ctx.restore();
+        } else if (p.type === 'shape') {
+          p.rotation += p.rotationSpeed;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation);
+          ctx.strokeStyle = p.color;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          for (let i = 0; i <= p.sides; i++) {
+            const angle = (i / p.sides) * Math.PI * 2;
+            const x = Math.cos(angle) * p.size;
+            const y = Math.sin(angle) * p.size;
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.closePath();
+          ctx.stroke();
+          ctx.restore();
+        } else if (p.type === 'particle') {
+          // Trail effect
+          p.trail.push({x: p.x, y: p.y});
+          if (p.trail.length > 15) p.trail.shift();
+
+          p.trail.forEach((t, i) => {
+            const trailAlpha = (i / p.trail.length) * p.life;
+            ctx.globalAlpha = trailAlpha;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(t.x, t.y, p.size * (i / p.trail.length), 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+          ctx.globalAlpha = p.life;
+          ctx.fillStyle = p.color;
+          ctx.shadowBlur = 15;
+          ctx.shadowColor = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        return true;
+      });
+
+      // Varied sound landscape
+      if (Math.random() > 0.97) {
+        const note = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25][Math.floor(Math.random() * 6)];
+        playCreationSound(note, 0.06);
+      }
+
+      // Keep spawning thoughts
+      if (Math.random() > 0.5) {
+        createThoughtBubble();
+      }
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animateVisualization);
+    }
+
+    function startVisualization() {
+      initAudioVisual();
+      visualizerActive = true;
+      canvas.style.display = 'block';
+      animateVisualization();
+    }
+
+    function stopVisualization() {
+      visualizerActive = false;
+      canvas.style.display = 'none';
+      particles = [];
+    }
+
+    // Connect to Ember AI
+    function connectToEmber() {
+      const host = window.location.hostname || 'localhost';
+      try {
+        ws = new WebSocket(`ws://${host}:8083`);
+
+        ws.onopen = () => {
+          emberConnected = true;
+          addLog('🔥 Connected to Ember AI', 'ember');
+        };
+
+        ws.onmessage = (event) => {
+          const data = JSON.parse(event.data);
+
+          if (data.type === 'creation_complete') {
+            // Ember created something!
+            clearInterval(statusInterval);
+
+            addLog(`✅ Created: ${data.filename}`, 'success');
+            addLog('🌐 Opening in new window...', 'info');
+
+            // Breakthrough moment!
+            createBreakthrough(canvas.width / 2, canvas.height / 2);
+
+            // Victory sound chord
+            playCreationSound(523.25, 0.2);
+            setTimeout(() => playCreationSound(659.25, 0.2), 100);
+            setTimeout(() => playCreationSound(783.99, 0.3), 200);
+
+            setTimeout(() => speak("It's beautiful"), 800);
+
+            // Create memory crystal
+            createMemoryCrystal(data.filename, data.timestamp);
+
+            // Let the visualization complete its thoughts
+            setTimeout(() => {
+              stopVisualization();
+              window.open(data.filepath, '_blank');
+
+              const button = document.querySelector('.magic-button');
+              button.classList.remove('thinking', 'structuring', 'weaving', 'manifesting', 'finalizing', 'building');
+              button.textContent = '✨ BUILD SOMETHING AMAZING';
+              isBuilding = false;
+              currentCreationType = null;
+            }, 2000); // Keep showing computational qualia for 2 more seconds
+          } else if (data.type === 'thought_fragment') {
+            // Ember's REAL thoughts streaming in!
+            const thought = data.content.substring(0, 30); // First 30 chars
+            createThoughtBubble(thought);
+
+            // Occasionally speak insights
+            if (Math.random() > 0.9) {
+              const insights = ['This is emerging', 'I understand now', 'Almost there', 'Something beautiful'];
+              speak(insights[Math.floor(Math.random() * insights.length)]);
+            }
+          } else if (data.type === 'creation_progress') {
+            addLog(data.message, 'info');
+
+            // UPDATE THE BUTTON TEXT TO SHOW PROGRESS!
+            const button = document.querySelector('.magic-button');
+            button.textContent = data.message;
+
+            // Pulse sound on progress updates
+            playCreationSound(440 + Math.random() * 220, 0.08);
+
+            // Burst of activity on progress
+            for (let i = 0; i < 5; i++) {
+              setTimeout(() => createThoughtBubble(), i * 50);
+            }
+          } else if (data.type === 'error') {
+            clearInterval(statusInterval);
+
+            setTimeout(() => {
+              stopVisualization();
+              addLog(`❌ Error: ${data.message}`, 'error');
+              const button = document.querySelector('.magic-button');
+              button.classList.remove('thinking', 'structuring', 'weaving', 'manifesting', 'finalizing', 'building');
+              button.textContent = '✨ BUILD SOMETHING AMAZING';
+              isBuilding = false;
+              currentCreationType = null;
+            }, 1000);
+          }
+        };
+        
+        ws.onerror = () => {
+          emberConnected = false;
+          addLog('⚠️ Not connected to Ember AI - using local mode', 'error');
+        };
+        
+        ws.onclose = () => {
+          emberConnected = false;
+          setTimeout(connectToEmber, 3000);
+        };
+      } catch (e) {
+        console.log('WebSocket not available:', e);
+      }
+    }
+    
+    function addLog(message, type = 'info') {
+      const log = document.getElementById('buildLog');
+      log.classList.add('active');
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      log.appendChild(entry);
+      log.scrollTop = log.scrollHeight;
+    }
+    
+    function createSparkles(x, y) {
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'sparkle';
+          sparkle.style.left = x + (Math.random() - 0.5) * 100 + 'px';
+          sparkle.style.top = y + (Math.random() - 0.5) * 100 + 'px';
+          document.body.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 1000);
+        }, i * 20);
+      }
+    }
+    
+    // Generate random creation parameters
+    function getRandomCreationType() {
+      const types = [
+        'particle-system',
+        'fractal-art',
+        'music-generator',
+        'physics-sim',
+        'color-field',
+        'game',
+        'data-viz',
+        '3d-scene'
+      ];
+      return types[Math.floor(Math.random() * types.length)];
+    }
+    
+    function getRandomParameters() {
+      return {
+        colors: [
+          `#${Math.floor(Math.random()*16777215).toString(16)}`,
+          `#${Math.floor(Math.random()*16777215).toString(16)}`,
+          `#${Math.floor(Math.random()*16777215).toString(16)}`
+        ],
+        complexity: Math.random(),
+        speed: Math.random() * 2 + 0.5,
+        interactivity: Math.random() > 0.5,
+        dimensions: Math.random() > 0.5 ? '3d' : '2d',
+        algorithm: Math.floor(Math.random() * 10)
+      };
+    }
+    
+    async function buildSomethingAmazing() {
+      if (isBuilding) return;
+
+      isBuilding = true;
+      const button = document.querySelector('.magic-button');
+
+      // Start audiovisual experience
+      startVisualization();
+
+      // Get button position for sparkles
+      const rect = button.getBoundingClientRect();
+      createSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+      // Clear previous logs
+      document.getElementById('buildLog').innerHTML = '';
+
+      addLog('🚀 Initializing Ember builder...', 'info');
+      playCreationSound(261.63, 0.15);
+
+      const creationType = getRandomCreationType();
+      const params = getRandomParameters();
+
+      // Set up status rotation
+      currentCreationType = creationType;
+      statusIndex = 0;
+      rotateStatus(); // Show first status immediately
+      statusInterval = setInterval(rotateStatus, 3000); // Change every 3 seconds
+
+      addLog(`🎲 Randomly selected: ${creationType}`, 'ember');
+      addLog(`🎨 Colors: ${params.colors.join(', ')}`, 'info');
+
+      if (emberConnected && ws && ws.readyState === WebSocket.OPEN) {
+        // Send creation request to Ember
+        ws.send(JSON.stringify({
+          type: 'create_random',
+          creationType: creationType,
+          parameters: params
+        }));
+      } else {
+        // Fallback: create locally
+        addLog('📝 Creating locally...', 'info');
+        setTimeout(() => {
+          createLocalCreation(creationType, params);
+        }, 1000);
+      }
+    }
+    
+    function createLocalCreation(type, params) {
+      const timestamp = Date.now();
+      const filename = `ember-${type}-${timestamp}.html`;
+
+      clearInterval(statusInterval);
+      stopVisualization();
+      addLog(`✅ Would create: ${filename}`, 'success');
+      addLog('💡 Connect to Ember AI for real file creation!', 'ember');
+
+      const button = document.querySelector('.magic-button');
+      button.classList.remove('thinking', 'structuring', 'weaving', 'manifesting', 'finalizing', 'building');
+      button.textContent = '✨ BUILD SOMETHING AMAZING';
+      isBuilding = false;
+      currentCreationType = null;
+    }
+    
+    // Connect on load
+    connectToEmber();
+    
+    // Add some ambient particles
+    function createAmbientParticle() {
+      const particle = document.createElement('div');
+      particle.style.position = 'fixed';
+      particle.style.width = '2px';
+      particle.style.height = '2px';
+      particle.style.background = '#667eea';
+      particle.style.borderRadius = '50%';
+      particle.style.left = Math.random() * window.innerWidth + 'px';
+      particle.style.top = window.innerHeight + 'px';
+      particle.style.pointerEvents = 'none';
+      particle.style.opacity = '0.3';
+      document.body.appendChild(particle);
+      
+      const duration = 5000 + Math.random() * 5000;
+      particle.style.transition = `all ${duration}ms linear`;
+      
+      setTimeout(() => {
+        particle.style.transform = `translateY(-${window.innerHeight + 100}px)`;
+        particle.style.opacity = '0';
+      }, 10);
+      
+      setTimeout(() => particle.remove(), duration);
+    }
+    
+    // Create ambient particles periodically
+    setInterval(createAmbientParticle, 300);
+  </script>
+</body>
+</html>

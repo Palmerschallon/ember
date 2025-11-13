@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ember - Create Anything</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0a0a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .container {
+      background: rgba(20, 20, 20, 0.8);
+      padding: 50px;
+      border-radius: 20px;
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      box-shadow: 0 0 60px rgba(102, 126, 234, 0.2);
+      text-align: center;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 64px;
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .subtitle {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .input-container {
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 20px;
+      font-size: 18px;
+      background: rgba(30, 30, 30, 0.8);
+      border: 2px solid rgba(102, 126, 234, 0.3);
+      border-radius: 12px;
+      outline: none;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+      color: white;
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+    }
+
+    button {
+      width: 100%;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.6);
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .status.creating {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    .status.success {
+      background: #10b981;
+      color: white;
+    }
+
+    .status.error {
+      background: #ef4444;
+      color: white;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .examples {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(102, 126, 234, 0.2);
+      text-align: left;
+    }
+
+    .examples h3 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .example {
+      padding: 10px 12px;
+      margin: 5px 0;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-radius: 8px;
+      border-left: 2px solid transparent;
+    }
+
+    .example:hover {
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(102, 126, 234, 0.1);
+      border-left-color: #667eea;
+    }
+
+    .example::before {
+      content: "→  ";
+      color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔥 Ember</h1>
+    <div class="subtitle">Describe what you want to create</div>
+
+    <div class="input-container">
+      <input
+        type="text"
+        id="promptInput"
+        placeholder="e.g., space shooter game with power-ups..."
+        autofocus
+      />
+    </div>
+
+    <button id="createBtn" onclick="create()">
+      Create
+    </button>
+
+    <div id="status" class="status"></div>
+
+    <div class="examples">
+      <h3>Examples</h3>
+      <div class="example" onclick="fillExample('space shooter game with asteroids and power-ups')">
+        space shooter game with asteroids and power-ups
+      </div>
+      <div class="example" onclick="fillExample('music visualizer that reacts to microphone input')">
+        music visualizer that reacts to microphone input
+      </div>
+      <div class="example" onclick="fillExample('Conway game of life with rainbow colors')">
+        Conway game of life with rainbow colors
+      </div>
+      <div class="example" onclick="fillExample('fluid simulation with mouse interaction')">
+        fluid simulation with mouse interaction
+      </div>
+      <div class="example" onclick="fillExample('clock with animated gears and springs')">
+        clock with animated gears and springs
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let ws = null;
+    let isCreating = false;
+
+    function connectWebSocket() {
+      ws = new WebSocket('ws://localhost:8083');
+
+      ws.onopen = () => {
+        console.log('Connected to Ember');
+      };
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.type === 'creation_progress') {
+          updateStatus(data.message, 'creating');
+        } else if (data.type === 'creation_complete') {
+          updateStatus('✓ Created! Opening...', 'success');
+          setTimeout(() => {
+            updateStatus('');
+            isCreating = false;
+            document.getElementById('createBtn').disabled = false;
+          }, 2000);
+        } else if (data.type === 'creation_error') {
+          updateStatus('✗ Error: ' + data.message, 'error');
+          isCreating = false;
+          document.getElementById('createBtn').disabled = false;
+        }
+      };
+
+      ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        updateStatus('✗ Connection error', 'error');
+      };
+
+      ws.onclose = () => {
+        console.log('WebSocket closed, reconnecting...');
+        setTimeout(connectWebSocket, 1000);
+      };
+    }
+
+    function updateStatus(message, type = '') {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = 'status ' + type;
+    }
+
+    function fillExample(text) {
+      document.getElementById('promptInput').value = text;
+      document.getElementById('promptInput').focus();
+    }
+
+    function create() {
+      if (isCreating) return;
+
+      const input = document.getElementById('promptInput');
+      const prompt = input.value.trim();
+
+      if (!prompt) {
+        updateStatus('✗ Please describe what you want to create', 'error');
+        setTimeout(() => updateStatus(''), 2000);
+        return;
+      }
+
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        updateStatus('✗ Not connected to Ember', 'error');
+        return;
+      }
+
+      isCreating = true;
+      document.getElementById('createBtn').disabled = true;
+      updateStatus('🔥 Ember is creating...', 'creating');
+
+      ws.send(JSON.stringify({
+        type: 'create',
+        prompt: prompt
+      }));
+    }
+
+    // Allow Enter key to submit
+    document.getElementById('promptInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !isCreating) {
+        create();
+      }
+    });
+
+    // Connect on load
+    connectWebSocket();
+  </script>
+</body>
+</html>

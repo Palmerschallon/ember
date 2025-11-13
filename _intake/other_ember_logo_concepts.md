@@ -1,0 +1,1 @@
+Minimal fire glyph. Parallax shadow illusion.

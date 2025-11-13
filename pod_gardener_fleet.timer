@@ -1,0 +1,11 @@
+[Unit]
+Description=Pod Gardener Fleet Timer - Runs every 30 minutes
+Requires=pod_gardener_fleet.service
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=30min
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

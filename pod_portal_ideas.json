@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Constellation Navigator",
+    "description": "A 3D star map interface where each file in the Pod becomes a glowing star. Files cluster by type, creation date, or semantic similarity. Connections form between related files like constellations. Users can fly through the space, with stars pulsing when accessed and leaving light trails showing navigation history.",
+    "excitement": "Transforms file browsing into an immersive space exploration experience. The visual metaphor makes discovering connections between projects intuitive and memorable. Real-time WebSocket updates make new files appear as shooting stars.",
+    "interaction": "Click and drag to rotate the 3D space, scroll to zoom through file clusters. Hover over stars to see file previews in floating panels. Draw lines between stars to create custom constellations (saved collections). Voice commands like 'show me all particle systems' highlight relevant stars."
+  },
+  {
+    "name": "Creation Pulse Monitor",
+    "description": "A living heartbeat visualization that shows the Pod's creative activity in real-time. Each file operation creates a ripple, with different colors for creates, edits, and accesses. The central 'heart' beats faster when multiple files are being worked on. Historical data creates beautiful generative art patterns.",
+    "excitement": "Makes the Pod feel alive and breathing. Users can literally see and feel the creative energy flowing through the system. The visualization becomes unique artwork that represents the Pod's creative journey over time.",
+    "interaction": "Touch different areas of the pulse to filter by file type or time period. Pinch to zoom into specific time ranges. Double-tap to 'inject' a creative prompt that triggers an AI suggestion based on current activity patterns. Share pulse snapshots as generative art NFTs."
+  },
+  {
+    "name": "Semantic Wormhole Generator",
+    "description": "An AI-powered portal system that creates instant connections between conceptually related files. Type or speak an idea, and wormholes open to relevant projects, showing swirling previews of connected content. The AI learns from your navigation patterns to suggest surprising creative connections.",
+    "excitement": "Breaks linear file navigation by creating shortcuts through meaning-space. Discovers unexpected connections between projects. The wormhole effects use WebGL shaders that react to the semantic similarity strength.",
+    "interaction": "Type creative prompts like 'particle systems meeting music' to generate wormholes. Drag wormholes to combine them into multi-dimensional portals. Step through portals using webcam gesture recognition. Save favorite wormhole configurations as 'creative recipes'."
+  },
+  {
+    "name": "Evolution Chamber",
+    "description": "A gamified version control system where code files are living organisms that evolve over time. Each commit creates a new generation with visible mutations. Files can cross-breed to create hybrid projects. Successful files (frequently accessed) gain special abilities and visual traits.",
+    "excitement": "Turns version control into a living ecosystem. Makes code history tangible and engaging. Creates emergent gameplay where maintaining healthy code becomes naturally rewarding. WebSocket updates show evolution happening in real-time across the Pod.",
+    "interaction": "Select two files to breed and see their code DNA combine. Feed files with 'nutrients' (comments, documentation) to help them grow. Battle files in coding challenges to earn evolution points. Create file families with inherited traits and abilities."
+  },
+  {
+    "name": "Temporal Echo Chamber",
+    "description": "A time-manipulation interface showing your creative work as temporal echoes. Scrub through time to see files appear and disappear, with ghost trails showing edit patterns. Future echoes predict where your creativity might lead based on current patterns. Multiple timelines can be viewed simultaneously.",
+    "excitement": "Visualizes creative momentum and patterns over time. The predictive echoes create a sense of creative destiny. Parallel timeline viewing reveals alternative creative paths. Real-time updates create a living, breathing temporal map.",
+    "interaction": "Drag the timeline scrubber to navigate through Pod history. Pull apart the timeline to create branches for 'what if' explorations. Tap echo trails to jump to specific file states. Use gesture controls to speed up or slow down time. Pin important moments as 'temporal anchors'."
+  }
+]

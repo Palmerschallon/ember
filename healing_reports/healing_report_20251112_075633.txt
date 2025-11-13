@@ -1,0 +1,36 @@
+============================================================
+Pod Healer Report
+============================================================
+
+Generated: 2025-11-12 07:56:33
+
+Total Issues Found: 6
+
+
+Broken Links (2):
+------------------------------------------------------------
+  File: /media/palmerschallon/ThePod1/stylized_3d_spiral.html
+  Link: ):x,E=C.split(Ya.wrapSplitCharacter),A=Ya.wrapSplitCharacter===
+
+  File: /media/palmerschallon/ThePod1/stylized_3d_spiral.html
+  Link: )}):E;i.fragments=A.map(function(L){return{text:L,width:null}}),i.fragments.push({fragment:Ya.wrapSpacer,width:null}),p=A.join(Ya.lineBreaker)+Ya.lineBreaker+Ya.wrapSpacer}else delete i.fragments,p=x;return p}).attr(
+
+
+Syntax Errors (4):
+------------------------------------------------------------
+  File: /media/palmerschallon/ThePod1/heart.py
+  Line: 1
+  Error: unexpected character after line continuation character (heart.py, line 1)
+
+  File: /media/palmerschallon/ThePod1/fractal_tree.py
+  Line: 1
+  Error: unexpected character after line continuation character (fractal_tree.py, line 1)
+
+  File: /media/palmerschallon/ThePod1/hello.py
+  Line: 1
+  Error: '(' was never closed (hello.py, line 1)
+
+  File: /media/palmerschallon/ThePod1/universe.py
+  Line: 1
+  Error: '(' was never closed (universe.py, line 1)
+

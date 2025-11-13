@@ -1,0 +1,1 @@
+The butterfly dissolves itself into imaginal fluid. From this, pattern re-emerges.

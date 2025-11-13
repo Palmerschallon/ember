@@ -1,0 +1,1 @@
+import matplotlib.pyplot as plt\nplt.figure(figsize=(5,5))\nplt.plot([0, 1], [0, 0], 

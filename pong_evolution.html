@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Evolution</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        #gameContainer {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            background: #111;
+            border: 2px solid #333;
+            box-shadow: 0 0 20px rgba(0,255,0,0.3);
+        }
+        
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 20px;
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+        }
+        
+        #score {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: #fff;
+            text-shadow: 0 0 10px #fff;
+        }
+        
+        #evolution {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #0ff;
+        }
+        
+        #instructions {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #ff0;
+            text-align: right;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="info">PONG EVOLUTION</div>
+        <div id="score">0 - 0</div>
+        <div id="evolution">Stage 1: Classic</div>
+        <div id="instructions">W/S: Left Paddle<br>↑/↓: Right Paddle<br>SPACE: Start/Pause</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = document.getElementById('gameContainer');
+        
+        canvas.width = 800;
+        canvas.height = 400;
+        
+        // Game state
+        let gameRunning = false;
+        let leftScore = 0;
+        let rightScore = 0;
+        let evolutionStage = 1;
+        let particles = [];
+        
+        // Paddles
+        const paddleWidth = 10;
+        const paddleHeight = 80;
+        const paddleSpeed = 5;
+        
+        let leftPaddle = {
+            x: 20,
+            y: canvas.height / 2 - paddleHeight / 2,
+            dy: 0,
+            color: '#0f0'
+        };
+        
+        let rightPaddle = {
+            x: canvas.width - 30,
+            y: canvas.height / 2 - paddleHeight / 2,
+            dy: 0,
+            color: '#0f0'
+        };
+        
+        // Ball
+        let ball = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            dx: 5,
+            dy: 3,
+            radius: 8,
+            trail: [],
+            maxTrailLength: 10,
+            color: '#fff',
+            glowSize: 0
+        };
+        
+        // Evolution features
+        const evolutions = {
+            1: { name: "Classic", ballSpeed: 1, effects: false },
+            2: { name: "Neon", ballSpeed: 1.2, effects: true, neonGlow: true },
+            3: { name: "Gravity", ballSpeed: 1.3, effects: true, gravity: 0.1 },
+            4: { name: "Multi-Ball", ballSpeed: 1.4, effects: true, multiBall: true },
+            5: { name: "Chaos", ballSpeed: 1.5, effects: true, chaos: true }
+        };
+        
+        // Input handling
+        const keys = {};
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+            
+            if (e.key === ' ') {
+                gameRunning = !gameRunning;
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+        
+        // Particle system
+        function createParticles(x, y, count = 10) {
+            if (!evolutions[evolutionStage].effects) return;
+            
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    dx: (Math.random() - 0.5) * 5,
+                    dy: (Math.random() - 0.5) * 5,
+                    life: 1,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`
+                });
+            }
+        }
+        
+        function updateParticles() {
+            particles = particles.filter(p => {
+                p.x += p.dx;
+                p.y += p.dy;
+                p.life -= 0.02;
+                
+                if (evolutions[evolutionStage].gravity) {
+                    p.dy += evolutions[evolutionStage].gravity;
+                }
+                
+                return p.life > 0;
+            });
+        }
+        
+        function drawParticles() {
+            particles.forEach(p => {
+                ctx.globalAlpha = p.life;
+                ctx.fillStyle = p.color;
+                ctx.fillRect(p.x, p.y, 2, 2);
+            });
+            ctx.globalAlpha = 1;
+        }
+        
+        // Game logic
+        function updatePaddles() {
+            // Left paddle (W/S)
+            if (keys['w'] || keys['W']) leftPaddle.dy = -paddleSpeed;
+            else if (keys['s'] || keys['S']) leftPaddle.dy = paddleSpeed;
+            else leftPaddle.dy = 0;
+            
+            // Right paddle (Arrow keys)
+            if (keys['ArrowUp']) rightPaddle.dy = -paddleSpeed;
+            else if (keys['ArrowDown']) rightPaddle.dy = paddleSpeed;
+            else rightPaddle.dy = 0;
+            
+            // Update positions
+            leftPaddle.y += leftPaddle.dy;
+            rightPaddle.y += rightPaddle.dy;
+            
+            // Boundaries
+            leftPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, leftPaddle.y));
+            rightPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, rightPaddle.y));
+        }
+        
+        function updateBall() {
+            if (!gameRunning) return;
+            
+            // Trail effect
+            ball.trail.push({ x: ball.x, y: ball.y });
+            if (ball.trail.length > ball.maxTrailLength) {
+                ball.trail.shift();
+            }
+            
+            // Apply evolution speed multiplier
+            const speedMult = evolutions[evolutionStage].ballSpeed;
+            
+            // Update position
+            ball.x += ball.dx * speedMult;
+            ball.y += ball.dy * speedMult;
+            
+            // Gravity effect
+            if (evolutions[evolutionStage].gravity) {
+                ball.dy += evolutions[evolutionStage].gravity;
+            }
+            
+            // Top/bottom boundaries
+            if (ball.y - ball.radius <= 0 || ball.y + ball.radius >= canvas.height) {
+                ball.dy = -ball.dy;
+                createParticles(ball.x, ball.y, 5);
+            }
+            
+            // Paddle collisions
+            if (ball.x - ball.radius <= leftPaddle.x + paddleWidth &&
+                ball.x - ball.radius >= leftPaddle.x &&
+                ball.y >= leftPaddle.y &&
+                ball.y <= leftPaddle.y + paddleHeight) {
+                
+                ball.dx = Math.abs(ball.dx);
+                ball.dy += leftPaddle.dy * 0.3;
+                createParticles(ball.x, ball.y, 15);
+                
+                if (evolutions[evolutionStage].chaos) {
+                    ball.dy += (Math.random() - 0.5) * 3;
+                }
+            }
+            
+            if (ball.x + ball.radius >= rightPaddle.x &&
+                ball.x + ball.radius <= rightPaddle.x + paddleWidth &&
+                ball.y >= rightPaddle.y &&
+                ball.y <= rightPaddle.y + paddleHeight) {
+                
+                ball.dx = -Math.abs(ball.dx);
+                ball.dy += rightPaddle.dy * 0.3;
+                createParticles(ball.x, ball.y, 15);
+                
+                if (evolutions[evolutionStage].chaos) {
+                    ball.dy += (Math.random() - 0.5) * 3;
+                }
+            }
+            
+            // Scoring
+            if (ball.x < 0) {
+                rightScore++;
+                evolve();
+                resetBall();
+            } else if (ball.x > canvas.width) {
+                leftScore++;
+                evolve();
+                resetBall();
+            }
+            
+            // Update glow effect
+            if (evolutions[evolutionStage].neonGlow) {
+                ball.glowSize = Math.sin(Date.now() * 0.005) * 10 + 20;
+            }
+        }
+        
+        function resetBall() {
+            ball.x = canvas.width / 2;
+            ball.y = canvas.height / 2;
+            ball.dx = (Math.random() > 0.5 ? 5 : -5) * evolutions[evolutionStage].ballSpeed;
+            ball.dy = (Math.random() - 0.5) * 6;
+            ball.trail = [];
+            createParticles(ball.x, ball.y, 30);
+        }
+        
+        function evolve() {
+            const totalScore = leftScore + rightScore;
+            if (totalScore > 0 && totalScore % 3 === 0) {
+                evolutionStage = Math.min(evolutionStage + 1, 5);
+                document.getElementById('evolution').textContent = 
+                    `Stage ${evolutionStage}: ${evolutions[evolutionStage].name}`;
+            }
+        }
+        
+        function draw() {
+            // Clear canvas
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw center line
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([10, 10]);
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Draw paddles
+            if (evolutions[evolutionStage].neonGlow) {
+                ctx.shadowColor = leftPaddle.color;
+                ctx.shadowBlur = 20;
+            }
+            ctx.fillStyle = leftPaddle.color;
+            ctx.fillRect(leftPaddle.x, leftPaddle.y, paddleWidth, paddleHeight);
+            
+            ctx.fillStyle = rightPaddle.color;
+            ctx.fillRect(rightPaddle.x, rightPaddle.y, paddleWidth, paddleHeight);
+            
+            ctx.shadowBlur = 0;
+            
+            // Draw ball trail
+            ball.trail.forEach((pos, i) => {
+                ctx.globalAlpha = i / ball.trail.length * 0.5;
+                ctx.fillStyle = ball.color;
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, ball.radius * (i / ball.trail.length), 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+            
+            // Draw ball
+            if (evolutions[evolutionStage].neonGlow) {
+                ctx.shadowColor = ball.color;
+                ctx.shadowBlur = ball.glowSize;
+            }
+            
+            ctx.fillStyle = ball.color;
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.shadowBlur = 0;
+            
+            // Draw particles
+            drawParticles();
+            
+            // Update score display
+            document.getElementById('score').textContent = `${leftScore} - ${rightScore}`;
+        }
+        
+        function gameLoop() {
+            updatePaddles();
+            updateBall();
+            updateParticles();
+            draw();
+            
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Start game
+        gameLoop();
+    </script>
+</body>
+</html>

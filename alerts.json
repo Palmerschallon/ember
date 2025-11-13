@@ -1,0 +1,10 @@
+[
+  {
+    "severity": "critical",
+    "metric": "error_rate",
+    "value": 1.0,
+    "threshold": 0.1,
+    "message": "High error rate: 100.0%",
+    "timestamp": "2025-11-13T07:19:36.852017"
+  }
+]

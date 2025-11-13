@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 EMBER SYNESTHESIA - Ultimate Experience</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Mono', monospace;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        #canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+
+        #status {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        #phase {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+
+        #details {
+            font-size: 14px;
+            color: #888;
+        }
+
+        #camera-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-size: 12px;
+        }
+
+        #camera-controls button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        #camera-controls button:hover {
+            background: #444;
+        }
+
+        .zoom-info {
+            color: #888;
+            margin: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div id="status">
+        <div id="phase">Connecting...</div>
+        <div id="details">Waiting for operations...</div>
+    </div>
+
+    <div id="camera-controls">
+        <div style="color: #ff6b35; font-weight: bold; margin-bottom: 10px;">📹 CAMERA</div>
+        <button id="zoom-out">🔍- Zoom Out</button>
+        <button id="zoom-in">🔍+ Zoom In</button>
+        <div class="zoom-info">
+            Zoom: <span id="zoom-level">1.0</span>x
+        </div>
+        <button id="reset-view">🎯 Reset View</button>
+        <div style="margin-top: 10px; color: #666; font-size: 10px;">
+            Scroll wheel to zoom
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        // Camera controls
+        let cameraZoom = 1.0;
+        let cameraOffsetX = 0;
+        let cameraOffsetY = 0;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Zoom controls
+        document.getElementById('zoom-in').addEventListener('click', () => {
+            cameraZoom *= 1.2;
+            updateZoomDisplay();
+        });
+
+        document.getElementById('zoom-out').addEventListener('click', () => {
+            cameraZoom /= 1.2;
+            if (cameraZoom < 0.1) cameraZoom = 0.1;
+            updateZoomDisplay();
+        });
+
+        document.getElementById('reset-view').addEventListener('click', () => {
+            cameraZoom = 1.0;
+            cameraOffsetX = 0;
+            cameraOffsetY = 0;
+            updateZoomDisplay();
+        });
+
+        // Mouse wheel zoom
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const zoomSpeed = 0.1;
+            if (e.deltaY < 0) {
+                cameraZoom *= (1 + zoomSpeed);
+            } else {
+                cameraZoom *= (1 - zoomSpeed);
+                if (cameraZoom < 0.1) cameraZoom = 0.1;
+            }
+            updateZoomDisplay();
+        });
+
+        function updateZoomDisplay() {
+            document.getElementById('zoom-level').textContent = cameraZoom.toFixed(1);
+        }
+
+        // MERGED AUDIO SYSTEM - Web Audio API + Chord Progressions + Brainwave Entrainment
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Musical scales and chords
+        const CHORDS = {
+            thinking: [261.6, 329.6, 392.0],   // C major - contemplative
+            reading: [293.7, 370.0, 440.0],    // D major - scanning
+            writing: [329.6, 415.3, 493.9],    // E major - creative
+            executing: [349.2, 440.0, 523.3],  // F major - powerful
+            complete: [392.0, 493.9, 587.3]    // G major - resolution
+        };
+
+        // Brainwave frequencies
+        const BRAINWAVES = {
+            alpha: 10,    // Relaxed, creative (8-12 Hz)
+            beta: 20,     // Active, focused (12-30 Hz)
+            theta: 6      // Deep meditation (4-8 Hz)
+        };
+
+        // PARTICLE SYSTEM
+        class Particle {
+            constructor(phase, details) {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.phase = phase;
+                this.details = details;
+                this.life = 1.0;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                
+                // Color based on operation type
+                this.color = {
+                    'thinking': '#2196F3',   // Blue for thinking
+                    'reading': '#FFC107',    // Yellow for reading
+                    'writing': '#FF9800',    // Orange for writing
+                    'executing': '#F44336',  // Red for executing
+                    'complete': '#4CAF50'    // Green for complete
+                }[phase] || '#666';
+                
+                this.size = phase === 'executing' ? 8 : 5;
+                
+                // Play merged audio for this operation
+                this.playMergedAudio();
+            }
+
+            playMergedAudio() {
+                try {
+                    // PART 1: Play musical chord
+                    const chord = CHORDS[this.phase] || CHORDS.thinking;
+                    this.playChord(chord, 1.5);
+                    
+                    // PART 2: Add brainwave entrainment
+                    if (this.phase === 'thinking') {
+                        this.playBinauralBeats(BRAINWAVES.alpha, 3.0);
+                    } else if (this.phase === 'executing') {
+                        this.playBinauralBeats(BRAINWAVES.beta, 3.0);
+                    }
+                    
+                    // PART 3: Add atmospheric texture
+                    this.playAtmosphericTone();
+                    
+                } catch (e) {
+                    console.log('Audio failed:', e);
+                }
+            }
+
+            playChord(frequencies, duration) {
+                frequencies.forEach((freq, i) => {
+                    setTimeout(() => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        
+                        osc.frequency.value = freq;
+                        osc.type = 'sine';
+                        
+                        gain.gain.value = 0.08; // Softer volume
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                        
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + duration);
+                    }, i * 50); // Slight delay between notes
+                });
+            }
+
+            playBinauralBeats(beatFreq, duration) {
+                const baseFreq = 200;
+                const leftOsc = audioCtx.createOscillator();
+                const rightOsc = audioCtx.createOscillator();
+                const leftGain = audioCtx.createGain();
+                const rightGain = audioCtx.createGain();
+                const merger = audioCtx.createChannelMerger(2);
+
+                leftOsc.frequency.value = baseFreq - beatFreq / 2;
+                rightOsc.frequency.value = baseFreq + beatFreq / 2;
+
+                leftGain.gain.value = rightGain.gain.value = 0.05; // Very subtle
+
+                leftOsc.connect(leftGain);
+                rightOsc.connect(rightGain);
+                leftGain.connect(merger, 0, 0);
+                rightGain.connect(merger, 0, 1);
+                merger.connect(audioCtx.destination);
+
+                leftOsc.start();
+                rightOsc.start();
+
+                setTimeout(() => {
+                    leftOsc.stop();
+                    rightOsc.stop();
+                }, duration * 1000);
+            }
+
+            playAtmosphericTone() {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                const filter = audioCtx.createBiquadFilter();
+                
+                // Random atmospheric frequency
+                osc.frequency.value = Math.random() * 200 + 100;
+                osc.type = 'triangle';
+                
+                filter.type = 'lowpass';
+                filter.frequency.value = 800;
+                
+                gain.gain.value = 0.03; // Very subtle background
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2);
+                
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 2);
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= 0.005;
+                
+                // Wrap around edges
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                
+                // Draw particle with glow
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw trail
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 4);
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(1, 'transparent');
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 4, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+        }
+
+        const particles = [];
+
+        // Connect to WebSocket for REAL operations
+        const socket = io('http://localhost:8080');
+        
+        socket.on('connect', () => {
+            document.getElementById('phase').textContent = '🔥 Connected';
+            document.getElementById('details').textContent = 'Listening for operations...';
+        });
+
+        socket.on('status_update', (data) => {
+            const phaseMap = {
+                'thinking': '💭 Thinking',
+                'reading': '🔍 Reading',
+                'writing': '✍️ Writing',
+                'executing': '⚡ Executing',
+                'complete': '✅ Complete'
+            };
+            
+            document.getElementById('phase').textContent = phaseMap[data.phase] || data.phase;
+            document.getElementById('details').textContent = data.details || '';
+            
+            // Spawn particles for operation
+            const count = data.phase === 'executing' ? 30 : 15;
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(data.phase, data.details));
+            }
+        });
+
+        socket.on('disconnect', () => {
+            document.getElementById('phase').textContent = '❌ Disconnected';
+            document.getElementById('details').textContent = 'Connection lost';
+        });
+
+        // Animation loop
+        function animate() {
+            ctx.save();
+            
+            // Fade trail effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, width, height);
+            
+            // Apply zoom and pan
+            ctx.translate(width / 2, height / 2);
+            ctx.scale(cameraZoom, cameraZoom);
+            ctx.translate(-width / 2 + cameraOffsetX, -height / 2 + cameraOffsetY);
+            
+            // Update and draw particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                p.draw();
+                
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            
+            ctx.restore();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // AMBIENT AUDIO - Always playing
+        let ambientOscillators = [];
+        let ambientGains = [];
+        
+        function startAmbientAudio() {
+            // Create multiple subtle ambient tones
+            const ambientFreqs = [110, 165, 220]; // A2, E3, A3 - harmonic
+            
+            ambientFreqs.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                const filter = audioCtx.createBiquadFilter();
+                
+                osc.frequency.value = freq;
+                osc.type = 'sine';
+                
+                filter.type = 'lowpass';
+                filter.frequency.value = 400;
+                filter.Q.value = 1;
+                
+                gain.gain.value = 0.015; // Very subtle
+                
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                
+                ambientOscillators.push(osc);
+                ambientGains.push(gain);
+                
+                // Slowly modulate volume for breathing effect
+                setInterval(() => {
+                    const targetVolume = 0.015 + Math.random() * 0.01;
+                    gain.gain.exponentialRampToValueAtTime(
+                        targetVolume, 
+                        audioCtx.currentTime + 5
+                    );
+                }, 5000 + i * 1000);
+            });
+        }
+        
+        // Start ambient audio on first user interaction (browsers require this)
+        let audioStarted = false;
+        document.addEventListener('click', () => {
+            if (!audioStarted) {
+                startAmbientAudio();
+                audioStarted = true;
+                console.log('🎵 Ambient audio started');
+            }
+        }, { once: true });
+
+        // Show instructions
+        setTimeout(() => {
+            if (particles.length === 0) {
+                ctx.fillStyle = '#333';
+                ctx.font = '16px monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText('🔥 EMBER SYNESTHESIA - Ultimate Experience', width / 2, height / 2 - 20);
+                ctx.fillText('Waiting for Ember to think...', width / 2, height / 2 + 20);
+                ctx.fillText('Use the main UI to send a message', width / 2, height / 2 + 50);
+                ctx.fillText('This window shows Ember\'s mind in real-time', width / 2, height / 2 + 80);
+                ctx.fillText('Click anywhere to start ambient audio', width / 2, height / 2 + 110);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
+

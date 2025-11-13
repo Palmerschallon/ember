@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Test</title>
+</head>
+<body>
+  <h1>WebSocket Connection Test</h1>
+  <button onclick="testConnection()">Test WebSocket</button>
+  <div id="status">Not connected</div>
+  <div id="messages"></div>
+  
+  <script>
+    function testConnection() {
+      const status = document.getElementById('status');
+      const messages = document.getElementById('messages');
+      
+      status.textContent = 'Connecting to ws://localhost:8083/...';
+      
+      try {
+        const ws = new WebSocket('ws://localhost:8083/');
+        
+        ws.onopen = () => {
+          status.textContent = '✅ Connected!';
+          messages.innerHTML += '<p>WebSocket opened</p>';
+          
+          // Send test message
+          ws.send(JSON.stringify({
+            type: 'create_random',
+            creationType: 'particle-system',
+            parameters: {
+              colors: ['#ff0000', '#00ff00', '#0000ff'],
+              speed: 1,
+              complexity: 0.5
+            }
+          }));
+        };
+        
+        ws.onerror = (error) => {
+          status.textContent = '❌ Error: ' + error;
+          messages.innerHTML += '<p>Error occurred</p>';
+        };
+        
+        ws.onmessage = (event) => {
+          messages.innerHTML += '<p>Received: ' + event.data + '</p>';
+        };
+        
+        ws.onclose = () => {
+          status.textContent = '🔌 Disconnected';
+          messages.innerHTML += '<p>WebSocket closed</p>';
+        };
+      } catch (e) {
+        status.textContent = '❌ Failed: ' + e.message;
+      }
+    }
+  </script>
+</body>
+</html>

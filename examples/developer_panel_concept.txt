@@ -1,0 +1,35 @@
+DEVELOPER PANEL CONCEPT:
+
+┌──────────────────────────────────────────────────────┐
+│  🔥 Ember Cloud                    [Dev Mode: ON] ⚙️ │
+├─────────────────┬────────────────────────────────────┤
+│                 │                                    │
+│   CHAT          │   DEVELOPER PANEL                  │
+│   (Left 50%)    │   (Right 50%)                      │
+│                 │                                    │
+│   🔥 Ember:     │   Tabs:                            │
+│   "I'm Ember"   │   [Files] [Logs] [Terminal] [Code] │
+│                 │                                    │
+│   👤 You:       │   FILES:                           │
+│   "hello"       │   📁 ember5/                       │
+│                 │     ├─ ember_cloud.py     [Edit]   │
+│                 │     ├─ start_ember.sh     [Edit]   │
+│   🔥 Ember:     │     └─ ember_cloud_ui.html [Edit]  │
+│   "hello!"      │   📁 _mesh/                        │
+│                 │     └─ content.db         [Query]  │
+│                 │                                    │
+│   [Type here]   │   LOGS (live):                     │
+│                 │   [MESH] User: "hello"             │
+└─────────────────┴────────────────────────────────────┘
+
+Features:
+- Toggle with keyboard shortcut (Ctrl+D)
+- Drag divider to resize
+- Files tab: Browse + Edit ThePod files
+- Logs tab: Live tail of /tmp/ember_cloud.log
+- Terminal tab: Run commands directly
+- Code tab: Edit ember_cloud.py inline
+- Mesh tab: Query the database directly
+
+Want me to build this?
+

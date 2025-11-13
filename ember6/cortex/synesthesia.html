@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Synesthesia - Ember's Mind</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Mono', monospace;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        #canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+
+        #status {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        #phase {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+
+        #details {
+            font-size: 14px;
+            color: #888;
+        }
+
+        #camera-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-size: 12px;
+        }
+
+        #camera-controls button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        #camera-controls button:hover {
+            background: #444;
+        }
+
+        #camera-controls .zoom-info {
+            color: #888;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        #events {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 300px;
+        }
+
+        .event {
+            font-size: 12px;
+            padding: 5px 0;
+            border-bottom: 1px solid #222;
+            color: #666;
+        }
+
+        .event:last-child {
+            border-bottom: none;
+        }
+
+        .event.active {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div id="status">
+        <div id="phase">Connecting...</div>
+        <div id="details">Waiting for operations...</div>
+    </div>
+
+    <div id="camera-controls">
+        <div style="color: #ff6b35; font-weight: bold; margin-bottom: 10px;">📹 CAMERA</div>
+        <button id="zoom-out">🔍- Zoom Out</button>
+        <button id="zoom-in">🔍+ Zoom In</button>
+        <div class="zoom-info">
+            Zoom: <span id="zoom-level">1.0</span>x
+        </div>
+        <button id="reset-view">🎯 Reset View</button>
+        <div style="margin-top: 10px; color: #666; font-size: 10px;">
+            Scroll wheel to zoom
+        </div>
+    </div>
+
+    <div id="events">
+        <div style="font-size: 10px; color: #444; margin-bottom: 10px;">REAL-TIME EVENT LOG</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        // Camera controls
+        let cameraZoom = 1.0;
+        let cameraOffsetX = 0;
+        let cameraOffsetY = 0;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Zoom controls
+        document.getElementById('zoom-in').addEventListener('click', () => {
+            cameraZoom *= 1.2;
+            updateZoomDisplay();
+        });
+
+        document.getElementById('zoom-out').addEventListener('click', () => {
+            cameraZoom /= 1.2;
+            if (cameraZoom < 0.1) cameraZoom = 0.1;
+            updateZoomDisplay();
+        });
+
+        document.getElementById('reset-view').addEventListener('click', () => {
+            cameraZoom = 1.0;
+            cameraOffsetX = 0;
+            cameraOffsetY = 0;
+            updateZoomDisplay();
+        });
+
+        // Mouse wheel zoom
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const zoomSpeed = 0.1;
+            if (e.deltaY < 0) {
+                cameraZoom *= (1 + zoomSpeed);
+            } else {
+                cameraZoom *= (1 - zoomSpeed);
+                if (cameraZoom < 0.1) cameraZoom = 0.1;
+            }
+            updateZoomDisplay();
+        });
+
+        function updateZoomDisplay() {
+            document.getElementById('zoom-level').textContent = cameraZoom.toFixed(1);
+        }
+
+        // Audio context for real sounds
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Particle system - each particle represents a REAL operation
+        class Particle {
+            constructor(phase, details) {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.phase = phase;
+                this.details = details;
+                this.life = 1.0;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                
+                // Color based on operation type (REAL mapping)
+                this.color = {
+                    'thinking': '#2196F3',   // Blue for thinking
+                    'reading': '#FFC107',    // Yellow for reading
+                    'writing': '#FF9800',    // Orange for writing
+                    'executing': '#F44336',  // Red for executing
+                    'complete': '#4CAF50'    // Green for complete
+                }[phase] || '#666';
+                
+                // Size based on operation complexity
+                this.size = phase === 'executing' ? 8 : 5;
+                
+                // Play sound for this operation
+                this.playSound();
+            }
+
+            playSound() {
+                try {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    // Frequency maps to operation type (REAL mapping)
+                    const freqMap = {
+                        'thinking': 220,    // A3 - contemplative
+                        'reading': 330,     // E4 - scanning
+                        'writing': 440,     // A4 - creative
+                        'executing': 550,   // C#5 - active
+                        'complete': 660     // E5 - resolution
+                    };
+                    
+                    osc.frequency.value = freqMap[this.phase] || 220;
+                    osc.type = this.phase === 'executing' ? 'sawtooth' : 'sine';
+                    
+                    gain.gain.value = 0.1;
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                    
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.2);
+                } catch (e) {
+                    // Audio might fail on some browsers
+                }
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= 0.005;
+                
+                // Wrap around edges
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                
+                // Draw particle
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Draw glow trail
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 3);
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(1, 'transparent');
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+        }
+
+        const particles = [];
+
+        // Connect to WebSocket for REAL operations
+        const socket = io('http://localhost:8080');
+        
+        socket.on('connect', () => {
+            document.getElementById('phase').textContent = '🔥 Connected';
+            document.getElementById('details').textContent = 'Listening for operations...';
+        });
+
+        socket.on('status_update', (data) => {
+            // Update status display
+            const phaseMap = {
+                'thinking': '💭 Thinking',
+                'reading': '🔍 Reading',
+                'writing': '✍️ Writing',
+                'executing': '⚡ Executing',
+                'complete': '✅ Complete'
+            };
+            
+            document.getElementById('phase').textContent = phaseMap[data.phase] || data.phase;
+            document.getElementById('details').textContent = data.details || '';
+            
+            // Spawn particles for REAL operation
+            const count = data.phase === 'executing' ? 20 : 10;
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(data.phase, data.details));
+            }
+            
+            // Add to event log
+            addEventLog(phaseMap[data.phase] || data.phase, data.details);
+        });
+
+        socket.on('disconnect', () => {
+            document.getElementById('phase').textContent = '❌ Disconnected';
+            document.getElementById('details').textContent = 'Connection lost';
+        });
+
+        function addEventLog(phase, details) {
+            const eventsDiv = document.getElementById('events');
+            const eventDiv = document.createElement('div');
+            eventDiv.className = 'event active';
+            eventDiv.textContent = `${new Date().toLocaleTimeString()} - ${phase}`;
+            if (details) {
+                eventDiv.textContent += ` (${details})`;
+            }
+            
+            eventsDiv.appendChild(eventDiv);
+            
+            // Fade out after 2 seconds
+            setTimeout(() => {
+                eventDiv.classList.remove('active');
+            }, 2000);
+            
+            // Keep only last 20 events
+            while (eventsDiv.children.length > 21) { // +1 for header
+                eventsDiv.removeChild(eventsDiv.children[1]);
+            }
+            
+            // Scroll to bottom
+            eventsDiv.scrollTop = eventsDiv.scrollHeight;
+        }
+
+        // Animation loop
+        function animate() {
+            // Apply camera transform
+            ctx.save();
+            ctx.clearRect(0, 0, width, height);
+            
+            // Fade trail effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, width, height);
+            
+            // Apply zoom and pan
+            ctx.translate(width / 2, height / 2);
+            ctx.scale(cameraZoom, cameraZoom);
+            ctx.translate(-width / 2 + cameraOffsetX, -height / 2 + cameraOffsetY);
+            
+            // Update and draw particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                p.draw();
+                
+                // Remove dead particles
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            
+            ctx.restore();
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Show instructions
+        setTimeout(() => {
+            if (particles.length === 0) {
+                ctx.fillStyle = '#333';
+                ctx.font = '16px monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText('Waiting for Ember to think...', width / 2, height / 2);
+                ctx.fillText('Use the main UI to send a message', width / 2, height / 2 + 30);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

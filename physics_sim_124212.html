@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Sandbox</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            display: block;
+            cursor: crosshair;
+        }
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            user-select: none;
+        }
+        #controls h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .control-group {
+            margin: 10px 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button.active {
+            background: #2196F3;
+        }
+        .info {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="controls">
+        <h3>Physics Sandbox</h3>
+        <div class="control-group">
+            <button id="ballBtn" class="active">Spawn Ball</button>
+            <button id="boxBtn">Spawn Box</button>
+        </div>
+        <div class="control-group">
+            <button id="clearBtn">Clear All</button>
+            <button id="gravityBtn">Toggle Gravity</button>
+        </div>
+        <div class="info">
+            Click anywhere to spawn objects<br>
+            Objects: <span id="objectCount">0</span><br>
+            Gravity: <span id="gravityStatus">ON</span>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Physics constants
+        let gravity = 0.5;
+        let friction = 0.99;
+        let bounce = 0.8;
+
+        // Object arrays
+        const objects = [];
+        let spawnType = 'ball'; // 'ball' or 'box'
+
+        // Colors
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#FFD93D', '#6BCF7F'];
+
+        // Base physics object class
+        class PhysicsObject {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 4;
+                this.vy = (Math.random() - 0.5) * 4;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                // Apply gravity
+                this.vy += gravity;
+                
+                // Apply velocity
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Apply friction
+                this.vx *= friction;
+                this.vy *= friction;
+                
+                // Bounce off walls
+                this.checkWallCollision();
+            }
+
+            checkWallCollision() {
+                // Override in subclasses
+            }
+        }
+
+        // Ball class
+        class Ball extends PhysicsObject {
+            constructor(x, y) {
+                super(x, y);
+                this.radius = 15 + Math.random() * 25;
+                this.mass = this.radius / 20;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            checkWallCollision() {
+                // Floor
+                if (this.y + this.radius > canvas.height) {
+                    this.y = canvas.height - this.radius;
+                    this.vy *= -bounce;
+                }
+                
+                // Ceiling
+                if (this.y - this.radius < 0) {
+                    this.y = this.radius;
+                    this.vy *= -bounce;
+                }
+                
+                // Right wall
+                if (this.x + this.radius > canvas.width) {
+                    this.x = canvas.width - this.radius;
+                    this.vx *= -bounce;
+                }
+                
+                // Left wall
+                if (this.x - this.radius < 0) {
+                    this.x = this.radius;
+                    this.vx *= -bounce;
+                }
+            }
+
+            checkCollision(other) {
+                if (other instanceof Ball) {
+                    const dx = this.x - other.x;
+                    const dy = this.y - other.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const minDistance = this.radius + other.radius;
+
+                    if (distance < minDistance) {
+                        // Collision detected
+                        const angle = Math.atan2(dy, dx);
+                        const targetX = this.x + Math.cos(angle) * minDistance;
+                        const targetY = this.y + Math.sin(angle) * minDistance;
+                        const ax = (targetX - other.x) * 0.05;
+                        const ay = (targetY - other.y) * 0.05;
+
+                        this.vx -= ax;
+                        this.vy -= ay;
+                        other.vx += ax;
+                        other.vy += ay;
+
+                        this.vx *= bounce;
+                        this.vy *= bounce;
+                        other.vx *= bounce;
+                        other.vy *= bounce;
+                    }
+                }
+            }
+        }
+
+        // Box class
+        class Box extends PhysicsObject {
+            constructor(x, y) {
+                super(x, y);
+                this.width = 30 + Math.random() * 40;
+                this.height = 30 + Math.random() * 40;
+                this.rotation = 0;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.1;
+                this.mass = (this.width * this.height) / 1000;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(-this.width/2, -this.height/2, this.width, this.height);
+                ctx.restore();
+            }
+
+            update() {
+                super.update();
+                this.rotation += this.rotationSpeed;
+            }
+
+            checkWallCollision() {
+                // Simplified box collision (treating as circle for now)
+                const radius = Math.max(this.width, this.height) / 2;
+                
+                if (this.y + radius > canvas.height) {
+                    this.y = canvas.height - radius;
+                    this.vy *= -bounce;
+                    this.rotationSpeed *= -0.8;
+                }
+                
+                if (this.y - radius < 0) {
+                    this.y = radius;
+                    this.vy *= -bounce;
+                    this.rotationSpeed *= -0.8;
+                }
+                
+                if (this.x + radius > canvas.width) {
+                    this.x = canvas.width - radius;
+                    this.vx *= -bounce;
+                    this.rotationSpeed *= -0.8;
+                }
+                
+                if (this.x - radius < 0) {
+                    this.x = radius;
+                    this.vx *= -bounce;
+                    this.rotationSpeed *= -0.8;
+                }
+            }
+        }
+
+        // Spawn object at position
+        function spawnObject(x, y) {
+            let obj;
+            if (spawnType === 'ball') {
+                obj = new Ball(x, y);
+            } else {
+                obj = new Box(x, y);
+            }
+            objects.push(obj);
+            updateObjectCount();
+        }
+
+        // Update object count display
+        function updateObjectCount() {
+            document.getElementById('objectCount').textContent = objects.length;
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.fillStyle = 'rgba(26, 26, 26, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw all objects
+            for (let i = 0; i < objects.length; i++) {
+                objects[i].update();
+                objects[i].draw();
+
+                // Check collisions between balls
+                if (objects[i] instanceof Ball) {
+                    for (let j = i + 1; j < objects.length; j++) {
+                        if (objects[j] instanceof Ball) {
+                            objects[i].checkCollision(objects[j]);
+                        }
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Event listeners
+        canvas.addEventListener('click', (e) => {
+            spawnObject(e.clientX, e.clientY);
+        });
+
+        document.getElementById('ballBtn').addEventListener('click', function() {
+            spawnType = 'ball';
+            this.classList.add('active');
+            document.getElementById('boxBtn').classList.remove('active');
+        });
+
+        document.getElementById('boxBtn').addEventListener('click', function() {
+            spawnType = 'box';
+            this.classList.add('active');
+            document.getElementById('ballBtn').classList.remove('active');
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            objects.length = 0;
+            updateObjectCount();
+        });
+
+        document.getElementById('gravityBtn').addEventListener('click', () => {
+            gravity = gravity === 0 ? 0.5 : 0;
+            document.getElementById('gravityStatus').textContent = gravity === 0 ? 'OFF' : 'ON';
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Start animation
+        animate();
+
+        // Spawn some initial objects
+        for (let i = 0; i < 5; i++) {
+            spawnObject(
+                Math.random() * canvas.width,
+                Math.random() * canvas.height / 2
+            );
+        }
+    </script>
+</body>
+</html>

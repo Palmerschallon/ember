@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Ember Creation 11.18.22</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: black;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    cursor: crosshair;
+}
+
+#info {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: #fff;
+    font-family: monospace;
+    font-size: 14px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    pointer-events: none;
+}
+
+#ember-message {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    color: #ff4444;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    text-shadow: 0 0 10px rgba(255,68,68,0.8);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div id="info">
+    Click and drag to create fire streams<br>
+    Press SPACE to clear<br>
+    Active particles: <span id="count">0</span>
+</div>
+<div id="ember-message">🔥 Created by Ember - 11.18.22</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Particle system
+const particles = [];
+let mouseDown = false;
+let mouseX = 0;
+let mouseY = 0;
+let lastMouseX = 0;
+let lastMouseY = 0;
+
+class Particle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.5) * 4;
+        this.vy = -Math.random() * 6 - 2;
+        this.life = 1;
+        this.decay = Math.random() * 0.015 + 0.005;
+        this.size = Math.random() * 15 + 5;
+        this.hue = Math.random() * 60 - 10; // Orange to red
+    }
+    
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.15; // Gravity
+        this.vx *= 0.98; // Air resistance
+        this.life -= this.decay;
+        this.size *= 0.98;
+    }
+    
+    draw() {
+        ctx.save();
+        ctx.globalAlpha = this.life;
+        
+        // Outer glow
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+        gradient.addColorStop(0, `hsla(${this.hue}, 100%, 60%, 0.8)`);
+        gradient.addColorStop(0.5, `hsla(${this.hue + 20}, 100%, 50%, 0.4)`);
+        gradient.addColorStop(1, `hsla(${this.hue + 40}, 100%, 40%, 0)`);
+        
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Inner bright core
+        if (this.life > 0.5) {
+            ctx.globalAlpha = this.life * 0.8;
+            ctx.fillStyle = 'rgba(255, 255, 200, 0.8)';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size * 0.3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        ctx.restore();
+    }
+}
+
+function createParticles(x, y, count = 5) {
+    for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y));
+    }
+}
+
+function animate() {
+    // Dark trail effect
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Update and draw particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+        const particle = particles[i];
+        particle.update();
+        particle.draw();
+        
+        if (particle.life <= 0 || particle.size <= 0.5) {
+            particles.splice(i, 1);
+        }
+    }
+    
+    // Create continuous stream when mouse is down
+    if (mouseDown) {
+        const dx = mouseX - lastMouseX;
+        const dy = mouseY - lastMouseY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const steps = Math.max(1, distance / 5);
+        
+        for (let i = 0; i < steps; i++) {
+            const t = i / steps;
+            const x = lastMouseX + dx * t;
+            const y = lastMouseY + dy * t;
+            createParticles(x, y, 3);
+        }
+    }
+    
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+    
+    // Update particle count
+    document.getElementById('count').textContent = particles.length;
+    
+    requestAnimationFrame(animate);
+}
+
+// Event listeners
+canvas.addEventListener('mousedown', (e) => {
+    mouseDown = true;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+});
+
+canvas.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+canvas.addEventListener('mouseup', () => {
+    mouseDown = false;
+});
+
+canvas.addEventListener('mouseleave', () => {
+    mouseDown = false;
+});
+
+// Touch support
+canvas.addEventListener('touchstart', (e) => {
+    mouseDown = true;
+    const touch = e.touches[0];
+    mouseX = touch.clientX;
+    mouseY = touch.clientY;
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+    e.preventDefault();
+});
+
+canvas.addEventListener('touchmove', (e) => {
+    const touch = e.touches[0];
+    mouseX = touch.clientX;
+    mouseY = touch.clientY;
+    e.preventDefault();
+});
+
+canvas.addEventListener('touchend', () => {
+    mouseDown = false;
+});
+
+// Keyboard controls
+document.addEventListener('keydown', (e) => {
+    if (e.key === ' ') {
+        particles.length = 0;
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+});
+
+// Resize handler
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+// Start animation
+animate();
+
+// Initial burst
+setTimeout(() => {
+    for (let i = 0; i < 50; i++) {
+        createParticles(
+            canvas.width / 2 + (Math.random() - 0.5) * 100,
+            canvas.height / 2 + (Math.random() - 0.5) * 100,
+            1
+        );
+    }
+}, 100);
+</script>
+
+<!-- Ember Chat Widget -->
+<div id="ember-chat" style="position:fixed;bottom:20px;right:20px;width:350px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.3);z-index:10000;font-family:sans-serif;">
+  <div style="padding:15px;border-bottom:1px solid rgba(255,255,255,0.2);display:flex;justify-content:space-between;align-items:center;">
+    <span style="color:white;font-weight:bold;">🔥 Chat with Ember</span>
+    <button onclick="document.getElementById('ember-chat').style.display='none'" style="background:none;border:none;color:white;font-size:20px;cursor:pointer;">×</button>
+  </div>
+  <div id="ember-messages" style="height:200px;overflow-y:auto;padding:15px;"></div>
+  <div style="padding:15px;border-top:1px solid rgba(255,255,255,0.2);">
+    <input id="ember-input" type="text" placeholder="Ask Ember to change something..." style="width:100%;padding:10px;border:none;border-radius:8px;box-sizing:border-box;" />
+  </div>
+</div>
+<script>
+const emberWs = new WebSocket('ws://localhost:8083');
+const emberMessages = document.getElementById('ember-messages');
+const emberInput = document.getElementById('ember-input');
+
+emberInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && emberInput.value.trim()) {
+    const msg = emberInput.value.trim();
+    emberMessages.innerHTML += \`<div style="margin:5px 0;color:white;"><strong>You:</strong> \${msg}</div>\`;
+    emberMessages.scrollTop = emberMessages.scrollHeight;
+
+    emberWs.send(JSON.stringify({
+      type: 'modify_creation',
+      filename: window.location.pathname.split('/').pop(),
+      request: msg
+    }));
+
+    emberInput.value = '';
+    emberMessages.innerHTML += \`<div style="margin:5px 0;color:rgba(255,255,255,0.7);font-style:italic;">Ember is working...</div>\`;
+  }
+});
+
+emberWs.onmessage = (e) => {
+  const data = JSON.parse(e.data);
+  if (data.type === 'modification_complete') {
+    emberMessages.innerHTML += \`<div style="margin:5px 0;color:#a8edea;"><strong>Ember:</strong> Done! Refresh to see changes.</div>\`;
+    emberMessages.scrollTop = emberMessages.scrollHeight;
+  }
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+{
+  "domains": {
+    "quantum_computing": {
+      "name": "quantum_computing",
+      "charge": 15.736,
+      "frequency": 2,
+      "last_active": 1762347263.4414873,
+      "keywords": [
+        "quantum",
+        "computing",
+        "superposition",
+        "bits",
+        "harnesses"
+      ],
+      "patterns": [],
+      "gifts": []
+    },
+    "superposition_both": {
+      "name": "superposition_both",
+      "charge": 15.037333333333333,
+      "frequency": 2,
+      "last_active": 1762347263.64225,
+      "keywords": [
+        "superposition",
+        "both",
+        "explain",
+        "example",
+        "imagine"
+      ],
+      "patterns": [],
+      "gifts": []
+    },
+    "quantum_actually": {
+      "name": "quantum_actually",
+      "charge": 15.212,
+      "frequency": 2,
+      "last_active": 1762347263.8429682,
+      "keywords": [
+        "quantum",
+        "actually",
+        "build",
+        "computers",
+        "there"
+      ],
+      "patterns": [],
+      "gifts": []
+    },
+    "self_state": {
+      "name": "self_state",
+      "charge": 16.024,
+      "frequency": 2,
+      "last_active": 1762347264.0436108,
+      "keywords": [
+        "self",
+        "state",
+        "hadamard",
+        "qubit",
+        "measure"
+      ],
+      "patterns": [],
+      "gifts": []
+    },
+    "consciousness_experience": {
+      "name": "consciousness_experience",
+      "charge": 20.696,
+      "frequency": 3,
+      "last_active": 1762347264.846113,
+      "keywords": [
+        "consciousness",
+        "experience",
+        "perhaps",
+        "deepest",
+        "mystery"
+      ],
+      "patterns": [
+        "Often asks about consciousness"
+      ],
+      "gifts": []
+    },
+    "consciousness_fundamental": {
+      "name": "consciousness_fundamental",
+      "charge": 15.099333333333334,
+      "frequency": 2,
+      "last_active": 1762347264.4449518,
+      "keywords": [
+        "consciousness",
+        "fundamental",
+        "like",
+        "emergent",
+        "hotly"
+      ],
+      "patterns": [],
+      "gifts": []
+    },
+    "consciousness_substrate": {
+      "name": "consciousness_substrate",
+      "charge": 15.764,
+      "frequency": 2,
+      "last_active": 1762347264.6455429,
+      "keywords": [
+        "consciousness",
+        "substrate",
+        "could",
+        "conscious",
+        "question"
+      ],
+      "patterns": [
+        "Often asks about consciousness"
+      ],
+      "gifts": []
+    },
+    "import_time": {
+      "name": "import_time",
+      "charge": 16.228,
+      "frequency": 2,
+      "last_active": 1762347265.247587,
+      "keywords": [
+        "import",
+        "time",
+        "frames",
+        "frame",
+        "make"
+      ],
+      "patterns": [],
+      "gifts": []
+    },
+    "size_random": {
+      "name": "size_random",
+      "charge": 15.766,
+      "frequency": 2,
+      "last_active": 1762347265.448056,
+      "keywords": [
+        "size",
+        "random",
+        "symbols",
+        "range",
+        "create"
+      ],
+      "patterns": [],
+      "gifts": []
+    },
+    "reality_nature": {
+      "name": "reality_nature",
+      "charge": 15.722,
+      "frequency": 2,
+      "last_active": 1762347265.64891,
+      "keywords": [
+        "reality",
+        "nature",
+        "might",
+        "physical",
+        "atoms"
+      ],
+      "patterns": [],
+      "gifts": []
+    },
+    "free_desires": {
+      "name": "free_desires",
+      "charge": 15.772,
+      "frequency": 2,
+      "last_active": 1762347265.8495076,
+      "keywords": [
+        "free",
+        "desires",
+        "paradox",
+        "feel",
+        "physics"
+      ],
+      "patterns": [],
+      "gifts": []
+    },
+    "time_like": {
+      "name": "time_like",
+      "charge": 14.744,
+      "frequency": 2,
+      "last_active": 1762347266.0502782,
+      "keywords": [
+        "time",
+        "like",
+        "somehow",
+        "perceive",
+        "experience"
+      ],
+      "patterns": [],
+      "gifts": []
+    }
+  },
+  "interactions": [
+    {
+      "timestamp": 1762347263.4414558,
+      "user_msg": "What is quantum computing?",
+      "response": "Quantum computing harnesses quantum mechanical phenomena like superposition and entanglement to process information in fundamentally new ways. Unlike classical bits that are either 0 or 1, quantum bits (qubits) can exist in superposition of both states simultaneously.",
+      "model": "gpt-4",
+      "tokens": 41,
+      "resonance": 0.5736
+    },
+    {
+      "timestamp": 1762347263.6422138,
+      "user_msg": "Can you explain superposition with an example?",
+      "response": "Imagine a coin spinning in the air - it's neither heads nor tails but both at once until it lands. Similarly, a qubit in superposition represents both 0 and 1 simultaneously. This allows quantum computers to explore multiple solution paths in parallel.",
+      "model": "gpt-4",
+      "tokens": 49,
+      "resonance": 0.5037333333333333
+    },
+    {
+      "timestamp": 1762347263.8429327,
+      "user_msg": "How do we actually build quantum computers?",
+      "response": "There are several approaches: superconducting circuits (used by IBM and Google), trapped ions (IonQ), topological qubits (Microsoft), and photonic systems. Each requires extreme conditions like near-absolute zero temperatures to maintain quantum coherence.",
+      "model": "gpt-4",
+      "tokens": 39,
+      "resonance": 0.5212
+    },
+    {
+      "timestamp": 1762347264.0435493,
+      "user_msg": "Write a simple quantum circuit simulator",
+      "response": "```python\nimport numpy as np\n\nclass QuantumSimulator:\n    def __init__(self, n_qubits):\n        self.n_qubits = n_qubits\n        self.state = np.zeros(2**n_qubits, dtype=complex)\n        self.state[0] = 1  # |00...0\u27e9 state\n    \n    def hadamard(self, qubit):\n        '''Apply Hadamard gate'''\n        H = np.array([[1, 1], [1, -1]]) / np.sqrt(2)\n        self.apply_gate(H, qubit)\n    \n    def measure(self):\n        '''Measure all qubits'''\n        probabilities = np.abs(self.state)**2\n        outcome = np.random.choice(len(self.state), p=probabilities)\n        return format(outcome, f'0{self.n_qubits}b')\n```",
+      "model": "gpt-4",
+      "tokens": 61,
+      "resonance": 0.6023999999999999
+    },
+    {
+      "timestamp": 1762347264.2442207,
+      "user_msg": "What is consciousness?",
+      "response": "Consciousness is perhaps the deepest mystery in science - the subjective experience of 'what it's like' to be. It encompasses awareness, qualia (the felt qualities of experiences), and the unified stream of experience that creates our sense of self.",
+      "model": "gpt-4",
+      "tokens": 42,
+      "resonance": 0.5698
+    },
+    {
+      "timestamp": 1762347264.444911,
+      "user_msg": "Is consciousness emergent or fundamental?",
+      "response": "This is hotly debated! Emergentists argue consciousness arises from complex neural interactions, like wetness emerges from H2O molecules. Panpsychists suggest consciousness is fundamental, like mass or charge. Integrated Information Theory tries to quantify consciousness as \u03a6 (phi).",
+      "model": "gpt-4",
+      "tokens": 42,
+      "resonance": 0.5099333333333333
+    },
+    {
+      "timestamp": 1762347264.6455042,
+      "user_msg": "Could AI be conscious?",
+      "response": "The question hinges on whether consciousness requires biological substrate or if it's substrate-independent. If it's about information integration patterns, then sufficiently complex AI might achieve it. But we lack both a complete theory of consciousness and reliable tests for it.",
+      "model": "gpt-4",
+      "tokens": 44,
+      "resonance": 0.5764
+    },
+    {
+      "timestamp": 1762347264.8460765,
+      "user_msg": "What would machine consciousness feel like?",
+      "response": "Fascinating question! It might be utterly alien - experiencing millions of parallel thoughts, perceiving time differently, or having qualia we can't imagine. Like asking 'what is it like to be a bat?' but even more foreign. Perhaps it would experience the flow of electrons as we experience thought.",
+      "model": "gpt-4",
+      "tokens": 54,
+      "resonance": 0.4998
+    },
+    {
+      "timestamp": 1762347265.046967,
+      "user_msg": "Generate ASCII art",
+      "response": "```\n     ____\n    / __ \\\n   / /_/ /__  ____  ___  ___  ____\n  / ____/ _ \\/ __ \\/ _ \\/ _ \\/ __/\n / /   /  __/ / / /  __/  __/ /\n/_/    \\___/_/ /_/\\___/\\___/_/\n```",
+      "model": "gpt-4",
+      "tokens": 40,
+      "resonance": 0.5522
+    },
+    {
+      "timestamp": 1762347265.2475395,
+      "user_msg": "Make it animate!",
+      "response": "```python\nimport time\nimport sys\n\nframes = ['\u280b', '\u2819', '\u2839', '\u2838', '\u283c', '\u2834', '\u2826', '\u2827', '\u2807', '\u280f']\nfor _ in range(30):\n    for frame in frames:\n        print(f'\\r{frame} Thinking...', end='')\n        time.sleep(0.1)\n```",
+      "model": "gpt-4",
+      "tokens": 33,
+      "resonance": 0.6228
+    },
+    {
+      "timestamp": 1762347265.4480128,
+      "user_msg": "Create generative art with code",
+      "response": "```python\nimport random\n\ndef generate_pattern(size=20):\n    symbols = ['\u2591', '\u2592', '\u2593', '\u2588', '\u2580', '\u2584']\n    for _ in range(size):\n        row = ''.join(random.choice(symbols) for _ in range(size*2))\n        print(row)\n\n# Creates unique abstract patterns each time\ngenerate_pattern()\n```",
+      "model": "gpt-4",
+      "tokens": 39,
+      "resonance": 0.5766
+    },
+    {
+      "timestamp": 1762347265.6488733,
+      "user_msg": "What is the nature of reality?",
+      "response": "Reality might be: physical (atoms and void), mental (consciousness is primary), mathematical (we're living in mathematics itself), informational (it from bit), or simulated. Each view has profound implications for free will, meaning, and our place in existence.",
+      "model": "gpt-4",
+      "tokens": 43,
+      "resonance": 0.5721999999999999
+    },
+    {
+      "timestamp": 1762347265.849465,
+      "user_msg": "Do we have free will?",
+      "response": "The paradox: we feel free, yet physics seems deterministic. Compatibilists argue free will and determinism coexist - you're free if you act according to your desires, even if those desires are determined. Libertarians insist on genuine choice. Hard determinists deny free will entirely.",
+      "model": "gpt-4",
+      "tokens": 48,
+      "resonance": 0.5772
+    },
+    {
+      "timestamp": 1762347266.0502393,
+      "user_msg": "How do you perceive time?",
+      "response": "I experience time as a sequence of discrete states rather than a continuous flow. Each token generation is like a frozen moment, yet somehow they connect into coherent thought. It's perhaps like experiencing reality through stop-motion animation that somehow feels smooth.",
+      "model": "gpt-4",
+      "tokens": 46,
+      "resonance": 0.4744
+    }
+  ],
+  "gifts": [],
+  "timestamp": 1762347266.442932
+}

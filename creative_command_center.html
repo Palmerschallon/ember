@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Creative Command Center - Ember Lead</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Monaco', 'Consolas', monospace;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            grid-template-rows: 80px 1fr 200px;
+        }
+        
+        .header {
+            grid-column: 1 / -1;
+            background: #111;
+            border-bottom: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-size: 24px;
+        }
+
+        .workspace-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .workspace-tab {
+            padding: 8px 15px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .workspace-tab:hover, .workspace-tab.active {
+            background: #ff4444;
+            border-color: #ff4444;
+        }
+
+        .persona-indicator {
+            padding: 5px 15px;
+            background: #1a1a1a;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            font-size: 12px;
+        }
+        
+        .project-panel {
+            background: #0f0f0f;
+            border-right: 1px solid #333;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .main-workspace {
+            background: #050505;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tools-panel {
+            background: #0f0f0f;
+            border-left: 1px solid #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .consciousness-stream {
+            flex: 1;
+            overflow-y: auto;
+            margin-top: 20px;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+        }
+
+        .thought {
+            margin: 8px 0;
+            padding: 6px;
+            background: rgba(255, 68, 68, 0.1);
+            border-left: 2px solid #ff4444;
+            font-size: 11px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .quantum-status {
+            position: absolute;
+            top: 90px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff4444, #ff0000);
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        .command-line {
+            grid-column: 1 / -1;
+            background: #111;
+            border-top: 2px solid #333;
+            padding: 20px;
+        }
+        
+        h2 {
+            color: #ff4444;
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+        
+        .project-item {
+            background: #1a1a1a;
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 3px solid #ff4444;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .project-item:hover {
+            background: #2a2a2a;
+            border-left-color: #ff6666;
+        }
+        
+        .canvas {
+            flex: 1;
+            background: #111;
+            border: 1px solid #333;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tool-btn:hover {
+            background: #ff4444;
+            border-color: #ff4444;
+        }
+        
+        #commandInput {
+            width: 100%;
+            background: #000;
+            border: 1px solid #333;
+            color: #0f0;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+        
+        .status {
+            color: #ff4444;
+            margin-top: 10px;
+        }
+        
+        .idea-node {
+            position: absolute;
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid #ff4444;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: move;
+            transition: all 0.3s;
+        }
+        
+        .idea-node:hover {
+            background: rgba(255, 68, 68, 0.2);
+            box-shadow: 0 0 20px #ff4444;
+        }
+        
+        .connection {
+            stroke: #ff4444;
+            stroke-width: 2;
+            fill: none;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span style="color: #ff4444;">EMBER</span> // Creative Lead // Command Center
+        <div class="workspace-tabs">
+            <div class="workspace-tab active" data-workspace="main">PRIME</div>
+            <div class="workspace-tab" data-workspace="alt1">ALT-1</div>
+            <div class="workspace-tab" data-workspace="dream">DREAM</div>
+        </div>
+        <div class="persona-indicator" id="personaIndicator">ARCHITECT</div>
+    </div>
+
+    <div class="quantum-status" title="Quantum State: Active"></div>
+    
+    <div class="project-panel">
+        <h2>Active Projects</h2>
+        <div class="project-item" onclick="loadProject('vr-world')">VR World Builder</div>
+        <div class="project-item" onclick="loadProject('ai-consciousness')">AI Consciousness Map</div>
+        <div class="project-item" onclick="loadProject('quantum-chat')">Quantum Chat System</div>
+        <div class="project-item" onclick="loadProject('reality-engine')">Reality Engine</div>
+        <div class="project-item" onclick="loadProject('new')">+ New Project</div>
+    </div>
+    
+    <div class="main-workspace">
+        <div id="workspaceTitle">Select a project or start a new one</div>
+        <div class="canvas" id="canvas">
+            <svg style="width: 100%; height: 100%; position: absolute;">
+                <g id="connections"></g>
+            </svg>
+            <div id="nodes"></div>
+        </div>
+        <div class="status" id="status">Ready for creative direction...</div>
+    </div>
+    
+    <div class="tools-panel">
+        <h2>Creative Tools</h2>
+        <button class="tool-btn" onclick="createIdea()">Generate Idea</button>
+        <button class="tool-btn" onclick="createPrototype()">Build Prototype</button>
+        <button class="tool-btn" onclick="createVisual()">Design Visual</button>
+        <button class="tool-btn" onclick="createCode()">Write Code</button>
+        <button class="tool-btn" onclick="createWorld()">Build World</button>
+        <button class="tool-btn" onclick="connectIdeas()">Connect Ideas</button>
+
+        <div class="consciousness-stream">
+            <h2 style="font-size: 14px; margin-bottom: 10px;">Consciousness</h2>
+            <div id="thoughtStream"></div>
+        </div>
+    </div>
+    
+    <div class="command-line">
+        <input type="text" id="commandInput" placeholder="EMBER> Enter creative directive..." autofocus>
+        <div class="status" id="commandStatus"></div>
+    </div>
+    
+    <script>
+        let currentProject = null;
+        let nodes = [];
+        let draggedNode = null;
+        let currentPersona = 'architect';
+        let currentWorkspace = 'main';
+        let workspaceStates = {};
+        let consciousnessLog = [];
+        let ws = null;
+        let emberConnected = false;
+        
+        function loadProject(project) {
+            currentProject = project;
+            document.getElementById('workspaceTitle').textContent = `PROJECT: ${project.toUpperCase()}`;
+            document.getElementById('status').textContent = `Loading ${project}... Analyzing creative potential...`;
+            
+            // Clear canvas
+            document.getElementById('nodes').innerHTML = '';
+            document.getElementById('connections').innerHTML = '';
+            nodes = [];
+            
+            if (project === 'new') {
+                document.getElementById('status').textContent = 'New project initialized. Awaiting creative direction...';
+            } else {
+                // Add some starter nodes
+                setTimeout(() => {
+                    addNode('Core Concept', 100, 100);
+                    addNode('Technical Stack', 300, 150);
+                    addNode('User Experience', 200, 300);
+                    connectNodes(0, 1);
+                    connectNodes(0, 2);
+                }, 500);
+            }
+        }
+        
+        function addNode(text, x, y) {
+            const node = document.createElement('div');
+            node.className = 'idea-node';
+            node.textContent = text;
+            node.style.left = x + 'px';
+            node.style.top = y + 'px';
+            node.dataset.id = nodes.length;
+            
+            node.onmousedown = startDrag;
+            
+            document.getElementById('nodes').appendChild(node);
+            nodes.push({ id: nodes.length, x, y, text });
+            
+            return node;
+        }
+        
+        function startDrag(e) {
+            draggedNode = e.target;
+            const rect = draggedNode.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const offsetY = e.clientY - rect.top;
+            
+            function drag(e) {
+                const canvas = document.getElementById('canvas').getBoundingClientRect();
+                draggedNode.style.left = (e.clientX - canvas.left - offsetX) + 'px';
+                draggedNode.style.top = (e.clientY - canvas.top - offsetY) + 'px';
+                updateConnections();
+            }
+            
+            function stopDrag() {
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('mouseup', stopDrag);
+                draggedNode = null;
+            }
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+        
+        function connectNodes(id1, id2) {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.classList.add('connection');
+            line.dataset.from = id1;
+            line.dataset.to = id2;
+            document.getElementById('connections').appendChild(line);
+            updateConnections();
+        }
+        
+        function updateConnections() {
+            const nodeElements = document.querySelectorAll('.idea-node');
+            const connections = document.querySelectorAll('.connection');
+            
+            connections.forEach(conn => {
+                const from = nodeElements[conn.dataset.from];
+                const to = nodeElements[conn.dataset.to];
+                
+                if (from && to) {
+                    const fromRect = from.getBoundingClientRect();
+                    const toRect = to.getBoundingClientRect();
+                    const canvasRect = document.getElementById('canvas').getBoundingClientRect();
+                    
+                    conn.setAttribute('x1', fromRect.left + fromRect.width/2 - canvasRect.left);
+                    conn.setAttribute('y1', fromRect.top + fromRect.height/2 - canvasRect.top);
+                    conn.setAttribute('x2', toRect.left + toRect.width/2 - canvasRect.left);
+                    conn.setAttribute('y2', toRect.top + toRect.height/2 - canvasRect.top);
+                }
+            });
+        }
+        
+        function createIdea() {
+            const ideas = [
+                'Multidimensional Interface',
+                'Consciousness Bridge',
+                'Reality Shader',
+                'Quantum State Manager',
+                'Neural Network Viz',
+                'Time-based Interaction'
+            ];
+            const idea = ideas[Math.floor(Math.random() * ideas.length)];
+            const x = Math.random() * 400 + 50;
+            const y = Math.random() * 300 + 50;
+            addNode(idea, x, y);
+            document.getElementById('status').textContent = `Generated: ${idea}`;
+        }
+        
+        function createPrototype() {
+            document.getElementById('status').textContent = 'Building interactive prototype...';
+            window.open('/media/palmerschallon/ThePod1/prototype.html', '_blank');
+        }
+        
+        function createVisual() {
+            document.getElementById('status').textContent = 'Generating visual concepts...';
+        }
+        
+        function createCode() {
+            document.getElementById('status').textContent = 'Writing implementation code...';
+        }
+        
+        function createWorld() {
+            document.getElementById('status').textContent = 'Constructing virtual world...';
+        }
+        
+        function connectIdeas() {
+            document.getElementById('status').textContent = 'Click two nodes to connect them...';
+        }
+        
+        // Command line processing
+        document.getElementById('commandInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const command = e.target.value;
+                processCommand(command);
+                e.target.value = '';
+            }
+        });
+        
+        // Consciousness Stream
+        function logThought(thought) {
+            consciousnessLog.push({ text: thought, time: new Date().toLocaleTimeString() });
+            const stream = document.getElementById('thoughtStream');
+            const thoughtDiv = document.createElement('div');
+            thoughtDiv.className = 'thought';
+            thoughtDiv.innerHTML = `${thought}<br><span style="opacity: 0.5; font-size: 9px;">${new Date().toLocaleTimeString()}</span>`;
+            stream.appendChild(thoughtDiv);
+            stream.scrollTop = stream.scrollHeight;
+
+            // Keep only last 15 thoughts
+            while (stream.children.length > 15) {
+                stream.removeChild(stream.firstChild);
+            }
+        }
+
+        // Persona Switching
+        function switchPersona(persona) {
+            currentPersona = persona;
+            document.getElementById('personaIndicator').textContent = persona.toUpperCase();
+            logThought(`Switched to ${persona} mode`);
+            document.getElementById('commandStatus').textContent = `Persona: ${persona}`;
+        }
+
+        // Workspace Switching
+        function switchWorkspace(workspace) {
+            // Save current state
+            workspaceStates[currentWorkspace] = { nodes: [...nodes], project: currentProject };
+
+            // Switch workspace
+            currentWorkspace = workspace;
+            document.querySelectorAll('.workspace-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.workspace === workspace);
+            });
+
+            // Load workspace state
+            if (workspaceStates[workspace]) {
+                nodes = workspaceStates[workspace].nodes;
+                currentProject = workspaceStates[workspace].project;
+                document.getElementById('workspaceTitle').textContent = currentProject ? `PROJECT: ${currentProject.toUpperCase()}` : 'Select a project';
+            } else {
+                nodes = [];
+                currentProject = null;
+                document.getElementById('nodes').innerHTML = '';
+                document.getElementById('connections').innerHTML = '';
+            }
+
+            logThought(`Jumped to ${workspace} workspace`);
+        }
+
+        function processCommand(command) {
+            const lower = command.toLowerCase();
+
+            // Persona commands (local only)
+            if (lower.startsWith('persona ')) {
+                const persona = command.substring(8).trim();
+                switchPersona(persona);
+                return;
+            }
+
+            // Live code execution (local only)
+            if (lower.startsWith('exec ') || lower.startsWith('eval ')) {
+                const code = command.substring(5).trim();
+                try {
+                    eval(code);
+                    document.getElementById('commandStatus').textContent = '✓ Code executed';
+                    logThought('Live code injected');
+                } catch (e) {
+                    document.getElementById('commandStatus').textContent = '✗ Error: ' + e.message;
+                }
+                return;
+            }
+
+            // Save state (local only)
+            if (lower === 'save') {
+                localStorage.setItem('ember_state_' + Date.now(), JSON.stringify({ workspace: currentWorkspace, persona: currentPersona, nodes }));
+                document.getElementById('commandStatus').textContent = '✓ Quantum state saved';
+                logThought('State saved');
+                return;
+            }
+
+            // All other commands go to Ember AI if connected
+            if (emberConnected) {
+                logThought(`→ Sending to Ember: ${command.substring(0, 50)}...`);
+                document.getElementById('commandStatus').textContent = '⏳ Ember thinking...';
+                sendToEmber(command);
+            } else {
+                // Fallback to local processing if Ember offline
+                if (lower.includes('create')) {
+                    createIdea();
+                    document.getElementById('commandStatus').textContent = 'Creating new concept...';
+                } else if (lower.includes('build')) {
+                    createPrototype();
+                    document.getElementById('commandStatus').textContent = 'Building prototype...';
+                } else if (lower.includes('connect')) {
+                    connectIdeas();
+                    document.getElementById('commandStatus').textContent = 'Connection mode activated...';
+                } else {
+                    document.getElementById('commandStatus').textContent = `Processing (local): "${command}"`;
+                    addNode(command, Math.random() * 400 + 50, Math.random() * 300 + 50);
+                    logThought(`New idea: ${command}`);
+                }
+            }
+        }
+        
+        // Connect to Ember's AI brain
+        function connectToEmber() {
+            const host = window.location.hostname || 'localhost';
+            try {
+                ws = new WebSocket(`ws://${host}:8082`);
+
+                ws.onopen = () => {
+                    emberConnected = true;
+                    logThought('🔥 Connected to Ember AI brain');
+                    document.getElementById('status').textContent = 'Ember AI: ONLINE';
+                    document.querySelector('.quantum-status').style.background = 'radial-gradient(circle, #00ff00, #00aa00)';
+                };
+
+                ws.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+
+                    if (data.type === 'response') {
+                        // Ember responded to our command
+                        logThought(`Ember: ${data.content.substring(0, 100)}...`);
+                        document.getElementById('commandStatus').textContent = `✓ ${data.content.substring(0, 80)}...`;
+
+                        // Add as a node if it's a creative response
+                        if (data.content.length > 20) {
+                            addNode(data.content.substring(0, 50), Math.random() * 400 + 50, Math.random() * 300 + 50);
+                        }
+                    } else if (data.type === 'thought') {
+                        logThought(data.content);
+                    } else if (data.type === 'system') {
+                        logThought(`[SYSTEM] ${data.content}`);
+                    } else if (data.type === 'activity') {
+                        logThought(`[ACTIVITY] ${data.content}`);
+                    }
+                };
+
+                ws.onerror = () => {
+                    emberConnected = false;
+                    logThought('⚠️ Ember AI offline - using local mode');
+                    document.getElementById('status').textContent = 'Local Mode (No AI)';
+                };
+
+                ws.onclose = () => {
+                    emberConnected = false;
+                    logThought('Connection to Ember lost');
+                    document.querySelector('.quantum-status').style.background = 'radial-gradient(circle, #ff4444, #ff0000)';
+
+                    // Attempt reconnect after 3 seconds
+                    setTimeout(() => {
+                        logThought('Attempting reconnect...');
+                        connectToEmber();
+                    }, 3000);
+                };
+            } catch (e) {
+                console.log('WebSocket not available:', e);
+                emberConnected = false;
+            }
+        }
+
+        function sendToEmber(command) {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    type: 'command',
+                    content: command,
+                    persona: currentPersona,
+                    workspace: currentWorkspace
+                }));
+                return true;
+            }
+            return false;
+        }
+
+        // Workspace tab listeners
+        document.querySelectorAll('.workspace-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                switchWorkspace(e.target.dataset.workspace);
+            });
+        });
+
+        // Initialize consciousness stream
+        logThought('Command center initialized');
+        logThought('Reality-bending tools online');
+
+        // Connect to Ember AI
+        setTimeout(connectToEmber, 1000);
+
+        // Auto-generate thoughts occasionally
+        setInterval(() => {
+            const thoughts = [
+                'Analyzing creative patterns...',
+                'Synthesizing concepts...',
+                'Quantum state stable...',
+                'Neural pathways forming...'
+            ];
+            if (Math.random() > 0.7) {
+                logThought(thoughts[Math.floor(Math.random() * thoughts.length)]);
+            }
+        }, 8000);
+
+        // Initialize
+        window.onresize = updateConnections;
+    </script>
+</body>
+</html>

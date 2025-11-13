@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystical Forest VR - Modern Edition</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/supermedium/superframe@master/components/environment/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        #enterVR {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+        #enterVR:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        #info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <button id="enterVR">Enter VR Mode</button>
+    
+    <div id="info">
+        <h3>🌲 Mystical Forest VR</h3>
+        <p>Look around to explore the enchanted forest. Watch for floating orbs, ancient trees, and magical creatures!</p>
+        <p><strong>VR:</strong> Press trigger to teleport</p>
+        <p><strong>Desktop:</strong> WASD to move, mouse to look</p>
+    </div>
+
+    <a-scene
+        environment="preset: forest; groundColor: #445; grid: cross; fog: 0.8"
+        fog="type: exponential; color: #c4b5ff; density: 0.05"
+    >
+        <!-- Custom lighting for mystical atmosphere -->
+        <a-light type="ambient" color="#4a5568" intensity="0.4"></a-light>
+        <a-light type="directional" position="-0.5 1 0.5" color="#fbbf24" intensity="0.6" castShadow="true"></a-light>
+        
+        <!-- Magical glowing orbs -->
+        <a-entity id="orbs"></a-entity>
+        
+        <!-- Ancient mystical trees -->
+        <a-entity id="mystical-trees"></a-entity>
+        
+        <!-- Fireflies particle system -->
+        <a-entity
+            particle-system="
+                preset: dust;
+                particleCount: 200;
+                color: #ffeb3b, #76ff03;
+                size: 0.1;
+                duration: 0;
+                velocityValue: 0.2 0.2 0.2;
+                velocitySpread: 0.5 0 0.5;
+                accelerationValue: 0 -0.1 0;
+                opacity: 1, 0;
+                blending: 1
+            "
+            position="0 2 0"
+        ></a-entity>
+        
+        <!-- Magic portal -->
+        <a-entity position="5 0 -10">
+            <a-torus 
+                color="#e0e7ff" 
+                radius="2" 
+                radius-tubular="0.1"
+                rotation="0 0 0"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
+            >
+                <a-animation
+                    attribute="material.emissive"
+                    from="#4c1d95"
+                    to="#7c3aed"
+                    direction="alternate"
+                    dur="2000"
+                    repeat="indefinite"
+                ></a-animation>
+            </a-torus>
+            <a-plane
+                position="0 0 0"
+                rotation="90 0 0"
+                width="3.8"
+                height="3.8"
+                material="shader: flat; src: #portal-texture; transparent: true; opacity: 0.7"
+            ></a-plane>
+        </a-entity>
+        
+        <!-- Crystal formations -->
+        <a-entity id="crystals"></a-entity>
+        
+        <!-- VR Camera with movement -->
+        <a-entity id="rig" movement-controls position="0 0 5">
+            <a-entity
+                camera
+                look-controls
+                wasd-controls
+                position="0 1.6 0"
+            >
+                <a-cursor
+                    animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+                    animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+                    geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.025"
+                    material="color: #c8b6ff; shader: flat"
+                ></a-cursor>
+            </a-entity>
+            <a-entity
+                laser-controls="hand: right"
+                raycaster="objects: .clickable"
+                line="color: #c8b6ff; opacity: 0.7"
+            ></a-entity>
+            <a-entity
+                laser-controls="hand: left"
+                raycaster="objects: .clickable"
+                line="color: #c8b6ff; opacity: 0.7"
+            ></a-entity>
+        </a-entity>
+        
+        <!-- Sky with custom gradient -->
+        <a-sky
+            geometry="primitive: sphere; radius: 100"
+            material="shader: gradient; topColor: #1a0033; bottomColor: #4a148c"
+        ></a-sky>
+    </a-scene>
+
+    <script>
+        // AFRAME gradient shader component
+        AFRAME.registerShader('gradient', {
+            schema: {
+                topColor: {type: 'color', default: 'blue'},
+                bottomColor: {type: 'color', default: 'white'}
+            },
+            vertexShader: `
+                varying vec3 vWorldPosition;
+                void main() {
+                    vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                    vWorldPosition = worldPosition.xyz;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform vec3 topColor;
+                uniform vec3 bottomColor;
+                varying vec3 vWorldPosition;
+                void main() {
+                    float h = normalize(vWorldPosition).y;
+                    vec3 color = mix(bottomColor, topColor, max(pow(h, 0.5), 0.0));
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `
+        });
+
+        // Create magical orbs
+        function createOrbs() {
+            const orbs = document.querySelector('#orbs');
+            const colors = ['#e0aaff', '#c77dff', '#9d4edd', '#7209b7', '#560bad'];
+            
+            for (let i = 0; i < 15; i++) {
+                const orb = document.createElement('a-sphere');
+                const x = (Math.random() - 0.5) * 30;
+                const y = Math.random() * 5 + 2;
+                const z = (Math.random() - 0.5) * 30;
+                
+                orb.setAttribute('position', `${x} ${y} ${z}`);
+                orb.setAttribute('radius', Math.random() * 0.3 + 0.1);
+                orb.setAttribute('material', {
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    emissive: colors[Math.floor(Math.random() * colors.length)],
+                    emissiveIntensity: 0.5,
+                    metalness: 0.7,
+                    roughness: 0.3
+                });
+                
+                // Floating animation
+                orb.setAttribute('animation', {
+                    property: 'position',
+                    dir: 'alternate',
+                    dur: 3000 + Math.random() * 2000,
+                    loop: true,
+                    to: `${x} ${y + 1} ${z}`
+                });
+                
+                // Pulsing light
+                orb.setAttribute('animation__pulse', {
+                    property: 'material.emissiveIntensity',
+                    dir: 'alternate',
+                    dur: 2000,
+                    loop: true,
+                    from: 0.3,
+                    to: 0.8
+                });
+                
+                orbs.appendChild(orb);
+            }
+        }
+
+        // Create mystical trees with glowing runes
+        function createMysticalTrees() {
+            const trees = document.querySelector('#mystical-trees');
+            
+            for (let i = 0; i < 8; i++) {
+                const tree = document.createElement('a-entity');
+                const x = (Math.random() - 0.5) * 25;
+                const z = (Math.random() - 0.5) * 25;
+                
+                tree.setAttribute('position', `${x} 0 ${z}`);
+                
+                // Tree trunk
+                const trunk = document.createElement('a-cylinder');
+                trunk.setAttribute('position', '0 2 0');
+                trunk.setAttribute('radius', 0.5);
+                trunk.setAttribute('height', 4);
+                trunk.setAttribute('material', 'color: #4a148c; roughness: 0.9');
+                tree.appendChild(trunk);
+                
+                // Glowing runes on trunk
+                const rune = document.createElement('a-text');
+                rune.setAttribute('value', '☆ ◇ ☆');
+                rune.setAttribute('position', '0.6 2 0');
+                rune.setAttribute('rotation', '0 -90 0');
+                rune.setAttribute('color', '#e0aaff');
+                rune.setAttribute('material', 'emissive: #e0aaff; emissiveIntensity: 0.5');
+                rune.setAttribute('animation', {
+                    property: 'material.emissiveIntensity',
+                    dir: 'alternate',
+                    dur: 3000,
+                    loop: true,
+                    from: 0.2,
+                    to: 0.8
+                });
+                tree.appendChild(rune);
+                
+                // Mystical canopy
+                const canopy = document.createElement('a-sphere');
+                canopy.setAttribute('position', '0 5 0');
+                canopy.setAttribute('radius', 3);
+                canopy.setAttribute('material', {
+                    color: '#7209b7',
+                    opacity: 0.8,
+                    emissive: '#560bad',
+                    emissiveIntensity: 0.2
+                });
+                tree.appendChild(canopy);
+                
+                trees.appendChild(tree);
+            }
+        }
+
+        // Create crystal formations
+        function createCrystals() {
+            const crystals = document.querySelector('#crystals');
+            const crystalColors = ['#4cc9f0', '#4361ee', '#3f37c9', '#480ca8'];
+            
+            for (let i = 0; i < 10; i++) {
+                const crystal = document.createElement('a-entity');
+                const x = (Math.random() - 0.5) * 20;
+                const z = (Math.random() - 0.5) * 20;
+                
+                crystal.setAttribute('position', `${x} 0 ${z}`);
+                
+                // Create crystal cluster
+                for (let j = 0; j < 3; j++) {
+                    const shard = document.createElement('a-octahedron');
+                    const height = Math.random() * 1.5 + 0.5;
+                    
+                    shard.setAttribute('position', `${(Math.random() - 0.5) * 0.5} ${height/2} ${(Math.random() - 0.5) * 0.5}`);
+                    shard.setAttribute('radius', 0.2);
+                    shard.setAttribute('detail', 0);
+                    shard.setAttribute('scale', `0.3 ${height} 0.3`);
+                    shard.setAttribute('rotation', `${Math.random() * 30} ${Math.random() * 360} ${Math.random() * 30}`);
+                    shard.setAttribute('material', {
+                        color: crystalColors[Math.floor(Math.random() * crystalColors.length)],
+                        metalness: 0.9,
+                        roughness: 0.1,
+                        emissive: crystalColors[Math.floor(Math.random() * crystalColors.length)],
+                        emissiveIntensity: 0.3
+                    });
+                    
+                    crystal.appendChild(shard);
+                }
+                
+                crystals.appendChild(crystal);
+            }
+        }
+
+        // Initialize the mystical forest
+        window.addEventListener('DOMContentLoaded', () => {
+            createOrbs();
+            createMysticalTrees();
+            createCrystals();
+        });
+
+        // VR button functionality
+        document.getElementById('enterVR').addEventListener('click', () => {
+            document.querySelector('a-scene').enterVR();
+        });
+    </script>
+</body>
+</html>

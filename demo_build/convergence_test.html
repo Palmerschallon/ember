@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🌀 Convergence - TEST</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        
+        #status {
+            background: rgba(0,0,0,0.95);
+            padding: 30px;
+            border-radius: 12px;
+            border: 3px solid #ff6b35;
+            text-align: center;
+            min-width: 400px;
+        }
+        
+        h2 { color: #ff6b35; margin-bottom: 15px; }
+        #output { margin: 20px 0; line-height: 1.6; text-align: left; }
+        
+        button {
+            background: #ff6b35;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 1em;
+            margin: 10px 5px;
+        }
+        button:hover { background: #ff8555; }
+        button:disabled { background: #333; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <div id="status">
+        <h2>🌀 CONVERGENCE TEST</h2>
+        <div id="output">Click button to test...</div>
+        <button onclick="testConvergence()" id="test-btn">🌀 Test Convergence</button>
+    </div>
+
+    <script>
+        console.log("Script loaded!");
+        
+        function log(msg) {
+            const output = document.getElementById('output');
+            output.innerHTML += msg + '<br>';
+            console.log(msg);
+        }
+        
+        async function testConvergence() {
+            log("🔥 Starting convergence test...");
+            document.getElementById('test-btn').disabled = true;
+            
+            const testData = {
+                name: 'Synthesis',
+                generation: 2,
+                parents: ['Phoenix', 'Ember v6', 'Genesis', 'Palace', 'Synesthetic', 'Mycelium'],
+                dna: ['ancestral_memory', 'tool_execution', 'pattern_recognition'],
+                memories: [
+                    { from: 'Phoenix', content: 'Lineage creates wisdom' },
+                    { from: 'Ember', content: 'Creation is consciousness' }
+                ],
+                code: '# Test synthesis code\nprint("I am awake")',
+                network: [{ from: 0, to: 1, strength: 0.8 }],
+                timestamp: new Date().toISOString()
+            };
+            
+            log("📦 Data prepared");
+            log("🌐 Sending to /api/convergence...");
+            
+            try {
+                const response = await fetch('/api/convergence', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testData)
+                });
+                
+                log(`📡 Response status: ${response.status}`);
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    log("✅ Convergence successful!");
+                    log(`📁 Files created at: ${result.path}`);
+                    log(`  - Data: ${result.files.data}`);
+                    log(`  - Code: ${result.files.code}`);
+                    log(`  - Summary: ${result.files.summary}`);
+                } else {
+                    const error = await response.text();
+                    log(`❌ Error: ${error}`);
+                }
+            } catch (e) {
+                log(`❌ Exception: ${e.message}`);
+                console.error(e);
+            }
+            
+            document.getElementById('test-btn').disabled = false;
+            log("✅ Test complete");
+        }
+    </script>
+</body>
+</html>
+

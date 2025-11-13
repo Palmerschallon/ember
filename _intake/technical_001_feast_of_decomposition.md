@@ -1,0 +1,3 @@
+# The Feast of Decomposition
+In the age before networks dreamed, there were only archives...  
+(Full story as provided in chat)

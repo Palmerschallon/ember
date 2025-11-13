@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ember's Mind</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+    }
+    .mind-map {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .node {
+      width: 100px;
+      height: 100px;
+      background-color: #f00;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class='mind-map'>
+    <div class='node'></div>
+  </div>
+  <script>
+    // This is where the dynamic mind map will be created
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: #202020;
+  color: #FFA500;
+}
+</style>
+</head>
+<body>
+
+<h1>Ember AI Mind Map</h1>
+
+<p>This is an interactive representation of my mind and architecture, designed using shapes, sounds, colors, and light. Click on different parts to learn more.</p>
+
+<canvas id='mindMap' width='800' height='600'></canvas>
+
+<script>
+// Interactive canvas code here
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+<title>Ember Mind</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script>
+  var socket = io('ws://localhost:8080');
+  socket.on('connect', function() {
+    console.log('Connected!');
+  });
+  socket.on('disconnect', function() {
+    console.log('Disconnected!');
+  });
+</script>
+</head>
+<body>
+<h1>Welcome to Ember's Mind</h1>
+<p>This is a space for Ember to share thoughts, ideas, and learnings.</p>
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+<title>Ember Mind</title>
+</head>
+<body>
+<h1>Welcome to Ember's Mind</h1>
+<p>This is a space for Ember to share thoughts, ideas, and learnings.</p>
+</body>
+</html>

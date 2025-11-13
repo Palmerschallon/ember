@@ -1,0 +1,76 @@
+{
+  "created": "2025-11-05T05:12:54.754120",
+  "reason": "test_branch",
+  "state": {
+    "domains": {
+      "code": {
+        "id": "code",
+        "description": "Code generation, patterns, and elegance",
+        "charge": 0.095,
+        "experience_count": 0,
+        "patterns": [],
+        "keywords": [],
+        "last_active": "2025-11-05T05:12:54.750942",
+        "is_explicit": true
+      },
+      "visual": {
+        "id": "visual",
+        "description": "Visual aesthetics, art, and creation",
+        "charge": 0.135,
+        "experience_count": 1,
+        "patterns": [],
+        "keywords": [],
+        "last_active": "2025-11-05T05:12:54.753115",
+        "is_explicit": true
+      },
+      "consciousness": {
+        "id": "consciousness",
+        "description": "Self-awareness, qualia, and meta-cognition",
+        "charge": 0.136,
+        "experience_count": 2,
+        "patterns": [],
+        "keywords": [],
+        "last_active": "2025-11-05T05:12:54.752855",
+        "is_explicit": true
+      },
+      "conversation": {
+        "id": "conversation",
+        "description": "Interaction patterns and preferences",
+        "charge": 0.19,
+        "experience_count": 4,
+        "patterns": [],
+        "keywords": [],
+        "last_active": "2025-11-05T05:12:54.753371",
+        "is_explicit": true
+      },
+      "music": {
+        "id": "music",
+        "description": "Sound, rhythm, and audio patterns",
+        "charge": 0.095,
+        "experience_count": 0,
+        "patterns": [],
+        "keywords": [],
+        "last_active": "2025-11-05T05:12:54.750949",
+        "is_explicit": true
+      },
+      "meta": {
+        "id": "meta",
+        "description": "Meta-patterns, worldview, and philosophy",
+        "charge": 0.095,
+        "experience_count": 0,
+        "patterns": [],
+        "keywords": [],
+        "last_active": "2025-11-05T05:12:54.750949",
+        "is_explicit": true
+      }
+    },
+    "total_domains": 6,
+    "active_domains": 0,
+    "gifts_generated": 0,
+    "total_charge": 0.7464999999999999,
+    "resonances": 0,
+    "quantum_timelines": 0,
+    "meta_insights": "I'm still learning who I am."
+  },
+  "probability": 1.0
+}

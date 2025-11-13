@@ -1,0 +1,63 @@
+# Runtime state and caches
+.Trash-1000/
+logs/
+state/
+__pycache__/
+*.pid
+*.tmp
+*.log
+**/.cache/
+**/.mypy_cache/
+**/.pytest_cache/
+
+# Models and heavy assets
+models/
+lobes/
+checkpoints/
+**/node_modules/
+**/dist/
+**/build/
+**/*.zip
+**/*.tar
+**/*.tar.gz
+**/*.glb
+**/*.gltf
+**/*.fbx
+**/*.mp4
+**/*.wav
+**/*.mov
+
+# Big historical archives (keep locally, exclude from GitHub)
+_archive_old/
+_archive_merged/
+**/archive/
+**/archives/
+**/backups/
+ember6/backups/
+bookshelves/
+
+# Databases and large data dumps
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+**/*conversations*.json
+**/*backup*.json
+**/*_dump.json
+_mesh/
+
+# Generated reflections and maps (optional)
+Ember/swirl/reflection_*.json
+maps/synthesis_*.md
+
+# Credentials (never commit)
+.env
+.env.*
+
+# External repos (have their own .git)
+swarm_consciousness/
+swarm_original/
+
+# Training data
+training_data/
+ember6/_archive/
+essential/brains/

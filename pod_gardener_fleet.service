@@ -1,0 +1,78 @@
+[Unit]
+Description=Pod Gardener Fleet - All Gardeners Running Together
+After=network.target
+
+[Service]
+Type=oneshot
+User=palmerschallon
+WorkingDirectory=/media/palmerschallon/ThePod1
+
+# Run all gardeners in sequence (errors won't stop the fleet)
+ExecStart=/bin/bash -c '\
+echo "================================================="; \
+echo "🌱 Pod Gardener Fleet Starting..."; \
+echo "================================================="; \
+date; \
+echo ""; \
+\
+echo "Running Visualizer..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_visualizer.py || true; \
+echo ""; \
+\
+echo "Running Mapper..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_mapper.py || true; \
+echo ""; \
+\
+echo "Running Healer..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_healer.py || true; \
+echo ""; \
+\
+echo "Running Fixer (REPAIRING broken files with Ember)..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_fixer.py || true; \
+echo ""; \
+\
+echo "Running Modernizer (rebuilding old projects with 2025 design)..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_modernizer.py || true; \
+echo ""; \
+\
+echo "Running Master Indexer (building catalog of ALL files)..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_indexer.py || true; \
+echo ""; \
+\
+echo "Running Researcher..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_researcher.py || true; \
+echo ""; \
+\
+echo "Running Deep Curator (scanning ALL 26K+ files recursively)..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_deep_curator.py || true; \
+echo ""; \
+\
+echo "Running Generator (creating NEW content with Ember)..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_generator.py || true; \
+echo ""; \
+\
+echo "Running Curator (rebuilding Pod Portal)..."; \
+/usr/bin/python3 /media/palmerschallon/ThePod1/pod_gardener_curator.py || true; \
+echo ""; \
+\
+echo "================================================="; \
+echo "✓ Pod Gardener Fleet Complete!"; \
+echo "  Master Index: Building catalog of ALL 30K+ files"; \
+echo "  Fixer: REPAIRING 100+ files/run | Modernizer: 2025 UI"; \
+echo "  Deep scan: 26K+ files | Generator: NEW content"; \
+echo "  Portal dynamically loads from master index!"; \
+echo "================================================="; \
+date; \
+'
+
+# Logs
+StandardOutput=append:/media/palmerschallon/ThePod1/logs/pod_gardener_fleet.log
+StandardError=append:/media/palmerschallon/ThePod1/logs/pod_gardener_fleet.error.log
+
+# Environment
+Environment="ANTHROPIC_API_KEY=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"
+Environment="EMBER_PORT=8083"
+Environment="EMBER_WORKING_DIR=/media/palmerschallon/ThePod1"
+
+[Install]
+WantedBy=multi-user.target

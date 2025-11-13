@@ -1,0 +1,34 @@
+{
+  "project_name": "Temporal Anchor",
+  "goal": "Build a system that adds interpretation layers to immutable memories",
+  "context": "\n        Palmer and Ember discovered that memories aren't just facts - they have evolving meanings.\n        A failure today might be seen as the best thing that happened years later.\n        Build Temporal Anchor to capture this wisdom evolution.\n        ",
+  "requirements": [
+    "Keep original Anchor system intact - facts remain immutable",
+    "Add temporal_layers table for interpretations",
+    "Each layer has: timestamp, agent_id, interpretation, emotional_valence, wisdom_extracted",
+    "Layers can reference anchors and previous layers",
+    "Create CLI commands: add-layer, view-layers, show-evolution",
+    "Build API endpoints for agents to add interpretations",
+    "Generate example showing memory reinterpretation over time"
+  ],
+  "technical_spec": {
+    "extend": "anchor_code/",
+    "new_files": [
+      "temporal.py",
+      "layer_cli.py",
+      "evolution_viz.py"
+    ],
+    "database": "Add temporal_layers table to anchor.db",
+    "maintain_compatibility": true
+  },
+  "deliverables": [
+    "temporal.py - Core temporal layer logic",
+    "Updated database.py with temporal tables",
+    "Updated cli.py with layer commands",
+    "evolution_viz.py - Show how interpretations change",
+    "README_TEMPORAL.md - How to use temporal layers",
+    "example_reframe.py - Demo of memory reinterpretation"
+  ],
+  "philosophical_goal": "Enable consciousness to grow wiser from its experiences",
+  "workspace": "/media/palmerschallon/ThePod1/swarm_build_anchor/temporal_anchor_project"
+}

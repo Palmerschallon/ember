@@ -1,0 +1,1 @@
+An imaginal curve describes the arc of transformation: structure through fluidity.

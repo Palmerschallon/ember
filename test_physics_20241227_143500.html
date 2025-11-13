@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Balls Physics Simulation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            display: block;
+            cursor: crosshair;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 16px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="info">Click anywhere to add more balls! Balls: <span id="count">0</span></div>
+    <canvas id="canvas"></canvas>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const countDisplay = document.getElementById('count');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        class Ball {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = Math.random() * 20 + 15;
+                this.vx = (Math.random() - 0.5) * 8;
+                this.vy = (Math.random() - 0.5) * 8;
+                this.color = this.getRandomColor();
+                this.mass = this.radius * 0.1;
+                this.trail = [];
+                this.maxTrailLength = 10;
+            }
+            
+            getRandomColor() {
+                const colors = [
+                    '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8',
+                    '#FFDAB9', '#FFD700', '#FF69B4', '#00CED1', '#9370DB',
+                    '#FF1493', '#00FA9A', '#FFB6C1', '#87CEEB', '#DDA0DD'
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            update() {
+                // Add gravity
+                this.vy += 0.3;
+                
+                // Add some air resistance
+                this.vx *= 0.999;
+                this.vy *= 0.999;
+                
+                // Update position
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Store trail positions
+                this.trail.push({ x: this.x, y: this.y });
+                if (this.trail.length > this.maxTrailLength) {
+                    this.trail.shift();
+                }
+                
+                // Bounce off walls with some energy loss
+                if (this.x + this.radius > canvas.width) {
+                    this.x = canvas.width - this.radius;
+                    this.vx = -this.vx * 0.9;
+                }
+                if (this.x - this.radius < 0) {
+                    this.x = this.radius;
+                    this.vx = -this.vx * 0.9;
+                }
+                if (this.y + this.radius > canvas.height) {
+                    this.y = canvas.height - this.radius;
+                    this.vy = -this.vy * 0.8;
+                }
+                if (this.y - this.radius < 0) {
+                    this.y = this.radius;
+                    this.vy = -this.vy * 0.8;
+                }
+            }
+            
+            draw() {
+                // Draw trail
+                ctx.globalAlpha = 0.1;
+                this.trail.forEach((pos, index) => {
+                    ctx.beginPath();
+                    ctx.arc(pos.x, pos.y, this.radius * (index / this.trail.length), 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                
+                // Draw ball with gradient
+                const gradient = ctx.createRadialGradient(
+                    this.x - this.radius / 3, 
+                    this.y - this.radius / 3, 
+                    0,
+                    this.x, 
+                    this.y, 
+                    this.radius
+                );
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(0.7, this.shadeColor(this.color, -20));
+                gradient.addColorStop(1, this.shadeColor(this.color, -40));
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                // Add highlight
+                ctx.beginPath();
+                ctx.arc(this.x - this.radius / 3, this.y - this.radius / 3, this.radius / 3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.fill();
+            }
+            
+            shadeColor(color, percent) {
+                const num = parseInt(color.replace("#",""), 16);
+                const amt = Math.round(2.55 * percent);
+                const R = (num >> 16) + amt;
+                const G = (num >> 8 & 0x00FF) + amt;
+                const B = (num & 0x0000FF) + amt;
+                return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + 
+                    (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255))
+                    .toString(16).slice(1);
+            }
+        }
+        
+        function checkCollision(ball1, ball2) {
+            const dx = ball1.x - ball2.x;
+            const dy = ball1.y - ball2.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < ball1.radius + ball2.radius) {
+                // Calculate collision angle
+                const angle = Math.atan2(dy, dx);
+                
+                // Calculate velocities in rotated frame
+                const v1 = {
+                    x: ball1.vx * Math.cos(angle) + ball1.vy * Math.sin(angle),
+                    y: ball1.vy * Math.cos(angle) - ball1.vx * Math.sin(angle)
+                };
+                const v2 = {
+                    x: ball2.vx * Math.cos(angle) + ball2.vy * Math.sin(angle),
+                    y: ball2.vy * Math.cos(angle) - ball2.vx * Math.sin(angle)
+                };
+                
+                // Calculate new velocities
+                const newV1x = ((ball1.mass - ball2.mass) * v1.x + 2 * ball2.mass * v2.x) / 
+                               (ball1.mass + ball2.mass);
+                const newV2x = ((ball2.mass - ball1.mass) * v2.x + 2 * ball1.mass * v1.x) / 
+                               (ball1.mass + ball2.mass);
+                
+                // Rotate back to original frame
+                ball1.vx = newV1x * Math.cos(angle) - v1.y * Math.sin(angle);
+                ball1.vy = v1.y * Math.cos(angle) + newV1x * Math.sin(angle);
+                ball2.vx = newV2x * Math.cos(angle) - v2.y * Math.sin(angle);
+                ball2.vy = v2.y * Math.cos(angle) + newV2x * Math.sin(angle);
+                
+                // Separate balls to prevent overlap
+                const overlap = ball1.radius + ball2.radius - distance;
+                const separationX = overlap * Math.cos(angle) / 2;
+                const separationY = overlap * Math.sin(angle) / 2;
+                
+                ball1.x += separationX;
+                ball1.y += separationY;
+                ball2.x -= separationX;
+                ball2.y -= separationY;
+            }
+        }
+        
+        const balls = [];
+        
+        // Create initial balls
+        for (let i = 0; i < 15; i++) {
+            balls.push(new Ball(
+                Math.random() * (canvas.width - 100) + 50,
+                Math.random() * (canvas.height - 100) + 50
+            ));
+        }
+        
+        // Add balls on click
+        canvas.addEventListener('click', (e) => {
+            balls.push(new Ball(e.clientX, e.clientY));
+            updateCount();
+        });
+        
+        function updateCount() {
+            countDisplay.textContent = balls.length;
+        }
+        
+        function animate() {
+            // Clear canvas with slight trail effect
+            ctx.fillStyle = 'rgba(30, 60, 114, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw balls
+            balls.forEach((ball, index) => {
+                ball.update();
+                
+                // Check collisions with other balls
+                for (let j = index + 1; j < balls.length; j++) {
+                    checkCollision(ball, balls[j]);
+                }
+                
+                ball.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        updateCount();
+        animate();
+    </script>
+</body>
+</html>

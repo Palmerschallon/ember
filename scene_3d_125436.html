@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Scene - Rotating Cubes and Spheres</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border: 1px solid #333;
+            background: linear-gradient(to bottom, #001, #003);
+        }
+        .info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">3D Scene - Rotating Cubes and Spheres</div>
+    <canvas id="canvas3d"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas3d');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = 800;
+        canvas.height = 600;
+        
+        // Camera settings
+        const camera = {
+            x: 0,
+            y: 0,
+            z: -500,
+            fov: 256
+        };
+        
+        // 3D point to 2D projection
+        function project3D(x, y, z) {
+            const scale = camera.fov / (camera.z - z);
+            const x2d = x * scale + canvas.width / 2;
+            const y2d = y * scale + canvas.height / 2;
+            return { x: x2d, y: y2d, scale: scale };
+        }
+        
+        // Cube class
+        class Cube {
+            constructor(x, y, z, size, color) {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+                this.size = size;
+                this.color = color;
+                this.rotationX = 0;
+                this.rotationY = 0;
+                this.rotationZ = 0;
+                this.vertices = [];
+                this.edges = [
+                    [0, 1], [1, 2], [2, 3], [3, 0], // front face
+                    [4, 5], [5, 6], [6, 7], [7, 4], // back face
+                    [0, 4], [1, 5], [2, 6], [3, 7]  // connecting edges
+                ];
+                this.generateVertices();
+            }
+            
+            generateVertices() {
+                const half = this.size / 2;
+                this.vertices = [
+                    [-half, -half, -half], [half, -half, -half],
+                    [half, half, -half], [-half, half, -half],
+                    [-half, -half, half], [half, -half, half],
+                    [half, half, half], [-half, half, half]
+                ];
+            }
+            
+            rotatePoint(x, y, z) {
+                // Rotate around X axis
+                let y1 = y * Math.cos(this.rotationX) - z * Math.sin(this.rotationX);
+                let z1 = y * Math.sin(this.rotationX) + z * Math.cos(this.rotationX);
+                
+                // Rotate around Y axis
+                let x2 = x * Math.cos(this.rotationY) + z1 * Math.sin(this.rotationY);
+                let z2 = -x * Math.sin(this.rotationY) + z1 * Math.cos(this.rotationY);
+                
+                // Rotate around Z axis
+                let x3 = x2 * Math.cos(this.rotationZ) - y1 * Math.sin(this.rotationZ);
+                let y3 = x2 * Math.sin(this.rotationZ) + y1 * Math.cos(this.rotationZ);
+                
+                return { x: x3, y: y3, z: z2 };
+            }
+            
+            update() {
+                this.rotationX += 0.01;
+                this.rotationY += 0.015;
+                this.rotationZ += 0.005;
+            }
+            
+            draw() {
+                const projectedVertices = [];
+                
+                // Project all vertices
+                for (let vertex of this.vertices) {
+                    const rotated = this.rotatePoint(vertex[0], vertex[1], vertex[2]);
+                    const projected = project3D(
+                        this.x + rotated.x,
+                        this.y + rotated.y,
+                        this.z + rotated.z
+                    );
+                    projectedVertices.push(projected);
+                }
+                
+                // Draw edges
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2;
+                
+                for (let edge of this.edges) {
+                    ctx.beginPath();
+                    ctx.moveTo(projectedVertices[edge[0]].x, projectedVertices[edge[0]].y);
+                    ctx.lineTo(projectedVertices[edge[1]].x, projectedVertices[edge[1]].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        // Sphere class
+        class Sphere {
+            constructor(x, y, z, radius, color) {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+                this.radius = radius;
+                this.color = color;
+                this.rotationY = 0;
+                this.points = [];
+                this.generatePoints();
+            }
+            
+            generatePoints() {
+                const latitudeSegments = 12;
+                const longitudeSegments = 16;
+                
+                for (let lat = 0; lat <= latitudeSegments; lat++) {
+                    const theta = (lat * Math.PI) / latitudeSegments;
+                    const sinTheta = Math.sin(theta);
+                    const cosTheta = Math.cos(theta);
+                    
+                    for (let lon = 0; lon <= longitudeSegments; lon++) {
+                        const phi = (lon * 2 * Math.PI) / longitudeSegments;
+                        const sinPhi = Math.sin(phi);
+                        const cosPhi = Math.cos(phi);
+                        
+                        const x = this.radius * sinTheta * cosPhi;
+                        const y = this.radius * cosTheta;
+                        const z = this.radius * sinTheta * sinPhi;
+                        
+                        this.points.push({ x, y, z, lat, lon });
+                    }
+                }
+            }
+            
+            rotatePoint(x, y, z) {
+                // Rotate around Y axis
+                let x2 = x * Math.cos(this.rotationY) + z * Math.sin(this.rotationY);
+                let z2 = -x * Math.sin(this.rotationY) + z * Math.cos(this.rotationY);
+                
+                return { x: x2, y: y, z: z2 };
+            }
+            
+            update() {
+                this.rotationY += 0.02;
+            }
+            
+            draw() {
+                const projectedPoints = [];
+                const longitudeSegments = 16;
+                
+                // Project all points
+                for (let point of this.points) {
+                    const rotated = this.rotatePoint(point.x, point.y, point.z);
+                    const projected = project3D(
+                        this.x + rotated.x,
+                        this.y + rotated.y,
+                        this.z + rotated.z
+                    );
+                    projectedPoints.push({
+                        ...projected,
+                        lat: point.lat,
+                        lon: point.lon
+                    });
+                }
+                
+                // Draw latitude lines
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 1;
+                ctx.globalAlpha = 0.6;
+                
+                for (let i = 0; i < projectedPoints.length; i++) {
+                    const point = projectedPoints[i];
+                    
+                    // Draw longitude line
+                    if (point.lon < longitudeSegments) {
+                        const nextLon = projectedPoints[i + 1];
+                        if (nextLon && point.lat === nextLon.lat) {
+                            ctx.beginPath();
+                            ctx.moveTo(point.x, point.y);
+                            ctx.lineTo(nextLon.x, nextLon.y);
+                            ctx.stroke();
+                        }
+                    }
+                    
+                    // Draw latitude line
+                    const nextLat = projectedPoints[i + longitudeSegments + 1];
+                    if (nextLat && point.lon === nextLat.lon) {
+                        ctx.beginPath();
+                        ctx.moveTo(point.x, point.y);
+                        ctx.lineTo(nextLat.x, nextLat.y);
+                        ctx.stroke();
+                    }
+                }
+                
+                ctx.globalAlpha = 1;
+            }
+        }
+        
+        // Create objects
+        const objects = [];
+        
+        // Create cubes
+        objects.push(new Cube(-150, -100, 0, 80, '#ff0066'));
+        objects.push(new Cube(150, 100, -50, 60, '#00ff66'));
+        objects.push(new Cube(0, 0, 100, 100, '#6600ff'));
+        
+        // Create spheres
+        objects.push(new Sphere(-100, 100, -100, 50, '#ffff00'));
+        objects.push(new Sphere(100, -100, 50, 40, '#00ffff'));
+        objects.push(new Sphere(0, 150, -150, 35, '#ff00ff'));
+        
+        // Animation loop
+        function animate() {
+            // Clear canvas
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Sort objects by z-depth (painter's algorithm)
+            objects.sort((a, b) => b.z - a.z);
+            
+            // Update and draw all objects
+            for (let obj of objects) {
+                obj.update();
+                obj.draw();
+            }
+            
+            // Add some stars
+            ctx.fillStyle = '#fff';
+            ctx.globalAlpha = Math.random() * 0.5 + 0.5;
+            for (let i = 0; i < 3; i++) {
+                ctx.fillRect(
+                    Math.random() * canvas.width,
+                    Math.random() * canvas.height,
+                    1, 1
+                );
+            }
+            ctx.globalAlpha = 1;
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>

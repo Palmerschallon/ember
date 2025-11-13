@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🎨 Synesthetic Compiler</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: monospace;
+            overflow: hidden;
+        }
+        #container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 60% 40%;
+            height: 100vh;
+            gap: 2px;
+            background: #000;
+        }
+        #editor-pane {
+            grid-column: 1;
+            grid-row: 1 / 3;
+            position: relative;
+        }
+        #visual-pane {
+            grid-column: 2;
+            grid-row: 1;
+            position: relative;
+            background: #0a0a0a;
+        }
+        #audio-pane {
+            grid-column: 2;
+            grid-row: 2;
+            background: #111;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+        h3 {
+            color: #ff6b35;
+            margin: 0 0 15px 0;
+        }
+        .sense {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255,107,53,0.1);
+            border-left: 3px solid #ff6b35;
+        }
+        .sense-label {
+            color: #4fc3f7;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .sense-value {
+            color: #888;
+            font-size: 0.9em;
+        }
+        button {
+            background: #ff6b35;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #ff8555; }
+        #toolbar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 100;
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="editor-pane">
+            <div id="toolbar">
+                <button onclick="compileCode()">▶ Compile (Multi-Sensory)</button>
+                <button onclick="clearVisual()">Clear</button>
+            </div>
+            <div id="editor" style="width: 100%; height: 100%;"></div>
+        </div>
+        
+        <div id="visual-pane">
+            <canvas id="visual-canvas"></canvas>
+        </div>
+        
+        <div id="audio-pane">
+            <h3>🎵 Synesthetic Output</h3>
+            
+            <div class="sense">
+                <div class="sense-label">👁️ VISUAL</div>
+                <div class="sense-value" id="visual-sense">Code shapes will appear above...</div>
+            </div>
+            
+            <div class="sense">
+                <div class="sense-label">🎵 AUDITORY</div>
+                <div class="sense-value" id="audio-sense">Each line plays a note...</div>
+            </div>
+            
+            <div class="sense">
+                <div class="sense-label">✋ HAPTIC</div>
+                <div class="sense-value" id="haptic-sense">Browser vibration on execution (if supported)</div>
+            </div>
+            
+            <div class="sense">
+                <div class="sense-label">🌊 DIMENSIONAL</div>
+                <div class="sense-value" id="dimensional-sense">Code complexity = depth in space</div>
+            </div>
+            
+            <div class="sense">
+                <div class="sense-label">🎨 CHROMATIC</div>
+                <div class="sense-value" id="chromatic-sense">
+                    Functions = Orange<br>
+                    Loops = Blue<br>
+                    Conditions = Green<br>
+                    Data = Purple
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let editor;
+        let audioCtx;
+        let canvas, ctx;
+        
+        // Initialize audio context
+        document.addEventListener('click', () => {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }, { once: true });
+        
+        // Initialize canvas
+        canvas = document.getElementById('visual-canvas');
+        ctx = canvas.getContext('2d');
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        
+        // Initialize Monaco Editor
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+            editor = monaco.editor.create(document.getElementById('editor'), {
+                value: `# Synesthetic Programming
+# Every line of code has:
+#   - A visual shape
+#   - A musical note
+#   - A spatial position
+#   - A color signature
+
+def fibonacci(n):
+    """Generate fibonacci sequence"""
+    a, b = 0, 1
+    for i in range(n):
+        yield a
+        a, b = b, a + b
+
+# Try changing the code
+# Watch it bloom in multiple dimensions
+result = list(fibonacci(10))
+print(result)
+`,
+                language: 'python',
+                theme: 'vs-dark',
+                fontSize: 14,
+                minimap: { enabled: false }
+            });
+        });
+        
+        async function compileCode() {
+            const code = editor.getValue();
+            const lines = code.split('\n');
+            
+            clearVisual();
+            
+            document.getElementById('visual-sense').textContent = 'Rendering code geometry...';
+            document.getElementById('audio-sense').textContent = 'Playing code symphony...';
+            
+            // Haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 100, 50]);
+                document.getElementById('haptic-sense').textContent = '✓ Haptic pulse sent';
+            }
+            
+            // Process each line
+            for (let i = 0; i < lines.length; i++) {
+                await processLine(lines[i], i, lines.length);
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            
+            document.getElementById('visual-sense').textContent = `✓ Rendered ${lines.length} code shapes`;
+            document.getElementById('audio-sense').textContent = `✓ Played ${lines.length} notes`;
+            document.getElementById('dimensional-sense').textContent = `✓ Depth map: ${Math.max(...lines.map(l => getComplexity(l)))} layers`;
+        }
+        
+        async function processLine(line, index, total) {
+            if (!line.trim() || line.trim().startsWith('#')) return;
+            
+            const complexity = getComplexity(line);
+            const color = getCodeColor(line);
+            const frequency = 200 + (index / total) * 400;
+            
+            // Visual: Draw shape
+            drawCodeShape(line, index, total, color, complexity);
+            
+            // Audio: Play note
+            playNote(frequency, 0.1);
+        }
+        
+        function getComplexity(line) {
+            let score = line.length;
+            if (line.includes('def ') || line.includes('class ')) score += 10;
+            if (line.includes('for ') || line.includes('while ')) score += 8;
+            if (line.includes('if ') || line.includes('else')) score += 5;
+            return Math.min(score, 50);
+        }
+        
+        function getCodeColor(line) {
+            if (line.includes('def ') || line.includes('function')) return '#ff6b35'; // Orange - functions
+            if (line.includes('for ') || line.includes('while')) return '#4fc3f7'; // Blue - loops
+            if (line.includes('if ') || line.includes('else')) return '#4caf50'; // Green - conditions
+            if (line.includes('=') && !line.includes('==')) return '#9c27b0'; // Purple - data
+            return '#888888'; // Gray - other
+        }
+        
+        function drawCodeShape(line, index, total, color, complexity) {
+            const y = (index / total) * canvas.height;
+            const x = canvas.width / 2;
+            const size = complexity * 2;
+            
+            ctx.fillStyle = color;
+            ctx.globalAlpha = 0.6;
+            
+            // Different shapes for different code types
+            if (line.includes('def ') || line.includes('class ')) {
+                // Functions = hexagons
+                drawHexagon(x, y, size);
+            } else if (line.includes('for ') || line.includes('while ')) {
+                // Loops = circles
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+            } else if (line.includes('if ')) {
+                // Conditions = triangles
+                drawTriangle(x, y, size);
+            } else {
+                // Data = rectangles
+                ctx.fillRect(x - size, y - size/2, size*2, size);
+            }
+            
+            // Add glow
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = color;
+            ctx.globalAlpha = 1;
+        }
+        
+        function drawHexagon(x, y, size) {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 3) * i;
+                const px = x + size * Math.cos(angle);
+                const py = y + size * Math.sin(angle);
+                if (i === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.closePath();
+            ctx.fill();
+        }
+        
+        function drawTriangle(x, y, size) {
+            ctx.beginPath();
+            ctx.moveTo(x, y - size);
+            ctx.lineTo(x - size, y + size);
+            ctx.lineTo(x + size, y + size);
+            ctx.closePath();
+            ctx.fill();
+        }
+        
+        function playNote(frequency, duration) {
+            if (!audioCtx) return;
+            
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + duration);
+        }
+        
+        function clearVisual() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        });
+    </script>
+</body>
+</html>
+
