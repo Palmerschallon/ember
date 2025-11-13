@@ -34,7 +34,7 @@ THEPOD = Path("/media/palmerschallon/ThePod1")
 os.chdir(THEPOD)
 
 # Cloud AI key (optional - for learning only)
-os.environ.setdefault('ANTHROPIC_API_KEY', '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')
+os.environ.setdefault('ANTHROPIC_API_KEY', '${ANTHROPIC_API_KEY}')
 
 # ANSI Colors
 CYAN = '\033[96m'

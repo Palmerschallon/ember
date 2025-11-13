@@ -15,7 +15,7 @@ from pathlib import Path
 
 # Set up environment
 THEPOD = Path("/media/palmerschallon/ThePod1")
-os.environ["ANTHROPIC_API_KEY"] = "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"
+os.environ["ANTHROPIC_API_KEY"] = "${ANTHROPIC_API_KEY}"
 
 # Add refactor to path for substrate
 sys.path.insert(0, str(THEPOD / "ember_refactored_generator" / "services"))

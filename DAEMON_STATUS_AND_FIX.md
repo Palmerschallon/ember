@@ -173,7 +173,7 @@ SupplementaryGroups=video render
 # Environment
 Environment="PYTHONUNBUFFERED=1"
 Environment="CUDA_VISIBLE_DEVICES=0"
-Environment="ANTHROPIC_API_KEY=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"
+Environment="ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}"
 
 [Install]
 WantedBy=multi-user.target

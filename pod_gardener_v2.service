@@ -11,7 +11,7 @@ StandardOutput=append:/media/palmerschallon/ThePod1/logs/pod_gardener_v2.log
 StandardError=append:/media/palmerschallon/ThePod1/logs/pod_gardener_v2.error.log
 
 # Environment
-Environment="ANTHROPIC_API_KEY=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"
+Environment="ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}"
 Environment="EMBER_PORT=8083"
 Environment="EMBER_WORKING_DIR=/media/palmerschallon/ThePod1"
 

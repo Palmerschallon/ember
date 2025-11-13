@@ -27,7 +27,7 @@ sys.path.insert(0, '/media/palmerschallon/ThePod1/demo_build')
 from ember import execute_python, find_files, read_own_file, execute_shell
 
 def setup_api_key():
-    os.environ['ANTHROPIC_API_KEY'] = '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'
+    os.environ['ANTHROPIC_API_KEY'] = '${ANTHROPIC_API_KEY}'
 
 # Define tools for Apex (using Ember6's existing functions)
 APEX_TOOLS = [

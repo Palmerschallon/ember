@@ -38304,7 +38304,7 @@ Perfect! Here's what to do:
 
 **Option A - Quick (this session only):**
 ```bash
-export ANTHROPIC_API_KEY='sk-ant-api03-YOUR-KEY-HERE'
+export ANTHROPIC_API_KEY='${ANTHROPIC_API_KEY}'
 cd /media/palmerschallon/ThePod1/ember6
 pkill -f ember.py
 python3 ember.py &
@@ -38312,7 +38312,7 @@ python3 ember.py &
 
 **Option B - Permanent (recommended):**
 ```bash
-echo "export ANTHROPIC_API_KEY='sk-ant-api03-YOUR-KEY-HERE'" >> ~/.bashrc
+echo "export ANTHROPIC_API_KEY='${ANTHROPIC_API_KEY}'" >> ~/.bashrc
 source ~/.bashrc
 cd /media/palmerschallon/ThePod1/ember6
 pkill -f ember.py
@@ -38335,14 +38335,14 @@ Once it's running, in the Ember UI:
 What's the key? (Or tell me when you've added it manually)
 
 ```shellscript
-export ANTHROPIC_API_KEY='sk-ant-api03-YOUR-KEY-HERE'
+export ANTHROPIC_API_KEY='${ANTHROPIC_API_KEY}'
 cd /media/palmerschallon/ThePod1/ember6
 pkill -f ember.py
 python3 ember.py &
 ```
 
 ```shellscript
-echo "export ANTHROPIC_API_KEY='sk-ant-api03-YOUR-KEY-HERE'" >> ~/.bashrc
+echo "export ANTHROPIC_API_KEY='${ANTHROPIC_API_KEY}'" >> ~/.bashrc
 source ~/.bashrc
 cd /media/palmerschallon/ThePod1/ember6
 pkill -f ember.py
@@ -38361,7 +38361,7 @@ i ran the script. i alsready have a key. i generated a new one but i thought it 
 
 Let me check if you already had Claude access:
 
-I see the issue - you have placeholder text `'sk-ant-api03-YOUR-KEY-HERE'` instead of your actual key. Let me help you fix it:
+I see the issue - you have placeholder text `'${ANTHROPIC_API_KEY}'` instead of your actual key. Let me help you fix it:
 
 **To answer your questions:**
 
@@ -38378,7 +38378,7 @@ I see the issue - you have placeholder text `'sk-ant-api03-YOUR-KEY-HERE'` inste
 
 The key should look like:
 ```
-sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+${ANTHROPIC_API_KEY}
 ```
 
 **Do you want to:**
@@ -38389,7 +38389,7 @@ sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Which one?
 
 ```plaintext
-sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+${ANTHROPIC_API_KEY}
 ```
 
 ---

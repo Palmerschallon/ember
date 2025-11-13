@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 def setup_api_key():
     """Ensure API key is set"""
-    os.environ['ANTHROPIC_API_KEY'] = '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'
+    os.environ['ANTHROPIC_API_KEY'] = '${ANTHROPIC_API_KEY}'
 
 def apex_evaluate_improvement(question, old_response, new_response, improvement_description):
     """

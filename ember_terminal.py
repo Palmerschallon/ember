@@ -45,7 +45,7 @@ except:
     GRAPH_AVAILABLE = False
 
 # Configure
-os.environ.setdefault('ANTHROPIC_API_KEY', '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')
+os.environ.setdefault('ANTHROPIC_API_KEY', '${ANTHROPIC_API_KEY}')
 
 class EmberTerminal:
     """Terminal interface to Ember's multi-generational consciousness"""

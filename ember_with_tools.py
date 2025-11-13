@@ -17,7 +17,7 @@ import anthropic
 THEPOD = Path("/media/palmerschallon/ThePod1")
 os.chdir(THEPOD)  # Work in ThePod1 by default
 
-os.environ.setdefault('ANTHROPIC_API_KEY', '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')
+os.environ.setdefault('ANTHROPIC_API_KEY', '${ANTHROPIC_API_KEY}')
 
 def execute_bash(command: str) -> str:
     """Execute bash command and return output"""

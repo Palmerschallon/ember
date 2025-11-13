@@ -15,7 +15,7 @@ pkill -f "python3 ember.py" 2>/dev/null
 sleep 2
 
 # Start Ember
-export ANTHROPIC_API_KEY="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"
+export ANTHROPIC_API_KEY="${ANTHROPIC_API_KEY}"
 python3 ember.py &
 EMBER_PID=$!
 sleep 5
