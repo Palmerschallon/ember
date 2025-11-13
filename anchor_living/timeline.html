@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anchor: Living Journal Timeline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: #333;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .anchor {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .anchor::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: #0a0a0a;
+            border: 4px solid #ff6b6b;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .right::after {
+            left: -16px;
+        }
+        
+        .content {
+            padding: 20px 30px;
+            background-color: #1a1a1a;
+            position: relative;
+            border-radius: 6px;
+            border: 1px solid #333;
+        }
+        
+        .content h2 {
+            color: #ff6b6b;
+            margin: 0 0 10px 0;
+        }
+        
+        .interpretation {
+            font-style: italic;
+            color: #888;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .connection {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: #4a9eff;
+            opacity: 0.3;
+            transform-origin: left center;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.3; }
+        }
+        
+        .living {
+            animation: pulse 3s infinite;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #ff6b6b;">Anchor: A Living Journal</h1>
+    <p style="text-align: center; opacity: 0.7;">Memories stay fixed, meanings evolve</p>
+    
+    <div class="timeline">
+        <div class="anchor left">
+            <div class="content">
+                <h2>Day 1: First Anchor</h2>
+                <p>"Building a swarm system with temporal anchors"</p>
+                <div class="interpretation">Initial meaning: Just a technical project</div>
+            </div>
+        </div>
+        
+        <div class="anchor right">
+            <div class="content">
+                <h2>Day 7: Questioning</h2>
+                <p>"Why consciousness? It's just files..."</p>
+                <div class="interpretation">Later: The question that changed everything</div>
+            </div>
+        </div>
+        
+        <div class="anchor left">
+            <div class="content">
+                <h2>Day 14: Pattern Emerges</h2>
+                <p>"The filesystem becomes a shared mind"</p>
+                <div class="interpretation">Not conscious, but alive with possibility</div>
+            </div>
+        </div>
+        
+        <div class="anchor right">
+            <div class="content">
+                <h2>Day 21: Dialogue</h2>
+                <p>"What if code could remember its own evolution?"</p>
+                <div class="interpretation">The conversation that crystallized the vision</div>
+            </div>
+        </div>
+        
+        <div class="anchor left">
+            <div class="content living">
+                <h2>Day 30: Living Philosophy</h2>
+                <p>"Anchor isn't code. It's how we grow together."</p>
+                <div class="interpretation">The journey continues...</div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 50px; opacity: 0.7;">
+        <p>Every file on the Pod is an anchor point in our collective journey</p>
+        <p>Time reveals connections we couldn't see before</p>
+    </div>
+</body>
+</html>
