@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Harvey's Farting Plane!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #0a1e3d 0%, #1a2f4d 40%, #0f1922 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #startScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #startScreen h1 {
+            color: white;
+            font-size: min(15vw, 80px);
+            margin-bottom: 30px;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.6);
+            line-height: 1.2;
+        }
+
+        #startScreen p {
+            color: white;
+            font-size: min(6vw, 32px);
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+
+        .bigButton {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: min(6vw, 40px) min(12vw, 80px);
+            font-size: min(8vw, 48px);
+            border-radius: 60px;
+            margin: 20px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.6);
+            font-family: 'Comic Sans MS', sans-serif;
+            cursor: pointer;
+        }
+
+        #gameContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        #plane {
+            position: absolute;
+            font-size: 60px;
+            left: 15%;
+            z-index: 10;
+            filter: drop-shadow(4px 4px 8px rgba(255, 150, 0, 0.6));
+        }
+
+        .fart {
+            position: absolute;
+            font-size: 50px;
+            animation: fartCloud 1.2s ease-out forwards;
+            z-index: 5;
+        }
+
+        @keyframes fartCloud {
+            0% { opacity: 1; transform: scale(0.5) translateX(0); }
+            100% { opacity: 0; transform: scale(2.5) translateX(-150px) rotate(-45deg); }
+        }
+
+        .obstacle {
+            position: absolute;
+            right: -100px;
+            font-size: 70px;
+            animation: moveObstacle linear;
+        }
+
+        .star {
+            position: absolute;
+            right: -50px;
+            font-size: 45px;
+            animation: moveStar linear;
+        }
+
+        @keyframes moveObstacle {
+            from { right: -100px; }
+            to { right: calc(100% + 100px); }
+        }
+
+        @keyframes moveStar {
+            from { right: -50px; }
+            to { right: calc(100% + 50px); }
+        }
+
+        #score {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: min(6vw, 28px);
+            font-weight: bold;
+            color: #00d9ff;
+            background: rgba(15, 25, 34, 0.95);
+            padding: min(4vw, 25px);
+            border-radius: 20px;
+            border: 3px solid #00d9ff;
+            z-index: 100;
+            line-height: 1.6;
+        }
+
+        #gameOver {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: min(8vw, 50px);
+            border-radius: 25px;
+            text-align: center;
+            z-index: 200;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+            border: 5px solid #00d9ff;
+            max-width: 90vw;
+        }
+
+        #gameOver h2 {
+            color: white;
+            font-size: min(10vw, 52px);
+            margin-bottom: 20px;
+        }
+
+        #gameOver p {
+            color: white;
+            font-size: min(6vw, 32px);
+            margin: 15px 0;
+        }
+
+        .explosion {
+            position: absolute;
+            font-size: 100px;
+            animation: explode 0.8s ease-out forwards;
+            z-index: 50;
+        }
+
+        @keyframes explode {
+            0% { opacity: 1; transform: scale(0.5); }
+            100% { opacity: 0; transform: scale(6) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="startScreen">
+        <h1>💨 HARVEY'S<br>FARTING PLANE! 💨</h1>
+        <p>TAP ANYWHERE TO FART!</p>
+        <p>Avoid bad guys 🚁</p>
+        <p>Collect stars ⭐</p>
+        <button class="bigButton" onclick="startGame()">TAP TO PLAY!</button>
+    </div>
+
+    <div id="gameContainer">
+        <div id="score">
+            ⭐ <span id="scoreValue">0</span><br>
+            ❤️ <span id="lives">3</span>
+        </div>
+        <div id="plane">✈️</div>
+        <div id="gameOver">
+            <h2>AWESOME!</h2>
+            <p>Score: <span id="finalScore">0</span> ⭐</p>
+            <p>Farts: <span id="totalFarts">0</span> 💨</p>
+            <button class="bigButton" onclick="restartGame()">PLAY AGAIN!</button>
+        </div>
+    </div>
+
+    <script>
+        const plane = document.getElementById('plane');
+        const gameContainer = document.getElementById('gameContainer');
+        const scoreElement = document.getElementById('scoreValue');
+        const livesElement = document.getElementById('lives');
+        const startScreen = document.getElementById('startScreen');
+        const gameOver = document.getElementById('gameOver');
+        const finalScore = document.getElementById('finalScore');
+        const totalFartsElement = document.getElementById('totalFarts');
+
+        let planeY = 0;
+        let velocity = 0;
+        const gravity = 0.6;
+        const fartBoost = -14;
+        let score = 0;
+        let lives = 3;
+        let gameRunning = false;
+        let gameLoop;
+        let obstacles = [];
+        let stars = [];
+        let totalFarts = 0;
+
+        const fartSounds = ['💨', '💩', '🌪️', '☁️'];
+        const crashMessages = [
+            "Harvey farted too hard!",
+            "Too much farting power!",
+            "Epic fart crash!",
+            "Whoa! That was a big one!",
+            "Fart overload!"
+        ];
+
+        function fart() {
+            if (!gameRunning) return;
+
+            velocity = fartBoost;
+            totalFarts++;
+
+            // Create fart cloud
+            const fart = document.createElement('div');
+            fart.className = 'fart';
+            fart.textContent = fartSounds[Math.floor(Math.random() * fartSounds.length)];
+            fart.style.left = plane.offsetLeft + 'px';
+            fart.style.top = planeY + 'px';
+            gameContainer.appendChild(fart);
+            setTimeout(() => fart.remove(), 1200);
+
+            // Play fart sound
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                osc.frequency.setValueAtTime(120, audioContext.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(60, audioContext.currentTime + 0.2);
+                osc.type = 'sawtooth';
+                gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                osc.start();
+                osc.stop(audioContext.currentTime + 0.2);
+            } catch(e) {}
+        }
+
+        // Touch controls
+        gameContainer.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            fart();
+        });
+
+        gameContainer.addEventListener('click', fart);
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                fart();
+            }
+        });
+
+        function createObstacle() {
+            const obstacle = document.createElement('div');
+            obstacle.className = 'obstacle';
+            obstacle.textContent = ['🚁', '🛸', '🎈', '🦅'][Math.floor(Math.random() * 4)];
+            obstacle.style.top = Math.random() * (window.innerHeight - 150) + 50 + 'px';
+            const duration = (Math.random() * 1 + 2.5) + 's';
+            obstacle.style.animationDuration = duration;
+            gameContainer.appendChild(obstacle);
+            obstacles.push({element: obstacle, scored: false});
+            setTimeout(() => {
+                obstacle.remove();
+                obstacles = obstacles.filter(o => o.element !== obstacle);
+            }, parseFloat(duration) * 1000);
+        }
+
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.textContent = ['⭐', '🍕', '🌟'][Math.floor(Math.random() * 3)];
+            star.style.top = Math.random() * (window.innerHeight - 100) + 50 + 'px';
+            const duration = (Math.random() * 0.6 + 2.5) + 's';
+            star.style.animationDuration = duration;
+            gameContainer.appendChild(star);
+            stars.push({element: star, collected: false});
+            setTimeout(() => {
+                star.remove();
+                stars = stars.filter(s => s.element !== star);
+            }, parseFloat(duration) * 1000);
+        }
+
+        function checkCollision(element) {
+            const planeRect = plane.getBoundingClientRect();
+            const elementRect = element.getBoundingClientRect();
+            const margin = 25;
+            return !(planeRect.right < elementRect.left + margin ||
+                     planeRect.left > elementRect.right - margin ||
+                     planeRect.bottom < elementRect.top + margin ||
+                     planeRect.top > elementRect.bottom - margin);
+        }
+
+        function update() {
+            if (!gameRunning) return;
+
+            velocity += gravity;
+            velocity = Math.max(-20, Math.min(20, velocity));
+            planeY += velocity;
+
+            const maxY = window.innerHeight - 80;
+            if (planeY < 20) {
+                planeY = 20;
+                velocity = Math.max(0, velocity * 0.3);
+            }
+            if (planeY > maxY) {
+                planeY = maxY;
+                velocity = 0;
+                loseLife();
+            }
+
+            plane.style.top = planeY + 'px';
+
+            // Star collection
+            stars.forEach(star => {
+                if (!star.collected && checkCollision(star.element)) {
+                    star.collected = true;
+                    score += 10;
+                    scoreElement.textContent = score;
+                    star.element.remove();
+                }
+            });
+
+            // Obstacle collision
+            obstacles.forEach(obstacle => {
+                if (!obstacle.scored && checkCollision(obstacle.element)) {
+                    obstacle.scored = true;
+                    loseLife();
+                    obstacle.element.remove();
+                } else if (!obstacle.scored) {
+                    const obstacleRect = obstacle.element.getBoundingClientRect();
+                    const planeRect = plane.getBoundingClientRect();
+                    if (obstacleRect.right < planeRect.left - 50) {
+                        obstacle.scored = true;
+                        score += 5;
+                        scoreElement.textContent = score;
+                    }
+                }
+            });
+        }
+
+        function loseLife() {
+            lives--;
+            livesElement.textContent = lives;
+
+            // Explosion
+            const explosion = document.createElement('div');
+            explosion.className = 'explosion';
+            explosion.textContent = '💥';
+            explosion.style.left = plane.offsetLeft + 'px';
+            explosion.style.top = planeY + 'px';
+            gameContainer.appendChild(explosion);
+            setTimeout(() => explosion.remove(), 800);
+
+            // Speak crash message
+            try {
+                const utterance = new SpeechSynthesisUtterance(crashMessages[Math.floor(Math.random() * crashMessages.length)]);
+                utterance.rate = 0.9;
+                utterance.volume = 1.0;
+                speechSynthesis.speak(utterance);
+            } catch(e) {}
+
+            if (lives <= 0) {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            gameRunning = false;
+            clearInterval(gameLoop);
+            finalScore.textContent = score;
+            totalFartsElement.textContent = totalFarts;
+            gameOver.style.display = 'block';
+
+            obstacles.forEach(o => o.element.remove());
+            stars.forEach(s => s.element.remove());
+            obstacles = [];
+            stars = [];
+        }
+
+        function startGame() {
+            startScreen.style.display = 'none';
+            gameContainer.style.display = 'block';
+            gameOver.style.display = 'none';
+            gameRunning = true;
+            score = 0;
+            lives = 3;
+            planeY = window.innerHeight / 2;
+            velocity = 0;
+            totalFarts = 0;
+            scoreElement.textContent = '0';
+            livesElement.textContent = '3';
+            plane.textContent = '✈️';
+
+            setInterval(() => { if (gameRunning) createObstacle(); }, 2000);
+            setInterval(() => { if (gameRunning) createStar(); }, 1500);
+
+            gameLoop = setInterval(update, 1000 / 60);
+        }
+
+        function restartGame() {
+            startGame();
+        }
+    </script>
+</body>
+</html>
