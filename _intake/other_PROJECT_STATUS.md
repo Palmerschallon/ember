@@ -1,1 +1,0 @@
-# EmberVerse — Status Snapshot

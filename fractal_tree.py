@@ -1,1 +1,0 @@
-from termcolor import colored\nimport sys\ndef fractal_tree(size, depth=0):\n    if depth == 0:\n        return\n    print(colored(

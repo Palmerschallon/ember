@@ -1,1 +1,0 @@
-Decomposition and transformation of raw material.

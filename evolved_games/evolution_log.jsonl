@@ -1,8 +1,0 @@
-{"event": "seed_created", "game": "pong_genesis", "generation": 0, "timestamp": "2025-11-12T15:51:59.425057"}
-{"event": "seed_created", "game": "breakout_genesis", "generation": 0, "timestamp": "2025-11-12T16:02:30.004261"}
-{"event": "seed_created", "game": "snake_genesis", "generation": 0, "timestamp": "2025-11-12T16:04:32.640853"}
-{"event": "evolution", "game": "evolved_gen1_pong_genes_pong_genes", "parents": ["pong_genesis", "pong_genesis"], "generation": 1, "timestamp": "2025-11-12T16:12:29.680845"}
-{"event": "evolution", "game": "evolved_gen2_breakout_g_pong_genes", "parents": ["breakout_genesis", "pong_genesis"], "generation": 1, "timestamp": "2025-11-12T16:21:13.948167"}
-{"event": "evolution", "game": "evolved_gen3_pong_genes_pong_genes", "parents": ["pong_genesis", "pong_genesis"], "generation": 1, "timestamp": "2025-11-13T03:48:37.133176"}
-{"event": "evolution", "game": "evolved_gen4_pong_genes_pong_genes", "parents": ["pong_genesis", "pong_genesis"], "generation": 1, "timestamp": "2025-11-13T04:13:32.052134"}
-{"event": "evolution", "game": "evolved_gen5_breakout_g_snake_gene", "parents": ["breakout_genesis", "snake_genesis"], "generation": 1, "timestamp": "2025-11-13T06:10:17.738060"}

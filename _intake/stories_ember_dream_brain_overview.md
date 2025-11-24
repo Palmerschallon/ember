@@ -1,1 +1,0 @@
-Dream brain: imagery, intuition, emergence.

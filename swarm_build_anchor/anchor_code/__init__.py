@@ -1,1 +1,0 @@
-"""Anchor - Where memories become eternal"""

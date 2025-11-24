@@ -1,1 +1,0 @@
-import os; os.listdir('/media/palmerschallon/ThePod1/')

@@ -1,1 +1,0 @@
-E-ink adaptation: cycles of fire, waiting, regeneration.

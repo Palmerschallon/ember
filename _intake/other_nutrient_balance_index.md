@@ -1,1 +1,0 @@
-Tracking entropy and reuse in the compost cycle.

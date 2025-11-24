@@ -1,3 +1,0 @@
-Testing write_file tool call from Ember.
-This should create a file with this content.
-Timestamp: ${new Date().toISOString()}

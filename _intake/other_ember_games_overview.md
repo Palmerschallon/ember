@@ -1,1 +1,0 @@
-A record of the games each brain learns to play.
