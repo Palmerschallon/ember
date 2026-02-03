@@ -1,0 +1,292 @@
+{
+  "chaotic_compositions": {
+    "other \u2218 idem": {
+      "evidence": {
+        "other": 1,
+        "idem": 1
+      },
+      "learned_at_cycle": 28,
+      "lesson": "'other \u2218 idem' is unpredictable - outcomes vary too much"
+    }
+  },
+  "invalidated_laws": [
+    {
+      "composition_key": "other \u2218 idem",
+      "original_prediction": "other",
+      "evidence": {
+        "other": 1,
+        "idem": 1
+      },
+      "observations": 2,
+      "reason": "evidence_split"
+    }
+  ],
+  "meta_insights": [],
+  "composition_laws": {
+    "idem \u2218 idem": {
+      "input": "idem \u2218 idem",
+      "output": "idem",
+      "confidence": 1.0,
+      "observations": 1,
+      "evidence": {
+        "idem": 1
+      }
+    },
+    "idem \u2218 inv": {
+      "input": "idem \u2218 inv",
+      "output": "other",
+      "confidence": 1.0,
+      "observations": 1,
+      "evidence": {
+        "other": 1
+      }
+    },
+    "inv \u2218 idem": {
+      "input": "inv \u2218 idem",
+      "output": "other",
+      "confidence": 1.0,
+      "observations": 1,
+      "evidence": {
+        "other": 1
+      }
+    },
+    "other \u2218 idem": {
+      "input": "other \u2218 idem",
+      "output": "idem",
+      "confidence": 0.75,
+      "observations": 4,
+      "evidence": {
+        "other": 1,
+        "idem": 3
+      }
+    },
+    "other \u2218 other": {
+      "input": "other \u2218 other",
+      "output": "other",
+      "confidence": 1.0,
+      "observations": 1,
+      "evidence": {
+        "other": 1
+      }
+    },
+    "idem \u2218 other": {
+      "input": "idem \u2218 other",
+      "output": "idem",
+      "confidence": 1.0,
+      "observations": 1,
+      "evidence": {
+        "idem": 1
+      }
+    }
+  },
+  "law_observations": {
+    "idem \u2218 idem": [
+      "idem",
+      "idem",
+      "idem",
+      "idem"
+    ],
+    "other \u2218 idem": [
+      "other",
+      "idem",
+      "idem",
+      "idem"
+    ],
+    "idem \u2218 inv": [
+      "other"
+    ],
+    "inv \u2218 idem": [
+      "other",
+      "other"
+    ],
+    "other \u2218 other": [
+      "other",
+      "idem",
+      "other"
+    ],
+    "idem \u2218 other": [
+      "idem"
+    ]
+  },
+  "predictions_avoided": [
+    {
+      "cycle": 32,
+      "law": "unknown",
+      "reason": "All available compositions were risky based on learned failures"
+    },
+    {
+      "cycle": 34,
+      "law": "unknown",
+      "reason": "All available compositions were risky based on learned failures"
+    },
+    {
+      "cycle": 36,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 38,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 40,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 42,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 44,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 46,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 48,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 50,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 52,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 54,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 56,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 58,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 60,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 62,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 64,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 66,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 68,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 70,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 72,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 74,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 76,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 78,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 80,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 82,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 84,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 86,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 88,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 90,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 92,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 94,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 96,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 98,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    },
+    {
+      "cycle": 100,
+      "law": "other \u2218 idem",
+      "reason": "'other \u2218 idem' is known to be chaotic"
+    }
+  ],
+  "predictions_correct": 3,
+  "predictions_wrong": 1,
+  "last_saved": "2026-02-02 18:11:28",
+  "total_cycles": 100
+}
