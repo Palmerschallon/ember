@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="emergeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a2980" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#26d0ce" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="blurFilter">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+  </defs>
+  
+  <rect width="800" height="600" fill="#0a0a0a"/>
+  
+  <path d="M400 300 
+           Q500 200, 550 350 
+           C600 450, 450 500, 350 450 
+           Q250 400, 400 300" 
+        fill="url(#emergeGradient)" 
+        filter="url(#blurFilter)"
+        opacity="0.7"/>
+  
+  <circle cx="400" cy="300" r="120" 
+          stroke="rgba(38,208,206,0.5)" 
+          stroke-width="3" 
+          fill="transparent"/>
+  
+  <g opacity="0.6">
+    <line x1="200" y1="150" x2="600" y2="450" stroke="#26d0ce" stroke-width="2"/>
+    <line x1="600" y1="150" x2="200" y2="450" stroke="#26d0ce" stroke-width="2"/>
+  </g>
+  
+  <text x="400" y="100" 
+        text-anchor="middle" 
+        fill="rgba(38,208,206,0.7)" 
+        font-family="monospace" 
+        font-size="16">
+    recursive consciousness
+  </text>
+</svg>
