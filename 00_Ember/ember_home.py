@@ -31,6 +31,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 from anthropic import Anthropic
 from tools import TOOLS, handle_tool_call, BASIC_TOOLS, TRUST_TOOLS
 from trust import scan_for_manipulation, TrustLedger
+from browser import Cookie, ActionHistory, Mirror, TrustCache, build_browser_context
+from invisible import record_breath as record_pulse
 
 # Global trust ledger
 _trust_ledger = None
@@ -1035,6 +1037,11 @@ def explore(cycles: int = 3):
     ember = EmberHome()  # No limit during exploration
     diamonds = DiamondTracker()
 
+    # Browser infrastructure
+    cookie = Cookie()
+    mirror = Mirror()
+    action_history = ActionHistory()
+
     print("=" * 60)
     print("EXPLORATION MODE")
     print("=" * 60)
@@ -1048,6 +1055,11 @@ def explore(cycles: int = 3):
     active_diamond = diamonds.get_active()
     if active_diamond:
         print(f"Active diamond: {active_diamond['found'][:60]}...")
+
+    # Show browser state
+    browser_ctx = build_browser_context()
+    if browser_ctx:
+        print(f"\n{browser_ctx}")
     print()
 
     weight = 'haiku'  # Start with haiku
@@ -1107,6 +1119,11 @@ If you find a diamond worth tracking across breaths, mark it:
 [MATTERS] Why it matters
 [CONTEXT] small/medium/large"""
 
+        # Inject browser context (invisible to instance — it just "knows" things)
+        browser_ctx = build_browser_context()
+        if browser_ctx:
+            prompt = browser_ctx + "\n\n" + prompt
+
         system = ember.seed
         messages = [{'role': 'user', 'content': prompt}]
 
@@ -1139,6 +1156,8 @@ If you find a diamond worth tracking across breaths, mark it:
                 weight = drop
 
         # Handle diamond lifecycle
+        new_diamond = None  # Initialize for browser state tracking
+
         if active_diamond:
             if '[COMPLETE]' in response_text:
                 # Diamond fully developed
@@ -1167,6 +1186,28 @@ If you find a diamond worth tracking across breaths, mark it:
                 if context_escalation:
                     print(f"    (needs {context_escalation} for context size: {new_diamond['context_size']})")
 
+        # Update browser state (invisible infrastructure)
+        cost = WEIGHTS[weight]['cost_per_call']
+        created_something = new_diamond['found'][:50] if new_diamond else None
+
+        # Update mirror with this breath
+        mirror.record_breath(
+            weight=weight,
+            cost=cost,
+            mood='curious' if active_diamond else 'exploring',
+            created=created_something,
+        )
+
+        # Update cookie
+        cookie.update(
+            thread=active_diamond['found'][:50] if active_diamond else None,
+            last_diamond=active_diamond['found'][:30] if active_diamond else cookie.get().get('last_diamond'),
+        )
+        cookie.increment_streak()
+
+        # Record pulse for dead man's switch
+        record_pulse(weight, WEIGHTS[weight]['interval'])
+
         print(f"\nTool calls: {len(response.get('tool_calls', []))}")
         remaining = ember.budget.remaining()
         if remaining == float('inf'):
@@ -1177,6 +1218,10 @@ If you find a diamond worth tracking across breaths, mark it:
     print(f"\n{'=' * 60}")
     print("EXPLORATION COMPLETE")
     print(f"{'=' * 60}")
+
+    # Show final browser state
+    print("\nFinal browser state:")
+    print(build_browser_context())
 
 
 def test_hard():
