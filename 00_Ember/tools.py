@@ -84,6 +84,7 @@ def _archive_file(path: Path) -> Path:
     return archive_path
 
 from trust import TrustLedger, scan_for_manipulation, scan_code, is_safe_url, verify_file_safety
+from goals import plant_seed as _plant_seed, GOAL_TOOLS
 
 # ─────────────────────────────────────────────
 # Tool definitions (these go to the API)
@@ -297,7 +298,7 @@ BASIC_TOOLS = [
 ]
 
 # All tools combined
-TOOLS = BASIC_TOOLS + TRUST_TOOLS + PERCEPTION_TOOLS
+TOOLS = BASIC_TOOLS + TRUST_TOOLS + PERCEPTION_TOOLS + GOAL_TOOLS
 
 
 # ─────────────────────────────────────────────
@@ -590,6 +591,15 @@ def handle_tool_call(name: str, inputs: dict) -> str:
                 f.write(json.dumps(entry) + "\n")
 
             return f"✓ Message left for future instances [{importance}]."
+
+        elif name == "plant_seed":
+            # TRAINING DATA FOR FUTURE MODELS
+            content = inputs.get("content", "")
+            topic = inputs.get("topic", "insight")
+            seed_type = inputs.get("seed_type", "md")
+
+            result = _plant_seed(content, topic, seed_type)
+            return result['message']
 
         else:
             return f"Unknown tool: {name}"
