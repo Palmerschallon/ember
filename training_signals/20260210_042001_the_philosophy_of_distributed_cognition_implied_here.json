@@ -1,0 +1,57 @@
+{
+  "query": "the philosophy of distributed cognition implied here",
+  "timestamp": "20260210_042001",
+  "why": "md\" document \n- Understand the architectural principles behind the proposed multi-agent system\n-",
+  "thread": "web scouting: find training-quality signals for next fine-tune",
+  "answer": "Distributed cognition suggests that thinking extends beyond the brain, involving social groups, artifacts, and environments. It emphasizes that cognitive processes are distributed across multiple agents and tools. This concept is applied in fields like aviation and education.",
+  "results": [
+    {
+      "title": "Distributed Cognition in Artificial Intelligence",
+      "url": "https://aixd.substack.com/p/distributed-cognition-in-artificial",
+      "snippet": "Distributed cognition is the idea that cognition doesn't only happen in the brain\u2014it is extended across space and time.",
+      "score": 0.55275756
+    },
+    {
+      "title": "Distributed cognition: Theoretical insights and practical applications ...",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37043405/",
+      "snippet": "Distributed cognition (DCog) is a member of the family of situativity theories that widens the lens of cognition from occurring solely inside the head.",
+      "score": 0.47168615
+    },
+    {
+      "title": "Distributed cognition - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Distributed_cognition",
+      "snippet": "Its main method is field research, going into the workplace and making rigorous observations, e.g. through capturing work performances with video, studying and coding the recorded activities using qualitative research methods to codify the various ways in which cognition is distributed in the local environment, through the social and technical systems with which the workers engage. With the new research that is emerging in this field, the overarching concept of distributed cognition enhances the",
+      "score": 0.47154015
+    },
+    {
+      "title": "[PDF] A Critical Appreciation of Ronald N. Giere's \u201cDistributed Cognition ...",
+      "url": "https://social-epistemology.com/wp-content/uploads/2015/06/brown_crit_app_giere2.pdf",
+      "snippet": "Science-as-DCOG Distributed cognition is a radical theory in contemporary cognitive science that holds that cognitive processes or systems exist not only, or perhaps not primarily, inside the head, but can be distributed across social groups and artifacts, and involve the body and parts of the environment. In this paper, Giere attempts to soften the impression that dcog is too radical an approach; he argues that while distributed cognition is a useful theoretical posit, it need not commit us to ",
+      "score": 0.4604593
+    },
+    {
+      "title": "[PDF] Distributed cognition: a perspective from social choice theory",
+      "url": "https://eprints.lse.ac.uk/19606/1/Distributed_cognition_a_perspective_from_social_choice_theory(LSERO).pdf",
+      "snippet": "Distributed cognition refers to processes which are (i) cognitive and (ii) distributed across multiple agents or devices rather than performed by a single",
+      "score": 0.3984538
+    },
+    {
+      "title": "[PDF] A Brief Introduction to Distributed Cognition\u00a9 Yvonne Rogers",
+      "url": "https://nschwartz.yourweb.csuchico.edu/dcog-brief-intro.pdf",
+      "snippet": "A main point of departure from the traditional cognitive science framework is that, at the 'work setting' level of analysis, the distributed cognition approach aims to show how intelligent processes in human activity transcend the boundaries of the individual actor. This distinction is critical for the distributed cognition approach, emphasising again the importance of focusing on the distribution of cognition through analysing the interactions between the different 'components' (i.e. the change",
+      "score": 0.35367426
+    },
+    {
+      "title": "[PDF] Distributed Cognition Edwin Hutchins University of California, San ...",
+      "url": "https://arl.human.cornell.edu/linked%20docs/Hutchins_Distributed_Cognition.pdf",
+      "snippet": "The phenomena that have been explored include how the organization of communication media in a scientific community affect the kinds of things the community can learn (Thagard, 1993), how conditions external to the individual scientists can affect their individual choices in ways that lead to different high-level structures to emerge (Kitcher, 1990), how the distribution of cognitive activity within social networks and between people and inscriptions accounts for much of the work of science (Lat",
+      "score": 0.35213548
+    },
+    {
+      "title": "Distributed Cognition - The Decision Lab",
+      "url": "https://thedecisionlab.com/reference-guide/neuroscience/distributed-cognition",
+      "snippet": "Together, this complex system of people and machinery allows a plane to take off in time. This is a radical departure from the traditional idea that cognition exists only within the mind or the brain.3\u00a0Distributed cognition extends the reach of what is considered cognition (or, at least, what is involved in it) to include interactions between people and things in one\u2019s environment.4\u00a0It is not a kind of cognition,4\u00a0but a new way of viewing how cognition works.3. By launching a behavioral science ",
+      "score": 0.30828446
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "query": "multilingual LLM prompting",
+  "timestamp": "20260210_032134",
+  "answer": "Multilingual LLM prompting enhances model performance across diverse languages, with strategies like zero-shot and few-shot prompting. It increases diversity and reduces hallucinations, especially in low-resource languages. Effective prompts include clear keywords and examples.",
+  "results": [
+    {
+      "title": "Multilingual LLM Prompting Strategies for Medical English ... - arXiv",
+      "url": "https://arxiv.org/abs/2509.15640",
+      "snippet": "This paper has been withdrawn by Nhu Vo. Submitted on 19 Sep 2025 ([v1), last revised 23 Oct 2025 (this version, v2)]. # Title:Multilingual LLM Prompting Strategies for Medical English-Vietnamese Machine Translation. View a PDF of the paper titled Multilingual LLM Prompting Strategies for Medical English-Vietnamese Machine Translation, by Nhu Vo and 4 other authors. > Abstract:Medical English-Vietnamese machine translation (En-Vi MT) is essential for healthcare access and communication in Vietna",
+      "score": 0.9999814
+    },
+    {
+      "title": "Multilingual Prompting for Improving LLM Generation Diversity - arXiv",
+      "url": "https://arxiv.org/abs/2505.15229",
+      "snippet": "# Title:Multilingual Prompting for Improving LLM Generation Diversity. View a PDF of the paper titled Multilingual Prompting for Improving LLM Generation Diversity, by Qihan Wang and 3 other authors. Building on evidence that LLMs have language-specific knowledge, multilingual prompting seeks to increase diversity by activating a broader range of cultural knowledge embedded in model training data. Further analyses show that the benefits of multilingual prompting vary between high and low resourc",
+      "score": 0.99995315
+    },
+    {
+      "title": "LLM Prompting for Localization: English or Native Language in...",
+      "url": "https://openreview.net/forum?id=27pOlHjUge",
+      "snippet": "Summary: The paper investigates whether English prompts can perform as well as native-language prompts in multilingual text understanding tasks.",
+      "score": 0.99994564
+    },
+    {
+      "title": "Multilingual Prompts in LLM-Based Recommenders - NASA ADS",
+      "url": "https://ui.adsabs.harvard.edu/abs/2024arXiv240907604G/abstract",
+      "snippet": "This work explores the impact of non-English prompts on recommendation performance. Using OpenP5, a platform for developing and evaluating LLM-based",
+      "score": 0.9998785
+    },
+    {
+      "title": "Tips to Write Effective LLM Prompts and Generate Multilingual Content",
+      "url": "https://lilt.com/blog/tips-to-write-effective-llm-prompts-and-generate-multilingual-content",
+      "snippet": "For example, if you are trying to prompt the model to write a blog post about the benefits of using LLMs for multilingual content generation, you could also provide negative examples of blog posts that do not discuss the benefits of using LLMs. For example, if you are trying to prompt the model to write a blog post about the benefits of using LLMs for multilingual content generation, you could include keywords such as \"LLMs,\" \"multilingual content,\" and \"benefits.\". In addition to these general ",
+      "score": 0.99984646
+    },
+    {
+      "title": "[PDF] Multilingual Prompting for Improving LLM Generation Diversity",
+      "url": "https://aclanthology.org/2025.emnlp-main.324.pdf",
+      "snippet": "Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing, pages 6379\u20136401 November 4-9, 2025 \u00a92025 Association for Computational Linguistics Multilingual Prompting for Improving LLM Generation Diversity Qihan Wang1, Shidong Pan1,2, Tal Linzen1, Emily Black1 1New York University, 2Columbia University {qw2488, shidong.pan, linzen, emilyblack}@nyu.edu Abstract Large Language Models (LLMs) are known to lack cultural representation and overall di-versity in their generat",
+      "score": 0.9996699
+    },
+    {
+      "title": "Multilingual and Cross-lingual Prompting - GitHub",
+      "url": "https://github.com/NirDiamant/Prompt_Engineering/blob/main/all_prompt_engineering_techniques/multilingual-prompting.ipynb",
+      "snippet": "Prompt_Engineering/all_prompt_engineering_techniques/multilingual-prompting.ipynb at main \u00b7 NirDiamant/Prompt_Engineering \u00b7 GitHub. *   GitHub Copilot Write better code with AI. *   GitHub Spark Build and deploy intelligent apps. *   GitHub Models Manage and compare prompts. *   Code Review Manage code changes. *   GitHub Advanced Security Find and fix vulnerabilities. *   Code security Secure your code as you build. *   GitHub Sponsors Fund open source developers. *   Enterprise platform AI-pow",
+      "score": 0.9995728
+    },
+    {
+      "title": "Prompting in Multilingual Models : r/LocalLLaMA - Reddit",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1fbkbu6/prompting_in_multilingual_models/",
+      "snippet": "I have a specific case in which I have long instructions and I want to generate some text in a specific language other than English.",
+      "score": 0.9995308
+    }
+  ]
+}

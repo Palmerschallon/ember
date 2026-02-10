@@ -1,0 +1,55 @@
+{
+  "query": "queries",
+  "timestamp": "20260210_035303",
+  "answer": null,
+  "results": [
+    {
+      "title": "What are Queries? - Macrometa",
+      "url": "https://www.macrometa.com/articles/what-are-queries",
+      "snippet": "# What are Queries? Queries are one of the fundamental concepts in computer programming and database management. Queries are used to search and retrieve data from a database based on certain criteria. Queries can be used to retrieve all records from a database or a subset of records that meet certain criteria, such as records that match a specific value in a certain field. Queries can also be used to perform calculations on data or to join data from multiple tables in a database. In addition to ",
+      "score": 0.86136365
+    },
+    {
+      "title": "QUERIES Definition & Meaning - Dictionary.com",
+      "url": "https://www.dictionary.com/browse/queries",
+      "snippet": "QUERIES definition: the plural of query. See examples of queries used in a sentence.",
+      "score": 0.7657514
+    },
+    {
+      "title": "About Queries | Testing Library",
+      "url": "https://testing-library.com/docs/queries/about/",
+      "snippet": "Queries are the methods that Testing Library gives you to find elements on the page. There are several types of queries (\"get\", \"find\", \"query\")",
+      "score": 0.76279575
+    },
+    {
+      "title": "QUERIES definition in American English - Collins Dictionary",
+      "url": "https://www.collinsdictionary.com/us/dictionary/english/queries",
+      "snippet": "7 senses: 1. \u2192 See query 2. \u2192 See query 1. a question, esp one expressing doubt, uncertainty, or an objection 2. \u2192 a less.... Click for more definitions.",
+      "score": 0.71185225
+    },
+    {
+      "title": "QUERY | definition in the Cambridge English Dictionary",
+      "url": "https://dictionary.cambridge.org/us/dictionary/english/query",
+      "snippet": "QUERY | definition in the Cambridge English Dictionary. Meaning of **query** in English. If you have any queries aboutyourtreatment, the doctor will answer them. *   What was theirresponse to your query? *   Most of the jobinvolvessortingcustomers out who have queries. A few students have queried theirgrades. She queried whether three months was long enough. (Definition of **query** from the **Cambridge Advanced Learner's Dictionary & Thesaurus** \u00a9 Cambridge University Press). ### query. (Defini",
+      "score": 0.5809471
+    },
+    {
+      "title": "Query - Definition, Meaning & Synonyms - Vocabulary.com",
+      "url": "https://www.vocabulary.com/dictionary/query",
+      "snippet": "[Jump in](https://www.vocabulary.com/bowl/) today!X. [SKIP TO CONTENT](https://www.vocabulary.com/dictionary/query#hdr-word-area). *   [Dictionary](https://www.vocabulary.com/dictionary/). *   [Vocabulary Lists](https://www.vocabulary.com/lists/). *   [VocabTrainer\u2122](https://www.vocabulary.com/vocabtrainer/). [Random Word](https://www.vocabulary.com/randomword). [](https://www.vocabulary.com/dictionary/query)[](https://www.vocabulary.com/dictionary/query). [More results](https://www.vocabulary.c",
+      "score": 0.5363378
+    },
+    {
+      "title": "QUERY Definition & Meaning - Merriam-Webster",
+      "url": "https://www.merriam-webster.com/dictionary/query",
+      "snippet": "# query. **:** to mark with a query. ## Synonyms of *query*. [ask](/dictionary/ask), [question](/dictionary/question), [interrogate](/dictionary/interrogate), [query](/dictionary/query), [inquire](/dictionary/inquire) mean to address a person in order to gain information. [ask](/dictionary/ask) implies no more than the putting of a question. [question](/dictionary/question) usually suggests the asking of series of questions. [query](/dictionary/query) implies a desire for authoritative informati",
+      "score": 0.498609
+    },
+    {
+      "title": "Queries - GraphQL",
+      "url": "https://graphql.org/learn/queries/",
+      "snippet": "Let\u2019s start by looking at the `hero` field that\u2019s defined on the `Query` type in the schema:. If you are querying a field that returns an Interface or a Union type, you will need to use *inline fragments* to access data on the underlying concrete type. In this query, the `hero` field returns the type `Character`, which might be either a `Human` or a `Droid` depending on the `episode` argument. GraphQL allows you to request `__typename`, a meta field, at any point in a query to get the name of th",
+      "score": 0.44796792
+    }
+  ]
+}

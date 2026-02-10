@@ -1,0 +1,57 @@
+{
+  "query": "the specified research queries, prioritizing cross-lingual and ontological computing signals",
+  "timestamp": "20260210_040913",
+  "why": "Execute web_",
+  "thread": "web scouting: find training-quality signals for next fine-tune",
+  "answer": "Ontology-based methods enhance cross-lingual information retrieval, addressing linguistic and ontological challenges. Recent research focuses on scalable, cross-lingual specialist language models for diverse applications. Ontology-driven approaches improve question answering in closed domains.",
+  "results": [
+    {
+      "title": "(PDF) The Use of Ontology in Retrieval: A Study on Textual ...",
+      "url": "https://www.researchgate.net/publication/330915383_The_Use_of_Ontology_in_Retrieval_A_Study_on_Textual_Multilingual_and_Multimedia_Retrieval",
+      "snippet": "This paper reviews modern ontology based information retrieval methods for textual, multimedia and cross lingual data types. Furthermore, we compare and",
+      "score": 0.27109957
+    },
+    {
+      "title": "Pascale Fung - ACL Anthology",
+      "url": "https://aclanthology.org/people/pascale-fung/",
+      "snippet": "... research done in multilingual or cross-lingual scenarios. Hence, we propose a zero-shot adaptation of task-oriented dialogue system to low-resource",
+      "score": 0.13259341
+    },
+    {
+      "title": "Linguistic and ontological challenges of multiple domains ... - NIH",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10050682/",
+      "snippet": "This paper provides an overview of current linguistic and ontological challenges which have to be met in order to provide full support to the transformation of",
+      "score": 0.12280721
+    },
+    {
+      "title": "Towards Scalable and Cross-Lingual Specialist Language Models ...",
+      "url": "https://arxiv.org/html/2503.08323v1",
+      "snippet": "Researchers have used them to summarize medical records, answer questions, and support clinical decisions Singhal et al. (2023); Saab et al. (",
+      "score": 0.09603416
+    },
+    {
+      "title": "Ontology-Based Approach to Semantically Enhanced Question ...",
+      "url": "https://www.mdpi.com/2078-2489/12/5/200",
+      "snippet": "This study reviews the literature detailing ontology-based methods that semantically enhance QA for a closed domain.",
+      "score": 0.05570498
+    },
+    {
+      "title": "Annotation of biological samples data to standard ontologies with ...",
+      "url": "https://www.sciencedirect.com/science/article/pii/S2001037025001837",
+      "snippet": "# Research Article Annotation of biological samples data to standard ontologies with support from large language models. The best fine-tuned model (GPT-4o-mini) achieved precision ranging from 14% to 59%. Large Language Models (LLMs) have demonstrated potential in automating complex language-related tasks and may offer a solution to streamline biological data annotation. This study investigates the utility of LLMs\u2014specifically various base and fine-tuned GPT models\u2014for the automatic assignment o",
+      "score": 0.046313558
+    },
+    {
+      "title": "[PDF] Large Language Models for Ontology Engineering: A Systematic ...",
+      "url": "https://www.semantic-web-journal.net/system/files/swj4001.pdf",
+      "snippet": "(2024) Ontology Engineer GPT-4 Zero-shot Template-based Natural language text Natural language text NO Prepared using sagej.cls 48 Journal Title XX(X) Table 2 Resource Role Model Prompt Inputs Outputs Human involved Saeedizade and Blomqvist (2024) Ontology Engineer GPT-3.5 GPT-4 Bard LLaMA-7B LLaMA-13B LLaMA2-70B Alpaca Falcon-7B Falcon-7B-Instruct WizardLM Alpaca-LoRA Zero-shot CoT GoT CQs Ontologies NO Mateiu and Groza (2023) Ontology Engineer GPT-3 Davinci model Zero-shot Few-shot Fine-tuned ",
+      "score": 0.037120476
+    },
+    {
+      "title": "[PDF] Knowledge and Ontology Enhanced Approach to Natural Language ...",
+      "url": "https://scholarcommons.sc.edu/cgi/viewcontent.cgi?article=9230&context=etd",
+      "snippet": "This dissertation is structured to provide a logical progression from foundational concepts in NLU to the application of knowledge-enhanced approaches in",
+      "score": 0.035121746
+    }
+  ]
+}

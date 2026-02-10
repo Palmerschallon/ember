@@ -1,0 +1,57 @@
+{
+  "query": "the architectural hints about distributed cognition",
+  "timestamp": "20260210_041724",
+  "why": "Code Fragments Signal Intent\n- `find_next_greater_element`: Algorithmic",
+  "thread": "web scouting: find training-quality signals for next fine-tune",
+  "answer": "Distributed cognition refers to the idea that cognitive processes extend beyond the brain, relying on external tools and social interactions. It emphasizes the role of architecture in designing systems that support distributed cognitive functions. This approach enhances reliability and efficiency in cognitive tasks.",
+  "results": [
+    {
+      "title": "Distributed Cognition as Epistemic Infrastructure",
+      "url": "https://philarchive.org/archive/KAHDCA",
+      "snippet": "by P Kahl \u00b7 Cited by 3 \u2014 Distributed cognition is therefore best understood as an engineered epistemic infrastructure whose reliability depends on architectural design",
+      "score": 0.9998591
+    },
+    {
+      "title": "Distributed Cognitive Architecture \u2192 Area \u2192 Sustainability",
+      "url": "https://lifestyle.sustainability-directory.com/area/distributed-cognitive-architecture/",
+      "snippet": "Distributed Cognitive Architecture refers to the idea that cognitive processes and knowledge are not solely contained within an individual's brain but are",
+      "score": 0.9998191
+    },
+    {
+      "title": "The Architect's Mindset: What Distributed Cognition Actually ...",
+      "url": "https://alvarograsso.substack.com/p/the-architects-mindset-what-distributed",
+      "snippet": "What do these patterns reveal about how I actually think? What does it mean to become an 'architect' of your own cognition? And what happens",
+      "score": 0.9998134
+    },
+    {
+      "title": "A teleonomic distributed cognition approach to ...",
+      "url": "https://eprints.whiterose.ac.uk/id/eprint/187465/",
+      "snippet": "by T Ireland \u00b7 2017 \u00b7 Cited by 2 \u2014 The purpose of this article is to explore a newly defined concept of distributed cognition in a spatial domain and to propose how this",
+      "score": 0.9995987
+    },
+    {
+      "title": "Distributed cognition: Theoretical insights and practical ...",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37043405/",
+      "snippet": "by JG Boyle \u00b7 2023 \u00b7 Cited by 21 \u2014 Distributed cognition (DCog) is a member of the family of situativity theories that widens the lens of cognition from occurring solely inside the head.",
+      "score": 0.9994023
+    },
+    {
+      "title": "Distributed cognition",
+      "url": "https://en.wikipedia.org/wiki/Distributed_cognition",
+      "snippet": "Its main method is field research, going into the workplace and making rigorous observations, e.g. through capturing work performances with video, studying and coding the recorded activities using qualitative research methods to codify the various ways in which cognition is distributed in the local environment, through the social and technical systems with which the workers engage. With the new research that is emerging in this field, the overarching concept of distributed cognition enhances the",
+      "score": 0.99926203
+    },
+    {
+      "title": "Distributed cognition - David Kirsh",
+      "url": "https://adrenaline.ucsd.edu/kirsh/Articles/Journal_pragmatics/Dist_cog_pragmatics.pdf",
+      "snippet": "issn 0929\u20130907 / e-issn 1569\u20139943 \u00a9 John Benjamins Publishing Company Distributed cognition A methodological note* David Kirsh University of California San Diego Humans are closely coupled with their environments. John Benjamins Publishing Company All rights reserved Distributed cognition: A methodological note 253 \u2014 in activities other than playing video games, for instance \u2014 it is hard to measure cognitive and physical costs and bene\ufb01ts. John Benjamins Publishing Company All rights reserved Di",
+      "score": 0.99804294
+    },
+    {
+      "title": "The Context CUEs Framework in Field Studies",
+      "url": "https://www.nngroup.com/articles/context-cues-framework-field-studies/",
+      "snippet": "Summary: Distributed cognition theory explains how thinking involves not only one's mind but also other people and external artifacts.",
+      "score": 0.9969957
+    }
+  ]
+}

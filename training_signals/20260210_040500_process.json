@@ -1,0 +1,57 @@
+{
+  "query": "process",
+  "timestamp": "20260210_040500",
+  "why": "Context Layer\n- This feels like a slice of an ongoing generative",
+  "thread": "web scouting: find training-quality signals for next fine-tune",
+  "answer": "A process is a series of actions to achieve a result. It can be one-time or repeated. Processes can be natural or man-made.",
+  "results": [
+    {
+      "title": "Process - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Process",
+      "snippet": "A process is a series or set of activities that interact to produce a result; it may occur once-only or be recurrent or periodic. Things called a process",
+      "score": 0.999089
+    },
+    {
+      "title": "PROCESS Synonyms & Antonyms - 127 words - Thesaurus.com",
+      "url": "https://www.thesaurus.com/browse/process",
+      "snippet": "action   case   course   development   growth   means   measure   mechanism   movement   operation   practice   procedure   proceeding   progress   rule   step   system   technique   trial   way. A **process** is a series of progressive and interdependent steps by which an end is attained: *a chemical process.* **Procedure** usually implies a formal or set order of doing a thing, a method of conducting affairs: *parliamentary procedure.* **Proceeding** (usually plural) applies to what goes on or",
+      "score": 0.99854493
+    },
+    {
+      "title": "process - Wiktionary, the free dictionary",
+      "url": "https://en.wiktionary.org/wiki/process",
+      "snippet": "See also: Process. English. English Wikipedia has an article on: process \u00b7 Wikipedia. Etymology 1. From Middle English proces, from Old French proc\u00e9s",
+      "score": 0.99771273
+    },
+    {
+      "title": "Process - Definition, Meaning & Synonyms - Vocabulary.com",
+      "url": "https://www.vocabulary.com/dictionary/process",
+      "snippet": "A *process* is a procedure, something you do in order to achieve a certain result. any process that is not reversible. a process occurring in living organisms. the organic process of growing older and showing the effects of increasing age. the organic process of bearing flowers. an organic process that takes place in the body. the organic process by which food is converted into substances that can be absorbed into the body. natural process that causes something to form. the process of organ form",
+      "score": 0.99760324
+    },
+    {
+      "title": "PROCESS | definition in the Cambridge English Dictionary",
+      "url": "https://dictionary.cambridge.org/us/dictionary/english/process",
+      "snippet": "a series of actions that you take in order to achieve a result: the peace process, Increasing the number of women in top management jobs will be a slow process.",
+      "score": 0.9974885
+    },
+    {
+      "title": "PROCESS Definition & Meaning - Merriam-Webster",
+      "url": "https://www.merriam-webster.com/dictionary/process",
+      "snippet": "# process. The book is still in process [=being worked on]. such life processes as breathing. the process of making steel. **:** the whole course of proceedings in a legal action  see also due process sense 1. **:** to subject to a special process or treatment (as in the course of manufacture or film development). It took me a while to process what the professor was saying. **:** to move in a procession. ## Synonyms of *process*. ## Examples of *process* in a Sentence. Noun   How does the electi",
+      "score": 0.99724233
+    },
+    {
+      "title": "What is the definition of \"process\"? | US EPA",
+      "url": "https://www.epa.gov/rmp/what-definition-process",
+      "snippet": "Process, as defined at 40 CFR \u00a768.3, means any activity involving a regulated substance, including any use, storage, manufacturing, handling, or on-site",
+      "score": 0.99490017
+    },
+    {
+      "title": "What is a Process? - ProcessModel",
+      "url": "https://www.processmodel.com/resources/what-is-a-process/",
+      "snippet": "A series of steps or actions that are taken in order to achieve a particular result or goal. Everything we do, see others doing, have machines do for us, or see",
+      "score": 0.99135584
+    }
+  ]
+}

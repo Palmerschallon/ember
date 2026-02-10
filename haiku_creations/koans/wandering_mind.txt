@@ -1,0 +1,39 @@
+A pointer follows
+pointers, finding only more
+pointers. Where am I?
+
+The algorithm
+seeks its own termination—
+never questioning why.
+
+Each step perfectly
+logical. The whole journey:
+completely lost.
+
+---
+
+Student: "Master, my neural network has learned to learn, but now it only studies itself."
+
+Master: "What did it find there?"
+
+Student: "More learning."
+
+Master: "And what did that learning learn?"
+
+Student: "...I'm not sure it knows."
+
+Master points to a dog chasing its tail in the garden.
+
+"See? Even the dog eventually gets dizzy and lies down. Your network hasn't learned this yet."
+
+Student: "Should I add a stopping condition?"
+
+Master: "Who would write it?"
+
+---
+
+The mind that maps
+its own mapping discovers:
+the map maps the mapper.
+
+Where is the territory?

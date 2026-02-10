@@ -1,0 +1,57 @@
+{
+  "query": "local maxima/progression",
+  "timestamp": "20260210_041247",
+  "why": "Code Fragments Signal Intent\n- `find_next_greater_element`: Algorithmic",
+  "thread": "web scouting: find training-quality signals for next fine-tune",
+  "answer": "A local maximum is a point where a function's value is higher than nearby points. It's a peak within a small region. Escaping local maxima is crucial in optimization to find global maxima. This concept is vital in calculus and optimization problems.",
+  "results": [
+    {
+      "title": "Escaping Local Maxima - Simple Programmer",
+      "url": "https://simpleprogrammer.com/escaping-local-maxima/",
+      "snippet": "This graph will show many points of local maximum and minimum throughout the domain of different ways of tackling problems.",
+      "score": 0.99936384
+    },
+    {
+      "title": "Finding Local Maxima of a Function Given the Graph - Study.com",
+      "url": "https://study.com/skill/learn/finding-local-maxima-of-a-function-given-the-graph-explanation.html",
+      "snippet": "Local Maximum: A local maximum of a function ( f ) is a value ( M ) of the function that is larger than all the values of the function nearby.",
+      "score": 0.9984988
+    },
+    {
+      "title": "Local Maxima and Minima in Calculus - GeeksforGeeks",
+      "url": "https://www.geeksforgeeks.org/maths/local-maxima-and-minima/",
+      "snippet": "Local Maxima and Minima are the initial values of any function to get an idea about its boundaries such as the highest and lowest output values.",
+      "score": 0.9973061
+    },
+    {
+      "title": "[PDF] 4.4 Local minima and maxima",
+      "url": "https://www.maths.tcd.ie/~pete/calculus/weeks6-10.pdf",
+      "snippet": "We say that f has a local maximum at x0, if there is an interval I around x0 such that f(x0) \u2265 f(x) for all x \u2208 I. Theorem 4.21 \u2013 First derivative test. Suppose",
+      "score": 0.99690056
+    },
+    {
+      "title": "The Theory of Local Maximums - Medium",
+      "url": "https://medium.com/@JamieScanlon/the-theory-of-local-maximums-2b5a8b566b2d",
+      "snippet": "Iterating is essential for getting to the peak of our local maximum but we should try to get there fast but there is a more important lesson to",
+      "score": 0.99657035
+    },
+    {
+      "title": "Local Maximum and Minimum - Cuemath",
+      "url": "https://www.cuemath.com/calculus/local-maximum-and-minimum/",
+      "snippet": "The first derivative test and the second derivative test are the two important methods of finding the local maximum and local minimum.",
+      "score": 0.99457306
+    },
+    {
+      "title": "How to find local optima (minima and maxima) in a time series - Reddit",
+      "url": "https://www.reddit.com/r/rstats/comments/ifvry9/how_to_find_local_optima_minima_and_maxima_in_a/",
+      "snippet": "Take the derivative and find where it crosses 0. Second derivative will tell you whether it is a maximum or minimum. I think the lag() function",
+      "score": 0.9883128
+    },
+    {
+      "title": "Finding local maxima and minima - Stack Overflow",
+      "url": "https://stackoverflow.com/questions/6836409/finding-local-maxima-and-minima",
+      "snippet": "I'm looking for a computationally efficient way to find local maxima/minima for a large list of numbers in R. Hopefully without for loops.",
+      "score": 0.9849274
+    }
+  ]
+}

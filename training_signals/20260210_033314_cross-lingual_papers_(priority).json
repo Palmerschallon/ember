@@ -1,0 +1,55 @@
+{
+  "query": "cross-lingual papers (priority)",
+  "timestamp": "20260210_033314",
+  "answer": "Cross-lingual papers focus on methods for aligning and translating between different languages. Key areas include cross-lingual alignment of contextual embeddings and multilingual claim detection. Recent research emphasizes optimal transfer languages for cross-lingual learning.",
+  "results": [
+    {
+      "title": "A Survey on Cross-Lingual Alignment Methods for Contextualized ...",
+      "url": "https://dl.acm.org/doi/10.1145/3764112",
+      "snippet": "We reviewed 39 papers on cross-lingual alignment of contextual embeddings. Papers were included if they met the following quality criteria",
+      "score": 0.9964619
+    },
+    {
+      "title": "A survey on monolingual, multilingual and cross-lingual research",
+      "url": "https://www.sciencedirect.com/science/article/pii/S2949719124000141",
+      "snippet": "# Claim detection for automated fact-checking: A survey on monolingual, multilingual and cross-lingual research. Comprehensive review of multilingual claim detection. Discuss claim detection task categorized into verifiability, priority, and similarity identification. Overview of state-of-the-art approaches for multilingual claim detection. Existing multilingual datasets for a wide range of claim detection tasks. Open challenges and future directions of multilingual claim detection. This is ofte",
+      "score": 0.99632156
+    },
+    {
+      "title": "Choosing Transfer Languages for Cross-Lingual Learning",
+      "url": "https://aclanthology.org/P19-1301/",
+      "snippet": "In this paper, we consider this task of automatically selecting optimal transfer languages as a ranking problem, and build models that consider the",
+      "score": 0.979354
+    },
+    {
+      "title": "[PDF] University of Groningen Cross-Lingual Document ...",
+      "url": "https://research.rug.nl/files/1373486815/2025.sumeval-2.4.pdf",
+      "snippet": "This research focuses on representing documents across languages by using Transformer Lever- aged Document Representations (TLDRs) that are mapped to a cross-",
+      "score": 0.97539
+    },
+    {
+      "title": "[PDF] Cross lingual Information Retrieval - CFILT - IITB",
+      "url": "https://www.cfilt.iitb.ac.in/resources/surveys/Swapnil-Cross-lingual-Information-Retrieval.pdf",
+      "snippet": "Cross-Lingual Information Retrieval (CLIR) refers to the retrieval of documents that are in a language different from the one in which the query is expressed. The dictionary based approach uses a lexical resource like bi-lingual dictionary to translate words from source language to target document language. 1.2.1.2 Query translation/transliteration performance The phenomenon of translation ambiguity is common in cross lingual information retrieval and refers to increase of irrelevant search key ",
+      "score": 0.96267307
+    },
+    {
+      "title": "Advances in Cross-Lingual Information Retrieval with Multilingual ...",
+      "url": "https://arxiv.org/html/2510.00908v1",
+      "snippet": "Cross-lingual information retrieval (CLIR) addresses the challenge of retrieving relevant documents written in languages different from that of",
+      "score": 0.92892635
+    },
+    {
+      "title": "Deep Multilabel Multilingual Document Learning for Cross-Lingual ...",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9318374/",
+      "snippet": "Cross-lingual document retrieval, which aims to take a query in one language to retrieve relevant documents in another, has attracted strong",
+      "score": 0.9012275
+    },
+    {
+      "title": "Cross-Lingual Consistency in Multilingual Models - Emergent Mind",
+      "url": "https://www.emergentmind.com/topics/cross-lingual-consistency-clc",
+      "snippet": "Cross-lingual consistency (CLC) ensures multilingual models deliver equivalent, reliable predictions across languages, fostering fairness",
+      "score": 0.8539127
+    }
+  ]
+}

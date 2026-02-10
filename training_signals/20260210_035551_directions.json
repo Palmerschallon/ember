@@ -1,0 +1,55 @@
+{
+  "query": "directions",
+  "timestamp": "20260210_035551",
+  "answer": "For directions, use Google Maps, Apple Maps, Bing Maps, or OpenStreetMap. Each offers driving, walking, and public transit options. Access them online or via respective apps.",
+  "results": [
+    {
+      "title": "OpenStreetMap.org Directions",
+      "url": "https://www.openstreetmap.org/directions",
+      "snippet": "# OpenStreetMap. ## Directions. ## Welcome to OpenStreetMap! OpenStreetMap is a map of the world, created by people like you and free to use under an open license. Hosting is supported by Fastly, OSMF corporate members, and other partners. ## Map Layers. Enable overlays for troubleshooting the map. ## Legend. | https://openstreetmap.org/copyright | https://openstreetmap.org |. | Copyright OpenStreetMap and contributors, under an open license | |.",
+      "score": 0.8333246
+    },
+    {
+      "title": "Maps & Driving Directions",
+      "url": "https://drivingdirectionmap.com/",
+      "snippet": "Get live traffic updates and transit options. Find the quickest route to your destination, print and share directions for easy access.",
+      "score": 0.6370308
+    },
+    {
+      "title": "How to use Google Maps for directions - YouTube",
+      "url": "https://www.youtube.com/watch?v=obk4ovCOJY4",
+      "snippet": "How to use Google Maps for directions\nBridgingApps\n5020 subscribers\n21 likes\n9815 views\n27 Feb 2025\nLearn how to use Google Maps for directions. This easy step-by-step guide shows you how to get accurate driving, walking, biking, or public transit directions using Google Maps on your phone or desktop.\n\nIncludes tips for making navigation accessible, such as using voice guidance and high-contrast modes for better visibility.\n\nBridgingApps provides resources, education, and information on apps and",
+      "score": 0.6279512
+    },
+    {
+      "title": "Get Directions: Driving & Walking - Apple Maps",
+      "url": "https://maps.apple.com/directions",
+      "snippet": "Get Directions with Apple Maps. Plan your driving, walking, or cycling route in advance or on the go \u2013 and navigate with real-time traffic updates.",
+      "score": 0.5486735
+    },
+    {
+      "title": "Maps - Bing",
+      "url": "https://www.bing.com/maps",
+      "snippet": "Map locations, get directions, check live traffic, satellite, aerial, and street views. Do more with Bing Maps.",
+      "score": 0.11124121
+    },
+    {
+      "title": "Official MapQuest - Maps, Driving Directions, Live Traffic",
+      "url": "https://www.mapquest.com/",
+      "snippet": "Official MapQuest - Maps, Driving Directions, Live Traffic. Your printable directions will be ready after this ad experience... Log in or sign up. *   Image 2 My saved places. Learn more about our mobile apps. *   Image 3: Android app Google Play. *   Image 4: Download on the App Store. PrivacyLegalAbout Our AdsDo Not Sell or Share my Personal Data. - [x] Traffic slowdowns - [x] Traffic incidents. Image 5CoffeeImage 6FoodImage 7GasImage 8GroceryImage 9ShoppingImage 10Hotels. Image 11HotelsImage ",
+      "score": 0.06903793
+    },
+    {
+      "title": "Driving directions to Los Angeles, CA, US - Waze",
+      "url": "https://www.waze.com/live-map/directions/los-angeles-ca-us?to=place.ChIJE9on3F3HwoAR9AhGJW_fL-I",
+      "snippet": "Realtime driving directions to Los Angeles, CA, US, based on live traffic updates and road conditions \u2013 from Waze fellow drivers.",
+      "score": 0.063714996
+    },
+    {
+      "title": "Google Maps",
+      "url": "https://maps.google.com/",
+      "snippet": "Find local businesses, view maps and get driving directions in Google Maps.",
+      "score": 0.053799644
+    }
+  ]
+}
